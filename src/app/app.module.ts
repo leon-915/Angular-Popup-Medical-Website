@@ -1,36 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {
+  MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule,
+  MatButtonToggleModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
+  MatDialogModule, MatListModule, MatProgressBarModule, MatSnackBarModule, MatTabsModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-
 /*Custom Modules*/
-import {Globals,ArrayFilterPipe} from './shared/index'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ArrayFilterPipe, Globals } from './shared/index';
 
 
 
 
-import {
-        MatButtonModule, 
-        MatCheckboxModule,
-        MatButtonToggleModule,
-        MatAutocompleteModule,
-        MatBadgeModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatTabsModule,
-        MatListModule,
-        MatProgressBarModule,
-        MatBottomSheetModule,
-        MatSnackBarModule,
-     
-      
-      } from '@angular/material';
 
-/**/ 
+
+
+
+/**/
 
 
 @NgModule({
@@ -42,7 +29,8 @@ import {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatAutocompleteModule, MatBadgeModule,MatChipsModule,MatDatepickerModule,MatDialogModule,MatTabsModule,MatListModule,MatProgressBarModule,
+    MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
+     MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule, MatListModule, MatProgressBarModule,
     MatBottomSheetModule,
     MatSnackBarModule,
   ],
