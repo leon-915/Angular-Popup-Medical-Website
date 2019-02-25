@@ -14,9 +14,9 @@ export class ContentService {
 
   getPatientEducation(idProd: number, lang: string) {
 
-    const url: string = this.serviceURl + '';
+    const url: string = this.serviceURl + 'patient-education';
     const reqProduct: RequestProduct =  { idProduct: idProd, language: lang };
-    return this.http.post<Content>(url, reqProduct);
+    return this.http.post<APIResponse<Content>>(url, reqProduct);
   }
 
 

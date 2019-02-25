@@ -17,7 +17,11 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
       this.contentSrv.getPatientEducation(1, 'asd').subscribe(result => {
-          this.content = result;
+            if (result.HasError) {
+
+            } else {
+                this.content = result.Result;
+            }
       });
 
   }
