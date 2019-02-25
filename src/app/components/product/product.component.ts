@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {APIResponse, Content} from './../../models/index';
+import {ContentService} from './../../services/index';
 
 @Component({
   selector: 'app-product',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
+  content: Content;
+
+  constructor(private contentSrv: ContentService) {
+
+   }
 
   ngOnInit() {
+      this.contentSrv.getPatientEducation(1, 'asd').subscribe(result => {
+          this.content = result;
+      });
+
   }
 
 }
