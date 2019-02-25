@@ -23,11 +23,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
       this.route.paramMap.subscribe(params => {
-        console.log(params);
         this.idProduct = parseInt(params.get('id'));
-        console.log(this.idProduct);
         if(this.idProduct){
-          console.log('asdasd');
           this.getContentPatientEducation();
         }
       });
