@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
 
   }
 
-  doSignup(){
+  doSignup() {
     console.log('signup....');
   }
 
