@@ -1,17 +1,69 @@
 <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    >
+    <!--[attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches"-->
+    <mat-toolbar color="primary"></mat-toolbar>
+    <mat-nav-list class="mt-3">
+      <a mat-list-item href="#">
+        <span class="badge badge-pill badge-primary">Join Our Phamily</span>
+      </a>
+      <a mat-list-item href="#" class="sidenav-item">Profile</a>
+      <a mat-list-item href="#" class="sidenav-item">Medications</a>
+      <hr>
+      <a mat-list-item href="#" class="sidenav-item">About Us</a>
+      <a mat-list-item href="#" class="sidenav-item">FAQ</a>
+      <a mat-list-item href="#" class="sidenav-item">Blog</a>
+      <a mat-list-item href="#" class="sidenav-item">News</a>
+      <hr>
+      <a mat-list-item href="#" class="sidenav-item">Contact Us</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <!--*ngIf="(isHandset | async)!.matches"-->
+        <mat-icon aria-label="Sidenav toggle icon">menu</mat-icon>
+      </button>
+      <span>PopupCare</span>
+      <span class="spacer"></span>
+      <div class="d-none d-lg-block">
+        <a mat-list-item>Chatbot</a>
+        <a mat-list-item>Membership</a>
+        <a mat-list-item>Medications</a>
+        <a mat-list-item>Latest News</a>
+        <a mat-list-item>About</a>
+        <a mat-list-item>Join Now</a>
+        <a mat-list-item>Already a member? <span class="login-redirect">Login</span> </a>
+      </div>  
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!--<mat-sidenav-container class="sidenav-container">
     <mat-sidenav 
       #drawer 
       class="sidenav" 
-      fixedInViewport="false">    
+      fixedInViewport="true">    
       <mat-toolbar>Main Menu</mat-toolbar> 
       <mat-nav-list>
-        <a mat-list-item routerLink="home">Home</a>
-        <a mat-list-item routerLink="membership">Membership</a>
-        <a mat-list-item routerLink="medications">Medications</a>
-        <a mat-list-item routerLink="news">News</a>
-        <a mat-list-item routerLink="about">About</a>
-        <a mat-list-item routerLink="join">Join Now</a>
-        <a mat-list-item routerLink="account">My Account</a>
+        <a mat-list-item>Home</a>
+        <a mat-list-item>Membership</a>
+        <a mat-list-item>Medications</a>
+        <a mat-list-item>News</a>
+        <a mat-list-item>About</a>
+        <a mat-list-item>Join Now</a>
+        <a mat-list-item>My Account</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -20,24 +72,22 @@
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
-          (click)="drawer.toggle()"
-          >
+          (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span>PopupCare</span>
         <span class="spacer"></span>
         <div class="d-none d-lg-block">
-          <a mat-list-item routerLink="home">Home</a>
-          <a mat-list-item routerLink="membership">Membership</a>
-          <a mat-list-item routerLink="medications">Medications</a>
-          <a mat-list-item routerLink="news">News</a>
-          <a mat-list-item routerLink="about">About</a>
-          <a mat-list-item routerLink="join">Join Now</a>
-          <a mat-list-item routerLink="account">My Account</a>
+          <a mat-list-item>Home</a>
+          <a mat-list-item>Membership</a>
+          <a mat-list-item>Medications</a>
+          <a mat-list-item>News</a>
+          <a mat-list-item>About</a>
+          <a mat-list-item>Join Now</a>
+          <a mat-list-item>My Account</a>
         </div>  
       </mat-toolbar>   
-      <ng-content></ng-content>
+      <ng-content></ng-content>-->
       <!-- Add Components Content Here -->
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+    <!--</mat-sidenav-content>
+  </mat-sidenav-container>-->
