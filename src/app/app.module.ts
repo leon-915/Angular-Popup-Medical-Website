@@ -8,6 +8,9 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ArrayFilterPipe, Globals } from './shared/index';
 
 import { AppComponent } from './app.component';
@@ -17,13 +20,13 @@ import { HomeComponent } from './home/home.component';
 /* COMPONENTS */
 import { ProductComponent } from './components/index';
 import { ProductVideoComponent } from './components/product-video/product-video.component';
+import { LoginComponent } from './components/login/login.component';
+import { FooterComponent } from './footer/footer.component';
 /* COMPONENTS */
 
 
 /* SERVICES */
-import {CommonService, ContentService} from './services/index';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import {CommonService, ContentService, AccountService} from './services/index';
 /* SERVICES */
 
 
@@ -38,7 +41,9 @@ import { FormsModule } from '@angular/forms';
     NavMenuComponent,
     ProductComponent,
     HomeComponent,
-    ProductVideoComponent
+    ProductVideoComponent,
+    LoginComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -46,12 +51,13 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
      MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule, MatListModule, MatProgressBarModule,
     MatBottomSheetModule, MatToolbarModule,
     MatSnackBarModule, MatSidenavModule, MatIconModule
   ],
-  providers: [Globals, CommonService, ContentService],
+  providers: [Globals, CommonService, ContentService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
