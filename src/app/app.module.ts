@@ -27,6 +27,8 @@ import { FooterComponent } from './footer/footer.component';
 
 /* SERVICES */
 import {CommonService, ContentService, AccountService} from './services/index';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { SignupComponent } from './components/signup/signup.component';
 /* SERVICES */
 
 
@@ -43,7 +45,9 @@ import {CommonService, ContentService, AccountService} from './services/index';
     HomeComponent,
     ProductVideoComponent,
     LoginComponent,
-    FooterComponent
+    FooterComponent,
+    ResetPasswordComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
