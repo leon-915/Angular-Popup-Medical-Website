@@ -1,40 +1,47 @@
 <div class="row">
   <div class="col-lg-5 mx-auto">
-    
+
     <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
 
       <div class="form-group">
         <label for="email">Email (username)</label>
-        <input type="text" placeholder="email" formControlName="email" class="form-control" >
+        <input type="text" placeholder="email" formControlName="email" class="form-control">
       </div>
       <div class="form-group">
         <label for="email">Password</label>
-        <input type="password" placeholder="password" class="form-control" formControlName="password" >
+        <input type="password" placeholder="password" class="form-control" formControlName="password">
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
-        Login
-      </button>
-      <ngx-recaptcha2 #captchaElem
-      [siteKey]="ssiteKey"
-      [useGlobalDomain]="false"
-      [size]="size"
-      [hl]="en"
-      [theme]="theme"
-      [type]="type"
-      formControlName="recaptcha">
-    </ngx-recaptcha2>
-      
+
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
+            Login
+          </button>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col d-flex justify-content-center m-2">
+  
+          <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [useGlobalDomain]="false" [size]="size" [hl]="en"
+            [theme]="theme" [type]="type" formControlName="recaptcha">
+          </ngx-recaptcha2>
+        </div>
+      </div>
+
     </form>
 
-    <div>
-      <a class="link" [routerLink]="['../forgot-password']">Forgot Passwor?d</a>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a class="link" [routerLink]="['../forgot-password']">Forgot Password?</a>
+      </div>
     </div>
-    <br/>
-    <div>
-      <a class="link"  [routerLink]="['../forgot-password']">Not a member yet?</a>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a class="link" [routerLink]="['../forgot-password']">Not a member yet?</a>
+      </div>
     </div>
-
-
 
   </div>
 

@@ -12,7 +12,7 @@ import {AccountService } from '../../services/index';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  ssiteKey = '6LcRX5QUAAAAAJH1hKu5r-uYDuPX_nFnanFbNzCP';
+  siteKey = '6LcRX5QUAAAAAJH1hKu5r-uYDuPX_nFnanFbNzCP';
 
   constructor(private fb: FormBuilder, private accountSrv: AccountService) { }
 
