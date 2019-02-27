@@ -1,3 +1,5 @@
+@import '../../styles/variales.less';
+
 textarea {
     resize: none;
 }
@@ -5,3 +7,32 @@ textarea {
 .small-text {
     font-size: 14px;
 }
+
+p small, p small strong{
+    color: #FFF;
+}
+
+p, ul li, p{
+    color: @background;
+}
+
+h4 {
+    color: @menutext;
+}
+
+.spacer{
+    margin-top: 70px;
+}
+
+.promo-code{
+    border-radius: 0px;
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    
+    /* For plan cards in step 3*/
+    .card {
+       margin-bottom: 20px;
+   }
+ }

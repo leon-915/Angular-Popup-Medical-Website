@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://gadrsof8n4.execute-api.us-west-2.amazonaws.com/dev/'
-  // Hola
+  apiURL: 'https://gadrsof8n4.execute-api.us-west-2.amazonaws.com/dev/',
+  googleApiKey: 'AIzaSyCc7TDuzjxjjcDephVCoVRDH1qd-qtGzZs'
 };
 
 /*
