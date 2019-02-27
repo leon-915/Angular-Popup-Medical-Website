@@ -3,7 +3,7 @@ import {
   MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule,
   MatButtonToggleModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
   MatDialogModule, MatListModule, MatProgressBarModule, MatSnackBarModule,
-  MatTabsModule, MatSidenavModule, MatToolbarModule, MatIconModule
+  MatTabsModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,7 +47,7 @@ import { SignupComponent } from './components/signup/signup.component';
     LoginComponent,
     FooterComponent,
     ResetPasswordComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +59,7 @@ import { SignupComponent } from './components/signup/signup.component';
     MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
      MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule, MatListModule, MatProgressBarModule,
     MatBottomSheetModule, MatToolbarModule,
-    MatSnackBarModule, MatSidenavModule, MatIconModule
+    MatSnackBarModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule
   ],
   providers: [Globals, CommonService, ContentService, AccountService],
   bootstrap: [AppComponent]
