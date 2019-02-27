@@ -12,7 +12,7 @@ import {AccountService } from '../../services/index';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-
+  ssiteKey = '6LcRX5QUAAAAAJH1hKu5r-uYDuPX_nFnanFbNzCP';
 
   constructor(private fb: FormBuilder, private accountSrv: AccountService) { }
 
@@ -20,10 +20,23 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email] ],
       password: ['', Validators.required],
+       recaptcha: ['', Validators.required]
      });
   }
 
   doLogin() {
+
+      const email = this.loginForm.controls.email.value;
+      const password = this.loginForm.controls.password.value;
+      const recaptcha = this.loginForm.controls.recaptcha.value;
+
+      this.accountSrv.signin(email, password, recaptcha).subscribe( res => {
+          if (!res.HasError) {
+            console.log('great');
+          } else {
+            console.log('not so great');
+          }
+      });
 
   }
 

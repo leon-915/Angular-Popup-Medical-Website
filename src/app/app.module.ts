@@ -5,6 +5,7 @@ import {
   MatDialogModule, MatListModule, MatProgressBarModule, MatSnackBarModule,
   MatTabsModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule
 } from '@angular/material';
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -56,6 +57,7 @@ import { SignupComponent } from './components/signup/signup.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxCaptchaModule,
     MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
      MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule, MatListModule, MatProgressBarModule,
     MatBottomSheetModule, MatToolbarModule,

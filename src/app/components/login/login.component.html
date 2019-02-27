@@ -14,10 +14,33 @@
       <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
         Login
       </button>
-      <div>
-        <a [routerLink]="['../forgot-password']">Forgot Password</a>
-      </div>
+      <ngx-recaptcha2 #captchaElem
+      [siteKey]="ssiteKey"
+      [useGlobalDomain]="false"
+      [size]="size"
+      [hl]="en"
+      [theme]="theme"
+      [type]="type"
+      formControlName="recaptcha">
+    </ngx-recaptcha2>
+      
     </form>
+
+    <div>
+      <a class="link" [routerLink]="['../forgot-password']">Forgot Passwor?d</a>
+    </div>
+    <br/>
+    <div>
+      <a class="link"  [routerLink]="['../forgot-password']">Not a member yet?</a>
+    </div>
+
+
+
   </div>
 
 </div>
+
+
+<pre>
+  {{loginForm.value | json}}
+</pre>
