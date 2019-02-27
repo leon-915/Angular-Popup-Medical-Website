@@ -2,11 +2,10 @@
 
 
   <!-- Step 1 of 5 -->
-  <!--<div class="col-lg-4 mx-auto">
-
+  <div class="col-lg-8 mx-auto" *ngIf="currentStep === 1">
+    
     <h3 class="mb-5">Step 1 of 5</h3>
-
-    <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+    <form [formGroup]="signupForm" (ngSubmit)="doSignup(1)">
 
       <div class="form-group">
         <label for="email">Email Address</label>
@@ -23,20 +22,15 @@
         <input type="password" placeholder="Confirm your password" id="retypepassword" formControlName="retypepassword" required class="form-control">
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="!signupForm.valid">Create Account</button>
-
-      <p class="mt-3 text-right"> Already have an account? <a [routerLink]="['../login']">Login</a> </p>
-
+      <button type="submit" class="btn btn-primary btn-block">Create Account</button> <!-- [disabled]="!signupForm.valid" -->
+      <p class="mt-3 text-right"> Already have an account? <a [routerLink]="['/login']">Login</a> </p>
     </form>
-
-  </div>-->
-
+  </div>
 
   <!-- Step 2 of 5 -->
-  <!--<div class="col-lg-12">
+  <div class="col-lg-12" *ngIf="currentStep === 2">
 
     <h3 class="mb-3">Step 2 of 5</h3>
-
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Step 1</a></li>
@@ -44,211 +38,442 @@
       </ol>
     </nav>
 
-    <form>
-        <p><small><strong>Terms of Use Policy</strong></small></p>
+    <form [formGroup]="signupForm" (ngSubmit)="doSignup(2)">
+      <p><small><strong>Terms of Use Policy</strong></small></p>
+      
+      <div class="form-group">
+        <textarea name="termusepolicy" id="termusepolicy" class="form-control">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, ducimus? Reiciendis debitis illo voluptatem laudantium,repudiandae eius nihil at accusamus qui non voluptatibus vel assumenda perspiciatis ullam perferendis possimus odio?
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox"> <small> By clicking this checkbox you agree to the Terms of Use Policy</small>
+      </div>
+      
+      <p><small><strong>Privacy Policy</strong></small></p>
+      
+      <div class="form-group">
+        <textarea name="termusepolicy" id="termusepolicy" class="form-control">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, ducimus? Reiciendis debitis illo voluptatem laudantium,repudiandae eius nihil at accusamus qui non voluptatibus vel assumenda perspiciatis ullam perferendis possimus odio?
+        </textarea>
+      </div>
+      
+      <div class="form-group">
+        <input type="checkbox"> <small> By clicking this checkbox you agree to the Privacy Policy</small>
+      </div>
+      
+      <p><small><strong>Data Sharing Policy</strong></small></p>
+      
+      <div class="form-group">
+        <textarea name="termusepolicy" id="termusepolicy" class="form-control">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, ducimus? Reiciendis debitis illo voluptatem laudantium,repudiandae eius nihil at accusamus qui non voluptatibus vel assumenda perspiciatis ullam perferendis possimus odio?
+        </textarea>
+      </div>
+      
+      <div class="form-group">
+        <input type="checkbox"> <small> By clicking this checkbox you agree to the Data Sharing Policy</small>
+      </div>
+      
+      <div class="mt-5">
         <div class="form-group">
-          <textarea name="termusepolicy" id="termusepolicy" class="form-control">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, ducimus? Reiciendis debitis illo voluptatem laudantium,repudiandae eius nihil at accusamus qui non voluptatibus vel assumenda perspiciatis ullam perferendis possimus odio?
-          </textarea>
+          <input type="checkbox"> <small> By clicking this checkbox you agree to allow PopupCare to email you</small>
         </div>
         <div class="form-group">
-          <input type="checkbox"> <small> By clicking this checkbox you agree to the Terms of Use Policy</small>
+          <input type="checkbox"> <small> By clicking this checkbox you agree to allow PopupCare to send you text messages</small>
         </div>
-        <p><small><strong>Privacy Policy</strong></small></p>
-        <div class="form-group">
-          <textarea name="termusepolicy" id="termusepolicy" class="form-control">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, ducimus? Reiciendis debitis illo voluptatem laudantium,repudiandae eius nihil at accusamus qui non voluptatibus vel assumenda perspiciatis ullam perferendis possimus odio?
-          </textarea>
+      </div>
+      
+      <div class="row float-right mb-5">
+        <div class="col-md-12">
+          <button class="btn btn-primary mr-3" (click)="currentStep = currentStep - 1">Back</button>
+          <button class="btn btn-primary" type="submit">Next</button>
         </div>
-        <div class="form-group">
-          <input type="checkbox"> <small> By clicking this checkbox you agree to the Privacy Policy</small>
-        </div>
-        <p><small><strong>Data Sharing Policy</strong></small></p>
-        <div class="form-group">
-          <textarea name="termusepolicy" id="termusepolicy" class="form-control">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, ducimus? Reiciendis debitis illo voluptatem laudantium,repudiandae eius nihil at accusamus qui non voluptatibus vel assumenda perspiciatis ullam perferendis possimus odio?
-          </textarea>
-        </div>
-        <div class="form-group">
-          <input type="checkbox"> <small> By clicking this checkbox you agree to the Data Sharing Policy</small>
-        </div>
-        <div class="mt-5">
-          <div class="form-group">
-            <input type="checkbox"> <small> By clicking this checkbox you agree to allow PopupCare to email you</small>
-          </div>
-          <div class="form-group">
-            <input type="checkbox"> <small> By clicking this checkbox you agree to allow PopupCare to send you text messages</small>
-          </div>
-        </div>
-        <div class="row float-right">
-          <div class="col-md-12">
-            <button class="btn btn-primary mr-3">Back</button>
-            <button class="btn btn-primary">Next</button>
-          </div>
-        </div>
+      </div>
     </form>
 
-  </div>-->
+  </div>
 
   <!-- Step 3 of 5 -->
-  <!--<div class="col-lg-12">
+  <div class="col-lg-12" *ngIf="currentStep === 3">
 
-      <h3 class="mb-3">Step 3 of 5</h3>
-  
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Step 1</a></li>
-          <li class="breadcrumb-item"><a href="#">Step 2</a></li>
-          <li class="breadcrumb-item active">Step 3</li>
-        </ol>
-      </nav>
+    <h3 class="mb-3">Step 3 of 5</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Step 1</a></li>
+        <li class="breadcrumb-item"><a href="#">Step 2</a></li>
+        <li class="breadcrumb-item active">Step 3</li>
+      </ol>
+    </nav>
 
-      <div class="row row-eq-height">
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="text-center">Plan A</h4>
-              <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
-                Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
-              <ul>
-                <li *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">feature</li>
-              </ul>
+    <div class="row row-eq-height">
+
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center">Plan A</h4>
+            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
+              Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
+            <ul>
+              <li *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">feature</li>
+            </ul>
+            <div class="spacer">
               <h4 class="text-center mb-3">$x.xx / Month</h4>
-              <button class="btn btn-primary btn-block">Select</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="text-center">Plan B</h4>
-              <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
-                Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
-              <ul>
-                <li *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">feature</li>
-              </ul>
-              <h4 class="text-center mb-3">$x.xx / Quarter <br> <small>or</small> <br> <small class="small-text">$x.xx / Month</small> </h4>
-              <button class="btn btn-primary btn-block">Select</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="text-center">Plan C</h4>
-              <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
-                Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
-              <ul>
-                <li *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">feature</li>
-              </ul>
-              <h4 class="text-center mb-3">$x.xx / Quarter <br> <small>or</small> <br> <small class="small-text">$x.xx / Month</small> </h4>
-              <button class="btn btn-primary btn-block">Select</button>
+              <button class="btn btn-primary btn-block" (click)="currentStep = currentStep + 1">Select</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row float-right mt-3">
-        <div class="col-md-12">
-          <button class="btn btn-primary">Back</button>
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center">Plan B</h4>
+            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
+              Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
+            <ul>
+              <li *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">feature</li>
+            </ul>
+            <h4 class="text-center mb-3">$x.xx / Quarter <br> <small>or</small> <br> <small class="small-text">$x.xx / Month</small> </h4>
+            <button class="btn btn-primary btn-block" (click)="currentStep = currentStep + 1">Select</button>
+          </div>
         </div>
       </div>
 
-    </div>-->
-
-    <!--Step 4 of 5-->
-    <div class="col-lg-8 mx-auto">
-
-      <h3 class="mb-3">Step 4 of 5</h3>
-
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Step 1</a></li>
-          <li class="breadcrumb-item"><a href="#">Step 2</a></li>
-          <li class="breadcrumb-item"><a href="#">Step 3</a></li>
-          <li class="breadcrumb-item active">Step 4</li>
-        </ol>
-      </nav>
-      
-      <form>
-
-        <div class="row">
-          <div class="col-md-6">
-            <p> <strong>Package: Plan C</strong> </p>
-            <button class="btn btn-primary mr-3">Monthly</button>
-            <button class="btn btn-primary mr-3">Quarterly</button>
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center">Plan C</h4>
+            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
+              Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
+            <ul>
+              <li *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">feature</li>
+            </ul>
+            <h4 class="text-center mb-3">$x.xx / Quarter <br> <small>or</small> <br> <small class="small-text">$x.xx / Month</small> </h4>
+            <button class="btn btn-primary btn-block" (click)="currentStep = currentStep + 1">Select</button>
           </div>
         </div>
-        <div class="row mt-3">
-          <div class="col-md-5">
-            <div class="form-group">
-              <label for="">Credit Card Number</label>
-              <input type="number" placeholder="Enter your credit card number" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="">Expiration</label>
-              <select name="" id="" class="form-control">
-                <option value="">01</option>
-                <option value="">02</option>
-                <option value="">03</option>
-                <option value="">04</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3 align-self-end">
-            <div class="form-group">
-              <label for=""></label>
-              <select name="" id="" class="form-control">
-                <option value="">2020</option>
-                <option value="">2021</option>
-                <option value="">2022</option>
-                <option value="">2023</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="">CVV</label>
-              <input type="number" placeholder="CVV" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <input type="checkbox"> <small> Save this payment method for future use</small>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">First Name</label>
-              <input type="text" placeholder="Enter your first name" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="">Billing Country</label>
-              <select name="" id="" class="form-control">
-                <option value="">United States</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="">Billing Address</label>
-              <input type="text" placeholder="Enter your billing address" class="form-control">
-              <!-- Implement typeahead from Google API -->
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">Last Name</label>
-              <input type="text" placeholder="Enter your last name" class="form-control">
-            </div>
-          </div>
-        </div>
-
-      </form>
+      </div>
 
     </div>
+
+    <div class="row float-right mt-3 mb-5">
+      <div class="col-md-12">
+        <button class="btn btn-primary" (click)="currentStep = currentStep - 1">Back</button>
+      </div>
+    </div>
+
+  </div>
+    
+  <!--Step 4 of 5-->
+  <div class="col-lg-8 mx-auto" *ngIf="currentStep === 4">
+
+    <h3 class="mb-3">Step 4 of 5</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Step 1</a></li>
+        <li class="breadcrumb-item"><a href="#">Step 2</a></li>
+        <li class="breadcrumb-item"><a href="#">Step 3</a></li>
+        <li class="breadcrumb-item active">Step 4</li>
+      </ol>
+    </nav>
+      
+    <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+
+      <div class="row">
+        <div class="col-md-6">
+          <p> <strong>Package: Plan C</strong> </p>
+          <button class="btn btn-primary mr-3">Monthly <br> <small>$A.xx / Month</small> </button>
+          <button class="btn btn-primary mr-3">Quarterly <br> <small>$B.xx / Quarter</small> </button>
+        </div>
+      </div>
+
+      <!-- Credit Card Number -->
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Credit Card Number</label>
+            <input type="number" placeholder="Credit Card Number" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Credit Card Information -->
+      <!--<div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="">Expiration</label>
+            <select name="" id="" class="form-control">
+              <option value="">01</option>
+              <option value="">02</option>
+              <option value="">03</option>
+              <option value="">04</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 align-self-end">
+          <div class="form-group">
+            <select name="" id="" class="form-control">
+              <option value="">01</option>
+              <option value="">02</option>
+              <option value="">03</option>
+              <option value="">04</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="">CVV</label>
+            <input type="number" placeholder="CVV" class="form-control">
+          </div>
+        </div>
+      </div>-->
+
+      <!-- Save method payment for future -->
+      <!--<div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="checkbox"> <small> Save this payment method for future use</small>
+          </div>
+        </div>
+      </div>-->
+
+      <!-- User first and lastname -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">First Name</label>
+            <input type="text" placeholder="First Name" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Last Name</label>
+            <input type="text" placeholder="Last Name" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing country and promo code -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Billing Country</label>
+            <select class="form-control" formControlName="country">
+              <option [ngValue]="country.value" *ngFor="let country of countries">{{country.text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 offset-md-4">
+          <label for="">Promo Code</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Promo Code">
+            <div class="input-group-append">
+              <button class="btn btn-primary promo-code" type="button">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo code description -->
+      <div class="row">
+        <div class="col-md-4 offset-md-8">
+          <div class="form-group">
+            <p class="mt-1"> <strong>Amount to Charge: $99.99</strong> </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing address -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Billing Address</label>
+            <input type="text" placeholder="Billing Address" class="form-control" autocorrect="off" autocapitalize="off"
+            spellcheck="off" #searchElement>
+          </div>
+        </div>
+      </div>
+
+      <!-- City, State and Zip -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">City</label>
+            <input type="text" placeholder="City" class="form-control" id="city" formControlName="city">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">State</label>
+            <input type="text" placeholder="State" class="form-control" id="state" formControlName="state">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Zip</label>
+            <input type="number" placeholder="Zip" class="form-control" id="zipcode" formControlName="zipcode">
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing phone -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Billing Phone</label>
+            <input type="text" placeholder="Billing Phone" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="row float-right mt-3 mb-5">
+        <div class="col-md-12">
+          <button class="btn btn-primary mr-3" (click)="currentStep = currentStep - 1">Back</button>
+          <button class="btn btn-primary" (click)="currentStep = currentStep + 1">Next</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <!--Step 5 of 5-->
+  <div class="col-lg-8 mx-auto" *ngIf="currentStep === 5">
+
+    <h3 class="mb-3">Step 5 of 5</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Step 1</a></li>
+        <li class="breadcrumb-item"><a href="#">Step 2</a></li>
+        <li class="breadcrumb-item"><a href="#">Step 3</a></li>
+        <li class="breadcrumb-item"><a href="#">Step 4</a></li>
+        <li class="breadcrumb-item active">Step 5</li>
+      </ol>
+    </nav>
+    
+    <form>
+      <div class="row">
+        <div class="col">
+          <p class="text-left"> First Name: <strong> John</strong></p>
+        </div>
+        <div class="col text-right">
+            <p> Last Name: <strong> Smith</strong></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Shipping Country</label>
+            <select name="" id="" class="form-control" disabled>
+              <option value="">United State</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Shipping Address</label>
+            <input type="text" class="form-control" placeholder="Shipping Addres">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">City</label>
+            <input type="text" class="form-control" placeholder="City">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">State</label>
+            <input type="text" class="form-control" placeholder="State">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Zip</label>
+            <input type="text" class="form-control" placeholder="Zip">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Mobile Phone Number <input type="checkbox" class="ml-3"> <small> Same as billing phone</small> </label>
+            <input type="text" class="form-control" placeholder="Mobile Phone Number">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Text Messaging PIN</label>
+            <input type="number" class="form-control" placeholder="Text Messaging PIN">
+          </div>
+          <p class="text-justify">
+            <small> This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot.
+            Occasionally you will be asked this PIN to confirm your identity by the chatbot. </small>
+          </p>
+        </div>
+        
+      </div>
+
+      <div class="row float-right mt-3 mb-5">
+        <div class="col-md-12">
+          <button class="btn btn-primary mr-3" (click)="currentStep = currentStep - 1">Back</button>
+          <button class="btn btn-primary" (click)="currentStep = currentStep + 1">Next</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- Purchase Complete -->
+  <div class="col-lg-8 mx-auto" *ngIf="currentStep === 6">
+
+    <h3 class="mb-3">Purchase Complete</h3>
+    <h5 class="mb-3">Thank you for your order!</h5>
+    <p><small> <strong>Order #2452</strong> </small></p>
+    <p class="mb-0"><small> <strong>Billing Address</strong> </small></p>
+    <p class="ml-3 mb-0"><small>John Smith</small></p>
+    <p class="ml-3 mb-0"><small>10011 Stonelake Blvd</small></p>
+    <p class="ml-3"><small>Austin, TX 78759</small></p>
+    <p class="mb-0"><small> <strong>Order Details</strong> </small></p>
+    <div class="row">
+      <div class="col">
+        <p><small>PopupCare Care Phamily (Quarterly)</small></p>
+      </div>
+      <div class="col text-right">
+        <p><small>$xx.00</small></p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <p><small> <strong>TOTAL</strong> </small></p>
+      </div>
+      <div class="col text-right">
+          <p><small> <strong>$xx.00</strong> </small></p>
+      </div>
+    </div>
+    <p class="mb-3"><small> Pay with: cc ending in 4389 </small></p>
+    <button class="btn btn-primary mb-4">Print Receipt</button>
+    <p><small>A receipt of your purchase has been emailed to customerjohn@gmail.com</small> </p>
+    <div class="row float-right mt-3 mb-5">
+      <div class="col-md-12">
+        <button class="btn btn-primary">Next</button>
+      </div>
+    </div>
+  </div>
+
 
 </div>

@@ -27,13 +27,13 @@ import { FooterComponent } from './footer/footer.component';
 
 
 /* SERVICES */
-import {CommonService, ContentService, AccountService} from './services/index';
+import {CommonService, ContentService, AccountService, GooglePlacesService} from './services/index';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SignupComponent } from './components/signup/signup.component';
 /* SERVICES */
 
-
-
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -61,9 +61,13 @@ import { SignupComponent } from './components/signup/signup.component';
     MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
      MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule, MatListModule, MatProgressBarModule,
     MatBottomSheetModule, MatToolbarModule,
-    MatSnackBarModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule
+    MatSnackBarModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule,
+    AgmCoreModule.forRoot({
+      apiKey: `${environment.googleApiKey}`,
+      libraries: ['places']
+    })
   ],
-  providers: [Globals, CommonService, ContentService, AccountService],
+  providers: [Globals, CommonService, ContentService, AccountService, GooglePlacesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
