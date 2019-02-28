@@ -19,4 +19,8 @@ export class ResetPasswordComponent implements OnInit {
       phone: ['', [Validators.required, Validators.minLength(10)]]
      });
   }
+
+  resetPassword() {
+    console.log('reset password...');
+  }
 }
