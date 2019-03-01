@@ -40,4 +40,3 @@ export const customNotifierOptions: NotifierOptions = {
       overlap: 150
     }
   };
-  
