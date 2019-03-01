@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AccountService } from '../../services/index';
+import { AccountService, NotificationService } from '../../services/index';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
-import { NotifierService } from 'angular-notifier';
+
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private reCaptchaV3Service: ReCaptchaV3Service,
-    private notifierSrv: NotifierService
+    private notificationSrv: NotificationService
   ) { }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       if (!res.HasError) {
 
       } else {
-        this.notifierSrv.notify('error', res.Message );
+        this.notificationSrv.showError( res.Message );
       }
     });
 
