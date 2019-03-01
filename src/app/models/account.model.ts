@@ -46,7 +46,7 @@
         payload: Payload2;
     }
 
-    export interface Result {
+    export interface AccountResult {
         idToken: IdToken;
         refreshToken: RefreshToken;
         accessToken: AccessToken;

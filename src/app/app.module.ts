@@ -9,7 +9,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /* CONFIGURATIONS */
@@ -17,7 +17,7 @@ import {customNotifierOptions} from './configurations/index';
 /* CONFIGURATIONS */
 
 /* MODULES */
-import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { NotifierModule } from 'angular-notifier';
 import { AgmCoreModule } from '@agm/core';
 /* MODULES */
 
@@ -38,9 +38,9 @@ import { ProductComponent, ProductVideoComponent, LoginComponent,
 import {CommonService, NotificationService, ContentService, AccountService, GooglePlacesService } from './services/index';
 /* SERVICES */
 
+import { HttpConfigInterceptor} from './httpconfig.interceptor';
 
 import { environment } from 'src/environments/environment';
-
 
 
 
@@ -55,7 +55,7 @@ import { environment } from 'src/environments/environment';
     LoginComponent,
     FooterComponent,
     ResetPasswordComponent,
-    SignupComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -66,15 +66,17 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     NgxCaptchaModule,
     MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
-     MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule, MatListModule, MatProgressBarModule,
-    MatBottomSheetModule, MatToolbarModule,
-    MatSnackBarModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule,
+    MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule,
+    MatListModule, MatProgressBarModule, MatBottomSheetModule, MatToolbarModule, MatSnackBarModule, 
+    MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: `${environment.googleApiKey}`,
       libraries: ['places']
     }), NotifierModule.withConfig(customNotifierOptions)
   ],
-  providers: [Globals, NotificationService, CommonService, ContentService, AccountService, GooglePlacesService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    Globals, NotificationService, CommonService, ContentService, AccountService, GooglePlacesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
