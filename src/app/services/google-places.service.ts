@@ -4,8 +4,8 @@ import { Injectable, NgZone, ElementRef } from '@angular/core';
 @Injectable()
 export class GooglePlacesService {
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
-
-  loadMaps(addressReference: ElementRef, fn: (() => {})): Promise<any> {
+// tslint:disable-next-line
+  loadMaps(addressReference: ElementRef, fn: Function ): Promise<any> {
 
     return this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(addressReference.nativeElement, {

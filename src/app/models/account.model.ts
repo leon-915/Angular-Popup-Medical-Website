@@ -53,7 +53,7 @@
         clockDrift: number;
     }
 
-    export class LoginRequestModel{
+    export class LoginRequestModel {
         email = '';
         password = '';
         recaptcha  = '';
