@@ -67,7 +67,7 @@ import { environment } from 'src/environments/environment';
     NgxCaptchaModule,
     MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
     MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule,
-    MatListModule, MatProgressBarModule, MatBottomSheetModule, MatToolbarModule, MatSnackBarModule, 
+    MatListModule, MatProgressBarModule, MatBottomSheetModule, MatToolbarModule, MatSnackBarModule,
     MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: `${environment.googleApiKey}`,
