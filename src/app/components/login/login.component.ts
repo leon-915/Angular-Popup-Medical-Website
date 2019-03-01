@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { LoginRequestModel } from './../../models/account.model';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AccountService, NotificationService  } from '../../services/index';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private reCaptchaV3Service: ReCaptchaV3Service,
-    private notificationSrv: NotificationService
+    private notificationSrv: NotificationService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         localStorage.setItem('token', res.Result.accessToken.jwtToken);
-
+        this.router.navigate(['/', {}]);
       } else {
         this.notificationSrv.showError( res.Message );
       }

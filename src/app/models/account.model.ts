@@ -54,9 +54,9 @@
     }
 
     export class LoginRequestModel{
-        email: string = "";
-        password: string = "";
-        recaptcha: string = "";
+        email = '';
+        password = '';
+        recaptcha  = '';
     }
 
 
