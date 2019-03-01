@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiURL: 'https://gadrsof8n4.execute-api.us-west-2.amazonaws.com/dev/',
-  googleApiKey: 'AIzaSyCc7TDuzjxjjcDephVCoVRDH1qd-qtGzZs'
+  googleApiKey: 'AIzaSyCc7TDuzjxjjcDephVCoVRDH1qd-qtGzZs',
+  recaptchaSiteKey: '6LemKJQUAAAAAGsjdXqZOqRl9ffbP5wP4TnxIKaP'
 };
 
 /*

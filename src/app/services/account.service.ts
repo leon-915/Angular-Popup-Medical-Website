@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
-import {APIResponse, Content, } from './../models/index';
+import {APIResponse, Content } from './../models/index';
 import {CommonService} from './common.service';
 
 @Injectable()

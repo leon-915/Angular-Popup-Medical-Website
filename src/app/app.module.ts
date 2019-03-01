@@ -12,28 +12,80 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ArrayFilterPipe, Globals } from './shared/index';
+/* MODULES */
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { AgmCoreModule } from '@agm/core';
+/* MODULES */
 
+/* PIPES */
+import { ArrayFilterPipe, Globals } from './shared/index';
+/* PIPES */
+
+/* COMPONENTS */
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-
+import {FooterComponent} from './footer/footer.component';
+import { ProductComponent, ProductVideoComponent, LoginComponent,
+  ResetPasswordComponent, SignupComponent } from './components/index';
 /* COMPONENTS */
-import { ProductComponent } from './components/index';
-import { ProductVideoComponent } from './components/product-video/product-video.component';
-import { LoginComponent } from './components/login/login.component';
-import { FooterComponent } from './footer/footer.component';
-/* COMPONENTS */
-
 
 /* SERVICES */
 import {CommonService, ContentService, AccountService, GooglePlacesService} from './services/index';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { SignupComponent } from './components/signup/signup.component';
 /* SERVICES */
 
-import { AgmCoreModule } from '@agm/core';
+
 import { environment } from 'src/environments/environment';
+
+
+
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'left',
+      distance: 12
+    },
+    vertical: {
+      position: 'top',
+      distance: 12,
+      gap: 10
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 0,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
+
+
+
+
+
+
 
 
 
@@ -65,7 +117,7 @@ import { environment } from 'src/environments/environment';
     AgmCoreModule.forRoot({
       apiKey: `${environment.googleApiKey}`,
       libraries: ['places']
-    })
+    }), NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [Globals, CommonService, ContentService, AccountService, GooglePlacesService],
   bootstrap: [AppComponent]

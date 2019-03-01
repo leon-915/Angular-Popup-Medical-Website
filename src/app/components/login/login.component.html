@@ -1,9 +1,10 @@
+<notifier-container></notifier-container>
 <div class="">
   <div class="">
 
 
     <div class="row">
-      <div class="col-lg-5 mx-auto">
+      <div class="col-lg-5 mt-2 mx-auto">
 
         <div class="row">
           <div class="col">
@@ -27,16 +28,16 @@
                   </button>
                 </div>
               </div>
+              <input type="hidden" formControlName="recaptcha" />
 
-
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col d-flex justify-content-center m-2">
 
                   <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [useGlobalDomain]="false" [size]="size" [hl]="en"
-                    [theme]="theme" [type]="type" formControlName="recaptcha">
+                    [theme]="Light" [type]="type" formControlName="recaptcha">
                   </ngx-recaptcha2>
                 </div>
-              </div>
+              </div> -->
 
             </form>
           </div>
@@ -63,3 +64,8 @@
 
   </div>
 </div>
+
+
+<pre>
+  {{loginForm.value | json}}
+</pre>
