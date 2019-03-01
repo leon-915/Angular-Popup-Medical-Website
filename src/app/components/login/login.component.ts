@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { LoginRequestModel } from './../../models/account.model';
 import { AccountService, NotificationService  } from '../../services/index';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
@@ -40,13 +41,8 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
-    // debugger;
 
-    const email = this.loginForm.controls.email.value;
-    const password = this.loginForm.controls.password.value;
-    const recaptcha = this.loginForm.controls.recaptcha.value;
-
-    this.accountSrv.signin(email, password, recaptcha).subscribe(res => {
+    this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         localStorage.setItem('token', res.Result.accessToken.jwtToken);
 

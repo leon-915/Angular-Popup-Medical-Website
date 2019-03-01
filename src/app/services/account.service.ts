@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
-import {APIResponse, AccountResult } from './../models/index';
+import {APIResponse, AccountResult, LoginRequestModel } from './../models/index';
 import {CommonService} from './common.service';
 
 @Injectable()
@@ -11,10 +11,9 @@ export class AccountService {
   serviceURl: string = this.commonSrv.apiURL;
 
 
-  signin(emailusername: string, pass: string, recptcha: string) {
+  signin(loginRequestModel: LoginRequestModel) {
     const url: string = this.serviceURl + 'signin';
-    const reqCognito  =  { email: emailusername, password: pass, recaptcha: recptcha };
-    return this.http.post<APIResponse<AccountResult>>(url, reqCognito);
+    return this.http.post<APIResponse<AccountResult>>(url, loginRequestModel);
   }
 
 }
