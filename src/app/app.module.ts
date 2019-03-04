@@ -1,19 +1,33 @@
 import { NgModule } from '@angular/core';
 import {
-  MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule,
-  MatButtonToggleModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
-  MatDialogModule, MatListModule, MatProgressBarModule, MatSnackBarModule,
-  MatTabsModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatListModule,
+  MatProgressBarModule,
+  MatSnackBarModule,
+  MatTabsModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatFormFieldModule,
+  MatInputModule
 } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /* CONFIGURATIONS */
-import {customNotifierOptions} from './configurations/index';
+import { customNotifierOptions } from './configurations/index';
 /* CONFIGURATIONS */
 
 /* MODULES */
@@ -29,21 +43,39 @@ import { ArrayFilterPipe, Globals } from './shared/index';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import {FooterComponent} from './footer/footer.component';
-import { ProductComponent, ProductVideoComponent, LoginComponent, ResetPasswordComponent,
-SignupComponent, SignupStep1Component, SignupStep2Component, SignupStep3Component, SignupStep4Component,
-SignupStep5Component, SignupStep6Component } from './components/index';
+import { FooterComponent } from './footer/footer.component';
+import {
+  ProductComponent,
+  ProductVideoComponent,
+  LoginComponent,
+  ResetPasswordComponent,
+  ResetPasswordStep1Component,
+  ResetPasswordStep2Component,
+  ResetPasswordStep3Component,
+  SignupComponent,
+  SignupStep1Component,
+  SignupStep2Component,
+  SignupStep3Component,
+  SignupStep4Component,
+  SignupStep5Component,
+  SignupStep6Component
+} from './components/index';
 /* COMPONENTS */
 
 /* SERVICES */
-import {CommonService, NotificationService, ContentService, AccountService, GooglePlacesService, PlanService } from './services/index';
+import {
+  CommonService,
+  NotificationService,
+  ContentService,
+  AccountService,
+  GooglePlacesService,
+  PlanService
+} from './services/index';
 /* SERVICES */
 
-import { HttpConfigInterceptor} from './httpconfig.interceptor';
+import { HttpConfigInterceptor } from './httpconfig.interceptor';
 
 import { environment } from 'src/environments/environment';
-
-
 
 @NgModule({
   declarations: [
@@ -55,14 +87,17 @@ import { environment } from 'src/environments/environment';
     ProductVideoComponent,
     LoginComponent,
     FooterComponent,
-    ResetPasswordComponent,
     SignupComponent,
     SignupStep1Component,
     SignupStep2Component,
     SignupStep3Component,
     SignupStep4Component,
     SignupStep5Component,
-    SignupStep6Component
+    SignupStep6Component,
+    ResetPasswordComponent,
+    ResetPasswordStep1Component,
+    ResetPasswordStep2Component,
+    ResetPasswordStep3Component
   ],
   imports: [
     BrowserModule,
@@ -72,18 +107,44 @@ import { environment } from 'src/environments/environment';
     FormsModule,
     ReactiveFormsModule,
     NgxCaptchaModule,
-    MatButtonModule, MatCheckboxModule, MatButtonToggleModule, MatAutocompleteModule,
-    MatBadgeModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatTabsModule,
-    MatListModule, MatProgressBarModule, MatBottomSheetModule, MatToolbarModule, MatSnackBarModule,
-    MatSidenavModule, MatIconModule, MatFormFieldModule, MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatButtonToggleModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatTabsModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatBottomSheetModule,
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: `${environment.googleApiKey}`,
       libraries: ['places']
-    }), NotifierModule.withConfig(customNotifierOptions)
+    }),
+    NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    Globals, NotificationService, CommonService, ContentService, AccountService, GooglePlacesService, PlanService],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true
+    },
+    Globals,
+    NotificationService,
+    CommonService,
+    ContentService,
+    AccountService,
+    GooglePlacesService,
+    PlanService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
