@@ -30,12 +30,13 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import {FooterComponent} from './footer/footer.component';
-import { ProductComponent, ProductVideoComponent, LoginComponent,
-  ResetPasswordComponent, SignupComponent } from './components/index';
+import { ProductComponent, ProductVideoComponent, LoginComponent, ResetPasswordComponent,
+SignupComponent, SignupStep1Component, SignupStep2Component, SignupStep3Component, SignupStep4Component,
+SignupStep5Component, SignupStep6Component } from './components/index';
 /* COMPONENTS */
 
 /* SERVICES */
-import {CommonService, NotificationService, ContentService, AccountService, GooglePlacesService } from './services/index';
+import {CommonService, NotificationService, ContentService, AccountService, GooglePlacesService, PlanService } from './services/index';
 /* SERVICES */
 
 import { HttpConfigInterceptor} from './httpconfig.interceptor';
@@ -55,7 +56,13 @@ import { environment } from 'src/environments/environment';
     LoginComponent,
     FooterComponent,
     ResetPasswordComponent,
-    SignupComponent
+    SignupComponent,
+    SignupStep1Component,
+    SignupStep2Component,
+    SignupStep3Component,
+    SignupStep4Component,
+    SignupStep5Component,
+    SignupStep6Component
   ],
   imports: [
     BrowserModule,
@@ -76,7 +83,7 @@ import { environment } from 'src/environments/environment';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    Globals, NotificationService, CommonService, ContentService, AccountService, GooglePlacesService],
+    Globals, NotificationService, CommonService, ContentService, AccountService, GooglePlacesService, PlanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

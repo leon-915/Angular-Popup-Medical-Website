@@ -1,0 +1,100 @@
+<h3 class="mb-3">Step 5 of 5</h3>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Step 1</a></li>
+    <li class="breadcrumb-item"><a href="#">Step 2</a></li>
+    <li class="breadcrumb-item"><a href="#">Step 3</a></li>
+    <li class="breadcrumb-item"><a href="#">Step 4</a></li>
+    <li class="breadcrumb-item active">Step 5</li>
+  </ol>
+</nav>
+
+<form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+  <div class="row">
+    <div class="col">
+      <p class="text-left"> First Name: <strong> John</strong></p>
+    </div>
+    <div class="col text-right">
+        <p> Last Name: <strong> Smith</strong></p>
+    </div>
+  </div>
+
+  <hr>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="checkbox" formControlName="same_billing_address"> <small> Same as billing address</small>
+      </div>
+      <div class="form-group">
+        <label for="">Billing Country</label>
+        <select class="form-control" formControlName="country">
+          <option [ngValue]="country.value" *ngFor="let country of countries">{{country.text}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row" [style.display]="signupForm.controls.same_billing_address.value ? 'none' : 'block'">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Shipping Address</label>
+        <input type="text" class="form-control" placeholder="Shipping Addres" formControlName="address1"
+        #address>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!signupForm.controls.same_billing_address.value">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">City</label>
+        <input type="text" class="form-control" placeholder="City" formControlName="city">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">State</label>
+        <input type="text" class="form-control" placeholder="State" formControlName="state">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Zip</label>
+        <input type="text" class="form-control" placeholder="Zip" formControlName="zipcode">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Mobile Phone Number <input type="checkbox" class="ml-3"> <small> Same as billing phone</small> </label>
+        <input type="text" class="form-control" placeholder="Mobile Phone Number">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Text Messaging PIN</label>
+        <input type="number" class="form-control" placeholder="Text Messaging PIN">
+      </div>
+      <p class="text-justify">
+        <small> This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot.
+        Occasionally you will be asked this PIN to confirm your identity by the chatbot. </small>
+      </p>
+    </div>
+    
+  </div>
+
+  <div class="row float-right mt-3 mb-5">
+    <div class="col-md-12">
+      <button class="btn btn-primary mr-3" (click)="userAction('back')" type="button">Back</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Next</button>
+    </div>
+  </div>
+
+</form>

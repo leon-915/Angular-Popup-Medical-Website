@@ -1,0 +1,164 @@
+<h3 class="mb-3">Step 4 of 5</h3>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Step 1</a></li>
+    <li class="breadcrumb-item"><a href="#">Step 2</a></li>
+    <li class="breadcrumb-item"><a href="#">Step 3</a></li>
+    <li class="breadcrumb-item active">Step 4</li>
+  </ol>
+</nav>
+  
+<form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+
+  <div class="row">
+    <div class="col-md-6">
+      <p> <strong>Package: Plan C</strong> </p>
+      <button class="btn btn-primary mr-3">Monthly <br> <small>$A.xx / Month</small> </button>
+      <button class="btn btn-primary mr-3">Quarterly <br> <small>$B.xx / Quarter</small> </button>
+    </div>
+  </div>
+
+  <!-- Credit Card Number -->
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Credit Card Number</label>
+        <input type="number" placeholder="Credit Card Number" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <!-- Credit Card Information -->
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="">Expiration</label>
+        <select class="form-control">
+          <option value="">01</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 align-self-end">
+      <div class="form-group">
+        <select class="form-control">
+          <option value="">01</option>
+          <option value="">02</option>
+          <option value="">03</option>
+          <option value="">04</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="">CVV</label>
+        <input type="number" placeholder="CVV" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <!-- Save method payment for future -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="checkbox"> <small> Save this payment method for future use</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- User first and lastname -->
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">First Name</label>
+        <input type="text" placeholder="First Name" class="form-control" formControlName="first_name">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Last Name</label>
+        <input type="text" placeholder="Last Name" class="form-control" formControlName="last_name">
+      </div>
+    </div>
+  </div>
+
+  <!-- Billing country and promo code -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Billing Country</label>
+        <select class="form-control" formControlName="country">
+          <option [ngValue]="country.value" *ngFor="let country of countries">{{country.text}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4 offset-md-4">
+      <label for="">Promo Code</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Promo Code">
+        <div class="input-group-append">
+          <button class="btn btn-primary promo-code" type="button">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promo code description -->
+  <div class="row">
+    <div class="col-md-4 offset-md-8">
+      <div class="form-group">
+        <p class="mt-1"> <strong>Amount to Charge: $99.99</strong> </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Billing address -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Billing Address</label>
+        <input type="text" placeholder="Billing Address" class="form-control" formControlName="address1" #address>
+      </div>
+    </div>
+  </div>
+
+  <!-- City, State and Zip -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">City</label>
+        <input type="text" placeholder="City" class="form-control" formControlName="city">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">State</label>
+        <input type="text" placeholder="State" class="form-control" formControlName="state">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Zip</label>
+        <input type="number" placeholder="Zip" class="form-control" formControlName="zipcode">
+      </div>
+    </div>
+  </div>
+
+  <!-- Billing phone -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Billing Phone</label>
+        <input type="text" placeholder="Billing Phone" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="row float-right mt-3 mb-5">
+    <div class="col-md-12">
+      <button class="btn btn-primary mr-3" type="button" (click)="userAction('back');">Back</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Next</button>
+    </div>
+  </div>
+
+</form>

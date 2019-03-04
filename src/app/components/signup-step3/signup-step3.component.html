@@ -1,0 +1,42 @@
+
+<h3 class="mb-3">Step 3 of 5</h3>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Step 1</a></li>
+    <li class="breadcrumb-item"><a href="#">Step 2</a></li>
+    <li class="breadcrumb-item active">Step 3</li>
+  </ol>
+</nav>
+
+<div class="row row-eq-height">
+
+  <div class="col-md-3 col-lg-4 d-flex align-items-stretch" *ngFor="let plan of plans">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="text-center">{{plan.plan_name}}</h4>
+        <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
+          Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio.</p>
+        <ul>
+          <li>{{plan.plan_period}}</li>
+          <li>User Limit: <strong>{{plan.user_limit}}</strong> </li>
+          <li>Telehealth: <strong>{{plan.telehealth}}</strong> </li>
+          <li>Beh Health: <strong>{{plan.beh_health}}</strong> </li>
+          <li>Number of Rx: <strong>{{plan.number_of_tx}}</strong> </li>
+          <li>Processing Fee: <strong>{{plan.processing_fee | currency}}</strong> </li>
+        </ul>
+        <div class="spacer">
+          <h4 class="text-center mb-3">${{plan.price}} / Month</h4>
+          <button class="btn btn-primary btn-block" (click)="selectPlan();">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row float-right mt-3 mb-5">
+  <div class="col-md-12">
+    <button class="btn btn-primary" (click)="userAction('back');">Back</button>
+  </div>
+</div>
+
