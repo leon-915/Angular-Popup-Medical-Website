@@ -16,16 +16,10 @@ export class SignupStep6Component implements OnInit {
 
   userAction(action: string) {
     const step = action === 'back' ? this.step -= 1 : this.step += 1;
-    /*if(action === 'back') {
-      this.step -= 1;
-    } else {
-      this.step += 1;
-    }*/
     this.action.emit(step);
   }
 
   doSignup() {
-    console.log('do login...');
     this.userAction('advance');
   }
 

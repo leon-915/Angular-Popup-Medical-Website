@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlanService  } from '../../services/index';
-import { PlanResult } from 'src/app/models';
+import { PlanModel } from '../../models/index';
 
 @Component({
   selector: 'app-signup-step3',
@@ -12,21 +12,14 @@ export class SignupStep3Component implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
-  public plans: Array<PlanResult> = [];
+  public plans: PlanModel[] = new Array<PlanModel>();
 
   constructor(private planSrv: PlanService) {
     this.planSrv.getPlans().subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
-        /**
-         * Preguntar a Jorge como corregir el [] por .
-         */
-        this.plans = response.Result['rows'];
-        console.log(this.plans);
+        this.plans = response.Result;
       }
-    }, (error) => {
-      console.log(error);
-    });
+    }, (error) => { console.log(error); });
   }
 
   ngOnInit() {
@@ -34,11 +27,6 @@ export class SignupStep3Component implements OnInit {
 
   userAction(action: string) {
     const step = action === 'back' ? this.step -= 1 : this.step += 1;
-    /*if(action === 'back') {
-      this.step -= 1;
-    } else {
-      this.step += 1;
-    }*/
     this.action.emit(step);
   }
 

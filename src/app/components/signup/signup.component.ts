@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  public currentStep = 3;
+  public currentStep = 1;
 
   constructor() { }
 
@@ -15,8 +15,6 @@ export class SignupComponent implements OnInit {
   }
 
   userAction(step: number) {
-    console.log(step);
-    console.log(this.currentStep);
     this.currentStep = step;
   }
 

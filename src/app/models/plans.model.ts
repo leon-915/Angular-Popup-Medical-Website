@@ -1,4 +1,4 @@
-export class PlanResult {
+export class PlanModel {
     planId: number;
     planName: string;
     planPeriod: string;

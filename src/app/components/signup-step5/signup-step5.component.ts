@@ -60,11 +60,6 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
 
   userAction(action: string) {
     const step = action === 'back' ? this.step -= 1 : this.step += 1;
-    /*if(action === 'back') {
-      this.step -= 1;
-    } else {
-      this.step += 1;
-    }*/
     this.action.emit(step);
   }
 
@@ -75,7 +70,6 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
     const state = this.signupForm.get('state');
 
     this.signupForm.get('same_billing_address').valueChanges.subscribe((status) => {
-      console.log(status);
       if (status) {
         address1.setValidators(null);
         city.setValidators(null);
@@ -98,7 +92,6 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
 
 
   doSignup() {
-    console.log('do login...');
     this.userAction('advance');
   }
 

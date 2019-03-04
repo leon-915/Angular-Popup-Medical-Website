@@ -58,11 +58,6 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
 
   userAction(action: string) {
     const step = action === 'back' ? this.step -= 1 : this.step += 1;
-    /*if(action === 'back') {
-      this.step -= 1;
-    } else {
-      this.step += 1;
-    }*/
     this.action.emit(step);
   }
 
