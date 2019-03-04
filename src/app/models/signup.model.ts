@@ -16,7 +16,12 @@ export class SignupRequestModel {
     latitude?: number;
     sameBillingAddress?: boolean;
     planId?: number;
+    paymentPeriod?: string;
+    lastFour?: number;
+    phoneNumber?: string;
+    textMessagingPin?: number;
     currentStep: number;
+    awsAccountId: string;
 }
 
 export class SignupResult {

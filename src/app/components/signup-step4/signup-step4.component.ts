@@ -1,7 +1,8 @@
 import { GooglePlacesService } from './../../services/google-places.service';
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { PlanService, SignupService  } from '../../services/index';
+import { PlanModel, AddressModel } from '../../models/index';
 @Component({
   selector: 'app-signup-step4',
   templateUrl: './signup-step4.component.html',
@@ -16,20 +17,26 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
   private latitude: number;
   private longitude: number;
   signupForm: FormGroup;
+  planSelected: PlanModel;
+  paymentMethodSelected: string;
 
-  constructor(private fb: FormBuilder, private googleSrvPlaces: GooglePlacesService) { }
+  constructor(
+    private fb: FormBuilder, private googleSrvPlaces: GooglePlacesService, private planSrv: PlanService,
+    private signupSrv: SignupService) {
+    this.planSelected = this.planSrv.getPlanSelected();
+  }
 
-  setAddress = (address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number) => {
-    this.signupForm.get('zipcode').enable();
+  setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
+    this.signupForm.get('zipCode').enable();
     this.signupForm.get('city').enable();
     this.signupForm.get('state').enable();
-    this.signupForm.controls.zipcode.setValue(zipcode);
+    this.signupForm.controls.zipCode.setValue(zipCode);
     this.signupForm.controls.city.setValue(city);
     this.signupForm.controls.state.setValue(state);
     this.signupForm.controls.address1.setValue(address);
     this.latitude = latitude;
     this.longitude = longitude;
-    this.signupForm.get('zipcode').disable();
+    this.signupForm.get('zipCode').disable();
     this.signupForm.get('city').disable();
     this.signupForm.get('state').disable();
   }
@@ -43,7 +50,11 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       address1: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      zipcode: ['']
+      zipCode: [''],
+      lastFour: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      paymentPeriod: ['', [Validators.required]],
+      currentStep: [this.step]
     });
   }
 
@@ -61,7 +72,23 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     this.action.emit(step);
   }
 
+  setPlanPaymentMethod(method: string) {
+    this.paymentMethodSelected = method;
+    this.signupForm.controls.paymentPeriod.setValue(method);
+  }
+
+  setMemberAddress() {
+    const memberAddress = new AddressModel();
+    memberAddress.address1 = this.signupForm.controls.address1.value;
+    memberAddress.city = this.signupForm.controls.city.value;
+    memberAddress.state = this.signupForm.controls.state.value;
+    memberAddress.zipCode = this.signupForm.controls.zipCode.value;
+    this.signupSrv.setMemberAddress(memberAddress);
+    this.signupSrv.setMemberPhoneNumber(this.signupForm.controls.phoneNumber.value);
+  }
+
   doSignup() {
+    this.setMemberAddress();
     this.userAction('advance');
   }
 

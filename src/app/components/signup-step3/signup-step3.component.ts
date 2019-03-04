@@ -18,6 +18,7 @@ export class SignupStep3Component implements OnInit {
     this.planSrv.getPlans().subscribe((response) => {
       if (!response.HasError) {
         this.plans = response.Result;
+        console.log(this.plans);
       }
     }, (error) => { console.log(error); });
   }
@@ -30,7 +31,8 @@ export class SignupStep3Component implements OnInit {
     this.action.emit(step);
   }
 
-  selectPlan() {
+  selectPlan(plan: PlanModel) {
+    this.planSrv.setPlanSelected(plan);
     this.userAction('advance');
   }
 
