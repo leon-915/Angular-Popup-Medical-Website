@@ -10,7 +10,7 @@ import {CommonService} from './common.service';
 export class ContentService {
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
-  serviceURl: string = this.commonSrv.apiURL;
+  serviceURl: string = this.commonSrv.contentPatientEducation;
 
   getPatientEducation(idProd: number, lang: string) {
 
