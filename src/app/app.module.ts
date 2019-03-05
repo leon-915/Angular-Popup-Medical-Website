@@ -69,13 +69,15 @@ import {
   ContentService,
   AccountService,
   GooglePlacesService,
-  PlanService
+  PlanService,
+  SignupService
 } from './services/index';
 /* SERVICES */
 
 import { HttpConfigInterceptor } from './httpconfig.interceptor';
 
 import { environment } from 'src/environments/environment';
+import { SignupConfirmComponent } from './components/signup-confirm/signup-confirm.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,8 @@ import { environment } from 'src/environments/environment';
     ResetPasswordComponent,
     ResetPasswordStep1Component,
     ResetPasswordStep2Component,
-    ResetPasswordStep3Component
+    ResetPasswordStep3Component,
+    SignupConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +146,8 @@ import { environment } from 'src/environments/environment';
     ContentService,
     AccountService,
     GooglePlacesService,
-    PlanService
+    PlanService,
+    SignupService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,7 @@
+import { PoliciesService  } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PolicyModel } from '../../models/index';
 
 @Component({
   selector: 'app-signup-step2',
@@ -11,17 +13,28 @@ export class SignupStep2Component implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   signupForm: FormGroup;
+  public policies: PolicyModel[] = new Array<PolicyModel>();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private policySrv: PoliciesService) {
+
+    this.policySrv.getPolicies().subscribe((response) => {
+      if (!response.HasError) {
+        this.policies = response.Result;
+        console.log(this.policies);
+      }
+    }, (error) => { console.log(error); });
+
+  }
 
   ngOnInit() {
 
     this.signupForm = this.fb.group({
-      accept_terms: ['', [Validators.required]],
-      accept_privacy_policy: ['', [Validators.required]],
-      accept_data_sharing: ['', [Validators.required]],
-      opt_in_email: ['', [Validators.required]],
-      opt_in_sms: ['', [Validators.required]]
+      acceptTerms: ['', [Validators.required]],
+      acceptPrivacyPolicy: ['', [Validators.required]],
+      acceptDataSharing: ['', [Validators.required]],
+      optInEmail: ['', [Validators.required]],
+      optInSms: ['', [Validators.required]],
+      currentStep: [this.step]
     });
 
   }
