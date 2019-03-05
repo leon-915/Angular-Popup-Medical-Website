@@ -48,19 +48,3 @@ export class AccountService {
     );
   }
 }
-
-@Injectable()
-export class DataService {
-  // tslint:disable-next-line: variable-name
-  _showTour: string;
-
-  set showTour(value: string) {
-    this._showTour = value;
-  }
-
-  get showTour(): string {
-    return this._showTour;
-  }
-
-  constructor() {}
-}

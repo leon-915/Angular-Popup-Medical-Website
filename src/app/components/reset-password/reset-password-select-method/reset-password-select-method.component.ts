@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -8,19 +8,17 @@ import {
   ValidatorFn
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AccountService,
-  NotificationService,
-  DataService
-} from 'src/app/services';
+import { AccountService, NotificationService } from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.less']
+  selector: 'app-reset-password-select-method',
+  templateUrl: './reset-password-select-method.component.html',
+  styleUrls: ['./reset-password-select-method.component.less']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordSelectMethodComponent implements OnInit {
+  @Input() step: number;
+  @Output() action: EventEmitter<number> = new EventEmitter<number>();
   resetForm: FormGroup;
 
   constructor(
@@ -34,7 +32,8 @@ export class ResetPasswordComponent implements OnInit {
     this.resetForm = this.fb.group(
       {
         email: ['', [Validators.email]],
-        phone: ['']
+        phone: [''],
+        currentStep: [this.step]
       },
       {
         validator: PasswordValidator.LookEmptyness // your validation method
@@ -42,17 +41,22 @@ export class ResetPasswordComponent implements OnInit {
     );
   }
 
-  resetPassword = () => {
+  userAction(action: string) {
+    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
+    this.action.emit(step);
+  }
+
+  resetPassword() {
     const formValue = this.resetForm.value;
     const emailReq = { email: formValue.email };
 
     this.accountSrv.resetPassSendEmail(emailReq).subscribe(res => {
       if (!res.HasError) {
         console.log(JSON.stringify(res));
-        this.router.navigate(['/reset/step1']);
+        this.userAction('advance');
       } else {
         this.notificationSrv.showError(res.Message);
       }
     });
-  };
+  }
 }
