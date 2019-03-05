@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reset-password-step3.component.less']
 })
 export class ResetPasswordStep3Component implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  goToHome() {
+    console.log('goHome');
   }
-
 }
