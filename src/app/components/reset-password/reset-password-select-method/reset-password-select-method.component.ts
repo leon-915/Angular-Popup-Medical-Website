@@ -9,7 +9,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService, NotificationService } from 'src/app/services';
+import { ReCaptchaV3Service } from 'ngx-captcha';
 import { PasswordValidator } from 'src/app/validators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reset-password-select-method',
@@ -19,13 +21,16 @@ import { PasswordValidator } from 'src/app/validators';
 export class ResetPasswordSelectMethodComponent implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
+  siteKey = environment.recaptchaSiteKey;
+
   resetForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private accountSrv: AccountService,
-    private notificationSrv: NotificationService
+    private notificationSrv: NotificationService,
+    private reCaptchaV3Service: ReCaptchaV3Service
   ) {}
 
   ngOnInit() {
@@ -33,10 +38,21 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
       {
         email: ['', [Validators.email]],
         phone: [''],
+        recaptcha: ['', Validators.required],
         currentStep: [this.step]
       },
       {
         validator: PasswordValidator.LookEmptyness // your validation method
+      }
+    );
+    this.reCaptchaV3Service.execute(
+      this.siteKey,
+      'homepage',
+      token => {
+        this.resetForm.patchValue({ recaptcha: token });
+      },
+      {
+        useGlobalDomain: false // optional
       }
     );
   }
@@ -48,11 +64,15 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
 
   resetPassword() {
     const formValue = this.resetForm.value;
-    const emailReq = { email: formValue.email };
 
-    this.accountSrv.resetPassSendEmail(emailReq).subscribe(res => {
+    this.accountSrv.resetPassSendEmail(formValue).subscribe(res => {
       if (!res.HasError) {
-        console.log(JSON.stringify(res));
+        this.accountSrv.setUserEmail(formValue.email);
+        const maskedEmail = res.Result.CodeDeliveryDetails.Destination
+          ? res.Result.CodeDeliveryDetails.Destination
+          : formValue.email;
+        this.accountSrv.setUserEmailMasked(maskedEmail);
+
         this.userAction('advance');
       } else {
         this.notificationSrv.showError(res.Message);

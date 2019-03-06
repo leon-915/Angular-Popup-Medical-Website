@@ -15,7 +15,6 @@ export class PasswordValidator {
   }
 
   public static checkPasswordStrength(password: FormControl): any {
-    console.log(password);
     const validations = {
       hasNumber: /\d/.test(password.value),
       hasUpper: /[A-Z]/.test(password.value),

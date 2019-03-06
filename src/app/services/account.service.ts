@@ -17,6 +17,9 @@ import {
 
 @Injectable()
 export class AccountService {
+  private userEmail: string;
+  private userEmailMasked: string;
+
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
   serviceURl: string = this.commonSrv.apiURL;
 
@@ -46,5 +49,20 @@ export class AccountService {
       url,
       sendRequestConfirmationModel
     );
+  }
+
+  setUserEmail(email: string) {
+    this.userEmail = email;
+  }
+
+  getUserEmail() {
+    return this.userEmail;
+  }
+  setUserEmailMasked(emailMasked: string) {
+    this.userEmailMasked = emailMasked;
+  }
+
+  getUserEmailMasked() {
+    return this.userEmailMasked;
   }
 }

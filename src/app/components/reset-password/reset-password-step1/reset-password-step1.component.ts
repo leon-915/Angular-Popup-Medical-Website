@@ -1,4 +1,6 @@
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services';
+
 import {
   Component,
   OnInit,
@@ -14,10 +16,14 @@ import {
   styleUrls: ['./reset-password-step1.component.less']
 })
 export class ResetPasswordStep1Component implements OnInit, AfterContentInit {
+  userEmailMasked = '';
+
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  constructor(private router: Router) {}
-  ngOnInit() {}
+  constructor(private router: Router, private accountSrv: AccountService) {}
+  ngOnInit() {
+    this.userEmailMasked = this.accountSrv.getUserEmailMasked();
+  }
   ngAfterContentInit(): void {
     setTimeout(this.goToStep3.bind(this), 3000);
   }
