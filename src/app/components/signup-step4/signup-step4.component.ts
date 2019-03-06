@@ -2,7 +2,7 @@ import { GooglePlacesService } from './../../services/google-places.service';
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlanService, SignupService  } from '../../services/index';
-import { PlanModel, AddressModel } from '../../models/index';
+import { PlanModel, AddressModel, SignupRequestModel } from '../../models/index';
 @Component({
   selector: 'app-signup-step4',
   templateUrl: './signup-step4.component.html',
@@ -22,30 +22,22 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder, private googleSrvPlaces: GooglePlacesService, private planSrv: PlanService,
-    private signupSrv: SignupService) {
-    this.planSelected = this.planSrv.getPlanSelected();
-  }
+    private signupSrv: SignupService) {}
 
   setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
-    this.signupForm.get('zipCode').enable();
-    this.signupForm.get('city').enable();
-    this.signupForm.get('state').enable();
     this.signupForm.controls.zipCode.setValue(zipCode);
     this.signupForm.controls.city.setValue(city);
     this.signupForm.controls.state.setValue(state);
     this.signupForm.controls.address1.setValue(address);
     this.latitude = latitude;
     this.longitude = longitude;
-    this.signupForm.get('zipCode').disable();
-    this.signupForm.get('city').disable();
-    this.signupForm.get('state').disable();
   }
 
   ngOnInit() {
 
     this.signupForm = this.fb.group({
-      first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       country: [{value: this.countries[0].value, disabled: true}, Validators.required],
       address1: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -54,11 +46,49 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       lastFour: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       paymentPeriod: ['', [Validators.required]],
-      currentStep: [this.step]
+      currentStep: [this.step],
+      latitude: [],
+      longitude: [],
+      address2: ['billing_address']
     });
+
+    const member = new SignupRequestModel();
+    member.currentStep = 4;
+    this.signupSrv.getSignupInformation(member).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.signupForm.controls.firstName.setValue(response.Result.first_name);
+        this.signupForm.controls.lastName.setValue(response.Result.last_name);
+        this.signupForm.controls.address1.setValue(response.Result.address1);
+        this.signupForm.controls.city.setValue(response.Result.city);
+        this.signupForm.controls.state.setValue(response.Result.state);
+        this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
+        this.signupForm.controls.lastFour.setValue(response.Result.lastfour);
+        this.signupForm.controls.phoneNumber.setValue(response.Result.phone_number);
+        this.signupForm.controls.latitude.setValue(response.Result.latitude);
+        this.signupForm.controls.longitude.setValue(response.Result.longitude);
+
+        /**
+         * Store the plan selected information
+         */
+        this.planSelected = new PlanModel();
+        this.planSelected.plan_name = response.Result.plan_name;
+        this.planSelected.price_quarter = response.Result.price_quarter;
+        this.planSelected.price_month = response.Result.price_month;
+        this.planSelected.price_ninety_days = response.Result.price_ninety_days;
+        this.planSelected.price_year = response.Result.price_year;
+        this.planSelected.price_quarter_active = response.Result.price_quarter_active;
+        this.planSelected.price_month_active = response.Result.price_month_active;
+        this.planSelected.price_ninety_days_active = response.Result.price_ninety_days_active;
+        this.planSelected.price_year_active = response.Result.price_year_active;
+        this.paymentMethodSelected = response.Result.payment_period;
+        console.log(this.planSelected);
+      }
+    }, (error) => { console.log(error); });
   }
 
   ngAfterViewInit() {
+
     this.googleSrvPlaces.loadMaps(this.address, this.setAddress).then(() => {
       console.log('Google maps loaded');
     }).catch((error) => {
@@ -77,19 +107,25 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     this.signupForm.controls.paymentPeriod.setValue(method);
   }
 
-  setMemberAddress() {
+  /*setMemberAddressAndPhone() {
     const memberAddress = new AddressModel();
     memberAddress.address1 = this.signupForm.controls.address1.value;
     memberAddress.city = this.signupForm.controls.city.value;
     memberAddress.state = this.signupForm.controls.state.value;
     memberAddress.zipCode = this.signupForm.controls.zipCode.value;
-    this.signupSrv.setMemberAddress(memberAddress);
-    this.signupSrv.setMemberPhoneNumber(this.signupForm.controls.phoneNumber.value);
-  }
+  }*/
 
   doSignup() {
-    this.setMemberAddress();
-    this.userAction('advance');
+
+    this.signupForm.controls.latitude.setValue(this.latitude);
+    this.signupForm.controls.longitude.setValue(this.longitude);
+    this.signupSrv.signup(this.signupForm.value).subscribe((response) => {
+      if (!response.HasError) {
+        this.userAction('advance');
+      } else {
+        console.log(response.Message);
+      }
+    }, (error) => { console.log(error); });
   }
 
 }

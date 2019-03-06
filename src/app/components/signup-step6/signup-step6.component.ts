@@ -1,4 +1,6 @@
+import { SignupService } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { SignupRequestModel, OrderModel } from '../../models/index';
 
 @Component({
   selector: 'app-signup-step6',
@@ -9,7 +11,32 @@ export class SignupStep6Component implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  constructor() { }
+  orderInfo: OrderModel;
+
+  constructor(private signupSrv: SignupService) {
+
+    const member = new SignupRequestModel();
+    member.currentStep = 6;
+    this.signupSrv.getSignupInformation(member).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.orderInfo = new OrderModel();
+        this.orderInfo.address1 = response.Result.address1;
+        this.orderInfo.city = response.Result.city;
+        this.orderInfo.firstName = response.Result.first_name;
+        this.orderInfo.lastName = response.Result.last_name;
+        this.orderInfo.orderPrice = response.Result.order_price;
+        this.orderInfo.paymentPeriod = response.Result.payment_period;
+        this.orderInfo.planName = response.Result.plan_name;
+        this.orderInfo.state = response.Result.state;
+        this.orderInfo.zipcode = response.Result.zipcode;
+        this.orderInfo.lastFour = response.Result.lastfour;
+        this.orderInfo.email = response.Result.email;
+        console.log(this.orderInfo);
+      }
+    }, (error) => { console.log(error); });
+
+  }
 
   ngOnInit() {
   }

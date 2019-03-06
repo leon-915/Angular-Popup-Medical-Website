@@ -11,6 +11,15 @@
     <input type="password" placeholder="Enter password" formControlName="pwd" required class="form-control">
   </div>
 
+  <p>Minimum password requirements:</p>
+  <ul>
+    <li> <small>8 character minimum</small> </li>
+    <li> <small>Must contain at least 1 number</small> </li>
+    <li> <small>Must contain at least 1 special character (^ $ * . [ ] {{ '{' }} {{ '}' }} ( ) ? - " ! @ # % & / \ , > < ' : ; | _ ~ `)</small> </li>
+    <li> <small>Must contain at least 1 uppercase letter</small> </li>
+    <li> <small>Must contain at least 1 lowercase letter</small> </li>
+  </ul>
+
   <div class="form-group">
     <label for="confirm">Re-Type Password</label>
     <input type="password" placeholder="Confirm your password" formControlName="confirm" required class="form-control">

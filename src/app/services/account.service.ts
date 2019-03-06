@@ -1,33 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {
-  APIResponse,
-  TokenResult,
-  LoginRequestModel,
-  SignupRequestModel,
-  SignupResult,
-  SendPassResetEmailRequestModel,
-  SendPassResetEmailResult
-} from './../models/index';
-import { CommonService } from './common.service';
+import {HttpClient} from '@angular/common/http';
+import {APIResponse, AccountResult, LoginRequestModel } from './../models/index';
+import {CommonService} from './common.service';
+
 import {
   SendPassResetConfirmationRequestModel,
-  SendPassResetConfirmationResult
-} from '../models/account.model';
+  SendPassResetConfirmationResult,
+  SignupRequestModel,
+  SendPassResetEmailResult,
+  SendPassResetEmailRequestModel
+} from '../models/index';
 
 @Injectable()
 export class AccountService {
+  private userEmail: string;
+  private userEmailMasked: string;
+
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
   serviceURl: string = this.commonSrv.apiURL;
 
   signin(loginRequestModel: LoginRequestModel) {
-    const url = `${this.serviceURl}account/signin`;
-    return this.http.post<APIResponse<TokenResult>>(url, loginRequestModel);
-  }
-
-  signup(signupRequestModel: SignupRequestModel) {
-    const url = `${this.serviceURl}signup`;
-    return this.http.post<APIResponse<SignupResult>>(url, signupRequestModel);
+    const url = `${this.serviceURl}signin`;
+    return this.http.post<APIResponse<AccountResult>>(url, loginRequestModel);
   }
 
   resetPassSendEmail(sendRequestEmailModel: SendPassResetEmailRequestModel) {
@@ -47,20 +41,19 @@ export class AccountService {
       sendRequestConfirmationModel
     );
   }
-}
 
-@Injectable()
-export class DataService {
-  // tslint:disable-next-line: variable-name
-  _showTour: string;
-
-  set showTour(value: string) {
-    this._showTour = value;
+  setUserEmail(email: string) {
+    this.userEmail = email;
   }
 
-  get showTour(): string {
-    return this._showTour;
+  getUserEmail() {
+    return this.userEmail;
+  }
+  setUserEmailMasked(emailMasked: string) {
+    this.userEmailMasked = emailMasked;
   }
 
-  constructor() {}
+  getUserEmailMasked() {
+    return this.userEmailMasked;
+  }
 }
