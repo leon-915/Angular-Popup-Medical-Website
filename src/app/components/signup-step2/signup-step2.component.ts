@@ -1,4 +1,5 @@
 import { SignupService  } from '../../services/index';
+import { PoliciesService } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SignupRequestModel } from '../../models/index';
@@ -9,17 +10,13 @@ import { SignupRequestModel } from '../../models/index';
   styleUrls: ['./signup-step2.component.less']
 })
 export class SignupStep2Component implements OnInit {
-
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private signupSrv: SignupService) {
-
-  }
+  constructor(private fb: FormBuilder, private signupSrv: SignupService) {}
 
   ngOnInit() {
-
     this.signupForm = this.fb.group({
       acceptTerms: ['', [Validators.required]],
       acceptPrivacyPolicy: ['', [Validators.required]],
@@ -42,11 +39,10 @@ export class SignupStep2Component implements OnInit {
         this.signupForm.controls.optInSms.setValue(true);
       }
     }, (error) => { console.log(error); });
-
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? this.step -= 1 : this.step += 1;
+    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
     this.action.emit(step);
   }
 
@@ -61,5 +57,4 @@ export class SignupStep2Component implements OnInit {
       }
     }, (error) => { console.log(error); });
   }
-
 }
