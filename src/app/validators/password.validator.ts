@@ -8,13 +8,11 @@ export class PasswordValidator {
 
 
   public static checkPasswordEquality(group: FormGroup): {[s: string]: boolean} {
-    console.log(group);
     return group.get('pwd').value !== group.get('confirm').value ? { passwordsDoNotMatch: true } : null;
   }
 
 
   public static checkPasswordStrength(password: FormControl): any {
-    console.log(password);
     const validations =  {
       hasNumber: /\d/.test(password.value),
       hasUpper: /[A-Z]/.test(password.value),

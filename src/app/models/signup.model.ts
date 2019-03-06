@@ -1,6 +1,6 @@
 export class SignupRequestModel {
     email: string;
-    password?: string;
+    pwd?: string;
     firstName?: string;
     lastName?: string;
     acceptTerms?: boolean;
@@ -24,6 +24,11 @@ export class SignupRequestModel {
     awsAccountId: string;
 }
 
-export class SignupResult {
-    memberId?: number;
-}
+/*export class SignupModel {
+    address1?: string;
+    address1?: string;
+    address1?: string;
+    address1?: string;
+    address1?: string;
+    address1?: string;
+}*/

@@ -12,7 +12,7 @@
   
 <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
 
-  <div class="row">
+  <div class="row" *ngIf="planSelected">
     <div class="col-md-6">
       <p> <strong>Plan: {{planSelected.plan_name}} </strong> </p>
       <button class="btn btn-primary mr-3" *ngIf="planSelected.price_month_active === true" (click)="setPlanPaymentMethod('Monthly')"
@@ -86,13 +86,13 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">First Name</label>
-        <input type="text" placeholder="First Name" class="form-control" formControlName="first_name">
+        <input type="text" placeholder="First Name" class="form-control" formControlName="firstName">
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Last Name</label>
-        <input type="text" placeholder="Last Name" class="form-control" formControlName="last_name">
+        <input type="text" placeholder="Last Name" class="form-control" formControlName="lastName">
       </div>
     </div>
   </div>

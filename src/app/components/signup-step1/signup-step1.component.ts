@@ -1,7 +1,7 @@
+import { PasswordValidator } from './../../validators/password.validator';
 import { SignupService, NotificationService } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SignupRequestModel } from '../../models/index';
 
 @Component({
   selector: 'app-signup-step1',
@@ -19,11 +19,11 @@ export class SignupStep1Component implements OnInit {
   ngOnInit() {
 
     this.signupForm = this.fb.group({
-      email: ['josechaconvargas02@gmail.com', [Validators.required, Validators.email]],
-      pwd: ['Lanceloth02!', [Validators.required]],
-      confirm: ['Lanceloth02!', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      pwd: ['', [Validators.required, PasswordValidator.checkPasswordStrength]],
+      confirm: ['', [Validators.required]],
       currentStep: [this.step]
-    });
+    }, { validator: PasswordValidator.checkPasswordEquality});
 
   }
 
@@ -37,12 +37,13 @@ export class SignupStep1Component implements OnInit {
       console.log(response);
       if (!response.HasError) {
         // create the user in the database consuming the other API. Create new model? Use the login one?
-        const member = new SignupRequestModel();
+        /*const member = new SignupRequestModel();
         member.email = this.signupForm.controls.email.value;
-        member.password = this.signupForm.controls.pwd.value;
+        member.pwd = this.signupForm.controls.pwd.value;
         member.awsAccountId = response.Result.userSub;
         member.currentStep = 1;
-        this.signupSrv.signup(member).subscribe((resp) => {
+        console.log(member);*/
+        this.signupSrv.signup(this.signupForm.value).subscribe((resp) => {
           console.log(resp);
           if (!resp.HasError) {
             this.confirmAccount();

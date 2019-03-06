@@ -10,12 +10,12 @@
 </nav>
 
 <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
-  <div class="row">
+  <div class="row" *ngIf="memberInfo">
     <div class="col">
-      <p class="text-left"> First Name: <strong> John</strong></p>
+      <p class="text-left"> First Name: <strong> {{memberInfo.firstName}}</strong></p>
     </div>
     <div class="col text-right">
-        <p> Last Name: <strong> Smith</strong></p>
+        <p> Last Name: <strong> {{memberInfo.lastName}}</strong></p>
     </div>
   </div>
 

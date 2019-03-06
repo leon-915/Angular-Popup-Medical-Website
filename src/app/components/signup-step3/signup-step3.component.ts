@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { PlanService  } from '../../services/index';
-import { PlanModel } from '../../models/index';
+import { PlanService, SignupService  } from '../../services/index';
+import { PlanModel, SignupRequestModel } from '../../models/index';
 
 @Component({
   selector: 'app-signup-step3',
@@ -14,11 +14,10 @@ export class SignupStep3Component implements OnInit {
 
   public plans: PlanModel[] = new Array<PlanModel>();
 
-  constructor(private planSrv: PlanService) {
+  constructor(private planSrv: PlanService, private signupSrv: SignupService) {
     this.planSrv.getPlans().subscribe((response) => {
       if (!response.HasError) {
         this.plans = response.Result;
-        console.log(this.plans);
       }
     }, (error) => { console.log(error); });
   }
@@ -32,8 +31,16 @@ export class SignupStep3Component implements OnInit {
   }
 
   selectPlan(plan: PlanModel) {
-    this.planSrv.setPlanSelected(plan);
-    this.userAction('advance');
+    const planMember = new SignupRequestModel();
+    planMember.planId = plan.plan_id;
+    planMember.currentStep = 3;
+    this.signupSrv.signup(planMember).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.userAction('advance');
+      }
+    }, (error) => { console.log(error); });
+
   }
 
 }
