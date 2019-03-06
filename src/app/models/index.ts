@@ -5,3 +5,4 @@ export * from './signup.model';
 export * from './plans.model';
 export * from './policy.model';
 export * from './address.model';
+export * from './order.model';

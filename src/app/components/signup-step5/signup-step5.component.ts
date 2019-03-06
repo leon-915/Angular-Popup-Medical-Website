@@ -1,3 +1,4 @@
+import { SignupRequestModel } from '../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GooglePlacesService, SignupService } from '../../services/index';
@@ -13,25 +14,37 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   @ViewChild('address') address: ElementRef;
   countries = [ { text: 'United States', value: 'US' } ];
-  private latitude: number;
-  private longitude: number;
   signupForm: FormGroup;
+  memberInfo: SignupRequestModel;
 
-  constructor(private fb: FormBuilder,  private googleSrvPlaces: GooglePlacesService, private signupSrv: SignupService) { }
+  constructor(private fb: FormBuilder,  private googleSrvPlaces: GooglePlacesService, private signupSrv: SignupService) {
+    const member = new SignupRequestModel();
+    member.currentStep = 5;
+    this.signupSrv.getSignupInformation(member).subscribe((response) => {
+      if (!response.HasError) {
+        // const member = new SignupRequestModel();
+        member.address1 = response.Result.address1;
+        member.city = response.Result.city;
+        member.firstName = response.Result.first_name;
+        member.lastName = response.Result.last_name;
+        member.phoneNumber = response.Result.phone_number;
+        member.state = response.Result.state;
+        member.zipCode = response.Result.zipcode;
+        member.latitude = response.Result.latitude;
+        member.longitude = response.Result.longitude;
+        this.memberInfo = member;
+      }
+    }, (error) => { console.log(error); });
+
+  }
 
   setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
-    this.signupForm.get('zipCode').enable();
-    this.signupForm.get('city').enable();
-    this.signupForm.get('state').enable();
     this.signupForm.controls.zipCode.setValue(zipCode);
     this.signupForm.controls.city.setValue(city);
     this.signupForm.controls.state.setValue(state);
     this.signupForm.controls.address1.setValue(address);
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.signupForm.get('zipCode').disable();
-    this.signupForm.get('city').disable();
-    this.signupForm.get('state').disable();
+    this.memberInfo.latitude = latitude;
+    this.memberInfo.longitude = longitude;
   }
 
   ngOnInit() {
@@ -46,7 +59,10 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
       zipCode: [''],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
-      currentStep: [this.step]
+      currentStep: [this.step],
+      latitude: [],
+      longitude: [],
+      address2: ['shipping_address']
     });
 
     this.setShippingInfoValidators();
@@ -79,16 +95,10 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
         address1.setValidators(null);
         city.setValidators(null);
         state.setValidators(null);
-        const memberAddress = this.signupSrv.getMemberAddress();
-        console.log(memberAddress);
-        this.signupForm.controls.address1.setValue(memberAddress.address1);
-        this.signupForm.controls.city.setValue(memberAddress.city);
-        this.signupForm.controls.state.setValue(memberAddress.state);
-        this.signupForm.controls.zipCode.setValue(memberAddress.zipCode);
-        this.signupForm.get('address1').disable();
-        this.signupForm.get('city').disable();
-        this.signupForm.get('state').disable();
-        this.signupForm.get('zipCode').disable();
+        this.signupForm.controls.address1.setValue(this.memberInfo.address1);
+        this.signupForm.controls.city.setValue(this.memberInfo.city);
+        this.signupForm.controls.state.setValue(this.memberInfo.state);
+        this.signupForm.controls.zipCode.setValue(this.memberInfo.zipCode);
 
       } else {
         address1.setValidators([Validators.required]);
@@ -98,10 +108,6 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
         this.signupForm.controls.city.setValue('');
         this.signupForm.controls.state.setValue('');
         this.signupForm.controls.zipCode.setValue('');
-        this.signupForm.get('address1').enable();
-        this.signupForm.get('city').enable();
-        this.signupForm.get('state').enable();
-        this.signupForm.get('zipCode').enable();
       }
 
       address1.updateValueAndValidity();
@@ -116,25 +122,23 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
     this.signupForm.get('samePhoneNumber').valueChanges.subscribe((status) => {
       if (status) {
         mobilePhoneNumber.setValidators(null);
-        const memberPhoneNumber = this.signupSrv.getMemberPhoneNumber();
-        this.signupForm.controls.phoneNumber.setValue(memberPhoneNumber);
-        this.signupForm.get('phoneNumber').disable();
-
+        this.signupForm.controls.phoneNumber.setValue(this.memberInfo.phoneNumber);
       } else {
         mobilePhoneNumber.setValidators([Validators.required]);
         this.signupForm.controls.phoneNumber.setValue('');
-        this.signupForm.get('phoneNumber').enable();
       }
-
       mobilePhoneNumber.updateValueAndValidity();
-
     });
-
   }
 
-
   doSignup() {
-    this.userAction('advance');
+    this.signupForm.controls.latitude.setValue(this.memberInfo.latitude);
+    this.signupForm.controls.longitude.setValue(this.memberInfo.longitude);
+    this.signupSrv.signup(this.signupForm.value).subscribe((response) => {
+      if (!response.HasError) {
+        this.userAction('advance');
+      }
+    }, (error) => { console.log(error); });
   }
 
 }

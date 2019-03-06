@@ -1,0 +1,13 @@
+export class OrderModel {
+    firstName: string;
+    lastName: string;
+    address1: string;
+    state: string;
+    city: string;
+    zipcode: string;
+    planName: string;
+    orderPrice: string;
+    paymentPeriod: string;
+    lastFour: string;
+    email: string;
+}

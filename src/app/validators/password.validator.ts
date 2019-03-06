@@ -5,6 +5,11 @@ export interface ValidationResult {
 }
 
 export class PasswordValidator {
+
+
+  public static checkPasswordEquality(group: FormGroup): {[s: string]: boolean} {
+    return group.get('pwd').value !== group.get('confirm').value ? { passwordsDoNotMatch: true } : null;
+  
   public static checkPasswordEquality(
     group: FormGroup
   ): { [s: string]: boolean } {

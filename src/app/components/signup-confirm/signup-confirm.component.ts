@@ -12,20 +12,5 @@ export class SignupConfirmComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
-  goLogin() {
-
-    /*this.accountSrv.signin(this.loginForm.value).subscribe(res => {
-      if (!res.HasError) {
-        localStorage.setItem('token', res.Result.accessToken.jwtToken);
-        this.router.navigate(['/', {}]);
-      } else {
-        this.notificationSrv.showError( res.Message );
-      }
-    });*/
-    console.log('login');
-
-  }
+  ngOnInit() {}
 }
