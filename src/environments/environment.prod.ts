@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
-  apiURL: 'https://w8xne1r4bk.execute-api.us-west-2.amazonaws.com/dev/',
-  contentPatientEducationApiUrl: 'https://w8xne1r4bk.execute-api.us-west-2.amazonaws.com/dev/',
+  apiURL: 'https://3ifg11qbs7.execute-api.us-west-2.amazonaws.com/prod/',
   googleApiKey: 'AIzaSyCc7TDuzjxjjcDephVCoVRDH1qd-qtGzZs',
   recaptchaSiteKey: '6LemKJQUAAAAAGsjdXqZOqRl9ffbP5wP4TnxIKaP'
 };

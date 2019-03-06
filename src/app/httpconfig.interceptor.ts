@@ -19,7 +19,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         const token: string = localStorage.getItem('token');
 
         if (token) {
-            request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+            request = request.clone({ headers: request.headers.set('token',  token) });
         }
 
         if (!request.headers.has('Content-Type')) {
@@ -31,7 +31,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    console.log('event--->>>', event);
+                    // console.log('event--->>>', event);
                     // this.errorDialogService.openDialog(event);
                 }
                 return event;
@@ -42,7 +42,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                     reason: error && error.error.reason ? error.error.reason : '',
                     status: error.status
                 };
-               // this.errorDialogService.openDialog(data);
+                // this.errorDialogService.openDialog(data);
                 return throwError(error);
             }));
     }

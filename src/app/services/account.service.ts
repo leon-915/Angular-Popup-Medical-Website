@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   APIResponse,
-  AccountResult,
+  TokenResult,
   LoginRequestModel,
   SignupRequestModel,
   SignupResult,
@@ -21,8 +21,8 @@ export class AccountService {
   serviceURl: string = this.commonSrv.apiURL;
 
   signin(loginRequestModel: LoginRequestModel) {
-    const url = `${this.serviceURl}signin`;
-    return this.http.post<APIResponse<AccountResult>>(url, loginRequestModel);
+    const url = `${this.serviceURl}account/signin`;
+    return this.http.post<APIResponse<TokenResult>>(url, loginRequestModel);
   }
 
   signup(signupRequestModel: SignupRequestModel) {

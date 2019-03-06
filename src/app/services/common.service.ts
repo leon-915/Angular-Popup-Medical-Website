@@ -5,5 +5,5 @@ import {environment} from '../../environments/environment';
 export class CommonService {
   constructor() {}
   apiURL = environment.apiURL;
-  contentPatientEducation = environment.contentPatientEducationApiUrl;
+  contentPatientEducation = environment.apiURL;
 }

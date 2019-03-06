@@ -51,6 +51,13 @@ export interface AccountResult {
   clockDrift: number;
 }
 
+export interface TokenResult {
+  idToken: string;
+}
+
+
+
+
 export class LoginRequestModel {
   email = '';
   password = '';
