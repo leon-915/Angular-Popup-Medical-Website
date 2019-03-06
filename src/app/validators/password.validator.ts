@@ -9,15 +9,16 @@ export class PasswordValidator {
 
   public static checkPasswordEquality(group: FormGroup): {[s: string]: boolean} {
     return group.get('pwd').value !== group.get('confirm').value ? { passwordsDoNotMatch: true } : null;
-  
-  public static checkPasswordEquality(
+  }
+
+  /*public static checkPasswordEquality(
     group: FormGroup
   ): { [s: string]: boolean } {
     console.log(group);
     return group.get('pwd').value !== group.get('confirm').value
       ? { passwordsDoNotMatch: true }
       : null;
-  }
+  }*/
 
   public static checkPasswordStrength(password: FormControl): any {
     const validations = {

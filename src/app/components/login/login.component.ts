@@ -44,6 +44,12 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
 
+    /**
+     * The login process need to call the signup process to validate the user.
+     * When the cognito funcionality works with the API Gateway and Lambda for autentication
+     * we need to change this code. I commented the signin process just for test the whole signup proces.
+     */
+
     /*this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         localStorage.setItem('token', res.Result.accessToken.jwtToken);

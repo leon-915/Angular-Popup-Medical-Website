@@ -2,21 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {APIResponse, AccountResult, LoginRequestModel } from './../models/index';
 import {CommonService} from './common.service';
-import { HttpClient } from '@angular/common/http';
-import {
-  APIResponse,
-  AccountResult,
-  LoginRequestModel,
-  SignupRequestModel,
-  SignupResult,
-  SendPassResetEmailRequestModel,
-  SendPassResetEmailResult
-} from './../models/index';
-import { CommonService } from './common.service';
+
 import {
   SendPassResetConfirmationRequestModel,
-  SendPassResetConfirmationResult
-} from '../models/account.model';
+  SendPassResetConfirmationResult,
+  SignupRequestModel,
+  SendPassResetEmailResult,
+  SendPassResetEmailRequestModel
+} from '../models/index';
 
 @Injectable()
 export class AccountService {
@@ -29,11 +22,6 @@ export class AccountService {
   signin(loginRequestModel: LoginRequestModel) {
     const url = `${this.serviceURl}signin`;
     return this.http.post<APIResponse<AccountResult>>(url, loginRequestModel);
-  }
-
-  signup(signupRequestModel: SignupRequestModel) {
-    const url = `${this.serviceURl}signup`;
-    return this.http.post<APIResponse<SignupResult>>(url, signupRequestModel);
   }
 
   resetPassSendEmail(sendRequestEmailModel: SendPassResetEmailRequestModel) {
