@@ -84,6 +84,10 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
     this.action.emit(step);
   }
 
+  goToStep(step: number) {
+    this.action.emit(step);
+  }
+
   setShippingInfoValidators() {
 
     const address1 = this.signupForm.get('address1');

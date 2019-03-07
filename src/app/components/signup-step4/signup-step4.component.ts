@@ -42,9 +42,9 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       lastName: ['', [Validators.required]],
       country: [{value: this.countries[0].value, disabled: true}, Validators.required],
       address1: ['', [Validators.required]],
-      city: [{value: '', disabled: true}, [Validators.required]],
-      state: [{value: '', disabled: true}, [Validators.required]],
-      zipCode: [{value: '', disabled: true}],
+      city: ['', [Validators.required]], // {value: '', disabled: true}
+      state: ['' , [Validators.required]], // {value: '', disabled: true}
+      zipCode: [''], // {value: '', disabled: true}
       lastFour: ['', [Validators.required, CardValidator.checkCardFormat]],
       phoneNumber: ['', [Validators.required]], // PhoneValidator.checkPhone
       paymentPeriod: ['', [Validators.required]],
@@ -65,7 +65,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
         this.signupForm.controls.city.setValue(response.Result.city);
         this.signupForm.controls.state.setValue(response.Result.state);
         this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
-        this.signupForm.controls.lastFour.setValue(response.Result.lastfour);
+        /*this.signupForm.controls.lastFour.setValue(response.Result.lastfour);*/
         this.signupForm.controls.phoneNumber.setValue(response.Result.phone_number);
         this.signupForm.controls.latitude.setValue(response.Result.latitude);
         this.signupForm.controls.longitude.setValue(response.Result.longitude);
@@ -84,6 +84,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       this.planSelected.price_month_active = response.Result.price_month_active;
       this.planSelected.price_ninety_days_active = response.Result.price_ninety_days_active;
       this.planSelected.price_year_active = response.Result.price_year_active;
+      this.signupForm.controls.paymentPeriod.setValue(response.Result.payment_period);
       this.paymentMethodSelected = response.Result.payment_period;
       console.log(this.planSelected);
 
@@ -103,6 +104,10 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
 
   userAction(action: string) {
     const step = action === 'back' ? this.step -= 1 : this.step += 1;
+    this.action.emit(step);
+  }
+
+  goToStep(step: number) {
     this.action.emit(step);
   }
 

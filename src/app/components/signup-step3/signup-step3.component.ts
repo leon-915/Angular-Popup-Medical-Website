@@ -30,6 +30,10 @@ export class SignupStep3Component implements OnInit {
     this.action.emit(step);
   }
 
+  goToStep(step: number) {
+    this.action.emit(step);
+  }
+
   selectPlan(plan: PlanModel) {
     const planMember = new SignupRequestModel();
     planMember.planId = plan.plan_id;

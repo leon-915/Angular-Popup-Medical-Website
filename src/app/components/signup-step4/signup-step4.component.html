@@ -1,9 +1,9 @@
 <h3 class="mb-3">Step 4 of 5</h3>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Step 1</a></li>
-    <li class="breadcrumb-item"><a href="#">Step 2</a></li>
-    <li class="breadcrumb-item"><a href="#">Step 3</a></li>
+    <li class="breadcrumb-item"><a disabled>Step 1</a></li>
+    <li class="breadcrumb-item" (click)="goToStep(2)"><a [routerLink]="">Step 2</a></li>
+    <li class="breadcrumb-item" (click)="goToStep(3)"><a [routerLink]="">Step 3</a></li>
     <li class="breadcrumb-item active">Step 4</li>
   </ol>
 </nav>
@@ -173,7 +173,7 @@
   <div class="row float-right mt-3 mb-5">
     <div class="col-md-12">
       <button class="btn btn-primary mr-3" type="button" (click)="userAction('back');">Back</button>
-      <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Next</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Next</button> <!--  -->
     </div>
   </div>
 
