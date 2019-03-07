@@ -61,7 +61,9 @@ import {
   SignupStep3Component,
   SignupStep4Component,
   SignupStep5Component,
-  SignupStep6Component
+  SignupStep6Component,
+  MyHomeComponent,
+  SignupConfirmComponent
 } from './components/index';
 /* COMPONENTS */
 
@@ -78,10 +80,9 @@ import {
 /* SERVICES */
 
 import { HttpConfigInterceptor } from './httpconfig.interceptor';
-
 import { environment } from 'src/environments/environment';
-import { SignupConfirmComponent } from './components/signup-confirm/signup-confirm.component';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive
     SignupStep4Component,
     SignupStep5Component,
     SignupStep6Component,
-    OnlyNumbersDirective
+    OnlyNumbersDirective,
+    MyHomeComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -149,6 +151,7 @@ import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor
     },
+    AuthGuard,
     AccountService,
     CommonService,
     ContentService,

@@ -44,6 +44,19 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
 
+    this.accountSrv.signin(this.loginForm.value).subscribe(res => {
+      if (!res.HasError) {
+        localStorage.setItem('token', res.Result.idToken);
+        this.router.navigate(['/']);
+      } else {
+        this.notificationSrv.showError( res.Message );
+      }
+    });
+
+
+
+
+
     /**
      * The login process need to call the signup process to validate the user.
      * When the cognito funcionality works with the API Gateway and Lambda for autentication

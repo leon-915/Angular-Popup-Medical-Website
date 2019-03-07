@@ -28,6 +28,7 @@
       <a mat-list-item href="#" class="sidenav-item">Blog</a>
       <a mat-list-item href="#" class="sidenav-item">News</a>
       <hr>
+      <a mat-list-item [routerLink]="['/login']">Already a member?  <span class="login-redirect">Login</span> </a>
       <a mat-list-item href="#" class="sidenav-item">Contact Us</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -50,7 +51,7 @@
         <a mat-list-item>Latest News</a>
         <a mat-list-item>About</a>
         <a mat-list-item [routerLink]="['/signup']" routerLinkActive="active" >Join Now</a>
-        <a mat-list-item>Already a member? <span class="login-redirect">Login</span> </a>
+        <a mat-list-item [routerLink]="['/login']">Already a member?  <span class="login-redirect">Login</span> </a>
       </div>
     </mat-toolbar>
     <ng-content></ng-content>

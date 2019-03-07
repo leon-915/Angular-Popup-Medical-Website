@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   APIResponse,
-  AccountResult,
-  LoginRequestModel
+ PingResult,
+  LoginRequestModel,
+  TokenResult
 } from './../models/index';
 import { CommonService } from './common.service';
 
@@ -24,10 +25,14 @@ export class AccountService {
   serviceURl: string = this.commonSrv.apiURL;
 
   signin(loginRequestModel: LoginRequestModel) {
-    const url = `${this.serviceURl}signin`;
-    return this.http.post<APIResponse<AccountResult>>(url, loginRequestModel);
+    const url = `${this.serviceURl}account/signin`;
+    return this.http.post<APIResponse<TokenResult>>(url, loginRequestModel);
   }
 
+  ping() {
+    const url = `${this.serviceURl}account/ping`;
+    return this.http.post<APIResponse<PingResult>>(url, null);
+  }
   resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
     const url = `${this.serviceURl}password/sendcode`;
     return this.http.post<APIResponse<SendPassResetEmailResult>>(

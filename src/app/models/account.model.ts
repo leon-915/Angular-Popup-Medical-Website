@@ -87,3 +87,7 @@ export class SendPassResetConfirmationRequestModel {
 export class SendPassResetConfirmationResult {
   message: '';
 }
+
+export interface PingResult {
+  status: string;
+}
