@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
 
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
-        localStorage.setItem('token', res.Result.idToken);
-        this.router.navigate(['/my-home']);
+        sessionStorage.setItem('token', res.Result.idToken);
+        this.router.navigateByUrl('/my-home');
       } else {
         this.notificationSrv.showError( res.Message );
       }

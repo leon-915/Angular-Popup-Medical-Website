@@ -14,13 +14,13 @@ import {
 
 const routes: Routes = [
   { path: '', component: HomeComponent , pathMatch: 'full' },
-  { path: 'my-home', component: MyHomeComponent, canActivate: [AuthGuard] },
+  { path: 'my-home', component: MyHomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: AccountDashboardComponent , canActivate: [AuthGuard] },
+  { path: 'dashboard', component: AccountDashboardComponent  },
   { path: 'signup', component: SignupComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'product/:id', component: ProductComponent, canActivate: [AuthGuard] },
+  { path: 'product/:id', component: ProductComponent },
   { path: '**', component: HomeComponent },
 ];
 
