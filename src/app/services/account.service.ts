@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {APIResponse, AccountResult, LoginRequestModel } from './../models/index';
-import {CommonService} from './common.service';
+import { HttpClient } from '@angular/common/http';
+import {
+  APIResponse,
+  AccountResult,
+  LoginRequestModel
+} from './../models/index';
+import { CommonService } from './common.service';
 
 import {
   SendPassResetConfirmationRequestModel,
@@ -24,18 +28,19 @@ export class AccountService {
     return this.http.post<APIResponse<AccountResult>>(url, loginRequestModel);
   }
 
-  resetPassSendEmail(sendRequestEmailModel: SendPassResetEmailRequestModel) {
-    const url = `${this.serviceURl}forgot-password`;
+  resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
+    const url = `${this.serviceURl}password/sendcode`;
     return this.http.post<APIResponse<SendPassResetEmailResult>>(
       url,
       sendRequestEmailModel
     );
   }
 
-  resetPassSendChage(
+  resetPassValidateCode(
     sendRequestConfirmationModel: SendPassResetConfirmationRequestModel
   ) {
-    const url = `${this.serviceURl}reset-password`;
+    const url = `${this.serviceURl}password/validatecode`;
+
     return this.http.post<APIResponse<SendPassResetConfirmationResult>>(
       url,
       sendRequestConfirmationModel

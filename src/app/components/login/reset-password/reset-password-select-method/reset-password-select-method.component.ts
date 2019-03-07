@@ -65,7 +65,7 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
   resetPassword() {
     const formValue = this.resetForm.value;
 
-    this.accountSrv.resetPassSendEmail(formValue).subscribe(res => {
+    this.accountSrv.resetPassSendCode(formValue).subscribe(res => {
       if (!res.HasError) {
         this.accountSrv.setUserEmail(formValue.email);
         const maskedEmail = res.Result.CodeDeliveryDetails.Destination

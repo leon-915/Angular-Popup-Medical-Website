@@ -46,6 +46,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import {
   AccountDashboardComponent,
+  AccountInformationComponent,
   LoginComponent,
   ProductComponent,
   ProductVideoComponent,
@@ -84,6 +85,7 @@ import { SignupConfirmComponent } from './components/signup-confirm/signup-confi
 @NgModule({
   declarations: [
     AccountDashboardComponent,
+    AccountInformationComponent,
     AppComponent,
     ArrayFilterPipe,
     FooterComponent,
