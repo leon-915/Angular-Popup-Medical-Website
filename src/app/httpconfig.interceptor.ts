@@ -42,6 +42,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                     reason: error && error.error.reason ? error.error.reason : '',
                     status: error.status
                 };
+                debugger;
+                this.handleAuthError(error);
                 // this.errorDialogService.openDialog(data);
                 return throwError(error);
             }));
@@ -50,7 +52,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
      handleAuthError(err: HttpErrorResponse): Observable<any> {
 
         // handle your auth error or rethrow
-        if (err.status === 401 || err.status === 403) {
+        if (err.status === 401 || err.status === 403 || err.status === 0) {
           // navigate /delete cookies or whatever
           console.log('handled error ' + err.status);
           // this.router.navigate(['/login']);
