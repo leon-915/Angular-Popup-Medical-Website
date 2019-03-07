@@ -46,6 +46,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import {
   AccountDashboardComponent,
+  AccountInformationComponent,
   LoginComponent,
   ProductComponent,
   ProductVideoComponent,
@@ -85,6 +86,7 @@ import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive
 @NgModule({
   declarations: [
     AccountDashboardComponent,
+    AccountInformationComponent,
     AppComponent,
     ArrayFilterPipe,
     FooterComponent,

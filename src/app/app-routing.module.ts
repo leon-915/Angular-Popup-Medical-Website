@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import {
   ProductComponent,
   LoginComponent,
-  ResetPasswordComponent
+  ResetPasswordComponent,
+  AccountDashboardComponent
 } from './components/index';
 import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: AccountDashboardComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },

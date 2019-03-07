@@ -80,7 +80,7 @@ export class ResetPasswordStep2Component implements OnInit {
       confirmation_code: this.accountSrv.getUserEmail(),
       new_password: formValue.password
     };
-    this.accountSrv.resetPassSendChage(changePayload).subscribe(res => {
+    this.accountSrv.resetPassValidateCode(changePayload).subscribe(res => {
       if (!res.HasError) {
         this.userAction('advance');
       } else {
