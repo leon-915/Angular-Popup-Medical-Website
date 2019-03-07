@@ -19,7 +19,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         const token: string = sessionStorage.getItem('token');
 
         if (token) {
-            request = request.clone({ headers: request.headers.set('token',  token) });
+            request = request.clone({ headers: request.headers.set('x-api-key',  token) });
         }
 
         if (!request.headers.has('Content-Type')) {
@@ -55,7 +55,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           // navigate /delete cookies or whatever
           console.log('handled error ' + err.status);
           // this.router.navigate(['/login']);
-        //  window.open('/login', '_self');
+          window.open('/login', '_self');
           /* if you've caught/handled the error, you don't want to rethrow
             it unless you also want downstream consumers to have to handle it as well. */
           return of(err.message);

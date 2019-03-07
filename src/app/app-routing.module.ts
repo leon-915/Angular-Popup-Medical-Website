@@ -14,7 +14,7 @@ import {
 
 const routes: Routes = [
   { path: '', component: HomeComponent , pathMatch: 'full' },
-  { path: 'my-home', component: MyHomeComponent },
+  { path: 'my-home', component: MyHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: AccountDashboardComponent  },
   { path: 'signup', component: SignupComponent },
