@@ -58,7 +58,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     member.currentStep = 4;
     this.signupSrv.getSignupInformation(member).subscribe((response) => {
       console.log(response);
-      if (!response.HasError) {
+      if (!response.HasError && response.Result) {
         this.signupForm.controls.firstName.setValue(response.Result.first_name);
         this.signupForm.controls.lastName.setValue(response.Result.last_name);
         this.signupForm.controls.address1.setValue(response.Result.address1);
@@ -69,23 +69,25 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
         this.signupForm.controls.phoneNumber.setValue(response.Result.phone_number);
         this.signupForm.controls.latitude.setValue(response.Result.latitude);
         this.signupForm.controls.longitude.setValue(response.Result.longitude);
-
-        /**
-         * Store the plan selected information
-         */
-        this.planSelected = new PlanModel();
-        this.planSelected.plan_name = response.Result.plan_name;
-        this.planSelected.price_quarter = response.Result.price_quarter;
-        this.planSelected.price_month = response.Result.price_month;
-        this.planSelected.price_ninety_days = response.Result.price_ninety_days;
-        this.planSelected.price_year = response.Result.price_year;
-        this.planSelected.price_quarter_active = response.Result.price_quarter_active;
-        this.planSelected.price_month_active = response.Result.price_month_active;
-        this.planSelected.price_ninety_days_active = response.Result.price_ninety_days_active;
-        this.planSelected.price_year_active = response.Result.price_year_active;
-        this.paymentMethodSelected = response.Result.payment_period;
-        console.log(this.planSelected);
       }
+
+      /**
+       * Store the plan selected information
+       */
+      this.planSelected = new PlanModel();
+      this.planSelected.plan_name = response.Result.plan_name;
+      this.planSelected.price_quarter = response.Result.price_quarter;
+      this.planSelected.price_month = response.Result.price_month;
+      this.planSelected.price_ninety_days = response.Result.price_ninety_days;
+      this.planSelected.price_year = response.Result.price_year;
+      this.planSelected.price_quarter_active = response.Result.price_quarter_active;
+      this.planSelected.price_month_active = response.Result.price_month_active;
+      this.planSelected.price_ninety_days_active = response.Result.price_ninety_days_active;
+      this.planSelected.price_year_active = response.Result.price_year_active;
+      this.paymentMethodSelected = response.Result.payment_period;
+      console.log(this.planSelected);
+
+
     }, (error) => { console.log(error); });
   }
 
@@ -122,13 +124,13 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     this.signupForm.controls.latitude.setValue(this.latitude);
     this.signupForm.controls.longitude.setValue(this.longitude);
     console.log(this.signupForm.value);
-    /*this.signupSrv.signup(this.signupForm.value).subscribe((response) => {
+    this.signupSrv.signup(this.signupForm.value).subscribe((response) => {
       if (!response.HasError) {
         this.userAction('advance');
       } else {
         console.log(response.Message);
       }
-    }, (error) => { console.log(error); });*/
+    }, (error) => { console.log(error); });
   }
 
 }

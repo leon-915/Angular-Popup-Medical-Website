@@ -17,13 +17,12 @@ export class SignupService {
   }
 
   signup(signupRequestModel: SignupRequestModel) {
-    // const url: string = this.serviceURl + 'signup';
-    const url = 'https://rcgkdcymzi.execute-api.us-west-2.amazonaws.com/dev/signup';
+    const url: string = this.serviceURl + 'signup/signup';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
   getSignupInformation(signupRequestModel: SignupRequestModel) {
-    const url = 'https://rcgkdcymzi.execute-api.us-west-2.amazonaws.com/dev/get-signup-information';
+    const url: string = this.serviceURl + 'signup/getsignupinfo';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
