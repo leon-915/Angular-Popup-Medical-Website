@@ -80,6 +80,7 @@ import { HttpConfigInterceptor } from './httpconfig.interceptor';
 
 import { environment } from 'src/environments/environment';
 import { SignupConfirmComponent } from './components/signup-confirm/signup-confirm.component';
+import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { SignupConfirmComponent } from './components/signup-confirm/signup-confi
     SignupStep3Component,
     SignupStep4Component,
     SignupStep5Component,
-    SignupStep6Component
+    SignupStep6Component,
+    OnlyNumbersDirective
   ],
   imports: [
     AgmCoreModule.forRoot({

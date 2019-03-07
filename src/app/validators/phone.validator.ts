@@ -5,6 +5,7 @@ export class PhoneValidator {
 
 
     public static checkPhone(phone: FormControl): any {
+        console.log(phone);
         if (phone.pristine) {
             return null;
         }

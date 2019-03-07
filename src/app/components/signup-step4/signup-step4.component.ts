@@ -1,8 +1,10 @@
+import { CardValidator } from './../../validators/card.validator';
 import { GooglePlacesService } from './../../services/google-places.service';
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlanService, SignupService  } from '../../services/index';
 import { PlanModel, AddressModel, SignupRequestModel } from '../../models/index';
+import { PhoneValidator } from 'src/app/validators';
 @Component({
   selector: 'app-signup-step4',
   templateUrl: './signup-step4.component.html',
@@ -40,11 +42,11 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       lastName: ['', [Validators.required]],
       country: [{value: this.countries[0].value, disabled: true}, Validators.required],
       address1: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      zipCode: [''],
-      lastFour: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      city: [{value: '', disabled: true}, [Validators.required]],
+      state: [{value: '', disabled: true}, [Validators.required]],
+      zipCode: [{value: '', disabled: true}],
+      lastFour: ['', [Validators.required, CardValidator.checkCardFormat]],
+      phoneNumber: ['', [Validators.required]], // PhoneValidator.checkPhone
       paymentPeriod: ['', [Validators.required]],
       currentStep: [this.step],
       latitude: [],
@@ -119,13 +121,14 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
 
     this.signupForm.controls.latitude.setValue(this.latitude);
     this.signupForm.controls.longitude.setValue(this.longitude);
-    this.signupSrv.signup(this.signupForm.value).subscribe((response) => {
+    console.log(this.signupForm.value);
+    /*this.signupSrv.signup(this.signupForm.value).subscribe((response) => {
       if (!response.HasError) {
         this.userAction('advance');
       } else {
         console.log(response.Message);
       }
-    }, (error) => { console.log(error); });
+    }, (error) => { console.log(error); });*/
   }
 
 }

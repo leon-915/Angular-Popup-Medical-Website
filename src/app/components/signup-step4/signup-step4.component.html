@@ -39,7 +39,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Credit Card Number</label>
-        <input type="number" placeholder="Credit Card Number" class="form-control" formControlName="lastFour">
+        <input type="text" placeholder="Credit Card Number" class="form-control" formControlName="lastFour" maxlength="16" minlength="15" appOnlyNumbers="true">
       </div>
     </div>
   </div>
@@ -164,7 +164,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Billing Phone</label>
-        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber">
+        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber" maxlength="10" minlength="10" appOnlyNumbers="true">
       </div>
     </div>
   </div>

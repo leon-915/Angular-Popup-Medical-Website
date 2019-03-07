@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ['josechaconvargas02@gmail.com', [Validators.required, Validators.email]],
-      pwd: ['Lanceloth02!', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      pwd: ['', Validators.required],
       recaptcha: ['', Validators.required],
       currentStep: [1]
     });
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         this.notificationSrv.showError( res.Message );
       }
     });*/
-    console.log(this.loginForm.value);
+    /*console.log(this.loginForm.value);
     this.singupSrv.signup(this.loginForm.value).subscribe(response => {
       console.log(response);
       if (!response.HasError) {
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/signup']);
         }
       }
-    }, (error) => { console.log(error); });
+    }, (error) => { console.log(error); });*/
 
   }
 
