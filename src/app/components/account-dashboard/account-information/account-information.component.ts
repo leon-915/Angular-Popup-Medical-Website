@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-information.component.less']
 })
 export class AccountInformationComponent implements OnInit {
+  startDate = new Date(1990, 0, 1);
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
