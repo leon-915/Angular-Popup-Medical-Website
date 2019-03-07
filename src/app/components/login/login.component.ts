@@ -28,9 +28,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      pwd: ['', Validators.required],
-      recaptcha: ['', Validators.required],
-      currentStep: [1]
+      password: ['', Validators.required],
+      recaptcha: ['', Validators.required]
     });
 
 
@@ -47,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         localStorage.setItem('token', res.Result.idToken);
-        this.router.navigate(['/']);
+        this.router.navigate(['/my-home']);
       } else {
         this.notificationSrv.showError( res.Message );
       }
