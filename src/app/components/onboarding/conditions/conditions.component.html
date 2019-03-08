@@ -1,3 +1,31 @@
-<p>
-  conditions works!
-</p>
+<h3 class="mb-3">Onboarding - Step 3 of 6</h3>
+<p>Do you have any health conditions?</p>
+
+<div class="row mt-2">
+  
+  <div class="col-lg-6">
+    <div class="form-group" *ngFor="let item of conditions">
+      <input type="checkbox" [(ngModel)]="item.selected" (ngModelChange)="addCommonCondition(item)"> Item for test
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+
+    <p>Other allergies</p>
+    <mat-form-field>
+      <mat-select placeholder="Conditions" multiple [(value)]="selectedConditions">
+        <mat-option *ngFor="let condition of conditions" [value]="condition.lookup_condition_id">{{condition.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</div>
+
+
+
+<div class="row float-right mb-5">
+  <div class="col-md-12">
+    <button class="btn btn-primary" type="button">Next</button> <!-- [disabled]="!signupForm.valid" -->
+  </div>
+</div>

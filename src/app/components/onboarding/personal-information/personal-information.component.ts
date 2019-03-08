@@ -25,4 +25,8 @@ export class PersonalInformationComponent implements OnInit {
     this.action.emit(step);
   }
 
+  nextStep() {
+    console.log(this.step);
+  }
+
 }

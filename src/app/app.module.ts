@@ -17,7 +17,9 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatRadioModule ,
+  MatSelectModule
 } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { BrowserModule } from '@angular/platform-browser';
@@ -149,6 +151,8 @@ import { OnboardingCompleteComponent } from './components/onboarding/onboarding-
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
     MatListModule,
     MatProgressBarModule,
     MatSidenavModule,

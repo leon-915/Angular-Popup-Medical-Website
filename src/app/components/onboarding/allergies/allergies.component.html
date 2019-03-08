@@ -1,16 +1,32 @@
 <h3 class="mb-3">Onboarding - Step 2 of 6</h3>
 <p>Tell us about your allergies</p>
 
-<form>
-
-  <div class="">
-
-  </div>
+<div class="row mt-2">
   
-  <div class="row float-right mb-5">
-    <div class="col-md-12">
-      <button class="btn btn-primary" type="submit">Next</button> <!-- [disabled]="!signupForm.valid" -->
+  <div class="col-lg-6">
+    <div class="form-group" *ngFor="let item of allergies">
+        <input type="checkbox" [(ngModel)]="item.selected" (ngModelChange)="addCommonCondition(item)"> Item for test
     </div>
   </div>
 
-</form>
+  <div class="col-lg-6">
+
+    <p>Other allergies</p>
+    <mat-form-field>
+      <mat-select placeholder="Allergies" multiple [(value)]="selectedAllergies">
+        <mat-option *ngFor="let allergie of allergies" [value]="allergie.lookup_allergy_id">{{allergie.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</div>
+
+
+
+<div class="row float-right mb-5">
+  <div class="col-md-12">
+    <button class="btn btn-primary" type="button" (click)="nextStep();">Next</button> <!-- [disabled]="!signupForm.valid" -->
+  </div>
+</div>
+

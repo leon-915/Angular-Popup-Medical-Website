@@ -7,3 +7,4 @@ export * from './policy.model';
 export * from './address.model';
 export * from './order.model';
 export * from './gender.model';
+export * from './lookup.model';

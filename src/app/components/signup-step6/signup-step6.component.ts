@@ -47,8 +47,8 @@ export class SignupStep6Component implements OnInit {
     this.action.emit(step);
   }
 
-  goMyAccount() {
-    this.router.navigateByUrl('/dashboard');
+  goToOnboarding() {
+    this.router.navigateByUrl('/onboarding');
   }
 
 }

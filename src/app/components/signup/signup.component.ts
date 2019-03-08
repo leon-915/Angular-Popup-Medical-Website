@@ -16,6 +16,8 @@ export class SignupComponent implements OnInit {
     // console.log('User current step: ',this.currentStep);
 
     // Only if the user is log in. Simulating the process.
+    // Tambien se debe validad el boton de atras del navegador.
+    // Si le da next va al onboarding y si le da back? deberia llevarlo al onboarding de nuevo?
     if (!true) {
       const member = new SignupRequestModel();
       member.currentStep = this.currentStep;
