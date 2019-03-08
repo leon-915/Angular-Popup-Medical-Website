@@ -9,7 +9,8 @@ import {
   ProductComponent,
   ResetPasswordComponent,
   AccountDashboardComponent,
-  SignupComponent
+  SignupComponent,
+  OnboardingComponent
 } from './components/index';
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product/:id', component: ProductComponent },
+  { path: 'onboarding', component: OnboardingComponent },
   { path: '**', component: HomeComponent },
 ];
 

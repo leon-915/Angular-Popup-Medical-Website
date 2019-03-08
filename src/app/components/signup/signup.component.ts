@@ -14,13 +14,18 @@ export class SignupComponent implements OnInit {
   constructor(private signupSrv: SignupService) {
     // this.currentStep = this.signupSrv.getSignupStep();
     // console.log('User current step: ',this.currentStep);
-    const member = new SignupRequestModel();
-    member.currentStep = this.currentStep;
-    this.signupSrv.getSignupInformation(member).subscribe((response) => {
-      if (!response.HasError) {
-        this.currentStep = response.Result.current_step;
-      }
-    }, (error) => { console.log(error); });
+
+    // Only if the user is log in. Simulating the process.
+    if (!true) {
+      const member = new SignupRequestModel();
+      member.currentStep = this.currentStep;
+      this.signupSrv.getSignupInformation(member).subscribe((response) => {
+        console.log(response);
+        if (!response.HasError) {
+          this.currentStep = response.Result.current_step;
+        }
+      }, (error) => { console.log(error); });
+    }
   }
 
   ngOnInit() {

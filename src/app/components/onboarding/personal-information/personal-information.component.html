@@ -1,0 +1,142 @@
+<h3 class="mb-3">Onboarding - Step 1 of 6</h3>
+<p>Tell us more about you</p>
+
+<form>
+
+  <!-- Gender -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <select class="form-control">
+          <option [value]="gender.gender_id" *ngFor="let gender of genders">{{gender.gender}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date of Birth -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <p> <small> <strong> Date of Birth </strong> </small> </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control">
+          <option value="">- Select Month -</option>
+          <option [value]="i" *ngFor="let month of ['January','February','March','April','May','June','July','August','September','October','November','December']; let i = index">{{month}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 align-items-stretch">
+      <div class="form-group">
+        <select class="form-control">
+            <option value="">- Select Day -</option>
+          <option [value]="i" *ngFor="let month of ['January','February','March','April','May','June','July','August','September','October','November','December']; let i = index">{{month}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 align-items-stretch">
+      <div class="form-group">
+        <select class="form-control">
+          <option value="">- Select Year -</option>
+          <option [value]="i" *ngFor="let month of ['January','February','March','April','May','June','July','August','September','October','November','December']; let i = index">{{month}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tell us about your physician -->
+  <div class="row">
+    <div class="col-md-8">
+      <p> <small> <strong> Tell us about your physician </strong> </small> </p>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Physician First Name *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Physician First Name">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Physician Last Name *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Physician Last Name">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Physician Phone *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Physician Phone">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Physician Fax *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="PhysicianFax">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Contact Information -->
+  <div class="row">
+    <div class="col-md-8">
+      <p> <small> <strong>Emergency Contact Information</strong> </small> </p>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Emergency Contact First Name *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Emergency Contact First Name">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Emergency Contact Phone Number *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Emergency Contact Phone Number">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Emergency Contact Relationship *</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Emergency Contact Relationship">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row float-right mb-5">
+    <div class="col-md-12">
+      <button class="btn btn-primary" type="submit">Next</button> <!-- [disabled]="!signupForm.valid" -->
+    </div>
+  </div>
+
+</form>

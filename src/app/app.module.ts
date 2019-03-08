@@ -83,6 +83,13 @@ import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 import {AuthGuard} from './guards/auth.guard';
+import { OnboardingComponent } from './components/onboarding/onboarding.component';
+import { PersonalInformationComponent } from './components/onboarding/personal-information/personal-information.component';
+import { AllergiesComponent } from './components/onboarding/allergies/allergies.component';
+import { ConditionsComponent } from './components/onboarding/conditions/conditions.component';
+import { MedicationsComponent } from './components/onboarding/medications/medications.component';
+import { PrimaryPharmacyComponent } from './components/onboarding/primary-pharmacy/primary-pharmacy.component';
+import { OnboardingCompleteComponent } from './components/onboarding/onboarding-complete/onboarding-complete.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +117,14 @@ import {AuthGuard} from './guards/auth.guard';
     SignupStep5Component,
     SignupStep6Component,
     OnlyNumbersDirective,
-    MyHomeComponent
+    MyHomeComponent,
+    OnboardingComponent,
+    PersonalInformationComponent,
+    AllergiesComponent,
+    ConditionsComponent,
+    MedicationsComponent,
+    PrimaryPharmacyComponent,
+    OnboardingCompleteComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

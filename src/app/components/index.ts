@@ -12,3 +12,4 @@ export * from './signup-step5/signup-step5.component';
 export * from './signup-step6/signup-step6.component';
 export * from './signup-confirm/signup-confirm.component';
 export * from './my-home/my-home.component';
+export * from './onboarding/onboarding.component';
