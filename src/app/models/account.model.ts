@@ -55,9 +55,6 @@ export interface TokenResult {
   idToken: string;
 }
 
-
-
-
 export class LoginRequestModel {
   email = '';
   password = '';
@@ -74,6 +71,29 @@ export class SendPassResetEmailResult {
 
 export class SendPassResetEmailRequestModel {
   email = '';
+}
+export class Address {
+  address: string;
+  address2: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
+
+export class ShippingAddressModel extends Address {
+  id?: number;
+  nickname: string;
+  defaultShipping: boolean;
+}
+
+export class UserInfo {
+  id?: number;
+  firstName: string;
+  gender: boolean;
+  birthday: string;
+  billingAddress: Address;
+  billingPhone: string;
+  cellPhone: string;
 }
 
 export class SendPassResetConfirmationRequestModel {
