@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ConditionsService {
 
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
-  
+
   serviceURl: string = this.commonSrv.apiURL;
 
   getConditions() {

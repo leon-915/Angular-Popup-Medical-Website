@@ -20,7 +20,7 @@ export class PersonalInformationComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('Personal info step: ',this.step);
+    console.log('Personal info step: ', this.step);
 
     this.onboardingForm = this.fb.group({
       gender: ['', [Validators.required]],

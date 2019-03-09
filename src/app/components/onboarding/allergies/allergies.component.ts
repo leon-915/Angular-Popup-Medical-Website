@@ -18,7 +18,7 @@ export class AllergiesComponent implements OnInit {
   public uncommonAllergiesSelected: Array<number> = new Array<number>();
   public showUncommon = false;
 
-  constructor(private allergieSrv: AllergiesService) { 
+  constructor(private allergieSrv: AllergiesService) {
     this.allergieSrv.getAllergies().subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
@@ -30,7 +30,7 @@ export class AllergiesComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('Personal info step: ',this.step);
+    console.log('Personal info step: ', this.step);
 
   }
 
@@ -58,7 +58,7 @@ export class AllergiesComponent implements OnInit {
   }
 
   nextStep() {
-    let myAllergies = this.commonAllergiesSelected.concat(this.uncommonAllergiesSelected);
+    const myAllergies = this.commonAllergiesSelected.concat(this.uncommonAllergiesSelected);
     console.log(myAllergies);
     console.log(this.step);
     this.step = 3;

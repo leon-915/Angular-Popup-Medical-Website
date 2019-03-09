@@ -1,6 +1,6 @@
 import { PharmacyModel } from './../../../models/index';
 import { AddressModel } from './../../../models/address.model';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GooglePlacesService } from '../../../services/index';
 
 @Component({
@@ -8,13 +8,13 @@ import { GooglePlacesService } from '../../../services/index';
   templateUrl: './primary-pharmacy.component.html',
   styleUrls: ['./primary-pharmacy.component.less']
 })
-export class PrimaryPharmacyComponent implements OnInit {
+export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   @ViewChild('address') address: ElementRef;
   public shippingAddress: AddressModel = new AddressModel();
-  public pharmacies:Array<PharmacyModel> = new Array<PharmacyModel>();
+  public pharmacies: Array<PharmacyModel> = new Array<PharmacyModel>();
 
   constructor(private googleSrvPlaces: GooglePlacesService) {}
 

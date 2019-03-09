@@ -11,7 +11,7 @@ export class ConditionsComponent implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  
+
   public commonConditions: ConditionsModel[];
   public uncommonConditions: ConditionsModel[];
 
@@ -33,7 +33,7 @@ export class ConditionsComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('Personal info step: ',this.step);
+    console.log('Personal info step: ', this.step);
 
   }
 
@@ -60,7 +60,7 @@ export class ConditionsComponent implements OnInit {
   }
 
   nextStep() {
-    let myConditions = this.commonConditionsSelected.concat(this.uncommonConditionsSelected);
+    const myConditions = this.commonConditionsSelected.concat(this.uncommonConditionsSelected);
     console.log(myConditions);
     this.step = 4;
     this.action.emit(this.step);
