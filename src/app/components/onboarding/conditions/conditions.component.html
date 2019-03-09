@@ -4,17 +4,17 @@
 <div class="row mt-2">
   
   <div class="col-lg-6">
-    <div class="form-group" *ngFor="let item of conditions">
-      <input type="checkbox" [(ngModel)]="item.selected" (ngModelChange)="addCommonCondition(item)"> Item for test
+    <div class="form-group" *ngFor="let condition of commonConditions">
+      <input type="checkbox" [(ngModel)]="condition.selected" (ngModelChange)="addCommonCondition(condition)"> {{condition.display_value}}
     </div>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-6" *ngIf="showUncommon">
 
-    <p>Other allergies</p>
-    <mat-form-field>
-      <mat-select placeholder="Conditions" multiple [(value)]="selectedConditions">
-        <mat-option *ngFor="let condition of conditions" [value]="condition.lookup_condition_id">{{condition.display_value}}</mat-option>
+    <p>Other Conditions</p>
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Conditions" multiple [(value)]="uncommonConditionsSelected">
+        <mat-option *ngFor="let condition of uncommonConditions" [value]="condition.lookup_condition_id">{{condition.display_value}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -26,6 +26,6 @@
 
 <div class="row float-right mb-5">
   <div class="col-md-12">
-    <button class="btn btn-primary" type="button">Next</button> <!-- [disabled]="!signupForm.valid" -->
+    <button class="btn btn-primary" type="button" (click)="nextStep();">Next</button> <!-- [disabled]="!signupForm.valid" -->
   </div>
 </div>

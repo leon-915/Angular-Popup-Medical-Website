@@ -23,8 +23,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
   paymentMethodSelected: string;
 
   constructor(
-    private fb: FormBuilder, private googleSrvPlaces: GooglePlacesService, private planSrv: PlanService,
-    private signupSrv: SignupService) {}
+    private fb: FormBuilder, private googleSrvPlaces: GooglePlacesService, private signupSrv: SignupService) {}
 
   setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
     this.signupForm.controls.zipCode.setValue(zipCode);

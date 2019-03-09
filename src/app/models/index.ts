@@ -8,3 +8,4 @@ export * from './address.model';
 export * from './order.model';
 export * from './gender.model';
 export * from './lookup.model';
+export * from './pharmacy.model';

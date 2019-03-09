@@ -7,11 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OnboardingComponent implements OnInit {
 
-  public currentStep = 4;
+  public currentStep = 1;
 
-  constructor() { }
+  constructor() {
+    console.log('Onboarding step: ',this.currentStep);
+  }
 
   ngOnInit() {
+  }
+
+  userAction(step: number) {
+    console.log('Step received: ',step);
+    this.currentStep = step;
+    console.log(this.currentStep);
   }
 
 }

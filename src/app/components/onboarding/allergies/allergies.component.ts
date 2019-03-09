@@ -1,4 +1,5 @@
-import { LookupModel } from './../../../models/index';
+import { AllergiesService } from '../../../services/index';
+import { AllergiesModel, LookupModel } from './../../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -10,15 +11,27 @@ export class AllergiesComponent implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  public allergies: Array<LookupModel> = new Array<LookupModel>();
-  public selectedAllergies;
+  public commonAllergies: AllergiesModel[];
+  public uncommonAllergies: AllergiesModel[];
 
-  constructor() { }
+  public commonAllergiesSelected: Array<number> = new Array<number>();
+  public uncommonAllergiesSelected: Array<number> = new Array<number>();
+  public showUncommon = false;
+
+  constructor(private allergieSrv: AllergiesService) { 
+    this.allergieSrv.getAllergies().subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.commonAllergies = response.Result.common_allergies;
+        this.uncommonAllergies = response.Result.uncommon_allergies;
+      }
+    });
+  }
 
   ngOnInit() {
-    for (let i = 0; i < 10; i++) {
-      this.allergies.push({ lookup_allergy_id: i, display_value: 'Allergie #' + i, is_common: true, selected: false });
-    }
+
+    console.log('Personal info step: ',this.step);
+
   }
 
   userAction(action: string) {
@@ -26,24 +39,30 @@ export class AllergiesComponent implements OnInit {
     this.action.emit(step);
   }
 
-  addCommonCondition(condition: LookupModel) {
+  addCommonAllergies(condition: LookupModel) {
     console.log(condition);
-    if (condition.selected) {
-      this.selectedAllergies.push(condition.lookup_allergy_id);
+    if (condition.display_value === 'Other') {
+      this.showUncommon = !this.showUncommon;
     } else {
-      const index = this.selectedAllergies.indexOf(condition.lookup_allergy_id);
-      if (index > -1) {
-        this.selectedAllergies.splice(index, 1);
-      }
-    }
 
-    console.log(this.selectedAllergies);
+      if (condition.selected) {
+        this.commonAllergiesSelected.push(condition.lookup_allergy_id);
+      } else {
+        const index = this.commonAllergiesSelected.indexOf(condition.lookup_allergy_id);
+        if (index > -1) {
+          this.commonAllergiesSelected.splice(index, 1);
+        }
+      }
+      console.log(this.commonAllergiesSelected);
+    }
   }
 
   nextStep() {
-    console.log('adsa');
+    let myAllergies = this.commonAllergiesSelected.concat(this.uncommonAllergiesSelected);
+    console.log(myAllergies);
     console.log(this.step);
     this.step = 3;
+    console.log(this.step);
     this.action.emit(this.step);
   }
 

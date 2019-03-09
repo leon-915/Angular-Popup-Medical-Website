@@ -15,10 +15,8 @@ export class PlanService {
 
 
   getPlans() {
-    /**
-     * Preguntar a Jorge como hacer para que sea la misma url que la de Cognito
-     */
-    const url = 'https://rcgkdcymzi.execute-api.us-west-2.amazonaws.com/dev/get-plans';
+    // const url = 'https://rcgkdcymzi.execute-api.us-west-2.amazonaws.com/dev/get-plans';
+    const url = this.serviceURl + 'getplans';
     return this.http.get<APIResponse<PlanModel[]>>(url);
   }
 

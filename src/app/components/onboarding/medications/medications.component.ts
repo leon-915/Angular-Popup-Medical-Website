@@ -31,5 +31,10 @@ export class MedicationsComponent implements OnInit {
     console.log(this.consumingMedication);
   }
 
+  nextStep() {
+    this.step = 5;
+    this.action.emit(this.step);
+  }
+
 
 }

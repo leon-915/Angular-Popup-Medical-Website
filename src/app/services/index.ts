@@ -6,3 +6,5 @@ export * from  './notification.service';
 export * from  './plan.service';
 export * from  './policies.service';
 export * from  './signup.service';
+export * from  './conditions.service';
+export * from './allergies.service';

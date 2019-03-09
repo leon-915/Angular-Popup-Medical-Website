@@ -1,3 +1,54 @@
-<p>
-  primary-pharmacy works!
-</p>
+
+<h3 class="mb-3">Onboarding - Step 5 of 6</h3>
+<p>Please choose a primary pharmacy to send your prescriptions to:</p>
+
+<div class="row mb-3 mt-1">
+  <div class="col-md-6">
+    <label>Address or Zip Code</label>
+    <div class="input-group">
+      <input type="text" placeholder="Address or Zip Code" class="form-control"#address>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let item of [1,2,3,4]">
+        <mat-radio-group [(ngModel)]="consumingMedication">
+          <div class="row">
+            <div class="col-md-1">
+              <mat-radio-button [value]="item" (change)="radioChanged($event)"></mat-radio-button>
+            </div>
+            <div class="col-md-8">
+              <h6> <small>Lakeway Pharmacy</small> </h6>
+              <p> <small>3500 Ranch Road 620 South, Bee Cave, TX 78738</small> </p>
+            </div>
+            <div class="col-md-3">
+              <p> <small>1.2 miles away</small> </p>
+            </div>
+          </div>
+        </mat-radio-group>
+      </li>
+    </ul>
+    <button type="button" class="btn btn-link float-right mt-2">Show more pharmacies</button>
+  </div>
+
+  <div class="col-md-6">
+    <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:300px;">
+        <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude"></agm-marker>
+    </agm-map>
+  </div>
+
+</div>
+
+<div class="row float-right mb-5">
+    <div class="col-md-12">
+      <button class="btn btn-primary" type="button" (click)="nextStep();">Next</button> <!-- [disabled]="!signupForm.valid" -->
+    </div>
+  </div>
+  

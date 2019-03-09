@@ -1,5 +1,7 @@
-import { LookupModel } from './../../../models/index';
+import { ConditionsService } from './../../../services/index';
+import { LookupModel, ConditionsModel } from './../../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'app-conditions',
   templateUrl: './conditions.component.html',
@@ -9,16 +11,29 @@ export class ConditionsComponent implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  public conditions: Array<LookupModel> = new Array<LookupModel>();
-  public selectedConditions: Array<number> = new Array<number>();
+  
+  public commonConditions: ConditionsModel[];
+  public uncommonConditions: ConditionsModel[];
 
-  constructor() { }
+  public commonConditionsSelected: Array<number> = new Array<number>();
+  public uncommonConditionsSelected: Array<number> = new Array<number>();
+  public showUncommon = false;
+
+  constructor(private conditionSrv: ConditionsService) {
+
+    this.conditionSrv.getConditions().subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.commonConditions = response.Result.common_conditions;
+        this.uncommonConditions = response.Result.uncommon_conditions;
+      }
+    }, (error) => { console.log(error); });
+
+  }
 
   ngOnInit() {
 
-    for (let i = 0; i < 10; i++) {
-      this.conditions.push({lookup_condition_id: i, display_value: 'Condition #' + i, is_common: true, selected: false});
-    }
+    console.log('Personal info step: ',this.step);
 
   }
 
@@ -29,16 +44,27 @@ export class ConditionsComponent implements OnInit {
 
   addCommonCondition(condition: LookupModel) {
     console.log(condition);
-    if (condition.selected) {
-      this.selectedConditions.push(condition.lookup_condition_id);
+    if (condition.display_value === 'Other') {
+      this.showUncommon = !this.showUncommon;
     } else {
-      const index = this.selectedConditions.indexOf(condition.lookup_condition_id);
-      if (index > -1) {
-        this.selectedConditions.splice(index, 1);
+      if (condition.selected) {
+        this.commonConditionsSelected.push(condition.lookup_condition_id);
+      } else {
+        const index = this.commonConditionsSelected.indexOf(condition.lookup_condition_id);
+        if (index > -1) {
+          this.commonConditionsSelected.splice(index, 1);
+        }
       }
+      console.log(this.commonConditionsSelected);
     }
-
-    console.log(this.selectedConditions);
   }
+
+  nextStep() {
+    let myConditions = this.commonConditionsSelected.concat(this.uncommonConditionsSelected);
+    console.log(myConditions);
+    this.step = 4;
+    this.action.emit(this.step);
+  }
+
 
 }
