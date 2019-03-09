@@ -1,47 +1,44 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <div class="row mt-5">
-
-
-  <div class="col-lg-5 mx-auto">
-
-    <form class="needs-validation" novalidate>
+  <div class="col-lg-6 mx-auto">
+    <form class="needs-validation" [formGroup]="userInfoForm" (ngSubmit)="saveUserData()" novalidate>
       <!-- My info section -->
       <h4 class="mb-3">My Info</h4>
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationCustom01">First name</label>
-          <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark"
-            required>
+          <input type="text" class="form-control" id="validationCustom01" formControlName="firstName" placeholder="First name"
+            required />
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationCustom02">Last name</label>
-          <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+          <input type="text" class="form-control" id="validationCustom02" formControlName="lastName" placeholder="Last name"
+            required />
         </div>
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationCustom01">Gender</label>
-          <select class="form-control" id="sel1">
+          <select class="form-control" id="sel1" formControlName="gender">
             <option>Male</option>
             <option>Female</option>
             <option>Prefer not to say</option>
           </select>
         </div>
         <div class="col-md-4 mb-3">
-          <label for="validationCustom02">Date of Birth name</label>
-          <input type="date" class="form-control" id="validationCustom03" placeholder="" required>
+          <label for="validationCustom02">Date of Birth</label>
+          <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday"
+            required />
         </div>
       </div>
 
-
       <!-- Billing addres section -->
-      <h4 class="mb-3">Billing Address </h4>
+      <h4 class="mb-3">Billing Address</h4>
 
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationCustom03">Address</label>
-          <input type="text" class="form-control" id="validationCustom03" placeholder="Adress" required>
+          <input type="text" class="form-control" id="validationCustom03" placeholder="Adress" formControlName="address"
+            required />
           <div class="invalid-feedback">
             Please provide a valid address.
           </div>
@@ -49,20 +46,20 @@
       </div>
       <div class="form-row">
         <div class="col-md-3 mb-3">
-          <label for="validationCustom04">Address 2
-          </label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2">
+          <label for="validationCustom04">Address 2 </label>
+          <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2" formControlName="address2" />
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom05">City</label>
-          <input type="text" class="form-control" id="validationCustom05" placeholder="City" required>
+          <input type="text" class="form-control" id="validationCustom05" placeholder="City" formControlName="city"
+            required />
           <div class="invalid-feedback">
             Please provide a valid city.
           </div>
         </div>
         <div class="col-md-2 mb-3">
           <label for="validationCustom05">State</label>
-          <select class="form-control" id="exampleFormControlSelect1">
+          <select class="form-control" id="exampleFormControlSelect1" formControlName="state">
             <option>TX</option>
             <option>ALB</option>
             <option>HXT</option>
@@ -73,7 +70,8 @@
         </div>
         <div class="col-md-2 mb-3">
           <label for="validationCustom05">Zip Code </label>
-          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip Code" required>
+          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" formControlName="zipCode"
+            required />
           <div class="invalid-feedback">
             Please provide a valid zip code.
           </div>
@@ -82,85 +80,186 @@
 
       <!-- Shipping address(es) section -->
       <h4 class="mb-3">Shipping Address(es)</h4>
-      <div class="form-row">
-        <div class="col-md-3 mb-3">
-          <label for="validationCustom04">Nickname
-          </label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="Nickname">
+
+      <div id="accordion">
+        <div class="card" *ngFor="let address of shippingAdressList;  let i = index" [attr.data-index]="i">
+          <div class="card-header" id="heading">
+            <h5 class="mb-0">
+              <button type=button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#address' + i"
+                aria-expanded="true" aria-controls="collapseOne">
+                {{address.nickname}}
+              </button>
+            </h5>
+          </div>
+
+          <div id="address{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">Nickname </label>
+                    <input type="text" class="form-control" id="validationCustom04" placeholder=Nickname value={{address.nickname}} />
+                  </div>
+                  <div class="col align-self-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="value={{address.defaultShipping}}" id="invalidCheck"
+                        checked={{address.defaultShipping}} required />
+                      <label class="form-check-label" for="invalidCheck">
+                        Default Shipping Address
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">Address </label>
+                    <input type="text" class="form-control" id="validationCustom04" placeholder="Address" />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">Address 2 </label>
+                    <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">City </label>
+                    <input type="text" class="form-control" id="validationCustom04" placeholder="City" />
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="validationCustom05">State</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>TX</option>
+                      <option>ALB</option>
+                      <option>HXT</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please provide a valid State.
+                    </div>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="validationCustom05">Zip Code </label>
+                    <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required />
+                    <div class="invalid-feedback">
+                      Please provide a valid zip code.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                  <button type=button class="btn btn-primary" (click)="removeShippingAddress()">
+                    Remove Shipping Address
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-3 align-self-center">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-            <label class="form-check-label" for="invalidCheck">
-              Default Shipping Address
-            </label>
+
+
+        <!-- add new adress -->
+        <div class="card">
+
+          <div class="card-header" id="headingNewAdress">
+            <h5 class="mb-0">
+              <button type=button class="btn btn-link" data-toggle="collapse" data-target="#newAddress" aria-expanded="true"
+                aria-controls="newAddress">
+                Add Shipping Address
+              </button>
+            </h5>
+          </div>
+
+          <div id="newAddress" class="collapse show" aria-labelledby="headingNewAdress" data-parent="#accordion">
+            <div class="card-body">
+              <form [formGroup]="newAddressForm" (ngSubmit)="addShippingAddress()">
+                <div class="form-group">
+
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">Nickname </label>
+                      <input type="text" class="form-control" id="validationCustom04" formControlName="nickname"
+                        placeholder="Nickname" />
+                    </div>
+                    <div class="col align-self-center">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="invalidCheck" formControlName="defaultShipping" />
+                        <label class="form-check-label" for="invalidCheck">
+                          Default Shipping Address
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">Address </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="Address"
+                        formControlName="address" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">Address 2 </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2"
+                        formControlName="address2" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">City </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="City"
+                        formControlName="city" />
+                    </div>
+                    <div class="col-md-2 mb-3">
+                      <label for="validationCustom05">State</label>
+                      <select class="form-control" id="stateSelect" formControlName="state">
+                        <option>TX</option>
+                        <option>ALB</option>
+                        <option>HXT</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please provide a valid State.
+                      </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                      <label for="validationCustom05">Zip Code </label>
+                      <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required
+                        formControlName="zipCode" />
+                      <div class="invalid-feedback">
+                        Please provide a valid zip code.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 mb-3">
+                    <button class="btn btn-primary" type="submit" [disabled]="!newAddressForm.valid">
+                      Add Shipping Address
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+
+            </div>
           </div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="validationCustom04">Address
-          </label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="Address">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationCustom04">Address 2
-          </label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="validationCustom04">City
-          </label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="City">
-        </div>
-        <div class="col-md-2 mb-3">
-          <label for="validationCustom05">State</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>TX</option>
-            <option>ALB</option>
-            <option>HXT</option>
-          </select>
-          <div class="invalid-feedback">
-            Please provide a valid State.
-          </div>
-        </div>
-        <div class="col-md-2 mb-3">
-          <label for="validationCustom05">Zip Code </label>
-          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip Code" required>
-          <div class="invalid-feedback">
-            Please provide a valid zip code.
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary" type="submit">Add Shipping Address</button>
 
       <!-- Phone numbers -->
       <h4 class="mb-3">Phone Numbers</h4>
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationCustom04">Billing Phone</label>
-          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone">
+          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="billingPhone" />
         </div>
-        <div class="col-md-4 mb-3">
-          <div class="row">
-            <div class="col-md-4"><label for="validationCustom04">Cell Phone</label></div>
-            <div class="col">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                <label class="form-check-label" for="invalidCheck">
-                  Same as billing phone
-                </label>
-              </div>
-            </div>
-          </div>
-          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone">
+        <div class="col-md-4 ">
+          <label for="validationCustom04">Cell Phone</label>
+          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="cellPhone" />
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
+          <label class="form-check-label" for="invalidCheck">
+            Same as billing
+          </label>
         </div>
       </div>
-      <button class="btn btn-primary" type="submit">Save</button>
+      <div class="col-md-5 mb-3">
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
     </form>
-
   </div>
-
 </div>
