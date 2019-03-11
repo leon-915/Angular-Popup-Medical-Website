@@ -1,5 +1,5 @@
-import { ConditionsService } from './../../../services/index';
-import { LookupModel, ConditionsModel } from './../../../models/index';
+import { ConditionsService, OnboardingService, NotificationService } from './../../../services/index';
+import { LookupModel, ConditionsModel, OnboardingRequestModel } from './../../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -11,21 +11,22 @@ export class ConditionsComponent implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
+  public conditions: ConditionsModel = new ConditionsModel();
 
-  public commonConditions: ConditionsModel[];
-  public uncommonConditions: ConditionsModel[];
-
-  public commonConditionsSelected: Array<number> = new Array<number>();
-  public uncommonConditionsSelected: Array<number> = new Array<number>();
+  public commonConditions: Array<LookupModel> = new Array<LookupModel>();
+  public uncommonConditions: Array<LookupModel> = new Array<LookupModel>();
   public showUncommon = false;
 
-  constructor(private conditionSrv: ConditionsService) {
+  constructor(
+    private conditionSrv: ConditionsService,
+    private onboardingSrv: OnboardingService,
+    private notificationSrv: NotificationService) {
 
     this.conditionSrv.getConditions().subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
-        this.commonConditions = response.Result.common_conditions;
-        this.uncommonConditions = response.Result.uncommon_conditions;
+        this.conditions = response.Result;
+        console.log(this.conditions);
       }
     }, (error) => { console.log(error); });
 
@@ -38,7 +39,7 @@ export class ConditionsComponent implements OnInit {
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
+    const step = action === 'back' ? (this.step -= 1) : (this.step = 5);
     this.action.emit(step);
   }
 
@@ -46,24 +47,35 @@ export class ConditionsComponent implements OnInit {
     console.log(condition);
     if (condition.display_value === 'Other') {
       this.showUncommon = !this.showUncommon;
+      this.uncommonConditions = [];
     } else {
       if (condition.selected) {
-        this.commonConditionsSelected.push(condition.lookup_condition_id);
+        this.commonConditions.push(condition);
       } else {
-        const index = this.commonConditionsSelected.indexOf(condition.lookup_condition_id);
+        const index = this.commonConditions.indexOf(condition);
         if (index > -1) {
-          this.commonConditionsSelected.splice(index, 1);
+          this.commonConditions.splice(index, 1);
         }
       }
-      console.log(this.commonConditionsSelected);
+      console.log(this.commonConditions);
     }
   }
 
   nextStep() {
-    const myConditions = this.commonConditionsSelected.concat(this.uncommonConditionsSelected);
+    const myConditions = JSON.stringify(this.commonConditions.concat(this.uncommonConditions));
     console.log(myConditions);
-    this.step = 4;
-    this.action.emit(this.step);
+
+    const onboardingModel = new OnboardingRequestModel();
+    onboardingModel.myConditions = myConditions;
+    onboardingModel.currentStep = this.step;
+    this.onboardingSrv.onboarding(onboardingModel).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.userAction('advance');
+      } else {
+        this.notificationSrv.showError(response.Message);
+      }
+    }, error => { console.log(error); });
   }
 
 

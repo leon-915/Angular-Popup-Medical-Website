@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CommonService } from '.';
+import { CommonService } from './common.service';
 import { APIResponse, PharmacyModel } from '../models/index';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,8 +12,8 @@ export class PharmaciesService {
   serviceURl: string = this.commonSrv.apiURL;
 
 
-  getNearestPharmacies() {
-    const url = this.serviceURl + 'getpharmacies';
-    return this.http.get<APIResponse<PharmacyModel[]>>(url);
+  getNearestPharmacies(pharmacyModel: PharmacyModel) {
+    const url = this.serviceURl + 'pharmacies/getpharmacies';
+    return this.http.post<APIResponse<PharmacyModel[]>>(url, pharmacyModel);
   }
 }

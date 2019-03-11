@@ -4,8 +4,8 @@
 <div class="row mt-2">
   
   <div class="col-lg-6">
-    <div class="form-group" *ngFor="let allergie of commonAllergies">
-      <input type="checkbox" [(ngModel)]="allergie.selected" (ngModelChange)="addCommonAllergies(allergie)"> {{allergie.display_value}}
+    <div class="form-group" *ngFor="let allergie of allergies.common_allergies">
+      <input type="checkbox" [(ngModel)]="allergie.selected" (ngModelChange)="addCommonAllergy(allergie)"> {{allergie.display_value}}
     </div>
   </div>
 
@@ -13,8 +13,8 @@
 
     <p>Other allergies</p>
     <mat-form-field class="w-100">
-      <mat-select placeholder="Allergies" multiple [(value)]="uncommonAllergiesSelected" >
-        <mat-option *ngFor="let allergie of uncommonAllergies" [value]="allergie.lookup_allergy_id">{{allergie.display_value}}</mat-option>
+      <mat-select placeholder="Allergies" multiple [(value)]="uncommonAllergies" >
+        <mat-option *ngFor="let allergie of allergies.uncommon_allergies" [value]="allergie">{{allergie.display_value}}</mat-option>
       </mat-select>
     </mat-form-field>
 

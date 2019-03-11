@@ -14,6 +14,6 @@ export class PharmacyModel {
     'primary_service': string;
     'phone': string;
     'fax': string;
-    'latitude': string;
-    'longitude': string;
+    'latitude': number;
+    'longitude': number;
 }
