@@ -7,11 +7,11 @@ export class LookupModel {
 }
 
 export class AllergiesModel {
-    'common_allergies': Array<AllergiesModel>;
-    'uncommon_allergies': Array<AllergiesModel>;
+    'common_allergies': Array<LookupModel> = [];
+    'uncommon_allergies': Array<LookupModel> = [];
 }
 
 export class ConditionsModel {
-    'common_conditions': Array<ConditionsModel>;
-    'uncommon_conditions': Array<ConditionsModel>;
+    'common_conditions': Array<LookupModel>;
+    'uncommon_conditions': Array<LookupModel>;
 }

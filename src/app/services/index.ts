@@ -8,3 +8,5 @@ export * from  './policies.service';
 export * from  './signup.service';
 export * from  './conditions.service';
 export * from './allergies.service';
+export * from './onboarding.service';
+export * from './pharmacies.service';

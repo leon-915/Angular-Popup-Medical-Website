@@ -4,7 +4,7 @@
 <div class="row mt-2">
   
   <div class="col-lg-6">
-    <div class="form-group" *ngFor="let condition of commonConditions">
+    <div class="form-group" *ngFor="let condition of conditions.common_conditions">
       <input type="checkbox" [(ngModel)]="condition.selected" (ngModelChange)="addCommonCondition(condition)"> {{condition.display_value}}
     </div>
   </div>
@@ -13,8 +13,8 @@
 
     <p>Other Conditions</p>
     <mat-form-field class="w-100">
-      <mat-select placeholder="Conditions" multiple [(value)]="uncommonConditionsSelected">
-        <mat-option *ngFor="let condition of uncommonConditions" [value]="condition.lookup_condition_id">{{condition.display_value}}</mat-option>
+      <mat-select placeholder="Conditions" multiple [(value)]="uncommonConditions">
+        <mat-option *ngFor="let condition of conditions.uncommon_conditions" [value]="condition">{{condition.display_value}}</mat-option>
       </mat-select>
     </mat-form-field>
 
