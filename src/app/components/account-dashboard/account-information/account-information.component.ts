@@ -3,7 +3,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService, NotificationService } from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
-import { AddressModel, ShippingAddressModel } from 'src/app/models';
+import * as moment from 'moment';
+import {
+  AddressModel,
+  ShippingAddressModel,
+  UserDataResult,
+  UserInfoResponse
+} from 'src/app/models';
 
 @Component({
   selector: 'app-account-information',
@@ -27,7 +33,6 @@ export class AccountInformationComponent implements OnInit {
     }
   }
 
-  ngOn;
   ngOnInit() {
     this.userInfoForm = this.fb.group(
       {
@@ -60,20 +65,13 @@ export class AccountInformationComponent implements OnInit {
       },
       {}
     );
-    // filling shipping address for testing
-    // TODO: get the addresses from the back-end
-    const adressList = [];
-    const address = new ShippingAddressModel();
-    address.nickname = 'first address';
-    address.defaultShipping = true;
-    address.address = 'address';
-    address.address2 = 'address 2';
-    address.city = 'city exa';
-    address.state = 'tx';
-    address.zipCode = '1232545';
-    this.shippingAdressList.push(address);
 
-    // this.shippingAdressList = adressList;
+    this.accountSrv.getUserData().subscribe(result => {
+      const userData = result.Result;
+      this.shippingAdressList = userData.userShippings;
+      this.updateUserForm(userData.userData[0], userData.userPhones);
+    });
+    console.log('hellos');
   }
 
   addShippingAddress() {
@@ -84,14 +82,36 @@ export class AccountInformationComponent implements OnInit {
     this.shippingAdressList.push(this.newAddressForm.value);
   }
   removeShippingAddress(index) {
-    // TODO: Remove the address from the database
+    const addresId = this.shippingAdressList[index].member_address;
     this.shippingAdressList.splice(index, 1);
-    console.log('remove');
+    if (addresId) {
+      // TODO: Remove the address from the database
+      console.log('delete');
+    }
   }
 
   saveUserData() {
-    // TODO: Update the user in the database
+    // TODO: Check the phone number data how to display all phone numbers
 
     console.log('save user data');
+  }
+
+  updateUserForm(userData, userPhones) {
+    console.log(JSON.stringify(userData));
+
+    this.userInfoForm.setValue({
+      id: userData.member_id,
+      firstName: userData.first_name,
+      lastName: userData.last_name,
+      gender: userData.gender,
+      birthday: moment(userData.date_of_birth).format('YYYY-MM-DD'),
+      address: userData.address1,
+      address2: userData.address2,
+      city: userData.city,
+      state: userData.state,
+      zipCode: userData.zipcode,
+      billingPhone: userPhones[0].phone_number,
+      cellPhone: userPhones[1].phone_number
+    });
   }
 }

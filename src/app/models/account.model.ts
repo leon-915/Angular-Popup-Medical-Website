@@ -1,3 +1,5 @@
+// tslint:disable: variable-name
+
 export interface Payload {
   sub: string;
   email_verified: boolean;
@@ -73,34 +75,36 @@ export class SendPassResetEmailRequestModel {
   email = '';
 }
 export class Address {
-  address: string;
+  member_address?: number;
+  address1: string;
   address2: string;
   city: string;
   state: string;
-  zipCode: string;
+  zipcode: string;
+}
+export class UserPhone {
+  member_phone?: number;
+  phone_number: string;
+  phone_type: number;
 }
 
 export class ShippingAddressModel extends Address {
-  id?: number;
   nickname: string;
-  defaultShipping: boolean;
+  is_default: boolean;
 }
 
-export class UserInfo {
-  id?: number;
-  firstName: string;
-  gender: boolean;
-  birthday: string;
-  billingAddress: Address;
-  billingPhone: string;
-  cellPhone: string;
+export class UserInfoResponse extends Address {
+  member_id?: number;
+  first_name: string;
+  last_name: string;
+  gender_id: number;
+  gender: string;
+  date_of_birth: Date;
 }
 
 export class SendPassResetConfirmationRequestModel {
   email = '';
-  // tslint:disable-next-line: variable-name
   confirmation_code = '';
-  // tslint:disable-next-line: variable-name
   new_password = '';
 }
 
@@ -110,4 +114,10 @@ export class SendPassResetConfirmationResult {
 
 export interface PingResult {
   status: string;
+}
+
+export class UserDataResult {
+  userData: UserInfoResponse;
+  userShippings: ShippingAddressModel[];
+  userPhones: UserPhone[];
 }

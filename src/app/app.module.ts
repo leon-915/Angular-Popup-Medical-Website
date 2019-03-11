@@ -18,7 +18,7 @@ import {
   MatIconModule,
   MatFormFieldModule,
   MatInputModule,
-  MatRadioModule ,
+  MatRadioModule,
   MatSelectModule
 } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import * as moment from 'moment';
 
 /* CONFIGURATIONS */
 import { customNotifierOptions } from './configurations/index';
@@ -84,7 +85,7 @@ import {
 import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
-import {AuthGuard} from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
 import { PersonalInformationComponent } from './components/onboarding/personal-information/personal-information.component';
 import { AllergiesComponent } from './components/onboarding/allergies/allergies.component';
