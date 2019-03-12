@@ -22,10 +22,10 @@ export class MyHomeComponent implements OnInit {
       // console.log(response);
       if (!response.HasError) {
         if (response.Result.last_step_completed === 5 || response.Result.last_step_completed === 6) {
-          // console.log('Signup already done. Go to home page');
+          console.log('Signup already done. Go to home page');
           this.router.navigate(['/dashboard']);
         } else {
-          // console.log('Last step was: ', response.Result.last_step_completed);
+          console.log('Last step was: ', response.Result.last_step_completed);
           this.router.navigate(['/signup']);
         }
       }
