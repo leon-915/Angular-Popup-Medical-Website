@@ -12,7 +12,7 @@ export class SignupService {
   serviceURl: string = this.commonSrv.apiURL;
 
   signupCognito(signupRequestModel: SignupRequestModel) {
-    const url: string = this.serviceURl + 'signup';
+    const url: string = this.serviceURl + 'signup/signupcognito';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
