@@ -58,21 +58,21 @@ export interface TokenResult {
 }
 
 export class LoginRequestModel {
-  email = '';
-  password = '';
-  recaptcha = '';
+  email: string;
+  password: string;
+  recaptcha: string;
 }
 
 export class SendPassResetEmailResult {
   CodeDeliveryDetails: {
-    AttributeName: '';
-    DeliveryMedium: '';
-    Destination: '';
+    AttributeName: string;
+    DeliveryMedium: string;
+    Destination: string;
   };
 }
 
 export class SendPassResetEmailRequestModel {
-  email = '';
+  email: string;
 }
 
 export class Address {
@@ -104,13 +104,13 @@ export class UserInfoResponse extends Address {
 }
 
 export class SendPassResetConfirmationRequestModel {
-  email = '';
-  confirmation_code = '';
-  new_password = '';
+  email: number;
+  confirmation_code: number;
+  new_password: number;
 }
 
 export class SendPassResetConfirmationResult {
-  message: '';
+  message: string;
 }
 
 export interface PingResult {
@@ -123,14 +123,24 @@ export class UserDataResult {
   userPhones: UserPhone[];
 }
 export class AddAddressRequestModel {
-  nickname = '';
-  defaultShipping = '';
-  address1 = '';
-  address2 = '';
-  city = '';
-  state = '';
-  zipcode = '';
-  member_id = '';
+  nickname: string;
+  defaultShipping: boolean;
+  address1: string;
+  address2: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  member_id: number;
+}
+
+export class AccountUpdateRequest {
+  member_id: number;
+  gender_id: number;
+  date_of_birth: Date;
+  first_name: string;
+  last_name: string;
+  billing_addres: Address;
+  address: ShippingAddressModel[];
 }
 export class AddAddressResult {
   userShippings: ShippingAddressModel[];

@@ -8,7 +8,9 @@ import {
   AddressModel,
   ShippingAddressModel,
   UserDataResult,
-  UserInfoResponse
+  UserInfoResponse,
+  AccountUpdateRequest,
+  Address
 } from 'src/app/models';
 
 @Component({
@@ -114,7 +116,6 @@ export class AccountInformationComponent implements OnInit {
     const addresId = this.shippingAdressList[index].member_address;
 
     if (addresId) {
-      // TODO: Remove the address from the database
       console.log('delete');
       this.accountSrv.deleteAddress(addresId).subscribe(res => {
         console.log(JSON.stringify(res));
@@ -129,8 +130,12 @@ export class AccountInformationComponent implements OnInit {
 
   saveUserData() {
     // TODO: Check the phone number data how to display all phone numbers
+    const userFormData = this.userInfoForm.value;
+    // let address: Address;
+    // address.member_address=
+    // address: let updatePayload: AccountUpdateRequest;
 
-    console.log('save user data');
+    // updatePayload.console.log('save user data');
   }
 
   updateUserForm(userData, userPhones) {
