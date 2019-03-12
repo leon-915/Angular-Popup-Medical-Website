@@ -104,9 +104,9 @@ export class UserInfoResponse extends Address {
 }
 
 export class SendPassResetConfirmationRequestModel {
-  email: number;
-  confirmation_code: number;
-  new_password: number;
+  email: string;
+  confirmation_code: string;
+  new_password: string;
 }
 
 export class SendPassResetConfirmationResult {

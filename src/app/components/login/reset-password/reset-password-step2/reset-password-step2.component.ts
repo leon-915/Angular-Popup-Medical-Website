@@ -76,10 +76,11 @@ export class ResetPasswordStep2Component implements OnInit {
     const formValue = this.passChangeForm.value;
 
     const changePayload: SendPassResetConfirmationRequestModel = {
-      email: formValue.email,
+      email: this.accountSrv.getUserEmail(),
       confirmation_code: formValue.confirmationCode,
       new_password: formValue.password
     };
+
     this.accountSrv.resetPassValidateCode(changePayload).subscribe(res => {
       if (!res.HasError) {
         this.userAction('advance');
