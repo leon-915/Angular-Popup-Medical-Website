@@ -5,7 +5,9 @@ import {
   PingResult,
   LoginRequestModel,
   TokenResult,
-  UserDataResult
+  UserDataResult,
+  AddAddressRequestModel,
+  AddAddressResult
 } from './../models/index';
 import { CommonService } from './common.service';
 
@@ -38,6 +40,18 @@ export class AccountService {
   getUserData() {
     const url = `${this.serviceURl}account/accountinfo`;
     return this.http.get<APIResponse<UserDataResult>>(url);
+  }
+  addUserAddress(addAdressModel: AddAddressRequestModel) {
+    const url = `${this.serviceURl}account/address`;
+    return this.http.post<APIResponse<AddAddressResult>>(url, {
+      newAddress: addAdressModel
+    });
+  }
+  deleteAddress(addressId: number) {
+    const url = `${this.serviceURl}account/deleteaddress`;
+    return this.http.post<APIResponse<boolean>>(url, {
+      member_address: addressId
+    });
   }
   resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
     const url = `${this.serviceURl}password/sendcode`;

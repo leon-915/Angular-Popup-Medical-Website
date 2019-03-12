@@ -27,6 +27,7 @@ export class AccountInformationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private notificationSrv: NotificationService,
     private accountSrv: AccountService
   ) {
     {
@@ -56,22 +57,27 @@ export class AccountInformationComponent implements OnInit {
     this.newAddressForm = this.fb.group(
       {
         nickname: ['', [Validators.required]],
-        defaultShipping: [false, [Validators.required]],
-        address: ['', [Validators.required]],
+        defaultShipping: [
+          { value: false, disabled: true },
+          [Validators.required]
+        ],
+        address1: ['', [Validators.required]],
         address2: ['', []],
         city: ['', [Validators.required]],
         state: ['', [Validators.required]],
-        zipCode: ['', [Validators.required]]
+        zipcode: ['', [Validators.required]]
       },
       {}
     );
 
-    this.accountSrv.getUserData().subscribe(result => {
-      const userData = result.Result;
-      this.shippingAdressList = userData.userShippings;
-      this.updateUserForm(userData.userData[0], userData.userPhones);
+    this.accountSrv.getUserData().subscribe(res => {
+      console.log(JSON.stringify(res));
+      if (!res.HasError) {
+        const userData = res.Result;
+        this.shippingAdressList = userData.userShippings;
+        this.updateUserForm(userData.userData[0], userData.userPhones);
+      }
     });
-    console.log('hellos');
   }
 
   addShippingAddress() {
@@ -80,13 +86,44 @@ export class AccountInformationComponent implements OnInit {
     console.log('hellos this is the method');
 
     this.shippingAdressList.push(this.newAddressForm.value);
+
+    const requestPayload = this.newAddressForm.value;
+    requestPayload.member_id = this.userInfoForm.value.id;
+    console.log(JSON.stringify(requestPayload));
+
+    this.accountSrv.addUserAddress(requestPayload).subscribe(res => {
+      if (!res.HasError) {
+        const userData = res.Result;
+        this.shippingAdressList = userData.userShippings;
+        this.notificationSrv.showSuccess('address added');
+        this.newAddressForm.setValue({
+          nickname: '',
+          defaultShipping: false,
+          address1: '',
+          address2: '',
+          city: '',
+          state: '',
+          zipcode: ''
+        });
+      } else {
+        this.notificationSrv.showError(res.Message);
+      }
+    });
   }
   removeShippingAddress(index) {
     const addresId = this.shippingAdressList[index].member_address;
-    this.shippingAdressList.splice(index, 1);
+
     if (addresId) {
       // TODO: Remove the address from the database
       console.log('delete');
+      this.accountSrv.deleteAddress(addresId).subscribe(res => {
+        console.log(JSON.stringify(res));
+        if (!res.HasError) {
+          this.shippingAdressList.splice(index, 1);
+        } else {
+          this.notificationSrv.showError(res.Message);
+        }
+      });
     }
   }
 
@@ -98,7 +135,6 @@ export class AccountInformationComponent implements OnInit {
 
   updateUserForm(userData, userPhones) {
     console.log(JSON.stringify(userData));
-
     this.userInfoForm.setValue({
       id: userData.member_id,
       firstName: userData.first_name,

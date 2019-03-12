@@ -74,6 +74,7 @@ export class SendPassResetEmailResult {
 export class SendPassResetEmailRequestModel {
   email = '';
 }
+
 export class Address {
   member_address?: number;
   address1: string;
@@ -120,4 +121,17 @@ export class UserDataResult {
   userData: UserInfoResponse;
   userShippings: ShippingAddressModel[];
   userPhones: UserPhone[];
+}
+export class AddAddressRequestModel {
+  nickname = '';
+  defaultShipping = '';
+  address1 = '';
+  address2 = '';
+  city = '';
+  state = '';
+  zipcode = '';
+  member_id = '';
+}
+export class AddAddressResult {
+  userShippings: ShippingAddressModel[];
 }
