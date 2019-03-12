@@ -49,8 +49,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       paymentPeriod: ['', [Validators.required]],
       currentStep: [this.step],
       latitude: [],
-      longitude: [],
-      address2: ['billing_address']
+      longitude: []
     });
 
     const member = new SignupRequestModel();

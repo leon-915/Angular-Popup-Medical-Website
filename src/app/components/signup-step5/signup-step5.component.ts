@@ -61,8 +61,7 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
       textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       currentStep: [this.step],
       latitude: [],
-      longitude: [],
-      address2: ['shipping_address']
+      longitude: []
     });
 
     this.setShippingInfoValidators();

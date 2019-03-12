@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupService } from '../../services/index';
 import { SignupRequestModel } from '../../models/index';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,9 +10,9 @@ import { SignupRequestModel } from '../../models/index';
 })
 export class SignupComponent implements OnInit {
 
-  public currentStep = 1;
+  public currentStep = -1;
 
-  constructor(private signupSrv: SignupService) {
+  constructor(private signupSrv: SignupService, private router: Router) {
     // this.currentStep = this.signupSrv.getSignupStep();
     // console.log('User current step: ',this.currentStep);
     // Only if the user is log in. Simulating the process.
@@ -25,7 +26,11 @@ export class SignupComponent implements OnInit {
       this.signupSrv.getSignupInformation(member).subscribe((response) => {
         console.log(response);
         if (!response.HasError) {
-          this.currentStep = response.Result.current_step;
+          if (response.Result.current_step === 7) {
+            this.router.navigateByUrl('/onboarding');
+          } else {
+            this.currentStep = response.Result.current_step;
+          }
         }
       }, (error) => { console.log(error); });
     } else {

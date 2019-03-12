@@ -30,6 +30,7 @@ export class SignupStep3Component implements OnInit {
     this.action.emit(step);
   }
 
+  // For breadcrumbs
   goToStep(step: number) {
     this.action.emit(step);
   }

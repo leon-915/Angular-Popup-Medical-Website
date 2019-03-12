@@ -1,4 +1,4 @@
-import { SignupService } from '../../services/index';
+import { SignupService, NotificationService } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SignupRequestModel, OrderModel } from '../../models/index';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class SignupStep6Component implements OnInit {
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   orderInfo: OrderModel;
 
-  constructor(private signupSrv: SignupService, private router: Router) {
+  constructor(private signupSrv: SignupService, private router: Router, private notificationSrv: NotificationService) {
 
     const member = new SignupRequestModel();
     member.currentStep = 6;
@@ -48,7 +48,15 @@ export class SignupStep6Component implements OnInit {
   }
 
   goToOnboarding() {
-    this.router.navigateByUrl('/onboarding');
+    const memberModel = new SignupRequestModel();
+    memberModel.currentStep = this.step;
+    this.signupSrv.signup(memberModel).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.router.navigateByUrl('/onboarding');
+      } else {
+        this.notificationSrv.showError(response.Message);
+      }
+    }, error => { console.log(error); });
   }
-
 }

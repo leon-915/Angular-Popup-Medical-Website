@@ -37,7 +37,7 @@ export class AllergiesComponent implements OnInit {
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step = 3);
+    const step = action === 'back' ? (this.step = 1) : (this.step = 3);
     this.action.emit(step);
   }
 
@@ -72,8 +72,11 @@ export class AllergiesComponent implements OnInit {
       item.is_common = undefined;
       item.selected = undefined;
     });*/
-
-    const myAllergies = JSON.stringify(this.commonAllergies.concat(this.uncommonAllergies));
+    const myAllergies = JSON.stringify({
+      common: this.commonAllergies,
+      uncommon: this.uncommonAllergies
+    });
+    // JSON.stringify(this.commonAllergies.concat(this.uncommonAllergies));
     console.log(myAllergies);
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.myAllergies = myAllergies;
