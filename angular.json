@@ -124,6 +124,12 @@
           "configurations": {
             "production": {
               "browserTarget": "PopupRx-OrderingSystem:build:production"
+            },
+            "test": {
+              "browserTarget": "PopupRx-OrderingSystem:build:test"
+            },
+            "staging": {
+              "browserTarget": "PopupRx-OrderingSystem:build:staging"
             }
           }
         },

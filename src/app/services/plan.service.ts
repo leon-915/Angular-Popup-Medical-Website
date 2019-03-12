@@ -15,8 +15,7 @@ export class PlanService {
 
 
   getPlans() {
-    // const url = 'https://rcgkdcymzi.execute-api.us-west-2.amazonaws.com/dev/get-plans';
-    const url = this.serviceURl + 'getplans';
+    const url = this.serviceURl + 'plans/getplans';
     return this.http.get<APIResponse<PlanModel[]>>(url);
   }
 
