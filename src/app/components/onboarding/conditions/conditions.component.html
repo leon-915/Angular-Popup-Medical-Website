@@ -1,0 +1,31 @@
+<h3 class="mb-3">Onboarding - Step 3 of 6</h3>
+<p>Do you have any health conditions?</p>
+
+<div class="row mt-2">
+  
+  <div class="col-lg-6">
+    <div class="form-group" *ngFor="let condition of conditions.common_conditions">
+      <input type="checkbox" [(ngModel)]="condition.selected" (ngModelChange)="addCommonCondition(condition)"> {{condition.display_value}}
+    </div>
+  </div>
+
+  <div class="col-lg-6" *ngIf="showUncommon">
+
+    <p>Other Conditions</p>
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Conditions" multiple [(value)]="uncommonConditions">
+        <mat-option *ngFor="let condition of conditions.uncommon_conditions" [value]="condition">{{condition.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</div>
+
+
+
+<div class="row float-right mb-5">
+  <div class="col-md-12">
+    <button class="btn btn-primary" type="button" (click)="nextStep();">Next</button> <!-- [disabled]="!signupForm.valid" -->
+  </div>
+</div>

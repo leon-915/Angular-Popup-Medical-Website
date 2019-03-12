@@ -37,6 +37,7 @@ export class SignupStep1Component implements OnInit {
       console.log(response);
       if (!response.HasError) {
         // create the user in the database consuming the other API. Create new model? Use the login one?
+        // Remove this comments after we have the sub-id from cognito in the token
         /*const member = new SignupRequestModel();
         member.email = this.signupForm.controls.email.value;
         member.pwd = this.signupForm.controls.pwd.value;

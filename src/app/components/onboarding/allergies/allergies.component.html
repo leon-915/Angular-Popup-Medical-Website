@@ -1,0 +1,32 @@
+<h3 class="mb-3">Onboarding - Step 2 of 6</h3>
+<p>Tell us about your allergies</p>
+
+<div class="row mt-2">
+  
+  <div class="col-lg-6">
+    <div class="form-group" *ngFor="let allergie of allergies.common_allergies">
+      <input type="checkbox" [(ngModel)]="allergie.selected" (ngModelChange)="addCommonAllergy(allergie)"> {{allergie.display_value}}
+    </div>
+  </div>
+
+  <div class="col-lg-6" *ngIf="showUncommon">
+
+    <p>Other allergies</p>
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Allergies" multiple [(value)]="uncommonAllergies" >
+        <mat-option *ngFor="let allergie of allergies.uncommon_allergies" [value]="allergie">{{allergie.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</div>
+
+
+
+<div class="row float-right mb-5">
+  <div class="col-md-12">
+    <button class="btn btn-primary" type="button" (click)="nextStep();">Next</button>
+  </div>
+</div>
+

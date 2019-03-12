@@ -1,34 +1,34 @@
 <h3 class="mb-3">Step 4 of 5</h3>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Step 1</a></li>
-    <li class="breadcrumb-item"><a href="#">Step 2</a></li>
-    <li class="breadcrumb-item"><a href="#">Step 3</a></li>
+    <li class="breadcrumb-item"><a disabled>Step 1</a></li>
+    <li class="breadcrumb-item" (click)="goToStep(2)"><a [routerLink]="">Step 2</a></li>
+    <li class="breadcrumb-item" (click)="goToStep(3)"><a [routerLink]="">Step 3</a></li>
     <li class="breadcrumb-item active">Step 4</li>
   </ol>
 </nav>
 
 
-  
+
 <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
 
   <div class="row" *ngIf="planSelected">
     <div class="col-md-6">
       <p> <strong>Plan: {{planSelected.plan_name}} </strong> </p>
       <button class="btn btn-primary mr-3" *ngIf="planSelected.price_month_active === true" (click)="setPlanPaymentMethod('Monthly')"
-      type="button" [ngClass]="{'active': paymentMethodSelected === 'Monthly'}">Monthly <br>
+        type="button" [ngClass]="{'active': paymentMethodSelected === 'Monthly'}">Monthly <br>
         <small> {{planSelected.price_month | currency}} / Month</small>
       </button>
       <button class="btn btn-primary mr-3" *ngIf="planSelected.price_ninety_days_active" (click)="setPlanPaymentMethod('90 Days')"
-      type="button" [ngClass]="{'active': paymentMethodSelected === '90 Days'}">90 Days <br>
+        type="button" [ngClass]="{'active': paymentMethodSelected === '90 Days'}">90 Days <br>
         <small> {{planSelected.price_ninety_days | currency}} / 90 Days</small>
       </button>
       <button class="btn btn-primary mr-3" *ngIf="planSelected.price_quarter_active" (click)="setPlanPaymentMethod('Quarterly')"
-      type="button" [ngClass]="{'active': paymentMethodSelected === 'Quarterly'}">Quarterly <br>
+        type="button" [ngClass]="{'active': paymentMethodSelected === 'Quarterly'}">Quarterly <br>
         <small> {{planSelected.price_quarter | currency}} / Quarter</small>
       </button>
       <button class="btn btn-primary mr-3" *ngIf="planSelected.price_year_active" (click)="setPlanPaymentMethod('Yearly')"
-      type="button" [ngClass]="{'active': paymentMethodSelected === 'Yearly'}">Yearly <br>
+        type="button" [ngClass]="{'active': paymentMethodSelected === 'Yearly'}">Yearly <br>
         <small> {{planSelected.price_year | currency}} / Year</small>
       </button>
     </div>
@@ -39,7 +39,8 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Credit Card Number</label>
-        <input type="text" placeholder="Credit Card Number" class="form-control" formControlName="lastFour" maxlength="16" minlength="15" appOnlyNumbers="true">
+        <input type="text" placeholder="Credit Card Number" class="form-control" formControlName="lastFour" maxlength="16"
+          minlength="15" appOnlyNumbers="true">
       </div>
     </div>
   </div>
@@ -164,7 +165,8 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Billing Phone</label>
-        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber" maxlength="10" minlength="10" appOnlyNumbers="true">
+        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber" maxlength="10"
+          minlength="10" appOnlyNumbers="true">
       </div>
     </div>
   </div>
@@ -173,7 +175,7 @@
   <div class="row float-right mt-3 mb-5">
     <div class="col-md-12">
       <button class="btn btn-primary mr-3" type="button" (click)="userAction('back');">Back</button>
-      <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Next</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Next</button> <!--  -->
     </div>
   </div>
 

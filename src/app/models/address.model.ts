@@ -3,4 +3,6 @@ export class AddressModel {
     city: string;
     state: string;
     zipCode: string;
+    latitude?: number;
+    longitude?: number;
 }

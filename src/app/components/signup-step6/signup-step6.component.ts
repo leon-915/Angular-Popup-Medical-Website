@@ -1,6 +1,7 @@
 import { SignupService } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SignupRequestModel, OrderModel } from '../../models/index';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-step6',
@@ -13,7 +14,7 @@ export class SignupStep6Component implements OnInit {
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   orderInfo: OrderModel;
 
-  constructor(private signupSrv: SignupService) {
+  constructor(private signupSrv: SignupService, private router: Router) {
 
     const member = new SignupRequestModel();
     member.currentStep = 6;
@@ -46,8 +47,8 @@ export class SignupStep6Component implements OnInit {
     this.action.emit(step);
   }
 
-  doSignup() {
-    this.userAction('advance');
+  goToOnboarding() {
+    this.router.navigateByUrl('/onboarding');
   }
 
 }
