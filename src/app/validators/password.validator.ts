@@ -5,10 +5,12 @@ export interface ValidationResult {
 }
 
 export class PasswordValidator {
-
-
-  public static checkPasswordEquality(group: FormGroup): {[s: string]: boolean} {
-    return group.get('pwd').value !== group.get('confirm').value ? { passwordsDoNotMatch: true } : null;
+  public static checkPasswordEquality(
+    group: FormGroup
+  ): { [s: string]: boolean } {
+    return group.get('pwd').value !== group.get('confirm').value
+      ? { passwordsDoNotMatch: true }
+      : null;
   }
 
   /*public static checkPasswordEquality(
@@ -36,14 +38,10 @@ export class PasswordValidator {
     return errors ? { patternDoesNotMatch: true } : null;
   }
 
-  static MatchPassword(AC: AbstractControl) {
-    const password = AC.get('password').value; // to get value in input tag
-    const confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
-    if (password !== confirmPassword) {
-      AC.get('confirmPassword').setErrors({ MatchPassword: true });
-    } else {
-      return null;
-    }
+  public static MatchPassword(group: FormGroup): { [s: string]: boolean } {
+    return group.get('password').value !== group.get('confirmPassword').value
+      ? { passwordsDoNotMatch: true }
+      : null;
   }
   static LookEmptyness(AC: AbstractControl) {
     const email = String(AC.get('email').value); // to get value in input tag

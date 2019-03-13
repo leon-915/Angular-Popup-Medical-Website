@@ -53,10 +53,8 @@ export class AccountService {
     });
   }
   deleteAddress(addressId: number) {
-    const url = `${this.serviceURl}account/deleteaddress`;
-    return this.http.post<APIResponse<boolean>>(url, {
-      member_address: addressId
-    });
+    const url = `${this.serviceURl}account/deleteaddress/${addressId}`;
+    return this.http.delete<APIResponse<boolean>>(url);
   }
   resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
     const url = `${this.serviceURl}password/sendcode`;

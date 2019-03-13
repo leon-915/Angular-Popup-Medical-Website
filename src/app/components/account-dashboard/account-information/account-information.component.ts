@@ -80,6 +80,7 @@ export class AccountInformationComponent implements OnInit {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
         this.updateUserForm(userData.userData[0], userData.userPhones);
+      } else {
       }
     });
   }
