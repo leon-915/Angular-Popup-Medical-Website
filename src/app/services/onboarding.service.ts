@@ -16,4 +16,9 @@ export class OnboardingService {
     const url: string = this.serviceURl + 'onboarding/onboarding';
     return this.http.post<APIResponse<any>>(url, onboardingRequestModel);
   }
+
+  getOnboardingInfo(onboardingRequestModel: OnboardingRequestModel) {
+    const url: string = this.serviceURl + 'onboarding/getonboardinginfo';
+    return this.http.post<APIResponse<any>>(url, onboardingRequestModel);
+  }
 }

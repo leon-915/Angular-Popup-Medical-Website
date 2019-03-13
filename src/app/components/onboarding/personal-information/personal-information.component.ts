@@ -1,4 +1,4 @@
-import { GenderModel } from './../../../models/index';
+import { GenderModel, OnboardingRequestModel } from './../../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OnboardingService, NotificationService } from '../../../services/index';
@@ -50,6 +50,19 @@ export class PersonalInformationComponent implements OnInit {
   userAction(action: string) {
     const step = action === 'back' ? (this.step -= 1) : (this.step = 2);
     this.action.emit(step);
+  }
+
+  loadPersonalInformation() {
+
+    /**
+     * In process
+     */
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      console.log(response);
+    }, error => { console.log(error); });
+
   }
 
   nextStep() {

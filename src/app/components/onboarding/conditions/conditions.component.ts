@@ -62,9 +62,11 @@ export class ConditionsComponent implements OnInit {
   }
 
   nextStep() {
-    const myConditions = JSON.stringify(this.commonConditions.concat(this.uncommonConditions));
+    const myConditions = JSON.stringify({
+      common: this.commonConditions,
+      uncommon: this.uncommonConditions
+    });
     console.log(myConditions);
-
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.myConditions = myConditions;
     onboardingModel.currentStep = this.step;
