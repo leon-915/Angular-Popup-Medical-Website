@@ -1,6 +1,6 @@
-import { LookupModel, OnboardingRequestModel } from './../../../models/index';
+import { LookupModel, OnboardingRequestModel, MedicationModel } from './../../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { OnboardingService, NotificationService } from '../../../services/index';
+import { OnboardingService, NotificationService, MedicationsService } from '../../../services/index';
 
 @Component({
   selector: 'app-medications',
@@ -12,16 +12,24 @@ export class MedicationsComponent implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   public consumingMedication = true;
-  public options: Array<any> = new Array<any>();
-  public selectedConditions: LookupModel;
 
-  constructor(private onboardingSrv: OnboardingService, private notificationSrv: NotificationService) {
+  public options: Array<any> = new Array<any>();
+  public medications: MedicationModel = new MedicationModel();
+  public commonMedications: Array<LookupModel> = new Array<LookupModel>();
+  public uncommonMedications: Array<LookupModel> = new Array<LookupModel>();
+  public showUncommon = false;
+
+  constructor(
+    private onboardingSrv: OnboardingService,
+    private notificationSrv: NotificationService,
+    private medicationSrv: MedicationsService) {
     this.options.push({value: true, description: 'I am not currently taking other medications or supplements'},
     {value: false, description: 'I am taking other medications or supplements'} );
   }
 
   ngOnInit() {
     console.log('Current step: ', this.step);
+    this.getMedicationSupplements();
   }
 
   userAction(action: string) {
@@ -31,6 +39,18 @@ export class MedicationsComponent implements OnInit {
 
   radioChanged() {
     console.log(this.consumingMedication);
+  }
+
+  getMedicationSupplements() {
+
+    this.medicationSrv.getMedicationSupplements().subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.medications = response.Result;
+        console.log(this.medications);
+      }
+    }, (error) => { console.log(error); });
+
   }
 
   nextStep() {

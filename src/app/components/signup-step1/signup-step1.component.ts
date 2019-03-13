@@ -1,8 +1,9 @@
 import { PasswordValidator } from './../../validators/password.validator';
 import { SignupService, NotificationService } from '../../services/index';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SignupRequestModel } from '../../models/index';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-step1',
@@ -11,26 +12,22 @@ import { SignupRequestModel } from '../../models/index';
 })
 export class SignupStep1Component implements OnInit {
 
-  @Input() step: number;
-  @Output() action: EventEmitter<number> = new EventEmitter<number>();
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private signupSrv: SignupService, private notificationSrv: NotificationService) { }
+  constructor(
+    private fb: FormBuilder,
+    private signupSrv: SignupService,
+    private notificationSrv: NotificationService,
+    private router: Router) { }
 
   ngOnInit() {
 
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       pwd: ['', [Validators.required, PasswordValidator.checkPasswordStrength]],
-      confirm: ['', [Validators.required]],
-      currentStep: [this.step]
+      confirm: ['', [Validators.required]]
     }, { validator: PasswordValidator.checkPasswordEquality});
 
-  }
-
-  confirmAccount() {
-    this.step = 0;
-    this.action.emit(this.step);
   }
 
   doSignup() {
@@ -47,7 +44,7 @@ export class SignupStep1Component implements OnInit {
         this.signupSrv.register(member).subscribe((resp) => {
           console.log(resp);
           if (!resp.HasError) {
-            this.confirmAccount();
+            this.router.navigateByUrl('/signup-confirm');
           } else {
             this.notificationSrv.showError(resp.Message);
           }

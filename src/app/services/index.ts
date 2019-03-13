@@ -10,3 +10,4 @@ export * from  './conditions.service';
 export * from './allergies.service';
 export * from './onboarding.service';
 export * from './pharmacies.service';
+export * from './medications.service';
