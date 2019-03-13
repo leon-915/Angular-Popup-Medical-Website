@@ -19,3 +19,4 @@ export * from './onboarding/medications/medications.component';
 export * from './onboarding/onboarding-complete/onboarding-complete.component';
 export * from './onboarding/personal-information/personal-information.component';
 export * from './onboarding/primary-pharmacy/primary-pharmacy.component';
+export * from './invoice-generator/invoice-generator.component';

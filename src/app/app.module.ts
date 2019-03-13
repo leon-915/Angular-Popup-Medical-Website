@@ -66,7 +66,7 @@ import {
   SignupStep5Component,
   SignupStep6Component,
   MyHomeComponent,
-  SignupConfirmComponent
+  SignupConfirmComponent,
 } from './components/index';
 /* COMPONENTS */
 
@@ -93,6 +93,7 @@ import { ConditionsComponent } from './components/onboarding/conditions/conditio
 import { MedicationsComponent } from './components/onboarding/medications/medications.component';
 import { PrimaryPharmacyComponent } from './components/onboarding/primary-pharmacy/primary-pharmacy.component';
 import { OnboardingCompleteComponent } from './components/onboarding/onboarding-complete/onboarding-complete.component';
+import { InvoiceGeneratorComponent } from './components/invoice-generator/invoice-generator.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { OnboardingCompleteComponent } from './components/onboarding/onboarding-
     ConditionsComponent,
     MedicationsComponent,
     PrimaryPharmacyComponent,
-    OnboardingCompleteComponent
+    OnboardingCompleteComponent,
+    InvoiceGeneratorComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

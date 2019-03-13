@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {APIResponse, SignupRequestModel } from './../models/index';
+import {APIResponse, SignupRequestModel, InvoiceModel } from './../models/index';
 import {CommonService} from './common.service';
 
 @Injectable()
@@ -37,6 +37,10 @@ export class SignupService {
 
   getSignupStep() {
     return this.signupStep;
+  }
+  getInvoice() {
+    const url: string = this.serviceURl + 'signup/getinvoice';
+    return this.http.post<APIResponse<InvoiceModel>>(url, null);
   }
 
 }

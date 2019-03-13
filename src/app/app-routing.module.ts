@@ -11,7 +11,8 @@ import {
   ResetPasswordComponent,
   AccountDashboardComponent,
   SignupComponent,
-  OnboardingComponent
+  OnboardingComponent,
+  InvoiceGeneratorComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'product/:id', component: ProductComponent },
   { path: 'onboarding', component: OnboardingComponent },
+  { path: 'invoice-generator', component: InvoiceGeneratorComponent },
   { path: '**', component: HomeComponent }
 ];
 

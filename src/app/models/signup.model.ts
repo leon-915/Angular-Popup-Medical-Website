@@ -32,3 +32,7 @@ export class SignupRequestModel {
     address1?: string;
     address1?: string;
 }*/
+
+export interface InvoiceModel {
+    html_base64: string;
+}
