@@ -21,6 +21,11 @@ export class SignupService {
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
+  register(signupRequestModel: SignupRequestModel) {
+    const url: string = this.serviceURl + 'signup/register';
+    return this.http.post<APIResponse<any>>(url, signupRequestModel);
+  }
+
   getSignupInformation(signupRequestModel: SignupRequestModel) {
     const url: string = this.serviceURl + 'signup/getsignupinfo';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);

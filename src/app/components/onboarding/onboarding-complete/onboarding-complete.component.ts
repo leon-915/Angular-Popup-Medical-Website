@@ -18,10 +18,10 @@ export class OnboardingCompleteComponent implements OnInit {
   ngOnInit() {
   }
 
-  /*userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
+  userAction(action: string) {
+    const step = action === 'back' ? (this.step = 5) : (this.step = 7);
     this.action.emit(step);
-  }*/
+  }
 
   goToMyAccount() {
 

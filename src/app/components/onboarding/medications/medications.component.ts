@@ -1,5 +1,6 @@
-import { LookupModel } from './../../../models/index';
+import { LookupModel, OnboardingRequestModel } from './../../../models/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { OnboardingService, NotificationService } from '../../../services/index';
 
 @Component({
   selector: 'app-medications',
@@ -14,16 +15,17 @@ export class MedicationsComponent implements OnInit {
   public options: Array<any> = new Array<any>();
   public selectedConditions: LookupModel;
 
-  constructor() {
+  constructor(private onboardingSrv: OnboardingService, private notificationSrv: NotificationService) {
     this.options.push({value: true, description: 'I am not currently taking other medications or supplements'},
     {value: false, description: 'I am taking other medications or supplements'} );
   }
 
   ngOnInit() {
+    console.log('Current step: ', this.step);
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
+    const step = action === 'back' ? (this.step = 3) : (this.step = 5);
     this.action.emit(step);
   }
 
@@ -32,8 +34,16 @@ export class MedicationsComponent implements OnInit {
   }
 
   nextStep() {
-    this.step = 5;
-    this.action.emit(this.step);
+    const onboardingModel = new OnboardingRequestModel();
+    onboardingModel.currentStep = this.step;
+    this.onboardingSrv.onboarding(onboardingModel).subscribe(response => {
+      console.log(response);
+      if (!response.HasError) {
+        this.userAction('advance');
+      } else {
+        this.notificationSrv.showError(response.Message);
+      }
+    });
   }
 
 

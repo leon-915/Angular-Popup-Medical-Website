@@ -42,7 +42,7 @@
     <button type="button" class="btn btn-link float-right mt-5" *ngIf="pharmacies && limitItems < pharmacies.length"
     (click)="limitItems = limitItems + 3">Show more pharmacies</button>
   </div>
-
+  
   <div class="col-md-6">
     <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:300px;">
         <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default"></agm-marker>
@@ -54,6 +54,7 @@
 
 <div class="row float-right mt-5 mb-5">
   <div class="col-md-12">
+      <button class="btn btn-primary mr-3" type="button" (click)="userAction('back');">Back</button>
     <button class="btn btn-primary" type="button" (click)="nextStep();" [disabled]="!primaryPharmacyAddress">Next</button>
   </div>
 </div>

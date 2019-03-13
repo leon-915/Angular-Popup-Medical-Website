@@ -26,6 +26,7 @@ export class AllergiesComponent implements OnInit {
       if (!response.HasError) {
         this.allergies = response.Result;
         console.log(this.allergies);
+        this.loadAllergies();
       }
     });
   }
@@ -49,14 +50,9 @@ export class AllergiesComponent implements OnInit {
     } else {
 
       if (allergy.selected) {
-
-        /*const allergyModel = new LookupModel();
-        allergyModel.lookup_allergy_id = allergy.lookup_allergy_id;
-        allergyModel.display_value = allergy.display_value;*/
-
         this.commonAllergies.push(allergy);
       } else {
-        const index = this.commonAllergies.indexOf(allergy);
+        const index = this.commonAllergies.findIndex(i =>  i.display_value === allergy.display_value);
         if (index > -1) {
           this.commonAllergies.splice(index, 1);
         }
@@ -65,18 +61,57 @@ export class AllergiesComponent implements OnInit {
     }
   }
 
+  loadAllergies() {
+
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      if (!response.HasError && response.Result) {
+        const myAllergies = JSON.parse(response.Result.allergies);
+        this.commonAllergies = myAllergies.common;
+        this.uncommonAllergies = myAllergies.uncommon;
+        this.checkSelectedAllergies();
+      }
+    }, error => { console.log(error); });
+
+  }
+
+  compareWithFunc(a, b) {
+    return a.display_value === b.display_value;
+  }
+
+  checkSelectedAllergies() {
+    /*for (let c = 0; c < this.commonAllergies.length; c++) {
+      for (let i = 0; i < this.allergies.common_allergies.length; i++) {
+        if (this.commonAllergies[c].lookup_allergy_id === this.allergies.common_allergies[i].lookup_allergy_id) {
+          this.allergies.common_allergies[i].selected = true;
+        }
+      }
+    }*/
+    for (const commonAllergie of this.commonAllergies) {
+      for (const allergie of this.allergies.common_allergies) {
+        if (commonAllergie.lookup_allergy_id === allergie.lookup_allergy_id) {
+          // this.allergies.common_allergies[i].selected = true;
+          allergie.selected = true;
+        }
+      }
+    }
+
+    if (this.uncommonAllergies.length > 0) {
+      this.showUncommon = true;
+      const indexOther = this.allergies.common_allergies.findIndex(i =>  i.display_value === 'Other');
+      this.allergies.common_allergies[indexOther].selected = true;
+    }
+  }
+
   nextStep() {
 
-    // Set undefined this properties to save only needed information in database
-    /*this.uncommonAllergies.forEach(function(item) {
-      item.is_common = undefined;
-      item.selected = undefined;
-    });*/
+    console.log(this.uncommonAllergies);
+
     const myAllergies = JSON.stringify({
       common: this.commonAllergies,
       uncommon: this.uncommonAllergies
     });
-    // JSON.stringify(this.commonAllergies.concat(this.uncommonAllergies));
     console.log(myAllergies);
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.myAllergies = myAllergies;

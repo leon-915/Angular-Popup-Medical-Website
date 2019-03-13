@@ -83,7 +83,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step = 6);
+    const step = action === 'back' ? (this.step -= 5) : (this.step = 6);
     this.action.emit(step);
   }
 

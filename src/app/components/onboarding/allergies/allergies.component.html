@@ -12,12 +12,17 @@
   <div class="col-lg-6" *ngIf="showUncommon">
 
     <p>Other allergies</p>
-    <mat-form-field class="w-100">
+    <!--<mat-form-field class="w-100">
       <mat-select placeholder="Allergies" multiple [(value)]="uncommonAllergies" >
         <mat-option *ngFor="let allergie of allergies.uncommon_allergies" [value]="allergie">{{allergie.display_value}}</mat-option>
       </mat-select>
     </mat-form-field>
-
+  </div>-->
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Allergies" multiple [(ngModel)]="uncommonAllergies" [compareWith]="compareWithFunc">
+        <mat-option *ngFor="let allergie of allergies.uncommon_allergies" [value]="allergie">{{allergie.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
 </div>

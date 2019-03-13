@@ -27,7 +27,7 @@
       <div class="form-group">
         <select class="form-control" formControlName="month">
           <option disabled [ngValue]="null">- Select Month -</option>
-          <option [ngValue]="month" *ngFor="let month of ['January','February','March','April','May','June','July','August','September','October','November','December']; let i = index">{{month}}</option>
+          <option [ngValue]="month.id" *ngFor="let month of months">{{month.name}}</option>
         </select>
       </div>
     </div>
@@ -35,7 +35,7 @@
       <div class="form-group">
         <select class="form-control" formControlName="day">
           <option disabled [ngValue]="null">- Select Day -</option>
-          <option [ngValue]="day" *ngFor="let day of days; let i = index">{{day}}</option>
+          <option [ngValue]="day" *ngFor="let day of days">{{day}}</option>
         </select>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="form-group">
         <select class="form-control" formControlName="year">
           <option disabled [ngValue]="null">- Select Year -</option>
-          <option [ngValue]="year" *ngFor="let year of years; let i = index">{{year}}</option>
+          <option [ngValue]="year" *ngFor="let year of years">{{year}}</option>
         </select>
       </div>
     </div>

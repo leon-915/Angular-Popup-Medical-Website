@@ -16,10 +16,10 @@ export class MyHomeComponent implements OnInit {
 
     // Get the user information here to send to the server (email, and sub)
     const member = new SignupRequestModel();
-    member.email = 'josechaconvargas02@gmail.com';
+    // member.email = 'josechaconvargas02@gmail.com';
     member.currentStep = 1;
     this.signupSrv.signup(member).subscribe(response => {
-      // console.log(response);
+      console.log(response);
       if (!response.HasError) {
         if (response.Result.last_step_completed === 5 || response.Result.last_step_completed === 6) {
           console.log('Signup already done. Go to home page');

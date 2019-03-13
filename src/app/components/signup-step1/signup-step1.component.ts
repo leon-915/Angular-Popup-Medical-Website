@@ -2,6 +2,7 @@ import { PasswordValidator } from './../../validators/password.validator';
 import { SignupService, NotificationService } from '../../services/index';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SignupRequestModel } from '../../models/index';
 
 @Component({
   selector: 'app-signup-step1',
@@ -36,15 +37,14 @@ export class SignupStep1Component implements OnInit {
     this.signupSrv.signupCognito(this.signupForm.value).subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
-        // create the user in the database consuming the other API. Create new model? Use the login one?
-        // Remove this comments after we have the sub-id from cognito in the token
-        /*const member = new SignupRequestModel();
+
+        const member = new SignupRequestModel();
         member.email = this.signupForm.controls.email.value;
         member.pwd = this.signupForm.controls.pwd.value;
         member.awsAccountId = response.Result.userSub;
         member.currentStep = 1;
-        console.log(member);*/
-        this.signupSrv.signup(this.signupForm.value).subscribe((resp) => {
+        console.log(member);
+        this.signupSrv.register(member).subscribe((resp) => {
           console.log(resp);
           if (!resp.HasError) {
             this.confirmAccount();
