@@ -141,6 +141,8 @@ export class AccountUpdateRequest {
   last_name: string;
   billing_addres: Address;
   address: ShippingAddressModel[];
+  billing_phone: string;
+  mobil_phone: string;
 }
 export class AddAddressResult {
   userShippings: ShippingAddressModel[];

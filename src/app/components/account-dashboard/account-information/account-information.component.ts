@@ -10,7 +10,8 @@ import {
   UserDataResult,
   UserInfoResponse,
   AccountUpdateRequest,
-  Address
+  Address,
+  UserPhone
 } from 'src/app/models';
 
 @Component({
@@ -42,10 +43,12 @@ export class AccountInformationComponent implements OnInit {
         id: ['', []],
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
+        gender_id: ['', []],
         gender: ['', [Validators.required]],
         birthday: [Date(), [Validators.required]],
         // billing address
-        address: ['', [Validators.required]],
+        member_address: ['', []],
+        address1: ['', [Validators.required]],
         address2: ['', [Validators.required]],
         city: ['', [Validators.required]],
         state: ['', [Validators.required]],
@@ -73,7 +76,6 @@ export class AccountInformationComponent implements OnInit {
     );
 
     this.accountSrv.getUserData().subscribe(res => {
-      console.log(JSON.stringify(res));
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
@@ -84,14 +86,10 @@ export class AccountInformationComponent implements OnInit {
 
   addShippingAddress() {
     // TODO: Add address to the back-end
-
-    console.log('hellos this is the method');
-
     this.shippingAdressList.push(this.newAddressForm.value);
 
     const requestPayload = this.newAddressForm.value;
     requestPayload.member_id = this.userInfoForm.value.id;
-    console.log(JSON.stringify(requestPayload));
 
     this.accountSrv.addUserAddress(requestPayload).subscribe(res => {
       if (!res.HasError) {
@@ -116,9 +114,7 @@ export class AccountInformationComponent implements OnInit {
     const addresId = this.shippingAdressList[index].member_address;
 
     if (addresId) {
-      console.log('delete');
       this.accountSrv.deleteAddress(addresId).subscribe(res => {
-        console.log(JSON.stringify(res));
         if (!res.HasError) {
           this.shippingAdressList.splice(index, 1);
         } else {
@@ -131,11 +127,33 @@ export class AccountInformationComponent implements OnInit {
   saveUserData() {
     // TODO: Check the phone number data how to display all phone numbers
     const userFormData = this.userInfoForm.value;
-    // let address: Address;
-    // address.member_address=
-    // address: let updatePayload: AccountUpdateRequest;
+    const billingAddress = new Address();
+    billingAddress.member_address = userFormData.member_address;
+    billingAddress.address1 = userFormData.address1;
+    billingAddress.address2 = userFormData.address2;
+    billingAddress.city = userFormData.city;
+    billingAddress.state = userFormData.state;
+    billingAddress.zipcode = userFormData.zipCode;
 
-    // updatePayload.console.log('save user data');
+    const accountUpdateRequest = new AccountUpdateRequest();
+    accountUpdateRequest.member_id = userFormData.id;
+    accountUpdateRequest.first_name = userFormData.firstName;
+    accountUpdateRequest.last_name = userFormData.lastName;
+    accountUpdateRequest.gender_id = userFormData.gender_id;
+    accountUpdateRequest.date_of_birth = userFormData.birthday;
+    accountUpdateRequest.billing_addres = billingAddress;
+    accountUpdateRequest.address = this.shippingAdressList;
+    accountUpdateRequest.billing_phone = userFormData.billingPhone;
+    accountUpdateRequest.mobil_phone = userFormData.cellPhone;
+
+    console.log(JSON.stringify(accountUpdateRequest));
+    this.accountSrv.updateUserData(accountUpdateRequest).subscribe(res => {
+      if (!res.HasError) {
+        this.notificationSrv.showSuccess(res.Message);
+      } else {
+        this.notificationSrv.showError(res.Message);
+      }
+    });
   }
 
   updateUserForm(userData, userPhones) {
@@ -145,9 +163,11 @@ export class AccountInformationComponent implements OnInit {
       firstName: userData.first_name,
       lastName: userData.last_name,
       gender: userData.gender,
+      gender_id: userData.gender_id,
       birthday: moment(userData.date_of_birth).format('YYYY-MM-DD'),
-      address: userData.address1,
-      address2: userData.address2,
+      member_address: userData.member_address,
+      address1: userData.address1,
+      address2: userData.address2 ? userData.address2 : '',
       city: userData.city,
       state: userData.state,
       zipCode: userData.zipcode,

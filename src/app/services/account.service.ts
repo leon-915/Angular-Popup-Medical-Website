@@ -7,7 +7,8 @@ import {
   TokenResult,
   UserDataResult,
   AddAddressRequestModel,
-  AddAddressResult
+  AddAddressResult,
+  AccountUpdateRequest
 } from './../models/index';
 import { CommonService } from './common.service';
 
@@ -40,6 +41,10 @@ export class AccountService {
   getUserData() {
     const url = `${this.serviceURl}account/accountinfo`;
     return this.http.get<APIResponse<UserDataResult>>(url);
+  }
+  updateUserData(accountUpdateRequest: AccountUpdateRequest) {
+    const url = `${this.serviceURl}account/accountinfo`;
+    return this.http.put<APIResponse<boolean>>(url, accountUpdateRequest);
   }
   addUserAddress(addAdressModel: AddAddressRequestModel) {
     const url = `${this.serviceURl}account/address`;
