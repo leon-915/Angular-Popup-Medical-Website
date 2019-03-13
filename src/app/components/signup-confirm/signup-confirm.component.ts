@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-signup-confirm',
@@ -6,9 +6,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./signup-confirm.component.less']
 })
 export class SignupConfirmComponent implements OnInit {
-
-  @Input() step: number;
-  @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }
 

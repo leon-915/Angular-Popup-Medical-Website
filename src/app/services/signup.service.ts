@@ -38,7 +38,7 @@ export class SignupService {
   getSignupStep() {
     return this.signupStep;
   }
-  getInvoice() {
+  getInvoicey() {
     const url: string = this.serviceURl + 'signup/getinvoice';
     return this.http.post<APIResponse<InvoiceModel>>(url, null);
   }
