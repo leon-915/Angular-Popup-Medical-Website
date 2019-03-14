@@ -18,11 +18,12 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
 
   public limitItems = 3;
   public primaryPharmacyAddress = null;
+  public openedWindow = 0;
 
   /**
    * Load the shipping address or the current geolocation of the user?
    */
-  public default = 'Default';
+  public default = 'My Address';
 
   constructor(
     private googleSrvPlaces: GooglePlacesService,
@@ -32,9 +33,10 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    this.shippingAddress.latitude = 36.778259;
+    /*this.shippingAddress.latitude = 36.778259;
     this.shippingAddress.longitude = -119.417931;
-    this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
+    this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);*/
+    this.getUserLocation();
 
   }
 
@@ -66,6 +68,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     const pharmacyModel = new PharmacyModel();
     pharmacyModel.latitude = lat;
     pharmacyModel.longitude = long;
+    this.pharmacies = [];
     this.pharmacySrv.getNearestPharmacies(pharmacyModel).subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
@@ -82,36 +85,36 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
 
   radioChanged(event) { this.primaryPharmacyAddress = event; }
 
-  /*private getUserLocation() {
-    if(navigator.geolocation) {
+  private getUserLocation() {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
+        this.shippingAddress.latitude = position.coords.latitude;
+        this.shippingAddress.longitude = position.coords.longitude;
+        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
       });
     }
-  }*/
+  }
 
-  /*loadPrimaryPharmacy() {
+  loadPrimaryPharmacy() {
     const onboardingInfo = new OnboardingRequestModel();
     onboardingInfo.currentStep = this.step;
     this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
       if (!response.HasError && response.Result) {
         console.log(response);
-        //this.pharmacies.push(response.Result);
         this.shippingAddress.latitude = parseFloat(response.Result.latitude);
         this.shippingAddress.longitude = parseFloat(response.Result.longitude);
-        console.log(this.shippingAddress);
-        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
-        this.primaryPharmacyAddress = response.Result;
-      } else {
-        // initialize map (info for California)
-        console.log('no tengo una farmacia seleccionada');
-        this.shippingAddress.latitude = 36.778259;
-        this.shippingAddress.longitude = -119.417931;
         this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
       }
     }, error => { console.log(error); });
-  }*/
+  }
+
+  openWindow(id) {
+    this.openedWindow = id;
+  }
+
+  isInfoWindowOpen(id) {
+    return this.openedWindow === id;
+  }
 
   nextStep() {
     console.log(this.primaryPharmacyAddress);

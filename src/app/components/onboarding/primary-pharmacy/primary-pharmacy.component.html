@@ -13,6 +13,9 @@
       </div>
     </div>-->
   </div>
+  <div class="col-md-6">
+      <button class="btn btn-primary" (click)="loadPrimaryPharmacy();">Use shipping address</button>
+  </div>
 </div>
 
 <div class="row">
@@ -44,7 +47,18 @@
   <div class="col-md-6">
     <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:300px;">
         <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default"></agm-marker>
-        <agm-marker [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude" [label]="pharmacy.name" *ngFor="let pharmacy of pharmacies"></agm-marker>
+        <agm-marker [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude" [label]="pharmacy.name" *ngFor="let pharmacy of pharmacies"
+        (markerClick)="openWindow(pharmacy.pharmacy_id)" >
+            <agm-info-window 
+            [isOpen]="isInfoWindowOpen(pharmacy.pharmacy_id)"
+            [latitude]="pharmacy.latitude" 
+            [longitude]="pharmacy.longitude">
+            <small>{{pharmacy.name}}</small> <br>
+            <small>{{pharmacy.primary_service}}</small> <br>
+            <small>{{pharmacy.chain}}</small> <br>
+            <small>{{pharmacy.type}}</small>
+          </agm-info-window>
+        </agm-marker>
     </agm-map>
   </div>
 
