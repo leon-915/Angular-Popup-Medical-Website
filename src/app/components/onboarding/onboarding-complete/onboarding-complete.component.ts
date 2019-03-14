@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { OnboardingService, NotificationService } from '../../../services/index';
+import {
+  OnboardingService,
+  NotificationService
+} from '../../../services/index';
 import { OnboardingRequestModel } from '../../../models/index';
 import { Router } from '@angular/router';
 
@@ -9,14 +12,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./onboarding-complete.component.less']
 })
 export class OnboardingCompleteComponent implements OnInit {
-
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private onboardingSrv: OnboardingService, private notificationSrv: NotificationService, private router: Router) { }
+  constructor(
+    private onboardingSrv: OnboardingService,
+    private notificationSrv: NotificationService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   userAction(action: string) {
     const step = action === 'back' ? (this.step = 5) : (this.step = 7);
@@ -24,17 +29,21 @@ export class OnboardingCompleteComponent implements OnInit {
   }
 
   goToMyAccount() {
-
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.currentStep = this.step;
-    this.onboardingSrv.onboarding(onboardingModel).subscribe(response => {
-      console.log(response);
-      if (!response.HasError) {
-        console.log('my account');
-        this.router.navigateByUrl('/dashboard');
-      } else { this.notificationSrv.showError(response.Message); }
-    }, error => { console.log(error); });
-
+    this.onboardingSrv.onboarding(onboardingModel).subscribe(
+      response => {
+        console.log(response);
+        if (!response.HasError) {
+          console.log('my account');
+          this.router.navigateByUrl('/account');
+        } else {
+          this.notificationSrv.showError(response.Message);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
-
 }

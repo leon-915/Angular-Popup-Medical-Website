@@ -4,12 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import {
-  AccountInformationComponent,
   LoginComponent,
   MyHomeComponent,
   ProductComponent,
   ResetPasswordComponent,
   AccountDashboardComponent,
+  AccountInformationComponent,
+  AccountSecurityComponent,
   SignupComponent,
   OnboardingComponent,
   InvoiceGeneratorComponent,
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'my-home', component: MyHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: AccountInformationComponent },
+  { path: 'account', component: AccountDashboardComponent },
+  { path: 'account/info', component: AccountInformationComponent },
+  { path: 'account/security', component: AccountSecurityComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signup-confirm', component: SignupConfirmComponent },
   { path: 'register', component: SignupStep1Component },
