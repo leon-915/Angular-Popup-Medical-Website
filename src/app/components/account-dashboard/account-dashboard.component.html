@@ -6,39 +6,42 @@
 
 
     <div class="row">
-      <div class="col-4" style="  border-right: 2px solid lightslategrey;">
+      <div routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="col-4" style="  border-right: 2px solid lightslategrey;">
         <h3 class="mb-3">My Account</h3>
         <p>
           My Dashboard
         </p>
         <p>
-          <a [routerLink]="['/login']">My Orders</a>
+          My Orders
         </p>
         <p>
-          <a href="#">My Credits & Certificates</a>
+          My Credits & Certificates
         </p>
         <p>
-          <a href="#">My Membership Card</a>
+          My Membership Card
         </p>
         <p>
-          <a href="#">My Info</a>
+          <a [routerLink]="['/account/info']">My Info</a>
         </p>
         <p>
-          <a href="#">My Family</a>
+          My Family
         </p>
         <p>
-          <a href="#">My Security</a>
+          <a [routerLink]="['/account/security']">My Security</a>
         </p>
         <p>
-          <a href="#">My Communication Preferences</a>
+          My Communication Preferences
         </p>
         <p>
-          <a href="#">My Referrals</a>
+          My Referrals
+        </p>
+        <p>
+          <a [routerLink]="['/login']">Logout</a>
         </p>
       </div>
       <div class="col align-content-center">
         <p style="font-size: 12px; padding: 30px 0;">
-          here we'll render the selected screen(default the dashboardOption)
+          We'll change this component
         </p>
       </div>
     </div>

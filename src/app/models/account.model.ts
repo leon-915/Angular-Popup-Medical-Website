@@ -147,3 +147,9 @@ export class AccountUpdateRequest {
 export class AddAddressResult {
   userShippings: ShippingAddressModel[];
 }
+
+// in my security
+export class ChangePasswordModel {
+  curerent_password: string;
+  new_password: string;
+}

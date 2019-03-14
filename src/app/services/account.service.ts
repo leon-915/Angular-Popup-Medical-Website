@@ -8,7 +8,8 @@ import {
   UserDataResult,
   AddAddressRequestModel,
   AddAddressResult,
-  AccountUpdateRequest
+  AccountUpdateRequest,
+  ChangePasswordModel
 } from './../models/index';
 import { CommonService } from './common.service';
 
@@ -53,8 +54,9 @@ export class AccountService {
     });
   }
   deleteAddress(addressId: number) {
-    const url = `${this.serviceURl}account/deleteaddress/${addressId}`;
-    return this.http.delete<APIResponse<boolean>>(url);
+    const url = `${this.serviceURl}account/deleteadress`;
+    const requestPayload = { member_address: addressId };
+    return this.http.post<APIResponse<boolean>>(url, requestPayload);
   }
   resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
     const url = `${this.serviceURl}password/sendcode`;
@@ -73,6 +75,23 @@ export class AccountService {
       url,
       sendRequestConfirmationModel
     );
+  }
+  changePassSecurity(payload: ChangePasswordModel) {
+    const url = `${this.serviceURl}password/validatecode`;
+    console.log(JSON.stringify(payload));
+
+    // return this.http.post<APIResponse<boolean>>(
+    //   url,
+    //   payload
+    // );
+  }
+  changePinSecurity(payload: string) {
+    const url = `${this.serviceURl}password/validatecode`;
+    console.log(JSON.stringify(payload));
+    // return this.http.post<APIResponse<boolean>>(
+    //   url,
+    //   payload
+    // );
   }
 
   // Setters Getters
