@@ -3,26 +3,30 @@
 
 <div class="row mt-2">
   
-  <div class="col-lg-12 mt-2">
+  <div class="col-lg-12 col-md-6 mt-2">
     <mat-radio-group [(ngModel)]="consumingMedication">
       <div class="form-group" *ngFor="let option of options">
-          <mat-radio-button [value]="option.value" (change)="radioChanged($event)"> <small> {{option.description}} </small> </mat-radio-button>
+        <mat-radio-button [value]="option.value" (change)="radioChanged($event)"> <small class="wrap-mat-radio-label"> {{option.description}} </small> </mat-radio-button>
       </div>
     </mat-radio-group>
   </div>
 
-  <p>selected: {{consumingMedication}}</p>
+  <!--<p>selected: {{consumingMedication}}</p>-->
 
-  <!--<div class="col-lg-12 mt-2">
-      
-      <p>Conditions</p>
-      <mat-form-field>
-        <mat-select placeholder="Conditios" multiple [(value)]="selectedConditions">
-          <mat-option *ngFor="let allergie of allergies" [value]="allergie.lookup_allergy_id">{{allergie.display_value}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
+  <div class="col-lg-6" *ngIf="consumingMedication">
+    <p>Medications and Supplements</p>
+    <!--<mat-form-field class="w-100">
+      <mat-select placeholder="Allergies" multiple [(value)]="uncommonAllergies" >
+        <mat-option *ngFor="let allergie of allergies.uncommon_allergies" [value]="allergie">{{allergie.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>-->
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Medications and Supplements" multiple [(ngModel)]="myMedicationSupplements" [compareWith]="compareWithFunc">
+        <mat-option *ngFor="let medSup of medications" [value]="medSup">{{medSup.display_value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
 </div>
 

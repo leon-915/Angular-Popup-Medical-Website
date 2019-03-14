@@ -31,10 +31,9 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     private notificationSrv: NotificationService) {}
 
   ngOnInit() {
-    // initialize map (info for California)
+
     this.shippingAddress.latitude = 36.778259;
     this.shippingAddress.longitude = -119.417931;
-
     this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
 
   }
@@ -47,11 +46,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       console.log('error loading map', error);
     });
 
-  }
-
-  getShippingAddress() {
-    // consume lambda for the shipping address
-    // set the response to shippingAddress
   }
 
   setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
@@ -76,33 +70,50 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       console.log(response);
       if (!response.HasError) {
         this.pharmacies = response.Result;
-        console.log(this.pharmacies);
       }
     }, error => { console.log(error); });
 
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 5) : (this.step = 6);
+    const step = action === 'back' ? (this.step = 4) : (this.step = 6);
     this.action.emit(step);
   }
 
   radioChanged(event) { this.primaryPharmacyAddress = event; }
 
   /*private getUserLocation() {
-
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
       });
     }
+  }*/
 
+  /*loadPrimaryPharmacy() {
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      if (!response.HasError && response.Result) {
+        console.log(response);
+        //this.pharmacies.push(response.Result);
+        this.shippingAddress.latitude = parseFloat(response.Result.latitude);
+        this.shippingAddress.longitude = parseFloat(response.Result.longitude);
+        console.log(this.shippingAddress);
+        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
+        this.primaryPharmacyAddress = response.Result;
+      } else {
+        // initialize map (info for California)
+        console.log('no tengo una farmacia seleccionada');
+        this.shippingAddress.latitude = 36.778259;
+        this.shippingAddress.longitude = -119.417931;
+        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
+      }
+    }, error => { console.log(error); });
   }*/
 
   nextStep() {
-    /*this.step = 6;
-    this.action.emit(this.step);*/
     console.log(this.primaryPharmacyAddress);
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.pharmacyId = this.primaryPharmacyAddress.pharmacy_id;

@@ -81,17 +81,9 @@ export class AllergiesComponent implements OnInit {
   }
 
   checkSelectedAllergies() {
-    /*for (let c = 0; c < this.commonAllergies.length; c++) {
-      for (let i = 0; i < this.allergies.common_allergies.length; i++) {
-        if (this.commonAllergies[c].lookup_allergy_id === this.allergies.common_allergies[i].lookup_allergy_id) {
-          this.allergies.common_allergies[i].selected = true;
-        }
-      }
-    }*/
     for (const commonAllergie of this.commonAllergies) {
       for (const allergie of this.allergies.common_allergies) {
         if (commonAllergie.lookup_allergy_id === allergie.lookup_allergy_id) {
-          // this.allergies.common_allergies[i].selected = true;
           allergie.selected = true;
         }
       }

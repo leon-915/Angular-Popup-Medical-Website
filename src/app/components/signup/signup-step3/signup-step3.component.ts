@@ -18,6 +18,7 @@ export class SignupStep3Component implements OnInit {
       response => {
         if (!response.HasError) {
           this.plans = response.Result;
+          console.log(this.plans);
         }
       },
       error => {

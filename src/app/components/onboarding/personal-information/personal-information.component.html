@@ -60,6 +60,9 @@
           </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Physician First Name" formControlName="physicianFirstName">
+            <p class="mt-1 text-danger" *ngIf="(physicianFirstName.dirty || physicianFirstName.touched) && physicianFirstName.invalid && physicianFirstName.errors.required">
+              Physician First Name is required.
+            </p>
           </div>
         </div>
       </div>
@@ -70,6 +73,9 @@
           </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Physician Last Name" formControlName="physicianLastName">
+            <p class="mt-1 text-danger" *ngIf="(physicianLastName.dirty || physicianLastName.touched) && physicianLastName.invalid && physicianLastName.errors.required">
+              Physician Last Name is required.
+            </p>
           </div>
         </div>
       </div>
@@ -79,8 +85,16 @@
             <label for="">Physician Phone *</label>
           </div>
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Physician Phone" formControlName="physicianPhoneNumber"
-            maxlength="10" minlength="10" appOnlyNumbers="true">
+            <input type="text" class="form-control" placeholder="Physician Phone" formControlName="physicianPhoneNumber" appOnlyNumbers="true">
+            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.required">
+              Physician Phone is required.
+            </p>
+            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.minlength">
+              Physician Phone must be at least 10 numbers long.
+            </p>
+            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.maxlength">
+              Physician Phone can be max 10 numbers long.
+            </p>
           </div>
         </div>
       </div>
@@ -90,8 +104,16 @@
             <label for="">Physician Fax *</label>
           </div>
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Physician Fax" formControlName="physicianFax"
-            maxlength="10" minlength="10" appOnlyNumbers="true">
+            <input type="text" class="form-control" placeholder="Physician Fax" formControlName="physicianFax" appOnlyNumbers="true">
+            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.required">
+              Physician Fax is required.
+            </p>
+            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.minlength">
+              Physician Fax must be at least 10 numbers long.
+            </p>
+            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.maxlength">
+              Physician Fax can be max 10 numbers long.
+            </p>
           </div>
         </div>
       </div>
@@ -109,6 +131,9 @@
           </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Emergency Contact First Name" formControlName="emergencyContactFirstName">
+            <p class="mt-1 text-danger" *ngIf="(emergencyContactFirstName.dirty || emergencyContactFirstName.touched) && emergencyContactFirstName.invalid && emergencyContactFirstName.errors.required">
+              Emergency Contact First Name is required.
+            </p>
           </div>
         </div>
       </div>
@@ -118,8 +143,16 @@
             <label for="">Emergency Contact Phone Number *</label>
           </div>
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Emergency Contact Phone Number" formControlName="emergencyContactPhoneNumber"
-            maxlength="10" minlength="10" appOnlyNumbers="true">
+            <input type="text" class="form-control" placeholder="Emergency Contact Phone Number" formControlName="emergencyContactPhoneNumber" appOnlyNumbers="true">
+            <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.required">
+              Emergency Contact Phone Number is required.
+            </p>
+            <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.minlength">
+              Emergency Contact Phone Number must be at least 10 numbers long.
+            </p>
+            <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.maxlength">
+              Emergency Contact Phone Number can be max 10 numbers long.
+            </p>
           </div>
         </div>
       </div>
@@ -130,6 +163,9 @@
           </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Emergency Contact Relationship" formControlName="emergencyContactRelationship">
+            <p class="mt-1 text-danger" *ngIf="(emergencyContactRelationship.dirty || emergencyContactRelationship.touched) && emergencyContactRelationship.invalid && emergencyContactRelationship.errors.required">
+              Emergency Contact Relationship is required.
+            </p>
           </div>
         </div>
       </div>

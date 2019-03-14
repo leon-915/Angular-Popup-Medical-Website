@@ -102,6 +102,10 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
 
     this.setShippingInfoValidators();
     this.setMobilePhoneNumber();
+
+    this.signupForm.controls.city.disable();
+    this.signupForm.controls.state.disable();
+    this.signupForm.controls.zipCode.disable();
   }
 
   ngAfterViewInit() {
@@ -163,16 +167,25 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
           this.memberInfo.phoneNumber
         );
       } else {
-        mobilePhoneNumber.setValidators([Validators.required]);
+        mobilePhoneNumber.setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
         this.signupForm.controls.phoneNumber.setValue('');
       }
       mobilePhoneNumber.updateValueAndValidity();
     });
   }
 
+  get phoneNumber() {
+    return this.signupForm.get('phoneNumber');
+  }
+
+  get textMessagingPin() {
+    return this.signupForm.get('textMessagingPin');
+  }
+
   doSignup() {
     this.signupForm.controls.latitude.setValue(this.memberInfo.latitude);
     this.signupForm.controls.longitude.setValue(this.memberInfo.longitude);
+    console.log(this.signupForm.getRawValue());
     this.signupSrv.signup(this.signupForm.value).subscribe(
       response => {
         if (!response.HasError) {

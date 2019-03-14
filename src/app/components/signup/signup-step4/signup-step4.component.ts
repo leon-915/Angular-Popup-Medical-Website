@@ -64,13 +64,32 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
       state: ['', [Validators.required]], // {value: '', disabled: true}
       zipCode: [''], // {value: '', disabled: true}
       lastFour: ['', [Validators.required, CardValidator.checkCardFormat]],
-      phoneNumber: ['', [Validators.required]], // PhoneValidator.checkPhone
+      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], // PhoneValidator.checkPhone
       paymentPeriod: ['', [Validators.required]],
       currentStep: [this.step],
       latitude: [],
       longitude: []
     });
 
+    this.loadInformation();
+
+    this.signupForm.controls.city.disable();
+    this.signupForm.controls.state.disable();
+    this.signupForm.controls.zipCode.disable();
+  }
+
+  ngAfterViewInit() {
+    this.googleSrvPlaces
+      .loadMaps(this.address, this.setAddress)
+      .then(() => {
+        console.log('Google maps loaded');
+      })
+      .catch(error => {
+        console.log('error loading map', error);
+      });
+  }
+
+  loadInformation() {
     const member = new SignupRequestModel();
     member.currentStep = 4;
     this.signupSrv.getSignupInformation(member).subscribe(
@@ -123,17 +142,6 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     );
   }
 
-  ngAfterViewInit() {
-    this.googleSrvPlaces
-      .loadMaps(this.address, this.setAddress)
-      .then(() => {
-        console.log('Google maps loaded');
-      })
-      .catch(error => {
-        console.log('error loading map', error);
-      });
-  }
-
   userAction(action: string) {
     const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
     this.action.emit(step);
@@ -148,19 +156,31 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     this.signupForm.controls.paymentPeriod.setValue(method);
   }
 
-  /*setMemberAddressAndPhone() {
-    const memberAddress = new AddressModel();
-    memberAddress.address1 = this.signupForm.controls.address1.value;
-    memberAddress.city = this.signupForm.controls.city.value;
-    memberAddress.state = this.signupForm.controls.state.value;
-    memberAddress.zipCode = this.signupForm.controls.zipCode.value;
-  }*/
+  get lastFour() {
+    return this.signupForm.get('lastFour');
+  }
+
+  get firstName() {
+    return this.signupForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.signupForm.get('lastName');
+  }
+
+  get address1() {
+    return this.signupForm.get('address1');
+  }
+
+  get phoneNumber() {
+    return this.signupForm.get('phoneNumber');
+  }
 
   doSignup() {
     this.signupForm.controls.latitude.setValue(this.latitude);
     this.signupForm.controls.longitude.setValue(this.longitude);
-    console.log(this.signupForm.value);
-    this.signupSrv.signup(this.signupForm.value).subscribe(
+    console.log(this.signupForm.getRawValue());
+    this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         if (!response.HasError) {
           this.userAction('advance');

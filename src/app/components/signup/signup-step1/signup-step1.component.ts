@@ -21,7 +21,7 @@ export class SignupStep1Component implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.signupForm = this.fb.group(
+    /*this.signupForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
         pwd: [
@@ -31,10 +31,26 @@ export class SignupStep1Component implements OnInit {
         confirm: ['', [Validators.required]]
       },
       { validator: PasswordValidator.checkPasswordEquality }
+    );*/
+    this.signupForm = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        pwd: [
+          '',
+          [Validators.required,
+            PasswordValidator.patternValidator(/\d/, { hasNumber: true }),
+            PasswordValidator.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+            PasswordValidator.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/g, { hasSpecialCharacters: true }),
+            Validators.minLength(8)]
+        ],
+        confirm: ['', [Validators.required]]
+      },
+      { validator: PasswordValidator.checkPasswordEquality }
     );
   }
 
-  doSignup() {
+  doRegister() {
     this.signupSrv.signupCognito(this.signupForm.value).subscribe(
       response => {
         console.log(response);
@@ -67,4 +83,17 @@ export class SignupStep1Component implements OnInit {
       }
     );
   }
+
+  get email() {
+    return this.signupForm.get('email');
+  }
+
+  get pwd() {
+    return this.signupForm.get('pwd');
+  }
+
+  get confirm() {
+    return this.signupForm.get('confirm');
+  }
+
 }

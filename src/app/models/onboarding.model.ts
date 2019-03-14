@@ -13,6 +13,6 @@ export class OnboardingRequestModel {
     emergencyContactRelationship?: string;
     myAllergies?: string;
     myConditions?: string;
-    myMedications?: string;
+    myMedicationSupplements?: string;
     pharmacyId?: number;
 }

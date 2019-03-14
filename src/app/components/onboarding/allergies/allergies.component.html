@@ -5,7 +5,8 @@
   
   <div class="col-lg-6">
     <div class="form-group" *ngFor="let allergie of allergies.common_allergies">
-      <input type="checkbox" [(ngModel)]="allergie.selected" (ngModelChange)="addCommonAllergy(allergie)"> {{allergie.display_value}}
+      <!--<input type="checkbox" [(ngModel)]="allergie.selected" (ngModelChange)="addCommonAllergy(allergie)"> {{allergie.display_value}}-->
+      <mat-checkbox [(ngModel)]="allergie.selected" (ngModelChange)="addCommonAllergy(allergie)"> {{allergie.display_value}}  </mat-checkbox>
     </div>
   </div>
 

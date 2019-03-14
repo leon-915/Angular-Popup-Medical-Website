@@ -40,7 +40,13 @@
       <div class="form-group">
         <label for="">Credit Card Number</label>
         <input type="text" placeholder="Credit Card Number" class="form-control" formControlName="lastFour" maxlength="16"
-          minlength="15" appOnlyNumbers="true">
+        minlength="15" appOnlyNumbers="true">
+        <p class="mt-1 text-danger" *ngIf="(lastFour.dirty || lastFour.touched) && lastFour.invalid && lastFour.errors.required">
+          Credit Card Number is required.
+        </p>
+        <p class="mt-1 text-danger" *ngIf="(lastFour.dirty || lastFour.touched) && lastFour.invalid && lastFour.errors.invalidNumber">
+          Credit Card Number must be a valid credit card.
+        </p>
       </div>
     </div>
   </div>
@@ -88,12 +94,18 @@
       <div class="form-group">
         <label for="">First Name</label>
         <input type="text" placeholder="First Name" class="form-control" formControlName="firstName">
+        <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required">
+          First Name is required.
+        </p>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Last Name</label>
         <input type="text" placeholder="Last Name" class="form-control" formControlName="lastName">
+        <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required">
+          Last Name is required.
+        </p>
       </div>
     </div>
   </div>
@@ -134,6 +146,9 @@
       <div class="form-group">
         <label for="">Billing Address</label>
         <input type="text" placeholder="Billing Address" class="form-control" formControlName="address1" #address>
+        <p class="mt-1 text-danger" *ngIf="(address1.dirty || address1.touched) && address1.invalid && address1.errors.required">
+          Billing Address is required.
+        </p>
       </div>
     </div>
   </div>
@@ -165,8 +180,16 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Billing Phone</label>
-        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber" maxlength="10"
-          minlength="10" appOnlyNumbers="true">
+        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber"appOnlyNumbers="true">
+        <p class="mt-1 text-danger" *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.required">
+          Billing Phone is required.
+        </p>
+        <p class="mt-1 text-danger" *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.minlength">
+          Billing Phone must be at least 10 numbers long.
+        </p>
+        <p class="mt-1 text-danger" *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.maxlength">
+          Billing Phone can be max 10 numbers long.
+        </p>
       </div>
     </div>
   </div>
