@@ -31,11 +31,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as moment from 'moment';
 
 /* CONFIGURATIONS */
-import { customNotifierOptions } from './configurations/index';
 /* CONFIGURATIONS */
 
 /* MODULES */
-import { NotifierModule } from 'angular-notifier';
 import { AgmCoreModule } from '@agm/core';
 /* MODULES */
 
@@ -166,7 +164,6 @@ import { AuthGuard } from './guards/auth.guard';
     MatTabsModule,
     MatToolbarModule,
     NgxCaptchaModule,
-    NotifierModule.withConfig(customNotifierOptions),
     ReactiveFormsModule
   ],
   providers: [
