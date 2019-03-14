@@ -51,7 +51,16 @@ import {
   AccountDashboardComponent,
   AccountInformationComponent,
   AccountSecurityComponent,
+  AllergiesComponent,
+  ConditionsComponent,
+  InvoiceGeneratorComponent,
   LoginComponent,
+  MedicationsComponent,
+  MyHomeComponent,
+  OnboardingCompleteComponent,
+  OnboardingComponent,
+  PersonalInformationComponent,
+  PrimaryPharmacyComponent,
   ProductComponent,
   ProductVideoComponent,
   ResetPasswordComponent,
@@ -66,7 +75,6 @@ import {
   SignupStep4Component,
   SignupStep5Component,
   SignupStep6Component,
-  MyHomeComponent,
   SignupConfirmComponent
 } from './components/index';
 /* COMPONENTS */
@@ -87,15 +95,6 @@ import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 import { AuthGuard } from './guards/auth.guard';
-import { OnboardingComponent } from './components/onboarding/onboarding.component';
-import { PersonalInformationComponent } from './components/onboarding/personal-information/personal-information.component';
-import { AllergiesComponent } from './components/onboarding/allergies/allergies.component';
-import { ConditionsComponent } from './components/onboarding/conditions/conditions.component';
-import { MedicationsComponent } from './components/onboarding/medications/medications.component';
-import { PrimaryPharmacyComponent } from './components/onboarding/primary-pharmacy/primary-pharmacy.component';
-import { OnboardingCompleteComponent } from './components/onboarding/onboarding-complete/onboarding-complete.component';
-import { InvoiceGeneratorComponent } from './components/invoice-generator/invoice-generator.component';
-import {} from './components/account-dashboard/account-security/account-security.component';
 
 @NgModule({
   declarations: [
