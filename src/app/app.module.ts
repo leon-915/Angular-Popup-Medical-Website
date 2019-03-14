@@ -141,7 +141,7 @@ import { AuthGuard } from './guards/auth.guard';
     }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,
