@@ -5,7 +5,8 @@
   
   <div class="col-lg-6">
     <div class="form-group" *ngFor="let condition of conditions.common_conditions">
-      <input type="checkbox" [(ngModel)]="condition.selected" (ngModelChange)="addCommonCondition(condition)"> {{condition.display_value}}
+      <!--<input type="checkbox" [(ngModel)]="condition.selected" (ngModelChange)="addCommonCondition(condition)"> {{condition.display_value}}-->
+      <mat-checkbox [(ngModel)]="condition.selected" (ngModelChange)="addCommonCondition(condition)"> {{condition.display_value}} </mat-checkbox>
     </div>
   </div>
 

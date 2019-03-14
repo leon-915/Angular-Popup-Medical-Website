@@ -11,20 +11,18 @@ export class MedicationsComponent implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  public consumingMedication = true;
+  public consumingMedication = false;
 
   public options: Array<any> = new Array<any>();
   public medications: MedicationModel = new MedicationModel();
-  public commonMedications: Array<LookupModel> = new Array<LookupModel>();
-  public uncommonMedications: Array<LookupModel> = new Array<LookupModel>();
-  public showUncommon = false;
+  public myMedicationSupplements: Array<LookupModel> = new Array<LookupModel>();
 
   constructor(
     private onboardingSrv: OnboardingService,
     private notificationSrv: NotificationService,
     private medicationSrv: MedicationsService) {
-    this.options.push({value: true, description: 'I am not currently taking other medications or supplements'},
-    {value: false, description: 'I am taking other medications or supplements'} );
+    this.options.push({value: false, description: 'I am not currently taking other medications or supplements'},
+    {value: true, description: 'I am taking other medications or supplements'} );
   }
 
   ngOnInit() {
@@ -41,6 +39,10 @@ export class MedicationsComponent implements OnInit {
     console.log(this.consumingMedication);
   }
 
+  compareWithFunc(a, b) {
+    return a.display_value === b.display_value;
+  }
+
   getMedicationSupplements() {
 
     this.medicationSrv.getMedicationSupplements().subscribe((response) => {
@@ -48,22 +50,40 @@ export class MedicationsComponent implements OnInit {
       if (!response.HasError) {
         this.medications = response.Result;
         console.log(this.medications);
+        this.loadMedicationSupplements();
       }
     }, (error) => { console.log(error); });
 
   }
 
+  loadMedicationSupplements() {
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError && response.Result) {
+        this.myMedicationSupplements = JSON.parse(response.Result.medications_supplements);
+        console.log(this.myMedicationSupplements);
+      }
+    }, error => { console.log(error); });
+
+  }
+
   nextStep() {
+    console.log(this.myMedicationSupplements);
+    const myMedicationsSupp = JSON.stringify(this.myMedicationSupplements);
+    console.log(myMedicationsSupp);
     const onboardingModel = new OnboardingRequestModel();
+    onboardingModel.myMedicationSupplements = myMedicationsSupp;
     onboardingModel.currentStep = this.step;
-    this.onboardingSrv.onboarding(onboardingModel).subscribe(response => {
+    this.onboardingSrv.onboarding(onboardingModel).subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
         this.userAction('advance');
       } else {
         this.notificationSrv.showError(response.Message);
       }
-    });
+    }, error => { console.log(error); });
   }
 
 

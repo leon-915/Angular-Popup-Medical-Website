@@ -42,10 +42,10 @@ export class PersonalInformationComponent implements OnInit {
       year: [null, [Validators.required]],
       physicianFirstName: ['', [Validators.required]],
       physicianLastName: ['', [Validators.required]],
-      physicianPhoneNumber: ['', [Validators.required]],
-      physicianFax: ['', [Validators.required]],
+      physicianPhoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      physicianFax: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       emergencyContactFirstName: ['', [Validators.required]],
-      emergencyContactPhoneNumber: ['', [Validators.required]],
+      emergencyContactPhoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       emergencyContactRelationship: ['', [Validators.required]],
       currentStep: [this.step]
     });
@@ -80,6 +80,34 @@ export class PersonalInformationComponent implements OnInit {
       }
     }, error => { console.log(error); });
 
+  }
+
+  get physicianFirstName() {
+    return this.onboardingForm.get('physicianFirstName');
+  }
+
+  get physicianLastName() {
+    return this.onboardingForm.get('physicianLastName');
+  }
+
+  get physicianPhoneNumber() {
+    return this.onboardingForm.get('physicianPhoneNumber');
+  }
+
+  get physicianFax() {
+    return this.onboardingForm.get('physicianFax');
+  }
+
+  get emergencyContactFirstName() {
+    return this.onboardingForm.get('emergencyContactFirstName');
+  }
+
+  get emergencyContactPhoneNumber() {
+    return this.onboardingForm.get('emergencyContactPhoneNumber');
+  }
+
+  get emergencyContactRelationship() {
+    return this.onboardingForm.get('emergencyContactRelationship');
   }
 
   nextStep() {
