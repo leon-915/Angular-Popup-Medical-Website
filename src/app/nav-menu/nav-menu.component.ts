@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 // import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 // import { Observable } from 'rxjs';
 
+declare var $: any;
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,7 +11,12 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
 
-  // isHandset:Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
-  // private breakpointObserver:BreakpointObserver
   constructor() {}
+
+  navbarOpen = false;
+
+  showSideNav() {
+    console.log(this.navbarOpen);
+    $('.sidenav').sidenav();
+  }
 }
