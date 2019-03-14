@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
-import { NotifierService } from 'angular-notifier';
+/*import { NotifierService } from 'angular-notifier';*/
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class NotificationService {
-  constructor(private notifierSrv: NotifierService) { }
+  constructor(private notifierSrv: ToastrService) { }
 
   showInfo(message: string) {
-    this.notifierSrv.notify('info', message);
+    this.notifierSrv.info( message, '',  {closeButton: true} );
   }
   showWarning(message: string) {
-    this.notifierSrv.notify('warning', message);
+    this.notifierSrv.warning( message, '', {closeButton: true});
   }
   showSuccess(message: string) {
-    this.notifierSrv.notify('success', message);
+    this.notifierSrv.success( message, '', {closeButton: true});
   }
   showError(message: string) {
-    this.notifierSrv.notify('error', message);
+    this.notifierSrv.error( message, '', {closeButton: true});
   }
 
   HideNotifications() {
-    this.notifierSrv.hideAll();
+   // this.notifierSrv.hideAll();
   }
 
 }

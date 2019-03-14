@@ -22,6 +22,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -139,8 +140,8 @@ import { AuthGuard } from './guards/auth.guard';
       libraries: ['places']
     }),
     AppRoutingModule,
-
     BrowserAnimationsModule,
+    ToastrModule.forRoot(), 
     BrowserModule,
     FormsModule,
     HttpClientModule,
