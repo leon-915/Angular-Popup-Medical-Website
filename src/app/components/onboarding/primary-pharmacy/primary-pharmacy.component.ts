@@ -95,10 +95,23 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     }
   }
 
+  loadShippingAddress() {
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      if (!response.HasError && response.Result.shipping_address) {
+        this.shippingAddress.latitude = parseFloat(response.Result.shipping_address.latitude);
+        this.shippingAddress.longitude = parseFloat(response.Result.shipping_address.longitude);
+        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
+      }
+    }, error => { console.log(error); });
+  }
+
   loadPrimaryPharmacy() {
     const onboardingInfo = new OnboardingRequestModel();
     onboardingInfo.currentStep = this.step;
     this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      console.log(response);
       if (!response.HasError && response.Result) {
         console.log(response);
         this.shippingAddress.latitude = parseFloat(response.Result.latitude);

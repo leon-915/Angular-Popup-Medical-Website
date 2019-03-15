@@ -186,7 +186,7 @@ export class SignupStep5Component implements OnInit, AfterViewInit {
     this.signupForm.controls.latitude.setValue(this.memberInfo.latitude);
     this.signupForm.controls.longitude.setValue(this.memberInfo.longitude);
     console.log(this.signupForm.getRawValue());
-    this.signupSrv.signup(this.signupForm.value).subscribe(
+    this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         if (!response.HasError) {
           this.userAction('advance');

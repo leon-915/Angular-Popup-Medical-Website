@@ -11,9 +11,10 @@ export class MedicationsComponent implements OnInit {
 
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  public consumingMedication = false;
+  public consumingMedication = 'no';
 
-  public options: Array<any> = new Array<any>();
+  public options: Array<any> = [{value: 'no', description: 'I am not currently taking other medications or supplements'},
+  {value: 'yes', description: 'I am taking other medications or supplements'}];
   public medications: MedicationModel = new MedicationModel();
   public myMedicationSupplements: Array<LookupModel> = new Array<LookupModel>();
 
@@ -21,8 +22,6 @@ export class MedicationsComponent implements OnInit {
     private onboardingSrv: OnboardingService,
     private notificationSrv: NotificationService,
     private medicationSrv: MedicationsService) {
-    this.options.push({value: false, description: 'I am not currently taking other medications or supplements'},
-    {value: true, description: 'I am taking other medications or supplements'} );
   }
 
   ngOnInit() {
@@ -37,6 +36,9 @@ export class MedicationsComponent implements OnInit {
 
   radioChanged() {
     console.log(this.consumingMedication);
+    if (this.consumingMedication === 'yes') {
+      this.myMedicationSupplements = [];
+    }
   }
 
   compareWithFunc(a, b) {

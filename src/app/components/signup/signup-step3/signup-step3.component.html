@@ -1,16 +1,16 @@
 
 <h3 class="mb-3">Step 3 of 5</h3>
-<nav aria-label="breadcrumb">
+<!--<nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a disabled>Step 1</a></li>
     <li class="breadcrumb-item" (click)="goToStep(2)"><a [routerLink]="">Step 2</a></li>
     <li class="breadcrumb-item active">Step 3</li>
   </ol>
-</nav>
+</nav>-->
 
 <div class="row row-eq-height">
 
-  <div class="col-xl-3 col-lg-6 col-sm-12 col-md-6 d-flex align-items-stretch" *ngFor="let plan of plans">
+  <div class="col-xl-3 col-lg-6 col-sm-12 col-md-6" *ngFor="let plan of plans">
     <div class="card mb-3">
       <div class="card-body">
         <h4 class="text-center">{{plan.plan_name}}</h4>
@@ -24,11 +24,12 @@
           <li>Number of Rx: <strong>{{plan.number_of_rx}}</strong> </li>
           <li *ngIf="plan.processing_fee_active">Processing Fee: <strong>{{plan.processing_fee | currency}}</strong> </li>
         </ul>
+        <hr>
         <div class="spacer mb-3">
-          <h4 *ngIf="plan.price_quarter_active" class="text-center"> <small>${{plan.price_quarter}} / Quarter</small> </h4>
-          <h4 *ngIf="plan.price_month_active" class="text-center"> <small>${{plan.price_month}} / Month</small>  </h4>
-          <h4 *ngIf="plan.price_ninety_days_active" class="text-center"> <small>${{plan.price_ninety_days}} / 90 Days</small> </h4>
-          <h4 *ngIf="plan.price_year_active" class="text-center"> <small>${{plan.price_year}} / Year</small> </h4>
+          <h6 *ngIf="plan.price_quarter_active" class="text-center"> ${{plan.price_quarter}} / Quarter </h6>
+          <h6 *ngIf="plan.price_month_active" class="text-center"> ${{plan.price_month}} / Month  </h6>
+          <h6 *ngIf="plan.price_ninety_days_active" class="text-center"> ${{plan.price_ninety_days}} / 90 Days </h6>
+          <h6 *ngIf="plan.price_year_active" class="text-center"> ${{plan.price_year}} / Year </h6>
         </div>
         <button class="btn btn-primary btn-block" (click)="selectPlan(plan);">Select</button>
       </div>
