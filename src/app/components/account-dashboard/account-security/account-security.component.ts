@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormsModule
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService, NotificationService } from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
@@ -34,27 +39,32 @@ export class AccountSecurityComponent implements OnInit {
   ngOnInit() {
     this.passwordForm = this.fb.group(
       {
-        curerentPassword: [
+        curerentPassword: ['', [Validators.required]],
+        recaptcha: ['', Validators.required],
+        pwd: [
           '',
-          [Validators.required, PasswordValidator.checkPasswordStrength]
+          [
+            Validators.required,
+            PasswordValidator.patternValidator(/\d/, { hasNumber: true }),
+            PasswordValidator.patternValidator(/[A-Z]/, {
+              hasCapitalCase: true
+            }),
+            PasswordValidator.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/g, {
+              hasSpecialCharacters: true
+            }),
+            Validators.minLength(8)
+          ]
         ],
-        password: [
-          '',
-          [Validators.required, PasswordValidator.checkPasswordStrength]
-        ],
-        confirmPassword: [
-          '',
-          [Validators.required, PasswordValidator.checkPasswordStrength]
-        ],
-        recaptcha: ['', Validators.required]
+        confirm: ['', [Validators.required]]
       },
-      {
-        validator: PasswordValidator.MatchPassword // your validation method
-      }
+      { validator: PasswordValidator.checkPasswordEquality }
     );
     this.textPinForm = this.fb.group({
-      pin: ['', [Validators.required]],
-      recaptcha: ['', Validators.required]
+      pin: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(6)]
+      ]
     });
     this.reCaptchaV3Service.execute(
       this.siteKey,
@@ -93,5 +103,19 @@ export class AccountSecurityComponent implements OnInit {
         this.notificationSrv.showError(res.Message);
       }
     });
+  }
+
+  get curerentPassword() {
+    return this.passwordForm.get('curerentPassword');
+  }
+  get pwd() {
+    return this.passwordForm.get('pwd');
+  }
+
+  get confirm() {
+    return this.passwordForm.get('confirm');
+  }
+  get pin() {
+    return this.textPinForm.get('pin');
   }
 }

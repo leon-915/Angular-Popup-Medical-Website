@@ -82,6 +82,8 @@ export class Address {
   city: string;
   state: string;
   zipcode: string;
+  latitude?: number;
+  longitude?: number;
 }
 export class UserPhone {
   member_phone?: number;

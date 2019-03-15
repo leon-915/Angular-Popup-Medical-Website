@@ -1,7 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService, NotificationService } from 'src/app/services';
+import {
+  AccountService,
+  NotificationService,
+  GooglePlacesService
+} from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
 import * as moment from 'moment';
 import {
@@ -19,11 +32,14 @@ import {
   templateUrl: './account-information.component.html',
   styleUrls: ['./account-information.component.less']
 })
-export class AccountInformationComponent implements OnInit {
+export class AccountInformationComponent implements OnInit, AfterViewInit {
+  @ViewChild('billingAddress') billingAdress: ElementRef;
+
   startDate = new Date(1990, 0, 1);
 
   shippingAdressList: ShippingAddressModel[] = [];
-
+  private latitude: number;
+  private longitude: number;
   userInfoForm: FormGroup;
   newAddressForm: FormGroup;
 
@@ -31,6 +47,7 @@ export class AccountInformationComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private notificationSrv: NotificationService,
+    private googleSrvPlaces: GooglePlacesService,
     private accountSrv: AccountService
   ) {
     {
@@ -53,6 +70,8 @@ export class AccountInformationComponent implements OnInit {
         city: ['', [Validators.required]],
         state: ['', [Validators.required]],
         zipCode: ['', [Validators.required]],
+        latitude: ['', []],
+        longitude: ['', []],
 
         billingPhone: ['', [Validators.required]],
         cellPhone: ['', [Validators.required]]
@@ -70,7 +89,9 @@ export class AccountInformationComponent implements OnInit {
         address2: ['', []],
         city: ['', [Validators.required]],
         state: ['', [Validators.required]],
-        zipcode: ['', [Validators.required]]
+        zipcode: ['', [Validators.required]],
+        latitude: [0, []],
+        longitude: [0, []]
       },
       {}
     );
@@ -84,14 +105,24 @@ export class AccountInformationComponent implements OnInit {
       }
     });
   }
-
+  ngAfterViewInit() {
+    this.googleSrvPlaces
+      .loadMaps(this.billingAdress, this.setAddress)
+      .then(() => {
+        console.log('Google maps loaded');
+      })
+      .catch(error => {
+        console.log('error loading map', error);
+      });
+  }
   addShippingAddress() {
     // TODO: Add address to the back-end
     this.shippingAdressList.push(this.newAddressForm.value);
 
     const requestPayload = this.newAddressForm.value;
     requestPayload.member_id = this.userInfoForm.value.id;
-
+    console.log(JSON.stringify(requestPayload));
+    /*
     this.accountSrv.addUserAddress(requestPayload).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
@@ -104,12 +135,14 @@ export class AccountInformationComponent implements OnInit {
           address2: '',
           city: '',
           state: '',
-          zipcode: ''
+          zipcode: '',
+          latitude: 0,
+          longitude: 0
         });
       } else {
         this.notificationSrv.showError(res.Message);
       }
-    });
+    });*/
   }
   removeShippingAddress(index) {
     const addresId = this.shippingAdressList[index].member_address;
@@ -173,7 +206,27 @@ export class AccountInformationComponent implements OnInit {
       state: userData.state,
       zipCode: userData.zipcode,
       billingPhone: userPhones[0].phone_number,
-      cellPhone: userPhones[1].phone_number
+      cellPhone: userPhones[1].phone_number,
+      latitude: userData.latitude ? userData.latitude : 0,
+      longitude: userData.longitude ? userData.longitude : 0
     });
   }
+
+  setAddress = (
+    address1: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    latitude: number,
+    longitude: number
+  ) => {
+    this.userInfoForm.controls.zipCode.setValue(zipCode);
+    this.userInfoForm.controls.city.setValue(city);
+    this.userInfoForm.controls.state.setValue(state);
+    this.userInfoForm.controls.address1.setValue(address1);
+    this.userInfoForm.controls.latitude.setValue(latitude);
+    this.userInfoForm.controls.longitude.setValue(longitude);
+
+    // tslint:disable-next-line: semicolon
+  };
 }

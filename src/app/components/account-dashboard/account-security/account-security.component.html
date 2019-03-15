@@ -12,38 +12,67 @@
       <div class="form-group">
         <label for="Password">Current Password</label>
         <input type="password" placeholder="Curerent Password" id="curerentPassword" formControlName="curerentPassword"
-          required class="form-control">
+          class="form-control">
+        <p class="mt-1 text-danger" *ngIf="(curerentPassword.dirty || curerentPassword.touched) && curerentPassword.errors?.required">
+          Confirm password is required.
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password</label>
+        <input type="password" placeholder="Enter password" formControlName="pwd" class="form-control">
+
+        <p class="mt-2">Minimum password requirements:</p>
+
+        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength') ? 'text-danger' : 'text-success'">
+          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
+            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength')
+            ?
+            'clear' : 'done' }}
+          </i> Must be at least 8 characters.
+        </p>
+
+        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber') ? 'text-danger' : 'text-success'">
+          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
+            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber')
+            ?
+            'clear' : 'done' }}
+          </i> Must container at least one number.
+        </p>
+
+        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasCapitalCase') ? 'text-danger' : 'text-success'">
+          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
+            {{ passwordForm.controls['pwd'].hasError('required') ||
+            passwordForm.controls['pwd'].hasError('hasCapitalCase') ? 'clear' : 'done' }}
+          </i> Must contain at least one capital letter.
+        </p>
+
+        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSmallCase') ? 'text-danger' : 'text-success'">
+          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
+            {{ passwordForm.controls['pwd'].hasError('required') ||
+            passwordForm.controls['pwd'].hasError('hasSmallCase')
+            ? 'clear' : 'done' }}
+          </i> Must container at least one small letter
+        </p>
+
+        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
+            {{ passwordForm.controls['pwd'].hasError('required') ||
+            passwordForm.controls['pwd'].hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
+          </i> Must contain at least one special character.
+        </p>
       </div>
 
-      <div class="row">
-        <div class="col-7">
-          <div class="form-group">
-            <label for="Password">Password</label>
-            <input type="password" placeholder="Password" id="password" formControlName="password" required class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="confirmPassword">Re-Type Password
-            </label>
-            <input type="password" placeholder="Confirm Password" id="confirmPassword" formControlName="confirmPassword"
-              required class="form-control">
-          </div>
-        </div>
-        <div class="col align-content-center">
-          <p style="font-size: 12px; padding: 30px 0;">
-            Minimum password requirements:
-
-            8 character minimum
-
-            Must contain at least 1 number
-
-            Must contain at least 1 special character (^ $ * . [ ] {{ '{' }} } ( ) ? - &quot; ! @ # % &amp; / \ ,
-            &gt; &lt; ' :
-            ; | _ ~ `)
-            Must contain at least 1 uppercase letter
-
-            Must contain at least 1 lowercase letter</p>
-        </div>
+      <div class="form-group">
+        <label for="confirm">Re-Type Password</label>
+        <input type="password" placeholder="Confirm your password" formControlName="confirm" class="form-control">
+        <p class="mt-1 text-danger" *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && !!confirm?.errors?.required">
+          Confirm password is required.
+        </p>
+        <p class="mt-1 text-danger" *ngIf="!!passwordForm?.errors?.passwordsDoNotMatch">
+          Password doesn't match.
+        </p>
       </div>
+
       <input type="hidden" formControlName="recaptcha" />
 
       <div class="col d-flex justify-content-center">
@@ -55,24 +84,29 @@
     </form>
 
 
-    <h3 class="mb-3" style="margin-top: 40px">Text Messaging PIN</h3>
+    <h3 class="mb-3" style="margin-top: 70px">Text Messaging PIN</h3>
 
     <form [formGroup]="textPinForm" (ngSubmit)="sendTextPinForm()">
 
-      <div class="row">
-        <div class="col-7">
-          <div class="form-group">
-            <label for="Password">New Pin</label>
-            <input type="password" placeholder="New Pin" id="textpin" formControlName="pin" required class="form-control">
-          </div>
-        </div>
-        <div class="col align-content-center">
-          <p style="font-size: 12px; padding: 30px 0;">
-            This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot.
-            Occasionally you will be asked this PIN to confirm your identity by the chatbot.</p>
-        </div>
+      <div class="form-group">
+        <label for="textpin">New Pin</label>
+        <input type="password" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control">
       </div>
-      <input type="hidden" formControlName="recaptcha" />
+      <div *ngIf="pin.invalid && (pin.dirty || pin.touched)" class="">
+
+        <p class="mt-1 text-danger" *ngIf="pin?.errors['required']">
+          Pin is required.
+        </p>
+        <p class="mt-1 text-danger" *ngIf="pin?.errors['minlength']">
+          Pin must be at least 4 characters long.
+        </p>
+        <p class="mt-1 text-danger" *ngIf="pin?.errors['maxlength']">
+          Pin can not be longer than 6 characters. </p>
+      </div>
+      <p style="font-size: 12px; padding: 10px 0; text-align: center;">
+        This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot.
+        Occasionally you will be asked this PIN to confirm your identity by the chatbot.</p>
+
 
       <div class="col d-flex justify-content-center">
         <button type="submit" class="btn btn-primary btn-block" [disabled]="!textPinForm.valid">
