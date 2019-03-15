@@ -12,10 +12,10 @@ export class ContentService {
 
   serviceURl: string = this.commonSrv.contentPatientEducation;
 
-  getPatientEducation(idProd: number, lang: string) {
-
-    const url: string = this.serviceURl + 'patient-education';
-    const reqProduct: RequestProduct =  { idProduct: idProd, language: lang };
+  // idProd: number, lang: string)
+  getPatientEducation(reqProduct: RequestProduct) {
+    const url: string = this.serviceURl + 'gsdd/getcontentpatienteducation';
+    // const reqProduct: RequestProduct =  { idProduct: idProd, language: lang };
     return this.http.post<APIResponse<Content>>(url, reqProduct);
   }
 

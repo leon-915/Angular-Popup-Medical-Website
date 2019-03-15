@@ -1,30 +1,25 @@
 <!-- Search Form  -->
-<form #productForm="ngForm" (ngSubmit)="getContentPatientEducation()">
-  <div class="form-row mt-5">
-    <div class="form-group col-md-3">
-      <label for="sr-only">Product ID</label>
-      <input type="number" class="form-control" placeholder="Product ID" name="idProduct" [(ngModel)]="idProduct" required>
-    </div>
-    <div class="form-group col-md-3">
-      <label for="sr-only">Language</label>
-      <select class="form-control" name="language" [(ngModel)]="language" required>
-        <option [value]="lan" *ngFor="let lan of languages">{{lan}}</option>
-      </select>
-    </div>
-    <div class="form-group col-md-3 align-self-end">
-      <!--<button class="btn btn-primary" type="submit" >Submit</button>
-      <button mdbBtn color="primary" type="submit" [disabled]="!productForm.form.valid" class="btn btn-primary">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="!error || !content"></span>
-          Submit
-          <span class="sr-only">Loading...</span>
-        </button>-->
-        <button mdbBtn color="primary" type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-            <span> {{ loading ? 'Loading...' : 'Submit'  }} </span>
-          </button>
-    </div>
+<div class="row">
+  <div  class="col-lg-10 offset-lg-2 mt-5">
+    <form [formGroup]="productForm" (ngSubmit)="getContentPatientEducation()">
+      <div class="form-row align-items-center">
+        <div class="col-md-2">
+          <label >Product ID</label>
+          <input type="number" class="form-control mb-2" placeholder="Product ID" formControlName="idProduct">
+        </div>
+        <div class="col-md-2">
+          <label>Language</label>
+          <select class="form-control" formControlName="language">
+            <option [ngValue]="lan.value" *ngFor="let lan of languages">{{lan.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2 align-self-end">
+          <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 
 <div class="row mt-3" *ngIf="error">
   <!-- Error finding the product -->
