@@ -13,7 +13,7 @@
 
   <!--<p>selected: {{consumingMedication}}</p>-->
 
-  <div class="col-lg-6" *ngIf="consumingMedication">
+  <div class="col-lg-6" *ngIf="consumingMedication === 'yes'">
     <p>Medications and Supplements</p>
     <!--<mat-form-field class="w-100">
       <mat-select placeholder="Allergies" multiple [(value)]="uncommonAllergies" >
@@ -34,6 +34,7 @@
 
 <div class="row float-right mb-5">
   <div class="col-md-12">
+    <button class="btn btn-primary mr-3" type="button" (click)="userAction('back');">Back</button>
     <button class="btn btn-primary" type="button" (click)="nextStep();">Next</button> <!-- [disabled]="!signupForm.valid" -->
   </div>
 </div>

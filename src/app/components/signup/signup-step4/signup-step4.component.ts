@@ -27,6 +27,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
   signupForm: FormGroup;
   planSelected: PlanModel;
   paymentMethodSelected: string;
+  amountToCharge: number;
 
   constructor(
     private fb: FormBuilder,
@@ -95,6 +96,7 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
         console.log(response);
+        console.log(response.Result.price_month_active);
         if (!response.HasError && response.Result) {
           this.signupForm.controls.firstName.setValue(
             response.Result.first_name
@@ -123,16 +125,11 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
         this.planSelected.price_month = response.Result.price_month;
         this.planSelected.price_ninety_days = response.Result.price_ninety_days;
         this.planSelected.price_year = response.Result.price_year;
-        this.planSelected.price_quarter_active =
-          response.Result.price_quarter_active;
-        this.planSelected.price_month_active =
-          response.Result.price_month_active;
-        this.planSelected.price_ninety_days_active =
-          response.Result.price_ninety_days_active;
+        this.planSelected.price_quarter_active = response.Result.price_quarter_active;
+        this.planSelected.price_month_active = response.Result.price_month_active;
+        this.planSelected.price_ninety_days_active = response.Result.price_ninety_days_active;
         this.planSelected.price_year_active = response.Result.price_year_active;
-        this.signupForm.controls.paymentPeriod.setValue(
-          response.Result.payment_period
-        );
+        this.signupForm.controls.paymentPeriod.setValue(response.Result.payment_period);
         this.paymentMethodSelected = response.Result.payment_period;
         console.log(this.planSelected);
       },
@@ -151,8 +148,10 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     this.action.emit(step);
   }
 
-  setPlanPaymentMethod(method: string) {
+  setPlanPaymentMethod(method: string, price: number) {
+    console.log(method);
     this.paymentMethodSelected = method;
+    this.amountToCharge = price;
     this.signupForm.controls.paymentPeriod.setValue(method);
   }
 

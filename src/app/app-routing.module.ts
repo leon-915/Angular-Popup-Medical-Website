@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'register', component: SignupStep1Component },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'product', component: ProductComponent },
   { path: 'product/:id', component: ProductComponent },
   { path: 'onboarding', component: OnboardingComponent },
   { path: 'invoice-generator', component: InvoiceGeneratorComponent },

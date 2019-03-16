@@ -14,7 +14,7 @@
     </div>-->
   </div>
   <div class="col-md-6">
-      <button class="btn btn-primary" (click)="loadPrimaryPharmacy();">Use shipping address</button>
+    <button class="btn btn-primary float-right" (click)="loadShippingAddress();">Use shipping address</button>
   </div>
 </div>
 
@@ -40,8 +40,8 @@
         </mat-radio-group>
       </li>
     </ul>
-    <button type="button" class="btn btn-link float-right mt-5" *ngIf="pharmacies && limitItems < pharmacies.length"
-    (click)="limitItems = limitItems + 3">Show more pharmacies</button>
+    <button type="button" class="btn btn-link float-right mt-5 mb-5" *ngIf="pharmacies && limitItems < pharmacies.length"
+    (click)="limitItems = limitItems + 3">More pharmacies</button>
   </div>
   
   <div class="col-md-6">
