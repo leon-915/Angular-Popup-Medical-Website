@@ -40,7 +40,7 @@ export class SignupService {
   }
   getInvoicePdf() {
     const url: string = this.serviceURl + 'signup/get-invoice-pdf';
-    return this.http.post<APIResponse<InvoiceModel>>(url, null);
+    return this.http.post<InvoiceModel>(url, null);
   }
 
 }
