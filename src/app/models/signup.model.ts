@@ -34,5 +34,6 @@ export class SignupRequestModel {
 }*/
 
 export interface InvoiceModel {
-    html_base64: string;
+    pdf_base64: string;
 }
+

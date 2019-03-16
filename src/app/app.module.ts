@@ -38,7 +38,7 @@ import { AgmCoreModule } from '@agm/core';
 /* MODULES */
 
 /* PIPES */
-import { ArrayFilterPipe, Globals } from './shared/index';
+import { ArrayFilterPipe, SafePipe, Globals } from './shared/index';
 /* PIPES */
 
 /* COMPONENTS */
@@ -101,6 +101,7 @@ import { AuthGuard } from './guards/auth.guard';
     AccountInformationComponent,
     AppComponent,
     ArrayFilterPipe,
+    SafePipe,
     FooterComponent,
     HomeComponent,
     LoginComponent,

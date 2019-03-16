@@ -67,8 +67,8 @@
       <small> Pay with: cc ending in <strong>{{orderInfo.lastFour}}</strong> </small>
     </p>
     
-    <button class="btn btn-primary mb-4">Print Receipt</button>
-    
+    <!-- <button class="btn btn-primary mb-4">Print Receipt</button> -->
+    <app-invoice-generator></app-invoice-generator>
     <p>
       <small>A receipt of your purchase has been emailed to <strong>{{orderInfo.email}}</strong> </small>
     </p>

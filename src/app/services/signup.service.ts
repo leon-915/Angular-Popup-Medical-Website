@@ -38,8 +38,8 @@ export class SignupService {
   getSignupStep() {
     return this.signupStep;
   }
-  getInvoicey() {
-    const url: string = this.serviceURl + 'signup/getinvoice';
+  getInvoicePdf() {
+    const url: string = this.serviceURl + 'signup/get-invoice-pdf';
     return this.http.post<APIResponse<InvoiceModel>>(url, null);
   }
 
