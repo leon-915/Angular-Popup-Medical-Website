@@ -77,11 +77,11 @@ export class SendPassResetEmailRequestModel {
 
 export class Address {
   member_address?: number;
-  address1: string;
-  address2: string;
-  city: string;
-  state: string;
-  zipcode: string;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
   latitude?: number;
   longitude?: number;
 }
@@ -92,8 +92,8 @@ export class UserPhone {
 }
 
 export class ShippingAddressModel extends Address {
-  nickname: string;
-  is_default: boolean;
+  nickname?: string;
+  is_default?: boolean;
 }
 
 export class UserInfoResponse extends Address {
