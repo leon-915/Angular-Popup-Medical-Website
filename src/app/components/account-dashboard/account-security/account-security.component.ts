@@ -50,7 +50,7 @@ export class AccountSecurityComponent implements OnInit {
               hasCapitalCase: true
             }),
             PasswordValidator.patternValidator(/[a-z]/, { hasSmallCase: true }),
-            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/g, {
+            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/, {
               hasSpecialCharacters: true
             }),
             Validators.minLength(8)

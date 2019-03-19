@@ -1,4 +1,10 @@
-import { FormGroup, FormControl, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn
+} from '@angular/forms';
 
 export interface ValidationResult {
   [key: string]: boolean;
@@ -28,9 +34,7 @@ export class PasswordValidator {
       hasUpper: /[A-Z]/.test(password.value),
       hasLower: /[a-z]/.test(password.value),
       hasEightCharacters: /^.{8,}/.test(password.value),
-      hasSpecialCharacter: /[\^\$*.\[\]\{\}\(\)?\-\"!@#%&\/\\,><':;|_~`]/.test(
-        password.value
-      )
+      hasSpecialCharacter: /[!@#$%^&*(),.?":{}|<>]/.test(password.value)
     };
     const errors = Object.keys(validations).find(key => {
       return !validations[key];
@@ -53,7 +57,6 @@ export class PasswordValidator {
     }
   }
 
-
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!control.value) {
@@ -62,10 +65,10 @@ export class PasswordValidator {
       }
       // test the value of the control against the regexp supplied
       const valid = regex.test(control.value);
+      console.log(valid);
+
       // if true, return no error (no error), else return error passed in the second parameter
       return valid ? null : error;
     };
   }
-
-
 }

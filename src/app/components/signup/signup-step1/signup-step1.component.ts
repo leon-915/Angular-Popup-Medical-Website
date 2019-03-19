@@ -37,12 +37,18 @@ export class SignupStep1Component implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         pwd: [
           '',
-          [Validators.required,
+          [
+            Validators.required,
             PasswordValidator.patternValidator(/\d/, { hasNumber: true }),
-            PasswordValidator.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+            PasswordValidator.patternValidator(/[A-Z]/, {
+              hasCapitalCase: true
+            }),
             PasswordValidator.patternValidator(/[a-z]/, { hasSmallCase: true }),
-            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/g, { hasSpecialCharacters: true }),
-            Validators.minLength(8)]
+            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/, {
+              hasSpecialCharacters: true
+            }),
+            Validators.minLength(8)
+          ]
         ],
         confirm: ['', [Validators.required]]
       },
@@ -95,5 +101,4 @@ export class SignupStep1Component implements OnInit {
   get confirm() {
     return this.signupForm.get('confirm');
   }
-
 }
