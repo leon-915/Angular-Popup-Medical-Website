@@ -77,21 +77,15 @@ export class AccountService {
     );
   }
   changePassSecurity(payload: ChangePasswordModel) {
-    const url = `${this.serviceURl}password/validatecode`;
+    const url = `${this.serviceURl}account/security/password`;
     console.log(JSON.stringify(payload));
 
-    // return this.http.post<APIResponse<boolean>>(
-    //   url,
-    //   payload
-    // );
+    return this.http.post<APIResponse<boolean>>(url, payload);
   }
   changePinSecurity(payload: string) {
-    const url = `${this.serviceURl}password/validatecode`;
+    const url = `${this.serviceURl}account/security/textpin`;
     console.log(JSON.stringify(payload));
-    // return this.http.post<APIResponse<boolean>>(
-    //   url,
-    //   payload
-    // );
+    return this.http.put<APIResponse<boolean>>(url, payload);
   }
 
   // Setters Getters

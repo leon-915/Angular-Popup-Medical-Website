@@ -11,10 +11,9 @@
 
       <div class="form-group">
         <label for="Password">Current Password</label>
-        <input type="password" placeholder="Curerent Password" id="curerentPassword" formControlName="curerentPassword"
-          class="form-control">
-        <p class="mt-1 text-danger" *ngIf="(curerentPassword.dirty || curerentPassword.touched) && curerentPassword.errors?.required">
-          Confirm password is required.
+        <input type="password" placeholder="Current Password" id="currentPass" formControlName="currentPass" class="form-control">
+        <p class="mt-1 text-danger" *ngIf="(currentPass.dirty || currentPass.touched) && !!currentPass.errors?.required">
+          Current password is required.
         </p>
       </div>
       <div class="form-group">

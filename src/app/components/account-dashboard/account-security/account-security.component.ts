@@ -39,7 +39,7 @@ export class AccountSecurityComponent implements OnInit {
   ngOnInit() {
     this.passwordForm = this.fb.group(
       {
-        curerentPassword: ['', [Validators.required]],
+        currentPass: ['', [Validators.required]],
         recaptcha: ['', Validators.required],
         pwd: [
           '',
@@ -56,6 +56,7 @@ export class AccountSecurityComponent implements OnInit {
             Validators.minLength(8)
           ]
         ],
+
         confirm: ['', [Validators.required]]
       },
       { validator: PasswordValidator.checkPasswordEquality }
@@ -85,7 +86,7 @@ export class AccountSecurityComponent implements OnInit {
   sendPasswordForm() {
     const formValue = this.passwordForm.value;
 
-    this.accountSrv.resetPassValidateCode(formValue).subscribe(res => {
+    this.accountSrv.changePassSecurity(formValue).subscribe(res => {
       if (!res.HasError) {
         this.userAction('advance');
       } else {
@@ -94,19 +95,19 @@ export class AccountSecurityComponent implements OnInit {
     });
   }
   sendTextPinForm() {
-    const formValue = this.passwordForm.value;
-
-    this.accountSrv.resetPassValidateCode(formValue).subscribe(res => {
+    const formValue = this.textPinForm.value;
+    console.log(JSON.stringify(formValue));
+    this.accountSrv.changePinSecurity(formValue).subscribe(res => {
       if (!res.HasError) {
-        this.userAction('advance');
+        this.notificationSrv.showSuccess('pin changed');
       } else {
         this.notificationSrv.showError(res.Message);
       }
     });
   }
 
-  get curerentPassword() {
-    return this.passwordForm.get('curerentPassword');
+  get currentPass() {
+    return this.passwordForm.get('currentPass');
   }
   get pwd() {
     return this.passwordForm.get('pwd');
