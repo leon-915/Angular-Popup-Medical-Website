@@ -89,18 +89,19 @@
 
       <div class="form-group">
         <label for="textpin">New Pin</label>
-        <input type="password" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control">
+        <input type="number" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control">
       </div>
       <div *ngIf="pin.invalid && (pin.dirty || pin.touched)" class="">
 
         <p class="mt-1 text-danger" *ngIf="pin?.errors['required']">
-          Pin is required.
+          Pin is required to be a number between 4 and 6 digits.
         </p>
-        <p class="mt-1 text-danger" *ngIf="pin?.errors['minlength']">
-          Pin must be at least 4 characters long.
+        <p class="mt-1 text-danger" *ngIf="pin?.errors['range']">
+          Pin must have between 4 and 6 digits.
         </p>
-        <p class="mt-1 text-danger" *ngIf="pin?.errors['maxlength']">
-          Pin can not be longer than 6 characters. </p>
+        <p class="mt-1 text-danger" *ngIf="pin?.errors['symbols']">
+          Pin must contain only numbers.
+        </p>
       </div>
       <p style="font-size: 12px; padding: 10px 0; text-align: center;">
         This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot.

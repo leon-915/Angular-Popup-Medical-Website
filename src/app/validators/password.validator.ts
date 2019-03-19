@@ -71,4 +71,21 @@ export class PasswordValidator {
       return valid ? null : error;
     };
   }
+
+  static checkLimit(min: number, max: number): ValidatorFn {
+    return (c: AbstractControl): { [key: string]: boolean } | null => {
+      if (
+        c.value &&
+        (isNaN(c.value) ||
+          String(c.value).length < min ||
+          String(c.value).length > max)
+      ) {
+        if (isNaN(Number(c.value))) {
+          return { symbols: true };
+        }
+        return { range: true };
+      }
+      return null;
+    };
+  }
 }

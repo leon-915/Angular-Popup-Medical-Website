@@ -30,7 +30,8 @@ export class AccountSecurityComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private notificationSrv: NotificationService,
-    private reCaptchaV3Service: ReCaptchaV3Service
+    private reCaptchaV3Service: ReCaptchaV3Service,
+    private router: Router
   ) {
     {
     }
@@ -62,10 +63,7 @@ export class AccountSecurityComponent implements OnInit {
       { validator: PasswordValidator.checkPasswordEquality }
     );
     this.textPinForm = this.fb.group({
-      pin: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(6)]
-      ]
+      pin: ['', [Validators.required, PasswordValidator.checkLimit(4, 6)]]
     });
     this.reCaptchaV3Service.execute(
       this.siteKey,
@@ -88,7 +86,11 @@ export class AccountSecurityComponent implements OnInit {
 
     this.accountSrv.changePassSecurity(formValue).subscribe(res => {
       if (!res.HasError) {
-        this.userAction('advance');
+        this.notificationSrv.showSuccess(res.Message);
+        this.notificationSrv.showInfo('you need to login again');
+
+        sessionStorage.setItem('token', '');
+        this.router.navigateByUrl('/login');
       } else {
         this.notificationSrv.showError(res.Message);
       }
