@@ -78,9 +78,12 @@ export class PasswordValidator {
         c.value &&
         (isNaN(c.value) ||
           String(c.value).length < min ||
-          String(c.value).length > max)
+          String(c.value).length > max ||
+          isNaN(Number(c.value)) ||
+          c.value < 0)
       ) {
-        if (isNaN(Number(c.value))) {
+        if (isNaN(Number(c.value)) || c.value < 0) {
+          console.log('error');
           return { symbols: true };
         }
         return { range: true };

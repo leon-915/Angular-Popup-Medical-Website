@@ -89,7 +89,8 @@
 
       <div class="form-group">
         <label for="textpin">New Pin</label>
-        <input type="number" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control">
+        <input type="number" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control"
+          min="0">
       </div>
       <div *ngIf="pin.invalid && (pin.dirty || pin.touched)" class="">
 
