@@ -142,7 +142,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Billing Address</label>
-        <input type="text" placeholder="Billing Address" class="form-control" formControlName="address1" #address>
+        <input type="text" placeholder="Billing Address" class="form-control" formControlName="address1"> <!-- #address -->
         <p class="mt-1 text-danger" *ngIf="(address1.dirty || address1.touched) && address1.invalid && address1.errors.required">
           Billing Address is required.
         </p>
@@ -167,7 +167,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Zip</label>
-        <input type="number" placeholder="Zip" class="form-control" formControlName="zipCode">
+        <input type="number" placeholder="Zip" class="form-control" formControlName="zipCode" appOnlyNumbers="true">
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="">Billing Phone</label>
-        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber"appOnlyNumbers="true">
+        <input type="text" placeholder="Billing Phone" class="form-control" formControlName="phoneNumber"appOnlyNumbers="true" mask='(000) 000-0000'>
         <p class="mt-1 text-danger" *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.required">
           Billing Phone is required.
         </p>

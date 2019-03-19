@@ -1,9 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 
 @Injectable()
 export class CommonService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
   apiURL = environment.apiURL;
   contentPatientEducation = environment.apiURL;
+
+  getStates() {
+    const url = '../../assets/files/states.json';
+    return this.http.get<any>(url);
+  }
 }

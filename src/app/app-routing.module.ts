@@ -14,8 +14,8 @@ import {
   SignupComponent,
   OnboardingComponent,
   InvoiceGeneratorComponent,
-  SignupStep1Component,
-  SignupConfirmComponent
+  SignupConfirmComponent,
+  RegisterComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 
@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'account/security', component: AccountSecurityComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signup-confirm', component: SignupConfirmComponent },
-  { path: 'register', component: SignupStep1Component },
+  { path: 'register', component: RegisterComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },

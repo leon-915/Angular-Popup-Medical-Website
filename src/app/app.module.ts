@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask';
 import * as moment from 'moment';
 
 /* CONFIGURATIONS */
@@ -94,6 +95,10 @@ import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
+import { SelectMyPlanComponent } from './components/signup/select-my-plan/select-my-plan.component';
+import { BillingInformationComponent } from './components/signup/billing-information/billing-information.component';
+import { OrderConfirmationComponent } from './components/signup/order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +136,11 @@ import { AuthGuard } from './guards/auth.guard';
     PrimaryPharmacyComponent,
     OnboardingCompleteComponent,
     InvoiceGeneratorComponent,
-    AccountSecurityComponent
+    AccountSecurityComponent,
+    RegisterComponent,
+    SelectMyPlanComponent,
+    BillingInformationComponent,
+    OrderConfirmationComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -165,7 +174,8 @@ import { AuthGuard } from './guards/auth.guard';
     MatTabsModule,
     MatToolbarModule,
     NgxCaptchaModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
     {

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { SignupService, NotificationService } from 'src/app/services';
+import { Router } from '@angular/router';
 import { PasswordValidator } from 'src/app/validators';
-import { SignupRequestModel } from 'src/app/models';
 
 @Component({
-  selector: 'app-signup-step1',
-  templateUrl: './signup-step1.component.html',
-  styleUrls: ['./signup-step1.component.less']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.less']
 })
-export class SignupStep1Component implements OnInit {
+export class RegisterComponent implements OnInit {
+
   signupForm: FormGroup;
 
   constructor(
@@ -95,4 +95,5 @@ export class SignupStep1Component implements OnInit {
   get confirm() {
     return this.signupForm.get('confirm');
   }
+
 }

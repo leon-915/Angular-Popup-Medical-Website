@@ -61,11 +61,11 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
         Validators.required
       ],
       address1: ['', [Validators.required]],
-      city: ['', [Validators.required]], // {value: '', disabled: true}
-      state: ['', [Validators.required]], // {value: '', disabled: true}
-      zipCode: [''], // {value: '', disabled: true}
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      zipCode: ['', [Validators.required]],
       lastFour: ['', [Validators.required, CardValidator.checkCardFormat]],
-      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], // PhoneValidator.checkPhone
+      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       paymentPeriod: ['', [Validators.required]],
       currentStep: [this.step],
       latitude: [],
@@ -74,20 +74,20 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
 
     this.loadInformation();
 
-    this.signupForm.controls.city.disable();
+    /*this.signupForm.controls.city.disable();
     this.signupForm.controls.state.disable();
-    this.signupForm.controls.zipCode.disable();
+    this.signupForm.controls.zipCode.disable();*/
   }
 
   ngAfterViewInit() {
-    this.googleSrvPlaces
+    /*this.googleSrvPlaces
       .loadMaps(this.address, this.setAddress)
       .then(() => {
         console.log('Google maps loaded');
       })
       .catch(error => {
         console.log('error loading map', error);
-      });
+      });*/
   }
 
   loadInformation() {
@@ -95,8 +95,6 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
     member.currentStep = 4;
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
-        console.log(response);
-        console.log(response.Result.price_month_active);
         if (!response.HasError && response.Result) {
           this.signupForm.controls.firstName.setValue(
             response.Result.first_name
@@ -106,7 +104,6 @@ export class SignupStep4Component implements OnInit, AfterViewInit {
           this.signupForm.controls.city.setValue(response.Result.city);
           this.signupForm.controls.state.setValue(response.Result.state);
           this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
-          /*this.signupForm.controls.lastFour.setValue(response.Result.lastfour);*/
           this.signupForm.controls.phoneNumber.setValue(
             response.Result.phone_number
           );

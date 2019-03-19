@@ -13,13 +13,13 @@ export class MyHomeComponent implements OnInit {
   constructor(private signupSrv: SignupService, private router: Router) { }
 
   ngOnInit() {
-    // Get the user information here to send to the server (email, and sub)
     const member = new SignupRequestModel();
     member.currentStep = 1;
     this.signupSrv.signup(member).subscribe(response => {
       console.log(response);
       if (!response.HasError) {
-        if (response.Result.last_step_completed === 5 || response.Result.last_step_completed === 6) {
+        // response.Result.last_step_completed === 5 ||
+        if (response.Result.last_step_completed === 6) {
           console.log('Signup already done. Go to home page');
           this.router.navigate(['/onboarding']);
         } else {

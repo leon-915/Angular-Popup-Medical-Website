@@ -2,9 +2,6 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "./app/styles/variales.less";
 
-
-
-
 body {
   background-color: @background;
   color: @text;
@@ -42,4 +39,38 @@ body {
 
 ul:not(.browser-default)>li {
   list-style-type: circle;
+}
+
+/*
+* System styles (Zeplin)
+*/
+
+.text-danger {
+  color: @error !important;
+}
+
+.text-success {
+  color: @green !important;
+}
+
+.component-title {
+  font-size: 54px;
+  font-weight: 200;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 72px;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: @orange;
+}
+
+.component-subtitle {
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.47;
+  letter-spacing: -0.2px;
+  text-align: center;
+  color: @green;
 }

@@ -32,9 +32,6 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    console.log('Personal info step: ', this.step);
-
     this.onboardingForm = this.fb.group({
       genderId: ['', [Validators.required]],
       month: [null, [Validators.required]],
@@ -43,7 +40,7 @@ export class PersonalInformationComponent implements OnInit {
       physicianFirstName: ['', [Validators.required]],
       physicianLastName: ['', [Validators.required]],
       physicianPhoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      physicianFax: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      physicianFax: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       emergencyContactFirstName: ['', [Validators.required]],
       emergencyContactPhoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       emergencyContactRelationship: ['', [Validators.required]],
@@ -111,9 +108,7 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   nextStep() {
-    console.log(this.onboardingForm.value);
     this.onboardingSrv.onboarding(this.onboardingForm.value).subscribe(response => {
-      console.log(response);
       if (!response.HasError) {
         this.userAction('advance');
       } else {

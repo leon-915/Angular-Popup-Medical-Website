@@ -105,9 +105,6 @@
           </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Physician Fax" formControlName="physicianFax" appOnlyNumbers="true">
-            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.required">
-              Physician Fax is required.
-            </p>
             <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.minlength">
               Physician Fax must be at least 10 numbers long.
             </p>
