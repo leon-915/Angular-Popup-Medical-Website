@@ -41,12 +41,6 @@ export class PasswordValidator {
     });
     return errors ? { patternDoesNotMatch: true } : null;
   }
-
-  public static MatchPassword(group: FormGroup): { [s: string]: boolean } {
-    return group.get('password').value !== group.get('confirmPassword').value
-      ? { passwordsDoNotMatch: true }
-      : null;
-  }
   static LookEmptyness(AC: AbstractControl) {
     const email = String(AC.get('email').value); // to get value in input tag
     const phone = String(AC.get('phone').value); // to get value in input tag
@@ -65,8 +59,6 @@ export class PasswordValidator {
       }
       // test the value of the control against the regexp supplied
       const valid = regex.test(control.value);
-      console.log(valid);
-
       // if true, return no error (no error), else return error passed in the second parameter
       return valid ? null : error;
     };
@@ -83,7 +75,6 @@ export class PasswordValidator {
           c.value < 0)
       ) {
         if (isNaN(Number(c.value)) || c.value < 0) {
-          console.log('error');
           return { symbols: true };
         }
         return { range: true };

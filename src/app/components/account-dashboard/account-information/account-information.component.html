@@ -57,16 +57,9 @@
             Please provide a valid city.
           </div>
         </div>
-        <div class="col-md-2 mb-3">
-          <label for="validationCustom05">State</label>
-          <select class="form-control" id="exampleFormControlSelect1" formControlName="state">
-            <option>TX</option>
-            <option>ALB</option>
-            <option>HXT</option>
-          </select>
-          <div class="invalid-feedback">
-            Please provide a valid State.
-          </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom04">State </label>
+          <input type="text" class="form-control" id="validationCustom04" placeholder="State" formControlName="state" />
         </div>
         <div class="col-md-2 mb-3">
           <label for="validationCustom05">Zip Code </label>
@@ -82,76 +75,76 @@
       <h4 class="mb-3">Shipping Address(es)</h4>
 
       <div id="accordion">
-        <div class="card" *ngFor="let address of shippingAdressList;  let i = index" [attr.data-index]="i">
-          <div class="card-header" id="heading">
-            <h5 class="mb-0">
-              <button type=button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#address' + i"
-                aria-expanded="true" aria-controls="collapseOne">
-                {{address.nickname}}
-              </button>
-            </h5>
-          </div>
+        <div formArrayName="shipping_addresses">
 
-          <div id="address{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <div class="form-group">
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom04">Nickname </label>
-                    <input type="text" class="form-control" id="validationCustom04" placeholder=Nickname value={{address.nickname}} />
-                  </div>
-                  <div class="col align-self-center">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="{{address.is_default}}" id="invalidCheck"
-                        checked={{address.is_default}} required />
-                      <label class="form-check-label" for="invalidCheck">
-                        Default Shipping Address
-                      </label>
+          <div class="card" *ngFor="let address of userInfoForm.controls.shipping_addresses.controls;  let i = index"
+            [attr.data-index]="i" formGroupName="{{i}}">
+            {{address.nickname}}
+
+            <div class="card-header" id="heading">
+              <h5 class="mb-0">
+                <button type=button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#address' + i"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  {{address.value.nickname}}
+                </button>
+              </h5>
+            </div>
+
+            <div id="address{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">Nickname </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder=Nickname
+                        formControlName="nickname" />
+                    </div>
+                    <div class="col align-self-center">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="invalidCheck" formControlName="defaultShipping" />
+                        <label class="form-check-label" for="invalidCheck">
+                          Default Shipping Address
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom04">Address </label>
-                    <input type="text" class="form-control" value="{{address.address1}}" id="validationCustom04"
-                      placeholder="Address" />
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom04">Address 2 </label>
-                    <input type="text" class="form-control" value="{{address.address2}}" id="validationCustom04"
-                      placeholder="Address 2" />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom04">City </label>
-                    <input type="text" class="form-control" value="{{address.city}}" id="validationCustom04"
-                      placeholder="City" />
-                  </div>
-                  <div class="col-md-2 mb-3">
-                    <label for="validationCustom05">State</label>
-                    <select class="form-control" value="{{address.state}}" id="exampleFormControlSelect1">
-                      <option>ALB</option>
-                      <option>TX</option>
-                      <option>HXT</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid State.
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">Address </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="Address"
+                        formControlName="address1" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">Address 2 </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2"
+                        formControlName="address2" />
                     </div>
                   </div>
-                  <div class="col-md-2 mb-3">
-                    <label for="validationCustom05">Zip Code </label>
-                    <input type="text" class="form-control" value="{{address.zipcode}}" id="validationCustom05"
-                      placeholder="Zip" required />
-                    <div class="invalid-feedback">
-                      Please provide a valid zip code.
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">City </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="City"
+                        formControlName="city" />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">State </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="State"
+                        formControlName="state" />
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                      <label for="validationCustom05">Zip Code </label>
+                      <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" formControlName="zipcode" />
+                      <div class="invalid-feedback">
+                        Please provide a valid zip code.
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <button type=button class="btn btn-primary" (click)="removeShippingAddress(i)">
-                    Remove Shipping Address
-                  </button>
+                  <div class="col-md-6 mb-3">
+                    <button type=button class="btn btn-primary" (click)="removeShippingAddress(i)">
+                      Remove Shipping Address
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -173,7 +166,7 @@
 
           <div id="newAddress" class="collapse show" aria-labelledby="headingNewAdress" data-parent="#accordion">
             <div class="card-body">
-              <form [formGroup]="newAddressForm" (ngSubmit)="addShippingAddress()">
+              <form [formGroup]="newAddressForm" (ngSubmit)="createShippingAddress()">
                 <div class="form-group">
 
                   <div class="form-row">
@@ -210,16 +203,10 @@
                       <input type="text" class="form-control" id="validationCustom04" placeholder="City"
                         formControlName="city" />
                     </div>
-                    <div class="col-md-2 mb-3">
-                      <label for="validationCustom05">State</label>
-                      <select class="form-control" id="stateSelect" formControlName="state">
-                        <option>TX</option>
-                        <option>ALB</option>
-                        <option>HXT</option>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please provide a valid State.
-                      </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom04">State </label>
+                      <input type="text" class="form-control" id="validationCustom04" placeholder="State"
+                        formControlName="state" />
                     </div>
                     <div class="col-md-2 mb-3">
                       <label for="validationCustom05">Zip Code </label>
@@ -230,7 +217,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-5 mb-3">
+                  <div class="col-md-6 mb-3">
                     <button class="btn btn-primary" type="submit" [disabled]="!newAddressForm.valid">
                       Add Shipping Address
                     </button>
@@ -249,11 +236,13 @@
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationCustom04">Billing Phone</label>
-          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="billingPhone" />
+          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="billingPhone"
+            mask='(000) 000-0000' />
         </div>
         <div class="col-md-4 ">
           <label for="validationCustom04">Cell Phone</label>
-          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="cellPhone" />
+          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="cellPhone"
+            mask='(000) 000-0000' />
         </div>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />

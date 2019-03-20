@@ -8,7 +8,7 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   AccountService,
@@ -50,11 +50,6 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     private googleSrvPlaces: GooglePlacesService,
     private accountSrv: AccountService
   ) {
-    {
-    }
-  }
-
-  ngOnInit() {
     this.userInfoForm = this.fb.group(
       {
         id: ['', []],
@@ -72,7 +67,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         zipCode: ['', [Validators.required]],
         latitude: ['', []],
         longitude: ['', []],
-
+        // shipping_addresses
+        shipping_addresses: fb.array([]),
         billingPhone: ['', [Validators.required]],
         cellPhone: ['', [Validators.required]]
       },
@@ -81,10 +77,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     this.newAddressForm = this.fb.group(
       {
         nickname: ['', [Validators.required]],
-        defaultShipping: [
-          { value: false, disabled: true },
-          [Validators.required]
-        ],
+        defaultShipping: [false, [Validators.required]],
         address1: ['', [Validators.required]],
         address2: ['', []],
         city: ['', [Validators.required]],
@@ -95,13 +88,19 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       },
       {}
     );
+  }
 
+  ngOnInit() {
     this.accountSrv.getUserData().subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
         this.updateUserForm(userData.userData[0], userData.userPhones);
+        this.shippingAdressList.forEach(address => {
+          this.addShippingaddress(address);
+        });
       } else {
+        this.notificationSrv.showError(res.Message);
       }
     });
   }
@@ -115,34 +114,30 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         console.log('error loading map', error);
       });
   }
-  addShippingAddress() {
+  createShippingAddress() {
     // TODO: Add address to the back-end
-    this.shippingAdressList.push(this.newAddressForm.value);
+    this.newAddressForm.patchValue({
+      defaultShipping: this.shippingAdressList.length < 1
+    });
 
-    const requestPayload = this.newAddressForm.value;
-    requestPayload.member_id = this.userInfoForm.value.id;
-    console.log(JSON.stringify(requestPayload));
-    /*
-    this.accountSrv.addUserAddress(requestPayload).subscribe(res => {
+    console.log(JSON.stringify(this.newAddressForm.value));
+    this.accountSrv.addUserAddress(this.newAddressForm.value).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
-        this.notificationSrv.showSuccess('address added');
-        this.newAddressForm.setValue({
-          nickname: '',
-          defaultShipping: false,
-          address1: '',
-          address2: '',
-          city: '',
-          state: '',
-          zipcode: '',
-          latitude: 0,
-          longitude: 0
-        });
+        const listSize = this.shippingAdressList.length;
+        const lastAddress = this.shippingAdressList[listSize - 1];
+        console.log('--------------------------------');
+        console.log(JSON.stringify(this.shippingAdressList));
+        console.log(JSON.stringify(this.shippingAdressList[listSize - 1]));
+        console.log(JSON.stringify(lastAddress));
+        this.addShippingaddress(lastAddress);
+        this.notificationSrv.showSuccess(res.Message);
+        this.clearNewAddressForm();
       } else {
         this.notificationSrv.showError(res.Message);
       }
-    });*/
+    });
   }
   removeShippingAddress(index) {
     const addresId = this.shippingAdressList[index].member_address;
@@ -151,6 +146,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       this.accountSrv.deleteAddress(addresId).subscribe(res => {
         if (!res.HasError) {
           this.shippingAdressList.splice(index, 1);
+          this.deleteAdress(index);
+          this.notificationSrv.showSuccess('shipping address deleted');
         } else {
           this.notificationSrv.showError(res.Message);
         }
@@ -192,7 +189,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
 
   updateUserForm(userData, userPhones) {
     console.log(JSON.stringify(userData));
-    this.userInfoForm.setValue({
+    this.userInfoForm.patchValue({
       id: userData.member_id,
       firstName: userData.first_name,
       lastName: userData.last_name,
@@ -205,10 +202,10 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       city: userData.city,
       state: userData.state,
       zipCode: userData.zipcode,
-      billingPhone: userPhones[0].phone_number,
-      cellPhone: userPhones[1].phone_number,
       latitude: userData.latitude ? userData.latitude : 0,
-      longitude: userData.longitude ? userData.longitude : 0
+      longitude: userData.longitude ? userData.longitude : 0,
+      billingPhone: userPhones[0].phone_number,
+      cellPhone: userPhones[1].phone_number
     });
   }
 
@@ -229,4 +226,38 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
 
     // tslint:disable-next-line: semicolon
   };
+
+  addShippingaddress(address?: ShippingAddressModel) {
+    const fg = this.fb.group({
+      nickname: [address.nickname, [Validators.required]],
+      defaultShipping: [address.is_default, []],
+      address1: [address.address1, [Validators.required]],
+      address2: [address.address2, []],
+      city: [address.city, [Validators.required]],
+      state: [address.state, [Validators.required]],
+      zipcode: [address.zipcode, [Validators.required]],
+      latitude: [address.latitude, []],
+      longitude: [address.longitude, []]
+    });
+    (this.userInfoForm.get('shipping_addresses') as FormArray).push(fg);
+  }
+
+  deleteAdress(index: number) {
+    (this.userInfoForm.get('shipping_addresses') as FormArray).removeAt(index);
+  }
+
+  clearNewAddressForm() {
+    this.newAddressForm.setValue({
+      nickname: '',
+      defaultShipping: false,
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      latitude: 0,
+      longitude: 0
+    });
+  }
+  updateAddressList() {}
 }

@@ -42,19 +42,26 @@ export class ResetPasswordStep2Component implements OnInit {
     this.passChangeForm = this.fb.group(
       {
         confirmationCode: ['', [Validators.required]],
-        password: [
+        pwd: [
           '',
-          [Validators.required, PasswordValidator.checkPasswordStrength]
+          [
+            Validators.required,
+            PasswordValidator.patternValidator(/\d/, { hasNumber: true }),
+            PasswordValidator.patternValidator(/[A-Z]/, {
+              hasCapitalCase: true
+            }),
+            PasswordValidator.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            PasswordValidator.patternValidator(/[!@#$%^&*(),.?":{}|<>]/, {
+              hasSpecialCharacters: true
+            }),
+            Validators.minLength(8)
+          ]
         ],
-        confirmPassword: [
-          '',
-          [Validators.required, PasswordValidator.checkPasswordStrength]
-        ],
+        confirm: ['', [Validators.required]],
+
         recaptcha: ['', Validators.required]
       },
-      {
-        validator: PasswordValidator.MatchPassword // your validation method
-      }
+      { validator: PasswordValidator.checkPasswordEquality }
     );
     this.reCaptchaV3Service.execute(
       this.siteKey,
@@ -78,7 +85,7 @@ export class ResetPasswordStep2Component implements OnInit {
     const changePayload: SendPassResetConfirmationRequestModel = {
       email: this.accountSrv.getUserEmail(),
       confirmation_code: formValue.confirmationCode,
-      new_password: formValue.password
+      new_password: formValue.pwd
     };
 
     this.accountSrv.resetPassValidateCode(changePayload).subscribe(res => {
@@ -88,5 +95,12 @@ export class ResetPasswordStep2Component implements OnInit {
         this.notificationSrv.showError(res.Message);
       }
     });
+  }
+  get pwd() {
+    return this.passChangeForm.get('pwd');
+  }
+
+  get confirm() {
+    return this.passChangeForm.get('confirm');
   }
 }
