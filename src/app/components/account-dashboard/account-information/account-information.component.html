@@ -94,8 +94,7 @@
       <div id="accordion">
         <div formArrayName="shipping_addresses">
 
-          <div class="card" *ngFor="let address of userInfoForm.controls.shipping_addresses.controls;  let i = index"
-            [attr.data-index]="i" formGroupName="{{i}}">
+          <div class="card" *ngFor="let address of addressList;  let i = index" [attr.data-index]="i" formGroupName="{{i}}">
             {{address.nickname}}
 
             <div class="card-header" id="heading">

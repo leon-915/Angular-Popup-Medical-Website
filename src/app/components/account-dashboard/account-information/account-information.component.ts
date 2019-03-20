@@ -288,4 +288,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   get cellPhone() {
     return this.userInfoForm.get('cellPhone');
   }
+  get addressList() {
+    // tslint:disable-next-line: no-string-literal
+    return this.userInfoForm.get('shipping_addresses')['controls'];
+  }
 }
