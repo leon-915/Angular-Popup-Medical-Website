@@ -49,10 +49,12 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import {
   AccountDashboardComponent,
+  AccountFamilyComponent,
   AccountInformationComponent,
   AccountSecurityComponent,
   AllergiesComponent,
   ConditionsComponent,
+  FamilyEditComponent,
   InvoiceGeneratorComponent,
   LoginComponent,
   MedicationsComponent,
@@ -103,10 +105,12 @@ import { OrderConfirmationComponent } from './components/signup/order-confirmati
 @NgModule({
   declarations: [
     AccountDashboardComponent,
+    AccountFamilyComponent,
     AccountInformationComponent,
     AppComponent,
     ArrayFilterPipe,
     SafePipe,
+    FamilyEditComponent,
     FooterComponent,
     HomeComponent,
     LoginComponent,
