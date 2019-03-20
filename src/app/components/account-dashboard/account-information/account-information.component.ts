@@ -2,9 +2,6 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  Input,
-  Output,
-  EventEmitter,
   ElementRef,
   ViewChild
 } from '@angular/core';
@@ -15,17 +12,8 @@ import {
   NotificationService,
   GooglePlacesService
 } from 'src/app/services';
-import { PasswordValidator } from 'src/app/validators';
 import * as moment from 'moment';
-import {
-  AddressModel,
-  ShippingAddressModel,
-  UserDataResult,
-  UserInfoResponse,
-  AccountUpdateRequest,
-  Address,
-  UserPhone
-} from 'src/app/models';
+import { ShippingAddressModel } from 'src/app/models';
 
 @Component({
   selector: 'app-account-information',
@@ -39,14 +27,11 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   startDate = new Date(1990, 0, 1);
 
   shippingAdressList: ShippingAddressModel[] = [];
-  private latitude: number;
-  private longitude: number;
   userInfoForm: FormGroup;
   newAddressForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private notificationSrv: NotificationService,
     private googleSrvPlaces: GooglePlacesService,
     private accountSrv: AccountService
@@ -62,7 +47,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         // billing address
         member_address: ['', []],
         address1: ['', [Validators.required]],
-        address2: ['', [Validators.required]],
+        address2: ['', []],
         city: ['', [Validators.required]],
         state: ['', [Validators.required]],
         zipCode: ['', [Validators.required]],
@@ -131,6 +116,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     this.newAddressForm.patchValue({
       defaultShipping: this.shippingAdressList.length < 1
     });
+    console.log(JSON.stringify(this.newAddressForm.value));
     this.accountSrv.addUserAddress(this.newAddressForm.value).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
@@ -238,10 +224,10 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     latitude: number,
     longitude: number
   ) {
-    this.userInfoForm.controls.zipCode.setValue(zipCode);
+    this.userInfoForm.controls.address1.setValue(address1);
     this.userInfoForm.controls.city.setValue(city);
     this.userInfoForm.controls.state.setValue(state);
-    this.userInfoForm.controls.address1.setValue(address1);
+    this.userInfoForm.controls.zipCode.setValue(zipCode);
     this.userInfoForm.controls.latitude.setValue(latitude);
     this.userInfoForm.controls.longitude.setValue(longitude);
   }
@@ -254,11 +240,52 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     latitude: number,
     longitude: number
   ) {
-    this.newAddressForm.controls.zipCode.setValue(zipCode);
+    this.newAddressForm.controls.address1.setValue(address1);
     this.newAddressForm.controls.city.setValue(city);
     this.newAddressForm.controls.state.setValue(state);
-    this.newAddressForm.controls.address1.setValue(address1);
+    this.newAddressForm.controls.zipcode.setValue(zipCode);
     this.newAddressForm.controls.latitude.setValue(latitude);
     this.newAddressForm.controls.longitude.setValue(longitude);
+  }
+
+  // user form getters
+  get firstName() {
+    return this.userInfoForm.get('firstName');
+  }
+  get lastName() {
+    return this.userInfoForm.get('lastName');
+  }
+  get birthday() {
+    return this.userInfoForm.get('birthday');
+  }
+  get member_address() {
+    return this.userInfoForm.get('member_address');
+  }
+  get address1() {
+    return this.userInfoForm.get('address1');
+  }
+  get address2() {
+    return this.userInfoForm.get('address2');
+  }
+  get city() {
+    return this.userInfoForm.get('city');
+  }
+  get state() {
+    return this.userInfoForm.get('state');
+  }
+  get zipCode() {
+    return this.userInfoForm.get('zipCode');
+  }
+  get latitude() {
+    return this.userInfoForm.get('latitude');
+  }
+  get longitude() {
+    return this.userInfoForm.get('longitude');
+  }
+  get billingPhone() {
+    return this.userInfoForm.get('billingPhone');
+  }
+  get cellPhone() {
+    return this.userInfoForm.get('cellPhone');
   }
 }
