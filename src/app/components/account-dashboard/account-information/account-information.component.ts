@@ -34,6 +34,7 @@ import {
 })
 export class AccountInformationComponent implements OnInit, AfterViewInit {
   @ViewChild('billingAddress') billingAdress: ElementRef;
+  @ViewChild('shippingAddress') shippingAddress: ElementRef;
 
   startDate = new Date(1990, 0, 1);
 
@@ -52,7 +53,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   ) {
     this.userInfoForm = this.fb.group(
       {
-        id: ['', []],
+        member_id: ['', []],
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
         gender_id: ['', []],
@@ -69,7 +70,10 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         longitude: ['', []],
         // shipping_addresses
         shipping_addresses: fb.array([]),
+        // phones
+        billingPhoneId: ['', []],
         billingPhone: ['', [Validators.required]],
+        cellPhoneId: ['', []],
         cellPhone: ['', [Validators.required]]
       },
       {}
@@ -106,7 +110,16 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.googleSrvPlaces
-      .loadMaps(this.billingAdress, this.setAddress)
+      .loadMaps(this.billingAdress, this.setBillingAddress.bind(this))
+      .then(() => {
+        console.log('Google maps loaded');
+      })
+      .catch(error => {
+        console.log('error loading map', error);
+      });
+
+    this.googleSrvPlaces
+      .loadMaps(this.shippingAddress, this.setShippingAddress.bind(this))
       .then(() => {
         console.log('Google maps loaded');
       })
@@ -115,22 +128,15 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       });
   }
   createShippingAddress() {
-    // TODO: Add address to the back-end
     this.newAddressForm.patchValue({
       defaultShipping: this.shippingAdressList.length < 1
     });
-
-    console.log(JSON.stringify(this.newAddressForm.value));
     this.accountSrv.addUserAddress(this.newAddressForm.value).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
         const listSize = this.shippingAdressList.length;
         const lastAddress = this.shippingAdressList[listSize - 1];
-        console.log('--------------------------------');
-        console.log(JSON.stringify(this.shippingAdressList));
-        console.log(JSON.stringify(this.shippingAdressList[listSize - 1]));
-        console.log(JSON.stringify(lastAddress));
         this.addShippingaddress(lastAddress);
         this.notificationSrv.showSuccess(res.Message);
         this.clearNewAddressForm();
@@ -158,27 +164,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   saveUserData() {
     // TODO: Check the phone number data how to display all phone numbers
     const userFormData = this.userInfoForm.value;
-    const billingAddress = new Address();
-    billingAddress.member_address = userFormData.member_address;
-    billingAddress.address1 = userFormData.address1;
-    billingAddress.address2 = userFormData.address2;
-    billingAddress.city = userFormData.city;
-    billingAddress.state = userFormData.state;
-    billingAddress.zipcode = userFormData.zipCode;
-
-    const accountUpdateRequest = new AccountUpdateRequest();
-    accountUpdateRequest.member_id = userFormData.id;
-    accountUpdateRequest.first_name = userFormData.firstName;
-    accountUpdateRequest.last_name = userFormData.lastName;
-    accountUpdateRequest.gender_id = userFormData.gender_id;
-    accountUpdateRequest.date_of_birth = userFormData.birthday;
-    accountUpdateRequest.billing_addres = billingAddress;
-    accountUpdateRequest.address = this.shippingAdressList;
-    accountUpdateRequest.billing_phone = userFormData.billingPhone;
-    accountUpdateRequest.mobil_phone = userFormData.cellPhone;
-
-    console.log(JSON.stringify(accountUpdateRequest));
-    this.accountSrv.updateUserData(accountUpdateRequest).subscribe(res => {
+    this.accountSrv.updateUserData(userFormData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
       } else {
@@ -188,9 +174,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   }
 
   updateUserForm(userData, userPhones) {
-    console.log(JSON.stringify(userData));
     this.userInfoForm.patchValue({
-      id: userData.member_id,
+      member_id: userData.member_id,
       firstName: userData.first_name,
       lastName: userData.last_name,
       gender: userData.gender,
@@ -204,31 +189,16 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       zipCode: userData.zipcode,
       latitude: userData.latitude ? userData.latitude : 0,
       longitude: userData.longitude ? userData.longitude : 0,
+      billingPhoneId: userPhones[0].member_phone,
       billingPhone: userPhones[0].phone_number,
+      cellPhoneId: userPhones[1].member_phone,
       cellPhone: userPhones[1].phone_number
     });
   }
 
-  setAddress = (
-    address1: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    latitude: number,
-    longitude: number
-  ) => {
-    this.userInfoForm.controls.zipCode.setValue(zipCode);
-    this.userInfoForm.controls.city.setValue(city);
-    this.userInfoForm.controls.state.setValue(state);
-    this.userInfoForm.controls.address1.setValue(address1);
-    this.userInfoForm.controls.latitude.setValue(latitude);
-    this.userInfoForm.controls.longitude.setValue(longitude);
-
-    // tslint:disable-next-line: semicolon
-  };
-
   addShippingaddress(address?: ShippingAddressModel) {
     const fg = this.fb.group({
+      member_address: [address.member_address, [Validators.required]],
       nickname: [address.nickname, [Validators.required]],
       defaultShipping: [address.is_default, []],
       address1: [address.address1, [Validators.required]],
@@ -259,5 +229,36 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       longitude: 0
     });
   }
-  updateAddressList() {}
+
+  setBillingAddress(
+    address1: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    latitude: number,
+    longitude: number
+  ) {
+    this.userInfoForm.controls.zipCode.setValue(zipCode);
+    this.userInfoForm.controls.city.setValue(city);
+    this.userInfoForm.controls.state.setValue(state);
+    this.userInfoForm.controls.address1.setValue(address1);
+    this.userInfoForm.controls.latitude.setValue(latitude);
+    this.userInfoForm.controls.longitude.setValue(longitude);
+  }
+
+  setShippingAddress(
+    address1: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    latitude: number,
+    longitude: number
+  ) {
+    this.newAddressForm.controls.zipCode.setValue(zipCode);
+    this.newAddressForm.controls.city.setValue(city);
+    this.newAddressForm.controls.state.setValue(state);
+    this.newAddressForm.controls.address1.setValue(address1);
+    this.newAddressForm.controls.latitude.setValue(latitude);
+    this.newAddressForm.controls.longitude.setValue(longitude);
+  }
 }
