@@ -1,3 +1,126 @@
-<p>
-  account-family works!
-</p>
+<div class="row mt-6">
+  <div class="col-lg-6 mx-auto">
+    <h3 class="mb-3">My Care Phamily</h3>
+    <label class="mb-3">(5 of 6 members used)</label>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Relationship</th>
+          <th scope="col">Status</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">John Smith</th>
+          <td>Me</td>
+          <td>Active</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Daniel Smith</th>
+          <td>Wife</td>
+          <td>Active</td>
+          <td>Edit</td>
+        </tr>
+        <tr>
+          <th scope="row">Kai Smith</th>
+          <td>Son</td>
+          <td>Active</td>
+          <td>Edit</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- add familymember -->
+    <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
+
+      <div class="form-group row">
+        <div class="col-md-4 mb-3">
+          <label for="confirm">Add Member (enter email):</label>
+          <input type="email" placeholder="Email" formControlName="email" class="form-control">
+          <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && !!email?.errors?.required">
+            Email is required.
+          </p>
+        </div>
+        <div class="col-md-4 mb-3 align-self-center">
+          <label for="confirm">Relationship to Primary Member</label>
+          <select class="browser-default custom-select">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div class="col d-flex align-self-center">
+          <button type="submit" class="btn btn-primary btn-block">
+            Invite
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+
+    <h3 class="mb-3">Guest Members</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Relationship</th>
+          <th scope="col">Status</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Matt Smith</th>
+          <td>Brother</td>
+          <td>Active</td>
+          <td>Delete</td>
+        </tr>
+        <tr>
+          <th scope="row">Aaron Smith</th>
+          <td>Brother</td>
+          <td>Invited</td>
+          <td>Delete</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- add familymember -->
+    <form [formGroup]="addGuestMemberForm" (ngSubmit)="addGuestMember()">
+
+      <div class="form-group row">
+        <div class="col-md-4 mb-3">
+          <label for="confirm">Invite Guest Member (enter email):</label>
+          <input type="email" placeholder="Email" formControlName="email" class="form-control">
+          <p class="mt-1 text-danger" *ngIf="(memberEmail.dirty || memberEmail.touched) && !!email?.errors?.required">
+            Email is required.
+          </p>
+        </div>
+        <div class="col-md-4 mb-3 align-self-center">
+          <label for="confirm">Relationship to Primary Member</label>
+          <select class="browser-default custom-select">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div class="col d-flex align-self-center">
+          <button type="submit" class="btn btn-primary btn-block">
+            Invite
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+
+
+  </div>
+
+</div>
