@@ -89,8 +89,14 @@ import {
   ContentService,
   GooglePlacesService,
   NotificationService,
-  PlanService,
-  SignupService
+  SignupService,
+  AllergiesService,
+  ConditionsService,
+  DciService,
+  MedicationsService,
+  OnboardingService,
+  PharmaciesService,
+  PlanService
 } from './services/index';
 /* SERVICES */
 
@@ -197,7 +203,13 @@ import { OrderConfirmationComponent } from './components/signup/order-confirmati
     GooglePlacesService,
     NotificationService,
     PlanService,
-    SignupService
+    SignupService,
+    AllergiesService,
+    ConditionsService,
+    DciService,
+    MedicationsService,
+    OnboardingService,
+    PharmaciesService
   ],
   bootstrap: [AppComponent]
 })

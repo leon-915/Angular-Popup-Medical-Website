@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignupService, NotificationService } from 'src/app/services';
+import { SignupService, NotificationService, DciService } from 'src/app/services';
 import { SignupRequestModel, OrderModel } from 'src/app/models';
 
 @Component({
@@ -16,19 +16,13 @@ export class OrderConfirmationComponent implements OnInit {
   constructor(
     private signupSrv: SignupService,
     private router: Router,
-    private notificationSrv: NotificationService
-  ) {
-    /**/
-  }
+    private notificationSrv: NotificationService,
+    private dciSrv: DciService
+  ) {}
 
   ngOnInit() {
     this.getOrderInformation();
   }
-
-  /*userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
-    this.action.emit(step);
-  }*/
 
   getOrderInformation() {
 
@@ -59,24 +53,28 @@ export class OrderConfirmationComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
 
-  goToOnboarding() {
+  async goToOnboarding() {
     const memberModel = new SignupRequestModel();
     memberModel.currentStep = this.step;
-    this.signupSrv.signup(memberModel).subscribe(
-      response => {
-        console.log(response);
-        /*if (!response.HasError) {
-          this.router.navigateByUrl('/onboarding');
+    const signupResponse = await this.signupSrv.signup(memberModel).toPromise();
+    console.log(signupResponse);
+    if (!signupResponse.HasError) {
+      const dciJsonResponse = await this.dciSrv.createDCIJsonRequest({}).toPromise();
+      console.log(dciJsonResponse);
+      if (!dciJsonResponse.HasError) {
+        const createDCICardResponse = await this.dciSrv.createDigitalCard(dciJsonResponse.Result).toPromise();
+        console.log(createDCICardResponse);
+        if(createDCICardResponse.card && createDCICardResponse.url) {
+          console.log('dci card created...');
+          //this.router.navigateByUrl('/onboarding');
         } else {
-          this.notificationSrv.showError(response.Message);
-        }*/
-      },
-      error => {
-        console.log(error);
+          console.log('error generating dci card...');
+        }
       }
-    );
+    } else {
+      this.notificationSrv.showError(signupResponse.Message);
+    }
   }
 }

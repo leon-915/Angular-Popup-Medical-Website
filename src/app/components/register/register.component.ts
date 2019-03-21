@@ -40,10 +40,14 @@ export class RegisterComponent implements OnInit {
         ],
         confirm: ['', [Validators.required]],
         awsAccountId: [''],
-        languageCodeId: [1]
+        languageCodeId: [1],
+        receiveInvitationCode: false,
+        invitationCode: ['']
       },
       { validator: PasswordValidator.checkPasswordEquality }
     );
+
+    this.showInvitationCodeControl();
   }
 
   doRegister() {
@@ -75,6 +79,25 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  showInvitationCodeControl() {
+
+    this.signupForm.controls.receiveInvitationCode.valueChanges.subscribe(status => {
+      console.log(status);
+      console.log(this.receiveInvitationCode.value);
+
+      if (status) {
+        this.invitationCode.setValue('');
+        this.invitationCode.setValidators([Validators.required]);
+      } else {
+        this.invitationCode.setValue('');
+        this.invitationCode.setValidators(null);
+      }
+
+      this.invitationCode.updateValueAndValidity();
+    });
+
+  }
+
   get email() {
     return this.signupForm.get('email');
   }
@@ -97,6 +120,14 @@ export class RegisterComponent implements OnInit {
 
   get confirm() {
     return this.signupForm.get('confirm');
+  }
+
+  get receiveInvitationCode() {
+    return this.signupForm.get('receiveInvitationCode');
+  }
+
+  get invitationCode() {
+    return this.signupForm.get('invitationCode');
   }
 
 }

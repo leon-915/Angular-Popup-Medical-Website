@@ -91,6 +91,14 @@
           </p>
         </div>
 
+        <div class="form-group">
+          <mat-checkbox formControlName="receiveInvitationCode"> I have an invitation code </mat-checkbox>
+        </div>
+
+        <div class="form-group" *ngIf="receiveInvitationCode.value">
+          <input type="text" class="form-control" placeholder="Invitation Code" formControlName="invitationCode" appOnlyNumbers="true">
+        </div>
+
         <p class="h5 text-center"> <small>By clicking Continue, I certify that: (1) I am the person who will receive the requested prescriptions, and the prescriptions 
         are for my personal use only; (2) this constitutes my electronic signature; and (3) 
         I agree to the <a href="">Terms of Service</a>, <a href=""> Privacy Policy</a> , and <a href="">HIPAA Privacy Practices</a> </small> </p>

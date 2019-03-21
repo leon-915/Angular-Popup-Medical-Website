@@ -11,3 +11,4 @@ export * from './allergies.service';
 export * from './onboarding.service';
 export * from './pharmacies.service';
 export * from './medications.service';
+export * from './dci.service';
