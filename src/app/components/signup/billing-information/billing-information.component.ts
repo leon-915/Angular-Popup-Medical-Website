@@ -71,7 +71,7 @@ export class BillingInformationComponent implements OnInit {
         this.signupForm.controls.longitude.setValue(response.Result.longitude);
         this.signupForm.controls.planName.setValue(response.Result.plan_name);
       }
-    },error => { console.log(error); });
+    }, error => { console.log(error); });
   }
 
   getStates() {
@@ -185,11 +185,10 @@ export class BillingInformationComponent implements OnInit {
       response => {
         console.log(response);
         if (!response.HasError) {
-          if(this.billingSameShipping.value) {
+          if (this.billingSameShipping.value) {
             console.log('billing and shipping ==');
             this.step = 5;
             this.action.emit(this.step);
-            
           } else {
             console.log('hay que enviarlo a la pantalla de shipping address');
             this.userAction('advance');

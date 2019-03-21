@@ -257,7 +257,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     while (formArray.length !== 0) {
       formArray.removeAt(0);
     }
-  };
+  }
 
   sameAsBilling(checked: boolean) {
     if (!checked) {
