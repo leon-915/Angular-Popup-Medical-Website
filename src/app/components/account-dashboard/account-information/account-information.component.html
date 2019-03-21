@@ -117,10 +117,9 @@
                     </div>
                     <div class="col align-self-center">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="invalidCheck" formControlName="defaultShipping" />
-                        <label class="form-check-label" for="invalidCheck">
-                          Default Shipping Address
-                        </label>
+                        <mat-checkbox formControlName="defaultShipping" (click)="setDefaultShipping(i)">Default
+                          Shipping
+                          Address</mat-checkbox>
                       </div>
                     </div>
                   </div>
@@ -193,11 +192,7 @@
                     </div>
                     <div class="col align-self-center">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="invalidCheck" formControlName="defaultShipping"
-                          checked="false" />
-                        <label class="form-check-label" for="invalidCheck">
-                          Default Shipping Address
-                        </label>
+                        <mat-checkbox formControlName="defaultShipping">Default Shipping Address</mat-checkbox>
                       </div>
                     </div>
                   </div>
@@ -265,12 +260,13 @@
             Cell Phone is required.
           </p>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-          <label class="form-check-label" for="invalidCheck">
-            Same as billing
-          </label>
+        <div class="col align-self-center">
+          <div class="form-check">
+            <mat-checkbox #c (click)="sameAsBilling(c.checked)"> Same as billing
+            </mat-checkbox>
+          </div>
         </div>
+
       </div>
       <div class="col-md-5 mb-3">
         <button class="btn btn-primary" type="submit">Save</button>

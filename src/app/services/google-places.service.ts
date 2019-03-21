@@ -21,9 +21,7 @@ export class GooglePlacesService {
             return;
           }
 
-          place.address_components.forEach(addressComponent => {
-            console.log(addressComponent);
-          });
+          place.address_components.forEach(addressComponent => {});
 
           let zipcode = '';
           let city = '';
@@ -33,7 +31,6 @@ export class GooglePlacesService {
           const longitude = place.geometry.location.lng();
           const latitude = place.geometry.location.lat();
           place.address_components.forEach(addressComponent => {
-            console.log(addressComponent);
             if (
               addressComponent.types.includes('administrative_area_level_1')
             ) {

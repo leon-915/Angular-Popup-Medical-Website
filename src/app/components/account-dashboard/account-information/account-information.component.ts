@@ -59,7 +59,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         billingPhoneId: ['', []],
         billingPhone: ['', [Validators.required]],
         cellPhoneId: ['', []],
-        cellPhone: ['', [Validators.required]]
+        cellPhone: [{ value: '', disabled: false }, [Validators.required]]
       },
       {}
     );
@@ -113,17 +113,23 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       });
   }
   createShippingAddress() {
-    this.newAddressForm.patchValue({
-      defaultShipping: this.shippingAdressList.length < 1
-    });
-    console.log(JSON.stringify(this.newAddressForm.value));
-    this.accountSrv.addUserAddress(this.newAddressForm.value).subscribe(res => {
+    const newAdress = this.newAddressForm.value;
+    if (this.shippingAdressList.length < 1) {
+      this.newAddressForm.patchValue({
+        defaultShipping: true
+      });
+    }
+    this.accountSrv.addUserAddress(newAdress).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
-        const listSize = this.shippingAdressList.length;
-        const lastAddress = this.shippingAdressList[listSize - 1];
-        this.addShippingaddress(lastAddress);
+        if (newAdress.defaultShipping) {
+          this.clearFormArray(this.userInfoForm.controls
+            .shipping_addresses as FormArray);
+        }
+        this.shippingAdressList.forEach(address => {
+          this.addShippingaddress(address);
+        });
         this.notificationSrv.showSuccess(res.Message);
         this.clearNewAddressForm();
       } else {
@@ -247,6 +253,37 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     this.newAddressForm.controls.latitude.setValue(latitude);
     this.newAddressForm.controls.longitude.setValue(longitude);
   }
+  clearFormArray = (formArray: FormArray) => {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0);
+    }
+  };
+
+  sameAsBilling(checked: boolean) {
+    if (!checked) {
+      const billingphone = this.userInfoForm.get('billingPhone').value;
+
+      this.userInfoForm.controls.cellPhone.setValue(billingphone);
+      this.userInfoForm.controls.cellPhone.disable();
+    } else {
+      this.userInfoForm.controls.cellPhone.enable();
+    }
+  }
+  setDefaultShipping(selectedIndex) {
+    const selectedAddress = this.shippingAdressList[selectedIndex];
+    selectedAddress.is_default = true;
+    this.shippingAdressList.splice(selectedIndex, 1);
+    this.shippingAdressList.forEach((address, index) => {
+      address.is_default = false;
+    });
+    this.shippingAdressList.unshift(selectedAddress);
+    this.clearFormArray(this.userInfoForm.controls
+      .shipping_addresses as FormArray);
+
+    this.shippingAdressList.forEach(address => {
+      this.addShippingaddress(address);
+    });
+  }
 
   // user form getters
   get firstName() {
@@ -291,5 +328,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   get addressList() {
     // tslint:disable-next-line: no-string-literal
     return this.userInfoForm.get('shipping_addresses')['controls'];
+  }
+  get sameAsBillingPhone() {
+    return this.userInfoForm.get('state');
   }
 }
