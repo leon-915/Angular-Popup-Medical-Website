@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row" *ngIf="planName">
   <div class="col-lg-12">
-    <h1 class="text-center">You've Selected PhamilyCare Plan Plus.</h1>
-    <h5 class="text-center">Let's Fine Tine the Billing Details</h5>
+    <h1 class="text-center title mb-0">You've Selected {{planName.value}}.</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">Let's Fine Tine the Billing Details</h5>
     <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="doSignup()">
       <div class="row">
         <div class="col-lg-6">
@@ -61,15 +61,12 @@
             <input type="text" placeholder="Promo Code" class="form-control" formControlName="promoCode" appOnlyNumbers="true">
           </div>
 
-          
-
-
         </div>
         <div class="col-lg-6">
 
 
           <div class="form-group">
-            <mat-checkbox> Billing Address Same As Shipping </mat-checkbox>
+            <mat-checkbox formControlName="billingSameShipping" (change)="billingCheckbox($event)"> Billing Address Same As Shipping </mat-checkbox>
           </div>
 
           <div class="form-group">

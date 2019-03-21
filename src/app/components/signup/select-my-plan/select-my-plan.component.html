@@ -1,73 +1,23 @@
 <div class="row">
-  <div class="col-lg-12 text-center">
-    <h1>Great, You've Made it.</h1>
-    <h5>Let's select a plan, you can change your plan anytime</h5>
+  <div class="col-md-12 text-center">
+    <h1 class="text-center title mb-0">Great, You've Made it.</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">Let's select a plan, you can change your plan anytime</h5>
   </div>
 </div>
+ 
 
-
-
-  <!--
-<mdb-carousel [isControls]="false" [animation]="'slide'">
-    <mdb-carousel-item>
-      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg" alt="First slide">
-    </mdb-carousel-item>
-    <mdb-carousel-item>
-      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg" alt="Second slide">
-    </mdb-carousel-item>
-    <mdb-carousel-item>
-      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Third slide">
-    </mdb-carousel-item>
-  </mdb-carousel>-->
-  
-
-
-<div class="row">
-
-  <div class="col p-0" *ngFor="let plan of plans"> <!--col-xl-3 col-lg-6 col-sm-12 col-md-6-->
-    <div class="card mb-3" style="border-radius: 50px;">
-      <div class="card-body">
-        <h5 class="text-center">{{plan.plan_name}}</h5>
-        <p class="text-justify">{{plan.description}}</p>
+<div class="d-none d-lg-block">
+  <div class="card-deck">
+    <div class="card mb-3 plan-card" (click)="planSelected = plan" *ngFor="let plan of plans">
+      <div class="card-body d-flex flex-column">
+        <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
+        <p class="text-justify plan-description">{{plan.description}}</p>
         <hr>
-        <p class="h4 text-center"> {{plan.price_quarter | currency}}/Mo <br> <small>billed quarterly</small> </p>
-        <div class="text-center mt-4">
-            <button class="btn btn-primary">Select</button>
-        </div>
+        <p class="h4 text-center plan-price mt-auto mx-auto"> {{plan.price_quarter | currency}}/Mo <br> 
+          <small class="billing-payment">billed quarterly</small>
+        </p>
+        <button type="button" class="mb-5 mx-auto btn btn-primary" (click)="selectPlan(plan);">Join Now</button>
       </div>
     </div>
   </div>
-
 </div>
-
-<div class="row float-right mt-3 mb-5">
-  <div class="col-md-12">
-    <button class="btn btn-primary" (click)="userAction('back');">Back</button>
-  </div>
-</div>
-
-<!--
-
-<div class="card-body">
-        <h4 class="text-center">{{plan.plan_name}}</h4>
-        <p class="text-justify"> <small> Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse facilis nesciunt maiores cum ducimus!
-            Excepturi incidunt cupiditate iure aliquam dolorum vitae a cumque voluptate provident, dolore impedit commodi harum odio. </small> </p>
-        <ul>
-          <li>{{plan.plan_period}}</li>
-          <li>User Limit: <strong>{{plan.user_limit}}</strong> </li>
-          <li>Telehealth: <strong>{{plan.telehealth}}</strong> </li>
-          <li>Beh Health: <strong>{{plan.beh_health}}</strong> </li>
-          <li>Number of Rx: <strong>{{plan.number_of_rx}}</strong> </li>
-          <li *ngIf="plan.processing_fee_active">Processing Fee: <strong>{{plan.processing_fee | currency}}</strong> </li>
-        </ul>
-        <hr>
-        <div class="spacer mb-3">
-          <h6 *ngIf="plan.price_quarter_active" class="text-center"> ${{plan.price_quarter}} / Quarter </h6>
-          <h6 *ngIf="plan.price_month_active" class="text-center"> ${{plan.price_month}} / Month  </h6>
-          <h6 *ngIf="plan.price_ninety_days_active" class="text-center"> ${{plan.price_ninety_days}} / 90 Days </h6>
-          <h6 *ngIf="plan.price_year_active" class="text-center"> ${{plan.price_year}} / Year </h6>
-        </div>
-        <button class="btn btn-primary" (click)="selectPlan(plan);">Select</button>
-      </div>
-
--->

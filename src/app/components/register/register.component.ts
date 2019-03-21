@@ -49,9 +49,12 @@ export class RegisterComponent implements OnInit {
   doRegister() {
     this.signupSrv.signupCognito(this.signupForm.value).subscribe(
       response => {
+        console.log(response);
+        this.signupForm.controls.awsAccountId.setValue(response.Result.userSub);
         if (!response.HasError) {
           this.signupSrv.register(this.signupForm.value).subscribe(
             resp => {
+              console.log(resp);
               if (!resp.HasError) {
                 this.router.navigateByUrl('/signup-confirm');
               } else {

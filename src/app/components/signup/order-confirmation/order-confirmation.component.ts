@@ -18,14 +18,30 @@ export class OrderConfirmationComponent implements OnInit {
     private router: Router,
     private notificationSrv: NotificationService
   ) {
-    /*const member = new SignupRequestModel();
-    member.currentStep = 6;
+    /**/
+  }
+
+  ngOnInit() {
+    this.getOrderInformation();
+  }
+
+  /*userAction(action: string) {
+    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
+    this.action.emit(step);
+  }*/
+
+  getOrderInformation() {
+
+    const member = new SignupRequestModel();
+    member.currentStep = 5;
+    console.log(member);
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
         console.log(response);
         if (!response.HasError) {
           this.orderInfo = new OrderModel();
           this.orderInfo.address1 = response.Result.address1;
+          this.orderInfo.address2 = response.Result.address2;
           this.orderInfo.city = response.Result.city;
           this.orderInfo.firstName = response.Result.first_name;
           this.orderInfo.lastName = response.Result.last_name;
@@ -42,31 +58,25 @@ export class OrderConfirmationComponent implements OnInit {
       error => {
         console.log(error);
       }
-    );*/
-  }
+    );
 
-  ngOnInit() {}
-
-  userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
-    this.action.emit(step);
   }
 
   goToOnboarding() {
-    /*const memberModel = new SignupRequestModel();
+    const memberModel = new SignupRequestModel();
     memberModel.currentStep = this.step;
     this.signupSrv.signup(memberModel).subscribe(
       response => {
         console.log(response);
-        if (!response.HasError) {
+        /*if (!response.HasError) {
           this.router.navigateByUrl('/onboarding');
         } else {
           this.notificationSrv.showError(response.Message);
-        }
+        }*/
       },
       error => {
         console.log(error);
       }
-    );*/
+    );
   }
 }

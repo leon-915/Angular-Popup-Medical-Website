@@ -13,6 +13,7 @@ export class SelectMyPlanComponent implements OnInit {
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
   public plans: PlanModel[] = new Array<PlanModel>();
+  public planSelected: PlanModel = new PlanModel();
 
   constructor(private planSrv: PlanService, private signupSrv: SignupService) {}
 
@@ -39,14 +40,17 @@ export class SelectMyPlanComponent implements OnInit {
   }
 
   selectPlan(plan: PlanModel) {
+    console.log(this.step);
     const planMember = new SignupRequestModel();
     planMember.planId = plan.plan_id;
-    planMember.currentStep = 3;
+    planMember.currentStep = this.step;
+    console.log(planMember);
     this.signupSrv.signup(planMember).subscribe(
       response => {
         console.log(response);
         if (!response.HasError) {
-          this.userAction('advance');
+          this.step = 3;
+          this.action.emit(this.step);
         }
       },
       error => {

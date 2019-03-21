@@ -21,7 +21,7 @@ export class InvoiceGeneratorComponent implements OnInit {
   ngOnInit() {
       this.signupSrv.getInvoicePdf().subscribe(result => {
         this.fullBase64 = result.pdf_base64;
-        this.buttonText = 'Download Invoice';
+        this.buttonText = 'Print';
       });
 
   }

@@ -2,6 +2,7 @@ export class OrderModel {
     firstName: string;
     lastName: string;
     address1: string;
+    address2: string;
     state: string;
     city: string;
     zipcode: string;

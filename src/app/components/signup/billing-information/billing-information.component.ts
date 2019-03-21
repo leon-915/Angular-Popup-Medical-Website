@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from './../../../services/common.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SignupService } from 'src/app/services';
+import { SignupRequestModel } from '../../../models/index';
 
 @Component({
   selector: 'app-billing-information',
@@ -19,7 +20,9 @@ export class BillingInformationComponent implements OnInit {
   public currentMask = '';
   public typeMask = '';
 
-  constructor(private signupSrv: SignupService, private commonSrv: CommonService, private fb: FormBuilder) {}
+  constructor(private signupSrv: SignupService, private commonSrv: CommonService, private fb: FormBuilder) {
+    this.getStates();
+  }
 
   ngOnInit() {
     this.signupForm = this.fb.group({
@@ -35,24 +38,44 @@ export class BillingInformationComponent implements OnInit {
       state: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
       textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
-      currentStep: [this.step],
-      latitude: [],
-      longitude: []
+      currentStep: this.step,
+      latitude: null,
+      longitude: null,
+      billingSameShipping: false,
+      planName: null
     });
-    this.getStates();
+
+
+    this.loadInformation();
+
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step -= 1) : (this.step += 1);
+    const step = action === 'back' ? (this.step = 2) : (this.step = 4);
     this.action.emit(step);
+  }
+
+  loadInformation() {
+    const member = new SignupRequestModel();
+    member.currentStep = this.step;
+    this.signupSrv.getSignupInformation(member).subscribe(response => {
+      console.log(response);
+      if (!response.HasError && response.Result) {
+        this.signupForm.controls.address1.setValue(response.Result.address1);
+        this.signupForm.controls.address2.setValue(response.Result.address2);
+        this.signupForm.controls.city.setValue(response.Result.city);
+        this.signupForm.controls.state.setValue(response.Result.state);
+        this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
+        this.signupForm.controls.textMessagingPin.setValue(response.Result.text_messaging_pin);
+        this.signupForm.controls.latitude.setValue(response.Result.latitude);
+        this.signupForm.controls.longitude.setValue(response.Result.longitude);
+        this.signupForm.controls.planName.setValue(response.Result.plan_name);
+      }
+    },error => { console.log(error); });
   }
 
   getStates() {
     this.commonSrv.getStates().subscribe((response) => { this.states = response; });
-  }
-
-  doSignup() {
-    console.log(this.signupForm.getRawValue());
   }
 
   getCreditCardType(creditCardNumber) {
@@ -82,6 +105,11 @@ export class BillingInformationComponent implements OnInit {
       unknown: '0000 0000 0000 0000'
     };
     return masks[cardType];
+  }
+
+  billingCheckbox(event) {
+    this.billingSameShipping.setValue(event.checked);
+    console.log('Billing same as shipping is: ', this.billingSameShipping.value);
   }
 
   // Getters
@@ -134,12 +162,45 @@ export class BillingInformationComponent implements OnInit {
     return this.signupForm.controls.textMessagingPin;
   }
 
+  get billingSameShipping() {
+    return this.signupForm.controls.billingSameShipping;
+  }
+
+  get planName() {
+    return this.signupForm.controls.planName;
+  }
+
   onChange() {
     this.typeMask = this.getCreditCardType(this.creditCardNumber);
     this.currentMask = this.getMaskType(this.typeMask);
     console.log('Credit card number: ', this.creditCardNumber);
     console.log('Type mask: ', this.typeMask);
     console.log('Current mask: ', this.currentMask);
+  }
+
+  doSignup() {
+
+    console.log(this.signupForm.value);
+    this.signupSrv.signup(this.signupForm.value).subscribe(
+      response => {
+        console.log(response);
+        if (!response.HasError) {
+          if(this.billingSameShipping.value) {
+            console.log('billing and shipping ==');
+            this.step = 5;
+            this.action.emit(this.step);
+            
+          } else {
+            console.log('hay que enviarlo a la pantalla de shipping address');
+            this.userAction('advance');
+          }
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
 
 }

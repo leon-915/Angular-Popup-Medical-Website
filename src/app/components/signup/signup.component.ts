@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  public currentStep = 4;
+  public currentStep = 1;
 
   constructor(private signupSrv: SignupService, private router: Router) {}
 
@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
     this.signupSrv.getSignupInformation(member).subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
-        if (response.Result.current_step === 4) {
+        if (response.Result.current_step === 6) {
           this.router.navigateByUrl('/onboarding');
         } else {
           this.currentStep = response.Result.current_step;
