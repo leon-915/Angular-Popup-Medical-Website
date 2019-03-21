@@ -77,7 +77,8 @@ import {
   SignupStep4Component,
   SignupStep5Component,
   SignupStep6Component,
-  SignupConfirmComponent
+  SignupConfirmComponent,
+  ShippingInformationComponent
 } from './components/index';
 /* COMPONENTS */
 
@@ -130,6 +131,7 @@ import { OrderConfirmationComponent } from './components/signup/order-confirmati
     SignupStep4Component,
     SignupStep5Component,
     SignupStep6Component,
+    ShippingInformationComponent,
     OnlyNumbersDirective,
     MyHomeComponent,
     OnboardingComponent,

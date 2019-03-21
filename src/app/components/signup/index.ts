@@ -6,3 +6,4 @@ export * from './signup-step5/signup-step5.component';
 export * from './signup-step6/signup-step6.component';
 export * from './signup.component';
 export * from './signup-confirm/signup-confirm.component';
+export * from './shipping-information/shipping-information.component';
