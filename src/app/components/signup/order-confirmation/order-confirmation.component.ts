@@ -66,9 +66,9 @@ export class OrderConfirmationComponent implements OnInit {
       if (!dciJsonResponse.HasError) {
         const createDCICardResponse = await this.dciSrv.createDigitalCard(dciJsonResponse.Result).toPromise();
         console.log(createDCICardResponse);
-        if(createDCICardResponse.card && createDCICardResponse.url) {
+        if (createDCICardResponse.card && createDCICardResponse.url) {
           console.log('dci card created...');
-          //this.router.navigateByUrl('/onboarding');
+          // this.router.navigateByUrl('/onboarding');
         } else {
           console.log('error generating dci card...');
         }

@@ -13,11 +13,11 @@ export class DciService {
 
   createDCIJsonRequest(json: any) {
     const url = this.serviceURL + 'dci/create-dcijsonrequest';
-    return this.http.post<APIResponse<any>>(url,json);
+    return this.http.post<APIResponse<any>>(url, json);
   }
 
-  createDigitalCard(digitalCard: any){
+  createDigitalCard(digitalCard: any) {
     const url = this.dicURl;
-    return this.http.post<any>(url,digitalCard);
+    return this.http.post<any>(url, digitalCard);
   }
 }
