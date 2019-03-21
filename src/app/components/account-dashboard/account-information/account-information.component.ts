@@ -123,10 +123,9 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
-        if (newAdress.defaultShipping) {
-          this.clearFormArray(this.userInfoForm.controls
-            .shipping_addresses as FormArray);
-        }
+        this.clearFormArray(this.userInfoForm.controls
+          .shipping_addresses as FormArray);
+
         this.shippingAdressList.forEach(address => {
           this.addShippingaddress(address);
         });
@@ -257,7 +256,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     while (formArray.length !== 0) {
       formArray.removeAt(0);
     }
-  }
+    // tslint:disable-next-line: semicolon
+  };
 
   sameAsBilling(checked: boolean) {
     if (!checked) {
