@@ -1,11 +1,39 @@
 @import "../../styles/variales.less";
 
+.title {
+  font-size: 54px;
+  font-weight: 200;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: -0.3px;
+  color: @orange;
+}
+
+.subtitle {
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.47;
+  letter-spacing: -0.2px;
+  color: @green;
+}
+
 .account-already {
-    color: @gray;
-    font-size: 18px;
-    font-weight: 300;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.22;
-    letter-spacing: normal;
-  }
+  color: @gray;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.22;
+  letter-spacing: normal;
+}
+
+.btn-primary {
+  border-radius: 30px;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  border-color: transparent !important;
+}
