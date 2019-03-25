@@ -1,3 +1,4 @@
+import { DCIModel } from '../models/index';
 import { APIResponse } from './../models/common.model';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
@@ -19,5 +20,10 @@ export class DciService {
   createDigitalCard(digitalCard: any) {
     const url = this.dicURl;
     return this.http.post<any>(url, digitalCard);
+  }
+
+  createMemberCardRelation(digitalCard: DCIModel) {
+    const url = this.serviceURL + 'dci/create-membercardrelation';
+    return this.http.post<APIResponse<any>>(url, digitalCard);
   }
 }

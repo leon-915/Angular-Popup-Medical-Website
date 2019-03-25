@@ -1,3 +1,4 @@
+import { DCIModel } from './../../../models/dci.model';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignupService, NotificationService, DciService } from 'src/app/services';
@@ -68,7 +69,20 @@ export class OrderConfirmationComponent implements OnInit {
         console.log(createDCICardResponse);
         if (createDCICardResponse.card && createDCICardResponse.url) {
           console.log('dci card created...');
-          // this.router.navigateByUrl('/onboarding');
+          const memberCard = new DCIModel();
+          memberCard.card_uuid = createDCICardResponse.card;
+          memberCard.url = createDCICardResponse.url;
+          memberCard.card_content = dciJsonResponse.Result;
+          const createMemberCardRelation = await this.dciSrv.createMemberCardRelation(memberCard).toPromise();
+          console.log(createMemberCardRelation);
+          if (!createMemberCardRelation.HasError) {
+            console.log('se creo la relacion');
+            this.router.navigateByUrl('/onboarding');
+          } else {
+            console.log('no se creo la relacion');
+            this.notificationSrv.showError(createMemberCardRelation.Message);
+          }
+
         } else {
           console.log('error generating dci card...');
         }
