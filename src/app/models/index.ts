@@ -10,3 +10,4 @@ export * from './gender.model';
 export * from './lookup.model';
 export * from './pharmacy.model';
 export * from './onboarding.model';
+export * from './myFamily.model';

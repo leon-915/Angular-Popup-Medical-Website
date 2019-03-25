@@ -85,6 +85,7 @@ import {
 /* SERVICES */
 import {
   AccountService,
+  MyFamilyService,
   CommonService,
   ContentService,
   GooglePlacesService,
@@ -197,6 +198,7 @@ import { OrderConfirmationComponent } from './components/signup/order-confirmati
     },
     AuthGuard,
     AccountService,
+    MyFamilyService,
     CommonService,
     ContentService,
     Globals,
