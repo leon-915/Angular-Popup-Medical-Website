@@ -8,6 +8,7 @@
     "build-test": "ng build -c test",
     "build-staging": "ng build -c staging",
     "build-prod": "ng build --prod",
+    "check-commit": "ng lint && ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

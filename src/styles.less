@@ -24,18 +24,23 @@ body {
   color: @buttontext;
 }
 
-.link{
+.link {
   color: @linktext;
   text-decoration: none;
 }
+
 .link:hover {
   color: @linktext;
   text-decoration: underline;
 }
 
-.mat-checkbox-layout { white-space: normal !important; }
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
 
-.wrap-mat-radio-label { white-space: normal !important; }
+.wrap-mat-radio-label {
+  white-space: normal !important;
+}
 
 ul:not(.browser-default)>li {
   list-style-type: circle;
@@ -46,13 +51,18 @@ ul:not(.browser-default)>li {
 */
 
 .text-danger {
-  color: @error !important;
+  color: @error  !important;
 }
 
 .text-success {
-  color: @green !important;
+  color: @green  !important;
 }
 
 .btn-primary {
   background-color: @orange;
+}
+
+
+input::-webkit-inner-spin-button {
+  display: none;
 }
