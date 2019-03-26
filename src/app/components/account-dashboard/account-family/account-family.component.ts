@@ -44,14 +44,14 @@ export class AccountFamilyComponent implements OnInit {
     this.addMemberForm = this.fb.group(
       {
         email: ['', [Validators.email, Validators.required]],
-        member_relation_type_id: [0, [Validators.required]]
+        member_relation_type_id: [0, [Validators.required, Validators.min(1)]]
       },
       {}
     );
     this.addGuestMemberForm = this.fb.group(
       {
         email: ['', [Validators.email, Validators.required]],
-        member_relation_type_id: [0]
+        member_relation_type_id: [0, [Validators.required, Validators.min(1)]]
       },
       {}
     );
@@ -69,38 +69,52 @@ export class AccountFamilyComponent implements OnInit {
     });
   }
 
+  removefromList(index, isGuest) {
+    if (isGuest) {
+      this.guestUsers.splice(index, 1);
+    } else {
+      this.familyUsers.splice(index, 1);
+    }
+  }
   addMember() {
-    let newUser = new FamilyUser();
-    newUser = this.addMemberForm.value;
-    newUser.is_active = true;
-    const found = this.relationTypes.find(element => {
-      return (
-        element.lookup_member_relation_type_id ===
-        Number(newUser.member_relation_type_id)
-      );
-    });
-    newUser.display_value = found.display_value;
-    this.familyUsers.push(newUser);
+    this.myFamilySrv
+      .addMyFamilyMember(this.addMemberForm.value)
+      .subscribe(res => {
+        if (!res.HasError) {
+          this.familyUsers.push(res.Result);
+          this.notificationSrv.showSuccess(res.Message);
+        } else {
+          this.notificationSrv.showError(res.Message);
+        }
+      });
   }
   addGuestMember() {
-    let newUser = new FamilyUser();
-    newUser = this.addGuestMemberForm.value;
-    newUser.is_active = true;
-    const found = this.guestRelationTypes.find(element => {
-      return (
-        element.lookup_member_relation_type_id ===
-        Number(newUser.member_relation_type_id)
-      );
-    });
-    newUser.display_value = found.display_value;
-    this.guestUsers.push(newUser);
+    this.myFamilySrv
+      .addMyFamilyMember(this.addGuestMemberForm.value)
+      .subscribe(res => {
+        if (!res.HasError) {
+          this.guestUsers.push(res.Result);
+          this.notificationSrv.showSuccess(res.Message);
+        } else {
+          this.notificationSrv.showError(res.Message);
+        }
+      });
   }
-  removeMember(index, isGuest) {
-    console.log((index = ' will be removed ' + isGuest));
+  removeMember(index: number, isGuest: boolean) {
+    const member = isGuest ? this.guestUsers[index] : this.familyUsers[index];
+
+    this.myFamilySrv.deleteMyFamilyMember(member).subscribe(res => {
+      if (!res.HasError) {
+        this.notificationSrv.showSuccess(res.Message);
+        this.removefromList(index, isGuest);
+      } else {
+        this.notificationSrv.showError(res.Message);
+      }
+    });
   }
 
-  goToEdit(index) {
-    console.log('go to edit' + index);
+  goToEdit(index, isNewDependant) {
+    console.log('go to edit' + index + ' ' + isNewDependant);
   }
   get email() {
     return this.addMemberForm.get('email');
