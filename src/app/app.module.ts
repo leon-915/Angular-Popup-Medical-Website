@@ -109,6 +109,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { SelectMyPlanComponent } from './components/signup/select-my-plan/select-my-plan.component';
 import { BillingInformationComponent } from './components/signup/billing-information/billing-information.component';
 import { OrderConfirmationComponent } from './components/signup/order-confirmation/order-confirmation.component';
+import { MedicalHistoryComponent } from './components/onboarding/medical-history/medical-history.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { OrderConfirmationComponent } from './components/signup/order-confirmati
     RegisterComponent,
     SelectMyPlanComponent,
     BillingInformationComponent,
-    OrderConfirmationComponent
+    OrderConfirmationComponent,
+    MedicalHistoryComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
