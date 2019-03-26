@@ -1,50 +1,41 @@
 <div class="row mt-5">
-
-
-  <div class="col-lg-5 mx-auto">
-
-
-
-    <div class="row">
-      <div routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="col-4" style="  border-right: 2px solid lightslategrey;">
-        <h3 class="mb-3">My Account</h3>
-        <p>
-          My Dashboard
-        </p>
-        <p>
-          My Orders
-        </p>
-        <p>
-          My Credits & Certificates
-        </p>
-        <p>
-          My Membership Card
-        </p>
-        <p>
-          <a [routerLink]="['/account/info']">My Info</a>
-        </p>
-        <p>
-          <a [routerLink]="['/account/family']"> My Family</a>
-        </p>
-        <p>
-          <a [routerLink]="['/account/security']">My Security</a>
-        </p>
-        <p>
-          My Communication Preferences
-        </p>
-        <p>
-          My Referrals
-        </p>
-        <p>
-          <a [routerLink]="['/login']">Logout</a>
-        </p>
-      </div>
-      <div class="col align-content-center">
-        <p style="font-size: 12px; padding: 30px 0;">
-          We'll change this component
-        </p>
-      </div>
-    </div>
+  <div routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="col-8"
+    style="  border-right: 2px solid lightslategrey;">
+    <h3 class="mb-3">My Account</h3>
+    <p>
+      My Dashboard
+    </p>
+    <p>
+      My Orders
+    </p>
+    <p>
+      My Credits & Certificates
+    </p>
+    <p>
+      My Membership Card
+    </p>
+    <p>
+      <a [routerLink]="['/account/info']">My Info</a>
+    </p>
+    <p>
+      <a [routerLink]="['/account/family']"> My Family</a>
+    </p>
+    <p>
+      <a [routerLink]="['/account/security']">My Security</a>
+    </p>
+    <p>
+      My Communication Preferences
+    </p>
+    <p>
+      My Referrals
+    </p>
+    <p>
+      <a [routerLink]="['/login']">Logout</a>
+    </p>
   </div>
-
+  <div class="col align-content-center">
+    <p style="font-size: 12px; padding: 30px 0;">
+      We'll change this component
+    </p>
+  </div>
 </div>

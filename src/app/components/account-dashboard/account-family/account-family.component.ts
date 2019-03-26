@@ -1,23 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormsModule
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   AccountService,
   NotificationService,
   MyFamilyService
 } from 'src/app/services';
-import { PasswordValidator } from 'src/app/validators';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
-import { SendPassResetConfirmationRequestModel } from 'src/app/models';
-import { environment } from 'src/environments/environment';
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
-import { stringify } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'app-account-family',
@@ -58,6 +49,8 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.myFamilySrv.setRelationId(null);
+    this.myFamilySrv.setIsNewDependantt(null);
     this.myFamilySrv.getMyFamily().subscribe(res => {
       if (!res.HasError) {
         const resulData = res.Result;
@@ -113,8 +106,11 @@ export class AccountFamilyComponent implements OnInit {
     });
   }
 
-  goToEdit(index, isNewDependant) {
-    console.log('go to edit' + index + ' ' + isNewDependant);
+  goToEdit(memberRelationId: number, isNewDependant: boolean) {
+    console.log('go to edit' + memberRelationId + ' ' + isNewDependant);
+    this.myFamilySrv.setRelationId(memberRelationId);
+    this.myFamilySrv.setIsNewDependantt(isNewDependant);
+    this.router.navigate(['/account/family/edit']);
   }
   get email() {
     return this.addMemberForm.get('email');

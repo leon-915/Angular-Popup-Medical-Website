@@ -14,9 +14,23 @@ export class FamilyUser {
   'email': string;
 }
 
+export class EditUser extends FamilyUser {
+  'member_id'?: number;
+  'first_name': string;
+  'last_name': string;
+  'gender_id': number;
+  'date_of_birth': Date;
+}
+
 export class GetMyFamilyResult {
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
   familyUsers: FamilyUser[];
   guestUsers: FamilyUser[];
+}
+
+export class GetMyFamilyEditResult {
+  relationTypes: RelationType[];
+  guestRelationTypes: RelationType[];
+  familyUser: EditUser;
 }
