@@ -154,7 +154,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
 
   saveUserData() {
     // TODO: Check the phone number data how to display all phone numbers
-    const userFormData = this.userInfoForm.value;
+    const userFormData = this.userInfoForm.getRawValue();
     this.accountSrv.updateUserData(userFormData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);

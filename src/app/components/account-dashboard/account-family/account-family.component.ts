@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import {
   AccountService,
   NotificationService,
-  MyFamilyService
+  MyFamilyService,
+  MyFamilyPersistData
 } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
@@ -28,6 +29,7 @@ export class AccountFamilyComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
+    private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router
@@ -49,8 +51,8 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.myFamilySrv.setRelationId(null);
-    this.myFamilySrv.setIsNewDependantt(null);
+    this.myFamilyPd.setRelationId(null);
+    this.myFamilyPd.setIsNewDependantt(null);
     this.myFamilySrv.getMyFamily().subscribe(res => {
       if (!res.HasError) {
         const resulData = res.Result;
@@ -108,8 +110,8 @@ export class AccountFamilyComponent implements OnInit {
 
   goToEdit(memberRelationId: number, isNewDependant: boolean) {
     console.log('go to edit' + memberRelationId + ' ' + isNewDependant);
-    this.myFamilySrv.setRelationId(memberRelationId);
-    this.myFamilySrv.setIsNewDependantt(isNewDependant);
+    this.myFamilyPd.setRelationId(memberRelationId);
+    this.myFamilyPd.setIsNewDependantt(isNewDependant);
     this.router.navigate(['/account/family/edit']);
   }
   get email() {

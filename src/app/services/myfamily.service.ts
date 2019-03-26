@@ -8,8 +8,6 @@ import { GetMyFamilyEditResult } from '../models/myFamily.model';
   providedIn: 'root'
 })
 export class MyFamilyService {
-  private relationId: number;
-  private isNewDependant: boolean;
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   serviceURl: string = this.commonSrv.apiURL;
@@ -27,31 +25,37 @@ export class MyFamilyService {
     return this.http.post<APIResponse<FamilyUser>>(url, member);
   }
   getEditMyFamily(memberId: number) {
-    const url = `${this.serviceURl}account/editFamily`;
+    const url = `${this.serviceURl}account/myfamily/edit`;
+    console.log(url);
     return this.http.post<APIResponse<GetMyFamilyEditResult>>(url, {
       member_relation_id: memberId
     });
   }
   putEditMyFamily(memberId: number) {
-    const url = `${this.serviceURl}account/editFamily`;
+    const url = `${this.serviceURl}account/myfamily/edit`;
     return this.http.put<APIResponse<GetMyFamilyEditResult>>(url, {
       member_relation_id: memberId
     });
   }
+}
 
-  // Setters Getters
+@Injectable()
+export class MyFamilyPersistData {
+  private relationId: number;
+  private isNewDependant: boolean;
+  getRelationId(): number {
+    return this.relationId;
+  }
+
   setRelationId(relationId: number) {
     this.relationId = relationId;
   }
 
-  getRelationId() {
-    return this.relationId;
-  }
-  setIsNewDependantt(isNewDependant: boolean) {
-    this.isNewDependant = isNewDependant;
+  getIsNewDependant(): boolean {
+    return this.isNewDependant;
   }
 
-  getIsNewDependant() {
-    return this.isNewDependant;
+  setIsNewDependantt(isNewDependant: boolean) {
+    this.isNewDependant = isNewDependant;
   }
 }

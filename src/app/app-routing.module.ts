@@ -25,11 +25,31 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'my-home', component: MyHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'account', component: AccountDashboardComponent },
-  { path: 'account/info', component: AccountInformationComponent },
-  { path: 'account/security', component: AccountSecurityComponent },
-  { path: 'account/family', component: AccountFamilyComponent },
-  { path: 'account/family/edit', component: FamilyEditComponent },
+  {
+    path: 'account',
+    component: AccountDashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/info',
+    component: AccountInformationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/security',
+    component: AccountSecurityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/family',
+    component: AccountFamilyComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/family/edit',
+    component: FamilyEditComponent,
+    canActivate: [AuthGuard]
+  },
   { path: 'signup', component: SignupComponent },
   { path: 'signup-confirm', component: SignupConfirmComponent },
   { path: 'register', component: RegisterComponent },

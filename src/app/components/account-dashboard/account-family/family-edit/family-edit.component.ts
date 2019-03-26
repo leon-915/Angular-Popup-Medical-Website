@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import {
   AccountService,
   NotificationService,
-  MyFamilyService
+  MyFamilyService,
+  MyFamilyPersistData
 } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
@@ -27,6 +28,7 @@ export class FamilyEditComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
+    private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router
@@ -47,8 +49,8 @@ export class FamilyEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.relationId = this.myFamilySrv.getRelationId();
-    this.isNewDependant = this.myFamilySrv.getIsNewDependant();
+    this.relationId = this.myFamilyPd.getRelationId();
+    this.isNewDependant = this.myFamilyPd.getIsNewDependant();
     console.log(this.relationId);
 
     if (!isNaN(this.relationId)) {
@@ -66,8 +68,8 @@ export class FamilyEditComponent implements OnInit {
     } else {
       // TODO: redirect to my Fam dashboard
       console.log('exit to myFamily');
-      console.log(this.myFamilySrv.getRelationId());
-      console.log(this.myFamilySrv.getIsNewDependant());
+      console.log(this.myFamilyPd.getRelationId());
+      console.log(this.myFamilyPd.getIsNewDependant());
     }
   }
 
@@ -75,8 +77,8 @@ export class FamilyEditComponent implements OnInit {
     console.log('editing');
   }
   cancel() {
-    this.myFamilySrv.setRelationId(null);
-    this.myFamilySrv.setIsNewDependantt(null);
+    this.myFamilyPd.setRelationId(null);
+    this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['/account/family']);
   }
 

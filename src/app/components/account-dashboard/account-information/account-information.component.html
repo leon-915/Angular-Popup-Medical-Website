@@ -6,16 +6,16 @@
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationCustom01">First name</label>
-          <input type="text" class="form-control" id="validationCustom01" formControlName="firstName" placeholder="First name"
-            required />
+          <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
+            placeholder="First name" required />
           <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
             FirstName is required.
           </p>
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationCustom02">Last name</label>
-          <input type="text" class="form-control" id="validationCustom02" formControlName="lastName" placeholder="Last name"
-            required />
+          <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
+            placeholder="Last name" required />
           <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
             LastName is required.
           </p>
@@ -48,15 +48,16 @@
       <div class="form-row">
         <div class="col-md-3 mb-3">
           <label for="validationCustom03">Address</label>
-          <input type="text" class="form-control" id="validationCustom03" placeholder="Adress" formControlName="address1"
-            #billingAddress />
+          <input type="text" class="form-control" id="validationCustom03" placeholder="Adress"
+            formControlName="address1" #billingAddress />
           <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
             Date of Birth is required.
           </p>
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom04">Address 2 </label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2" formControlName="address2" />
+          <input type="text" class="form-control" id="validationCustom04" placeholder="Address 2"
+            formControlName="address2" />
         </div>
       </div>
       <div class="form-row">
@@ -94,7 +95,8 @@
       <div id="accordion">
         <div formArrayName="shipping_addresses">
 
-          <div class="card" *ngFor="let address of addressList;  let i = index" [attr.data-index]="i" formGroupName="{{i}}">
+          <div class="card" *ngFor="let address of addressList;  let i = index" [attr.data-index]="i"
+            formGroupName="{{i}}">
             {{address.nickname}}
 
             <div class="card-header" id="heading">
@@ -149,7 +151,8 @@
 
                     <div class="col-md-2 mb-3">
                       <label for="validationCustom05">Zip Code </label>
-                      <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" formControlName="zipcode" />
+                      <input type="text" class="form-control" id="validationCustom05" placeholder="Zip"
+                        formControlName="zipcode" />
                       <div class="invalid-feedback">
                         Please provide a valid zip code.
                       </div>
@@ -172,8 +175,8 @@
 
           <div class="card-header" id="headingNewAdress">
             <h5 class="mb-0">
-              <button type=button class="btn btn-link" data-toggle="collapse" data-target="#newAddress" aria-expanded="true"
-                aria-controls="newAddress">
+              <button type=button class="btn btn-link" data-toggle="collapse" data-target="#newAddress"
+                aria-expanded="true" aria-controls="newAddress">
                 Add Shipping Address
               </button>
             </h5>
@@ -181,7 +184,7 @@
 
           <div id="newAddress" class="collapse show" aria-labelledby="headingNewAdress" data-parent="#accordion">
             <div class="card-body">
-              <form [formGroup]="newAddressForm" (ngSubmit)="createShippingAddress()">
+              <form [formGroup]="newAddressForm">
                 <div class="form-group">
 
                   <div class="form-row">
@@ -229,7 +232,8 @@
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <button class="btn btn-primary" type="submit" [disabled]="!newAddressForm.valid">
+                    <button class="btn btn-primary" type="button" (click)="createShippingAddress()"
+                      [disabled]="!newAddressForm.valid">
                       Add Shipping Address
                     </button>
                   </div>
@@ -246,16 +250,17 @@
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationCustom04">Billing Phone</label>
-          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="billingPhone"
-            mask='(000) 000-0000' />
-          <p class="mt-1 text-danger" *ngIf="(billingPhone.dirty || billingPhone.touched) && !!billingPhone.errors?.required">
+          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone"
+            formControlName="billingPhone" mask='(000) 000-0000' />
+          <p class="mt-1 text-danger"
+            *ngIf="(billingPhone.dirty || billingPhone.touched) && !!billingPhone.errors?.required">
             Billing Phone is required.
           </p>
         </div>
         <div class="col-md-4 ">
           <label for="validationCustom04">Cell Phone</label>
-          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone" formControlName="cellPhone"
-            mask='(000) 000-0000' />
+          <input type="phone" class="form-control" id="validationCustom04" placeholder="phone"
+            formControlName="cellPhone" mask='(000) 000-0000' />
           <p class="mt-1 text-danger" *ngIf="(cellPhone.dirty || cellPhone.touched) && !!cellPhone.errors?.required">
             Cell Phone is required.
           </p>
