@@ -12,3 +12,4 @@ export * from './pharmacy.model';
 export * from './onboarding.model';
 export * from './myFamily.model';
 export * from './dci.model';
+export * from './date.model';
