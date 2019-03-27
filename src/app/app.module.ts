@@ -97,7 +97,8 @@ import {
   MedicationsService,
   OnboardingService,
   PharmaciesService,
-  PlanService
+  PlanService,
+  MyFamilyPersistData
 } from './services/index';
 /* SERVICES */
 
@@ -213,7 +214,8 @@ import { MedicalHistoryComponent } from './components/onboarding/medical-history
     DciService,
     MedicationsService,
     OnboardingService,
-    PharmaciesService
+    PharmaciesService,
+    MyFamilyPersistData
   ],
   bootstrap: [AppComponent]
 })
