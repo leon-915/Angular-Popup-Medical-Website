@@ -17,7 +17,8 @@ import {
   SignupConfirmComponent,
   RegisterComponent,
   AccountFamilyComponent,
-  FamilyEditComponent
+  FamilyEditComponent,
+  AddDependentComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path: 'account/family/edit',
     component: FamilyEditComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/family/dependent',
+    component: AddDependentComponent,
     canActivate: [AuthGuard]
   },
   { path: 'signup', component: SignupComponent },

@@ -1,3 +1,5 @@
+import { GenderModel } from './gender.model';
+
 export class RelationType {
   'lookup_member_relation_type_id'?: number;
   'display_value'?: string;
@@ -32,5 +34,6 @@ export class GetMyFamilyResult {
 export class GetMyFamilyEditResult {
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
-  familyUser: EditUser;
+  memberRelation: EditUser;
+  genderList: GenderModel[];
 }

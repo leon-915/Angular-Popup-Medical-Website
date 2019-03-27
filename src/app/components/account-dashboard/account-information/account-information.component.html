@@ -23,13 +23,13 @@
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3">
-          <label for="validationCustom01">Gender</label>
-          <select class="form-control" id="sel1" formControlName="gender_id">
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-            <option value="3">Prefer not to say</option>
-            <option value="4">Undefined</option>
 
+          <label for="confirm">Gender</label>
+          <select class="browser-default custom-select" formControlName="gender_id">
+            <option selected=true value=0>
+              select an option</option>
+            <option *ngFor="let item of genderList;" value={{item.gender_id}}>
+              {{item.gender}}</option>
           </select>
         </div>
         <div class="col-md-4 mb-3">

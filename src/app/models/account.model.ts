@@ -1,3 +1,5 @@
+import { GenderModel } from './gender.model';
+
 // tslint:disable: variable-name
 
 export interface Payload {
@@ -123,6 +125,7 @@ export class UserDataResult {
   userData: UserInfoResponse;
   userShippings: ShippingAddressModel[];
   userPhones: UserPhone[];
+  genderList: GenderModel[];
 }
 export class AddAddressRequestModel {
   nickname: string;

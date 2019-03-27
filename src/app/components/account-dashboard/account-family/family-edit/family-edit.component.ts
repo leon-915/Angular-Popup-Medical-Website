@@ -8,8 +8,14 @@ import {
   MyFamilyPersistData
 } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
+import * as moment from 'moment';
 
-import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
+import {
+  RelationType,
+  FamilyUser,
+  EditUser
+} from 'src/app/models/myFamily.model';
+import { GenderModel } from 'src/app/models';
 
 @Component({
   selector: 'app-family-edit',
@@ -22,7 +28,9 @@ export class FamilyEditComponent implements OnInit {
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
-  familyUser: FamilyUser;
+
+  genderList: GenderModel[];
+  familyUser: EditUser;
 
   constructor(
     private fb: FormBuilder,
@@ -36,11 +44,11 @@ export class FamilyEditComponent implements OnInit {
     this.addMemberForm = this.fb.group(
       {
         member_id: ['', []],
+        member_relation_id: ['', []],
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        member_relation_type_id: [0, []],
-        gender_id: [0, []],
-        gender: ['', [Validators.required]],
+        member_relation_type_id: [0, [Validators.required, Validators.min(1)]],
+        gender_id: [0, [Validators.required, Validators.min(1)]],
         isDependent: [false, []],
         birthday: [Date(), [Validators.required]]
       },
@@ -57,11 +65,25 @@ export class FamilyEditComponent implements OnInit {
       if (!this.isNewDependant) {
         this.myFamilySrv.getEditMyFamily(this.relationId).subscribe(res => {
           if (!res.HasError) {
-            console.log(JSON.stringify(res.Result));
             const resulData = res.Result;
             this.relationTypes = resulData.relationTypes;
             this.guestRelationTypes = resulData.guestRelationTypes;
-            this.familyUser = resulData.familyUser;
+            this.familyUser = resulData.memberRelation;
+            this.genderList = resulData.genderList;
+            console.log(JSON.stringify(resulData));
+
+            this.addMemberForm.setValue({
+              member_id: this.familyUser.subscriber_member_id,
+              member_relation_id: this.familyUser.member_relation_id,
+              first_name: this.familyUser.first_name,
+              last_name: this.familyUser.last_name,
+              member_relation_type_id: this.familyUser.member_relation_type_id,
+              gender_id: this.familyUser.gender_id,
+              isDependent: false,
+              birthday: moment(this.familyUser.date_of_birth).format(
+                'YYYY-MM-DD'
+              )
+            });
           }
         });
       }

@@ -13,7 +13,7 @@ import {
   GooglePlacesService
 } from 'src/app/services';
 import * as moment from 'moment';
-import { ShippingAddressModel } from 'src/app/models';
+import { ShippingAddressModel, GenderModel } from 'src/app/models';
 
 @Component({
   selector: 'app-account-information',
@@ -27,6 +27,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   startDate = new Date(1990, 0, 1);
 
   shippingAdressList: ShippingAddressModel[] = [];
+  genderList: GenderModel[];
+
   userInfoForm: FormGroup;
   newAddressForm: FormGroup;
 
@@ -41,7 +43,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         member_id: ['', []],
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        gender_id: ['', []],
+        gender_id: [0, [Validators.required, Validators.min(1)]],
         gender: ['', [Validators.required]],
         birthday: [Date(), [Validators.required]],
         // billing address
@@ -84,6 +86,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
+        this.genderList = userData.genderList;
         this.updateUserForm(userData.userData[0], userData.userPhones);
         this.shippingAdressList.forEach(address => {
           this.addShippingaddress(address);

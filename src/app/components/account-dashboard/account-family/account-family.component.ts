@@ -112,7 +112,11 @@ export class AccountFamilyComponent implements OnInit {
     console.log('go to edit' + memberRelationId + ' ' + isNewDependant);
     this.myFamilyPd.setRelationId(memberRelationId);
     this.myFamilyPd.setIsNewDependantt(isNewDependant);
-    this.router.navigate(['/account/family/edit']);
+    if (isNewDependant) {
+      this.router.navigate(['/account/family/dependent']);
+    } else {
+      this.router.navigate(['/account/family/edit']);
+    }
   }
   get email() {
     return this.addMemberForm.get('email');
