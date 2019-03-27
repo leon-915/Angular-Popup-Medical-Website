@@ -14,6 +14,6 @@ export class ConditionsService {
 
   getConditions() {
     const url = this.serviceURl + 'conditions/getconditions';
-    return this.http.get<APIResponse<ConditionsModel>>(url);
+    return this.http.get<APIResponse<any>>(url);
   }
 }

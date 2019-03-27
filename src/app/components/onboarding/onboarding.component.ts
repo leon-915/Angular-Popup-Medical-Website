@@ -40,7 +40,7 @@ export class OnboardingComponent implements OnInit {
           );
           console.log('The current step is: ', response.Result.current_step);
 
-          if (response.Result.current_step === 7) {
+          if (response.Result.current_step === 5) {
             this.router.navigateByUrl('/account');
           } else {
             this.currentStep = response.Result.current_step;

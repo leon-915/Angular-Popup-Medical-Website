@@ -1,73 +1,98 @@
-
-<h3 class="mb-3">Onboarding - Step 5 of 6</h3>
-<p>Please choose a primary pharmacy to send your prescriptions to:</p>
-
-<div class="row mb-3 mt-1">
-  <div class="col-md-6">
-    <label>Address or Zip Code</label>
-    <input type="text" placeholder="Address or Zip Code" class="form-control"#address>
-    <!--<div class="input-group">
-      <input type="text" placeholder="Address or Zip Code" class="form-control"#address>
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button">Search</button>
-      </div>
-    </div>-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="text-center title mb-0">Onboarding Interview</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">We need to know a little bit more about your medical history.<br> 
+    <span> Remember, you can change your answers anytime from the dashboard. </span></h5>
   </div>
-  <div class="col-md-6">
-    <button class="btn btn-primary float-right" (click)="loadShippingAddress();">Use shipping address</button>
+</div>
+
+
+<!-- Stepper -->
+<div class="row justify-content-md-center">
+  <div class="steps-form">
+    <div class="steps-row setup-panel">
+      <div class="steps-step">
+        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">check_circle</i> </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">check_circle</i> </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn btn-secondary btn-round" >3</button>
+      </div>
+      <div class="steps-step">
+        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">flag</i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-lg-8 mt-2 mx-auto">
+    <p class="description-one">Please Choose A Primary Pharmacy To Send Your Prescriptions To</p>
+    <p class="description-two mb-3"> <strong>Search by Zip Code or City & State:</strong> </p>
+    <input type="text" placeholder="Address or Zip Code" class="form-control" #address>
   </div>
 </div>
 
 <div class="row">
-  
   <div class="col-md-6">
-    <ul class="list-group" *ngIf="pharmacies">
-      <p> <small> <strong> {{pharmacies.length}} pharmacies founded. </strong> </small> </p>
-      <li class="list-group-item" *ngFor="let pharmacy of pharmacies | slice:0:limitItems; let i = index;">
-        <mat-radio-group [(ngModel)]="primaryPharmacyAddress">
-          <div class="row">
-            <div class="col-md-1">
-              <mat-radio-button [value]="pharmacy" (change)="radioChanged($event)"></mat-radio-button>
-            </div>
-            <div class="col-md-8">
-              <h6> <small> {{pharmacy.name}} </small> </h6>
-              <p> <small> {{pharmacy.address}}, {{pharmacy.city}}, {{pharmacy.state}} {{pharmacy.zipcode}} </small> </p>
-            </div>
-            <div class="col-md-3">
-              <p> <small> {{pharmacy.miles_distance | number}} miles away </small> </p>
-            </div>
+    <div class="card m-0">
+      <div class="card-body">
+        <p class="text-center" *ngIf="pharmacies.length > 0">
+          Found <strong> {{pharmacies.length}} </strong> Pharmacy(s) near 
+          <strong> {{shippingAddress.address1}}, {{shippingAddress.state}} {{shippingAddress.zipCode}} </strong> 
+        </p>
+        <li class="list-group-item" *ngFor="let pharmacy of pharmacies | slice:0:limitItems; let i = index;" (click)="selectPharmacy(pharmacy);"
+        [ngClass]="{'active-pharmacy': primaryPharmacyAddress?.pharmacy_id === pharmacy.pharmacy_id}">
+          <div>
+              <p class="pharmacy-info"> {{pharmacy.name}} </p>
+              <p class="pharmacy-info"> {{pharmacy.address}} </p>
+              <p class="pharmacy-info"> {{pharmacy.city}} {{pharmacy.state}}, {{pharmacy.zipcode}} </p>
+              <p class="pharmacy-info"> Ph: {{pharmacy.phone}} </p>
+              <p class="pharmacy-info"> Fax: {{pharmacy.fax}}  </p>
+              <p class="pharmacy-info"> Distance: {{pharmacy.miles_distance | number}} miles </p>
           </div>
-        </mat-radio-group>
-      </li>
-    </ul>
-    <button type="button" class="btn btn-link float-right mt-5 mb-5" *ngIf="pharmacies && limitItems < pharmacies.length"
-    (click)="limitItems = limitItems + 3">More pharmacies</button>
+        </li>
+        <button type="button" class="btn btn-primary btn-round float-right mt-5 mb-5" *ngIf="pharmacies && limitItems < pharmacies.length"
+        (click)="limitItems = limitItems + 3">More pharmacies</button>
+      </div>
+    </div>
   </div>
-  
   <div class="col-md-6">
-    <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:300px;">
-        <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default"></agm-marker>
-        <agm-marker [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude" [label]="pharmacy.name" *ngFor="let pharmacy of pharmacies"
-        (markerClick)="openWindow(pharmacy.pharmacy_id)" >
-            <agm-info-window 
-            [isOpen]="isInfoWindowOpen(pharmacy.pharmacy_id)"
-            [latitude]="pharmacy.latitude" 
-            [longitude]="pharmacy.longitude">
-            <small>{{pharmacy.name}}</small> <br>
-            <small>{{pharmacy.primary_service}}</small> <br>
-            <small>{{pharmacy.chain}}</small> <br>
-            <small>{{pharmacy.type}}</small>
-          </agm-info-window>
-        </agm-marker>
-    </agm-map>
-  </div>
-
-</div>
-
-<div class="row float-right mt-5 mb-5">
-  <div class="col-md-12">
-      <button class="btn btn-primary mr-3" type="button" (click)="userAction('back');">Back</button>
-    <button class="btn btn-primary" type="button" (click)="nextStep();" [disabled]="!primaryPharmacyAddress">Next</button>
+    <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:500px;" [zoom]="13">
+      <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default"></agm-marker>
+      <agm-marker [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude" [label]="pharmacy.name" *ngFor="let pharmacy of pharmacies"
+      (markerClick)="openWindow(pharmacy.pharmacy_id)" >
+          <agm-info-window 
+          [isOpen]="isInfoWindowOpen(pharmacy.pharmacy_id)"
+          [latitude]="pharmacy.latitude" 
+          [longitude]="pharmacy.longitude">
+          <small> <strong> {{pharmacy.name}} </strong> </small> <br>
+          <small>{{pharmacy.city}} {{pharmacy.state}}, {{pharmacy.zipcode}}</small> <br>
+          <small>{{pharmacy.zipcode}}</small>
+        </agm-info-window>
+      </agm-marker>
+  </agm-map>
   </div>
 </div>
-  
+
+<div class="row text-center">
+  <div class="col-lg-8 mt-2 mx-auto">
+    <p>
+      <small> By clicking Complete, I certify that: (1) give consent to share my information with the selected pharmacy (2) 
+        I am the person who will receive the requested prescriptions, and the prescriptions are for my personal use only; (3) 
+        this constitutes my electronic signature; and (4) I agree to the <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>,
+        and <a href="">HIPAA Privacy Practices</a>. 
+      </small> 
+    </p>
+  </div>
+</div>
+
+<div class="row justify-content-md-center">
+  <div class="col-lg-8">
+    <button class="btn btn-secondary btn-round btn-lg" type="button" (click)="userAction('back');">Back</button>
+    <button class="btn btn-secondary btn-round btn-lg float-right" type="button" (click)="completeOnboarding();"
+    [disabled]="!primaryPharmacyAddress">Complete</button>
+  </div>
+</div>

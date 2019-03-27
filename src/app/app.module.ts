@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -165,6 +166,7 @@ import { MedicalHistoryComponent } from './components/onboarding/medical-history
       apiKey: `${environment.googleApiKey}`,
       libraries: ['places']
     }),
+    NgbModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

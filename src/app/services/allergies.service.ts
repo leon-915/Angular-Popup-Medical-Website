@@ -14,6 +14,6 @@ export class AllergiesService {
 
   getAllergies() {
     const url = this.serviceURl + 'allergies/getallergies';
-    return this.http.get<APIResponse<AllergiesModel>>(url);
+    return this.http.get<APIResponse<any>>(url);
   }
 }

@@ -58,7 +58,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.shippingAddress.zipCode = zipCode;
     this.shippingAddress.latitude = latitude;
     this.shippingAddress.longitude = longitude;
-    console.log(this.shippingAddress);
     this.primaryPharmacyAddress = null;
     this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
   }
@@ -70,7 +69,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     pharmacyModel.longitude = long;
     this.pharmacies = [];
     this.pharmacySrv.getNearestPharmacies(pharmacyModel).subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
         this.pharmacies = response.Result;
       }
@@ -79,11 +77,9 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step = 4) : (this.step = 6);
+    const step = action === 'back' ? (this.step = 2) : (this.step = 4);
     this.action.emit(step);
   }
-
-  radioChanged(event) { this.primaryPharmacyAddress = event; }
 
   private getUserLocation() {
     if (navigator.geolocation) {
@@ -95,7 +91,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     }
   }
 
-  loadShippingAddress() {
+  /*loadShippingAddress() {
     const onboardingInfo = new OnboardingRequestModel();
     onboardingInfo.currentStep = this.step;
     this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
@@ -119,7 +115,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
         this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
       }
     }, error => { console.log(error); });
-  }
+  }*/
 
   openWindow(id) {
     this.openedWindow = id;
@@ -129,19 +125,22 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     return this.openedWindow === id;
   }
 
-  nextStep() {
-    console.log(this.primaryPharmacyAddress);
+  completeOnboarding() {
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.pharmacyId = this.primaryPharmacyAddress.pharmacy_id;
     onboardingModel.currentStep = this.step;
     this.onboardingSrv.onboarding(onboardingModel).subscribe(response => {
-      console.log(response);
       if (!response.HasError) {
         this.userAction('advance');
       } else {
         this.notificationSrv.showError(response.Message);
       }
     });
+  }
+
+  selectPharmacy(pharmacy) {
+    this.primaryPharmacyAddress = pharmacy;
+    this.openWindow(this.primaryPharmacyAddress.pharmacy_id);
   }
 
 

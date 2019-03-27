@@ -14,6 +14,6 @@ export class MedicationsService {
 
   getMedicationSupplements() {
     const url = this.serviceURl + 'medications/getmedications';
-    return this.http.get<APIResponse<MedicationModel>>(url);
+    return this.http.get<APIResponse<any>>(url);
   }
 }

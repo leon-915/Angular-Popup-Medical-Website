@@ -46,4 +46,24 @@ export class OnboardingCompleteComponent implements OnInit {
       }
     );
   }
+
+  goToInviteMember() {
+    console.log('step: ', this.step);
+    const onboardingModel = new OnboardingRequestModel();
+    onboardingModel.currentStep = this.step;
+    this.onboardingSrv.onboarding(onboardingModel).subscribe(
+      response => {
+        console.log(response);
+        if (!response.HasError) {
+          console.log('my account');
+          this.router.navigateByUrl('/account/family');
+        } else {
+          this.notificationSrv.showError(response.Message);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

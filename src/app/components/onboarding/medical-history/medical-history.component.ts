@@ -1,11 +1,9 @@
-import { MedicationsService } from './../../../services/medications.service';
-import { ConditionsService } from './../../../services/conditions.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AllergiesModel, MedicationModel, ConditionsModel, LookupModel } from 'src/app/models';
-import { AllergiesService, OnboardingService, NotificationService } from 'src/app/services';
+import { AllergiesService, OnboardingService, NotificationService, ConditionsService, MedicationsService } from 'src/app/services';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { OnboardingRequestModel } from '../../../models/index';
+
 
 @Component({
   selector: 'app-medical-history',
@@ -14,6 +12,8 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class MedicalHistoryComponent implements OnInit {
 
+  public model: any;
+
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
@@ -21,29 +21,122 @@ export class MedicalHistoryComponent implements OnInit {
   public haveConditions: boolean;
   public takingMedications: boolean;
 
-  public allergies: AllergiesModel = new AllergiesModel();
-  public medications: MedicationModel = new MedicationModel();
-  public conditions: ConditionsModel = new ConditionsModel();
+  public allergies  = [];
+  public conditions = [];
+  public medications = [];
 
-  public selectedAllergies: Array<LookupModel> = new Array<LookupModel>();
-  public selectedMedications: Array<LookupModel> = new Array<LookupModel>();
-  public selectedConditions: Array<LookupModel> = new Array<LookupModel>();
+  public allergiesModels = [];
+  public conditionsModels = [];
+  public medicationsModel = [];
+
+  public selectedAllergies = [{display_value: null}];
+  public selectedConditions = [{display_value: null}];
+  public selectedMedications = [{display_value: null}];
 
   constructor(
     private allergieSrv: AllergiesService,
     private conditionSrv: ConditionsService,
     private medicationSrv: MedicationsService,
     private onboardingSrv: OnboardingService,
-    private notificationSrv: NotificationService,
-    private fb: FormBuilder) {
+    private notificationSrv: NotificationService) {
       this.getAllergies();
       this.getConditions();
       this.getMedications();
     }
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  onChangeAllergies(newValue, i) {
+    if (newValue instanceof Object) {
+      const index = this.selectedAllergies.findIndex(ind =>  ind.display_value === newValue.display_value);
+      if (this.selectedAllergies.length === 0) {
+        this.selectedAllergies.push(newValue);
+      } else {
+        if (index > -1) {
+          this.allergiesModels.splice(index, 1);
+          this.notificationSrv.showError('This allergy is already selected.');
+        } else {
+          this.selectedAllergies.push(newValue);
+        }
+      }
+    } else {
+      if (newValue.length === 0 || newValue === '' || newValue === null || newValue === undefined) {
+        this.selectedAllergies.splice(i + 1, 1);
+        this.allergiesModels.splice(i, 1);
+      }
+    }
+    console.log(this.selectedAllergies);
   }
+
+  onChangeConditions(newValue, i) {
+    if (newValue instanceof Object) {
+      const index = this.selectedConditions.findIndex(ind =>  ind.display_value === newValue.display_value);
+      if (this.selectedConditions.length === 0) {
+        this.selectedConditions.push(newValue);
+      } else {
+        if (index > -1) {
+          this.conditionsModels.splice(index, 1);
+          this.notificationSrv.showError('This condition is already selected.');
+        } else {
+          this.selectedConditions.push(newValue);
+        }
+      }
+    } else {
+      if (newValue.length === 0 || newValue === '' || newValue === null || newValue === undefined) {
+        this.selectedConditions.splice(i + 1, 1);
+        this.conditionsModels.splice(i, 1);
+      }
+    }
+    console.log(this.selectedConditions);
+  }
+
+  onChangeMedications(newValue, i) {
+    if (newValue instanceof Object) {
+      const index = this.selectedMedications.findIndex(ind =>  ind.display_value === newValue.display_value);
+      if (this.selectedMedications.length === 0) {
+        this.selectedMedications.push(newValue);
+      } else {
+        if (index > -1) {
+          this.medicationsModel.splice(index, 1);
+          this.notificationSrv.showError('This medication/supplement is already selected.');
+        } else {
+          this.selectedMedications.push(newValue);
+        }
+      }
+    } else {
+      if (newValue.length === 0 || newValue === '' || newValue === null || newValue === undefined) {
+        this.selectedMedications.splice(i + 1, 1);
+        this.medicationsModel.splice(i, 1);
+      }
+    }
+    console.log(this.selectedMedications);
+  }
+
+  searchAllergies = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.allergies.filter(v => v.display_value.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
+  searchConditions = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.conditions.filter(v => v.display_value.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
+  searchMedications = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.medications.filter(v => v.display_value.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
+  formatter = (x: {display_value: string}) => x.display_value;
 
   compareWithFunc(a, b) { return a.display_value === b.display_value; }
 
@@ -53,44 +146,108 @@ export class MedicalHistoryComponent implements OnInit {
   }
 
   getAllergies() {
-
     this.allergieSrv.getAllergies().subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
         this.allergies = response.Result;
-        console.log(this.allergies);
+        this.loadAllergies();
       }
     });
-
   }
 
   getConditions() {
-
     this.conditionSrv.getConditions().subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
         this.conditions = response.Result;
-        console.log(this.conditions);
+        this.loadConditions();
       }
     }, (error) => { console.log(error); });
-
   }
 
   getMedications() {
-
     this.medicationSrv.getMedicationSupplements().subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
         this.medications = response.Result;
-        console.log(this.medications);
+        this.loadMedications();
       }
     }, (error) => { console.log(error); });
-
   }
 
-  onChangeAllergies(event) {
-    console.log(event);
-    console.log(this.haveAllergies);
+  nextStep() {
+    const myAllergies = JSON.stringify(this.selectedAllergies);
+    const myConditions = JSON.stringify(this.selectedConditions);
+    const myMedications = JSON.stringify(this.selectedMedications);
+
+    const onboardingModel = new OnboardingRequestModel();
+    onboardingModel.myAllergies = myAllergies;
+    onboardingModel.myConditions = myConditions;
+    onboardingModel.myMedicationSupplements = myMedications;
+    onboardingModel.currentStep = this.step;
+
+    this.onboardingSrv.onboarding(onboardingModel).subscribe((response) => {
+      if (!response.HasError) {
+        this.userAction('advance');
+      }
+    }, error => { console.log(error); });
+  }
+
+  allergyModelChange() {
+    if (!this.haveAllergies) {
+      this.allergiesModels = [];
+      this.selectedAllergies = [{display_value: null}];
+    }
+  }
+
+  conditionModelChange() {
+    if (!this.haveConditions) {
+      this.conditionsModels = [];
+      this.selectedConditions = [{display_value: null}];
+    }
+  }
+
+  medicationModelChange() {
+    if (!this.takingMedications) {
+      this.medicationsModel = [];
+      this.selectedMedications = [{display_value: null}];
+    }
+  }
+
+  loadAllergies() {
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      if (!response.HasError && response.Result) {
+        const myAllergies = JSON.parse(response.Result.allergies);
+        this.selectedAllergies = myAllergies;
+        for (let i = 1; i < myAllergies.length; i++) { this.allergiesModels.push(myAllergies[i]); }
+        this.haveAllergies = true;
+      }
+    }, error => { console.log(error); });
+  }
+
+  loadConditions() {
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      if (!response.HasError && response.Result) {
+        const myConditions = JSON.parse(response.Result.conditions);
+        this.selectedConditions = myConditions;
+        for (let i = 1; i < myConditions.length; i++) { this.conditionsModels.push(myConditions[i]); }
+        this.haveConditions = true;
+      }
+    }, error => { console.log(error); });
+  }
+
+  loadMedications() {
+    const onboardingInfo = new OnboardingRequestModel();
+    onboardingInfo.currentStep = this.step;
+    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
+      if (!response.HasError && response.Result) {
+        const myMedications = JSON.parse(response.Result.medications.medications_supplements);
+        this.selectedMedications = myMedications;
+        for (let i = 1; i < myMedications.length; i++) { this.medicationsModel.push(myMedications[i]); }
+        this.takingMedications = true;
+      }
+    }, error => { console.log(error); });
   }
 
 }
