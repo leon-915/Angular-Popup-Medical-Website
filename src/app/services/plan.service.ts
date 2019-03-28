@@ -8,8 +8,6 @@ import {CommonService} from './common.service';
 @Injectable()
 export class PlanService {
 
-  private planSelected: PlanModel;
-
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
   serviceURl: string = this.commonSrv.apiURL;
 
@@ -17,14 +15,6 @@ export class PlanService {
   getPlans() {
     const url = this.serviceURl + 'plans/getplans';
     return this.http.get<APIResponse<PlanModel[]>>(url);
-  }
-
-  setPlanSelected(plan: PlanModel) {
-    this.planSelected = plan;
-  }
-
-  getPlanSelected() {
-    return this.planSelected;
   }
 
 }

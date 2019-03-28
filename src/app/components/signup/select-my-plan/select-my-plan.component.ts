@@ -40,14 +40,11 @@ export class SelectMyPlanComponent implements OnInit {
   }
 
   selectPlan(plan: PlanModel) {
-    console.log(this.step);
     const planMember = new SignupRequestModel();
     planMember.planId = plan.plan_id;
     planMember.currentStep = this.step;
-    console.log(planMember);
     this.signupSrv.signup(planMember).subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           this.step = 3;
           this.action.emit(this.step);

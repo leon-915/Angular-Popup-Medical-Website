@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
     this.signupSrv.getSignupInformation(member).subscribe((response) => {
       console.log(response);
       if (!response.HasError) {
-        if (response.Result.current_step === 5) {
+        if (response.Result.current_step === 6) {
           this.router.navigateByUrl('/onboarding');
         } else {
           this.currentStep = response.Result.current_step;
