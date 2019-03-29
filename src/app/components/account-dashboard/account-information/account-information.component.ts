@@ -160,7 +160,6 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   saveUserData() {
     // TODO: Check the phone number data how to display all phone numbers
     const userFormData = this.userInfoForm.getRawValue();
-
     this.accountSrv.updateUserData(userFormData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
@@ -186,10 +185,12 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       zipCode: userData.zipcode,
       latitude: userData.latitude ? userData.latitude : 0,
       longitude: userData.longitude ? userData.longitude : 0,
-      billingPhoneId: userPhones[0].member_phone,
-      billingPhone: userPhones[0].phone_number,
-      cellPhoneId: userPhones[1].member_phone ? userPhones[1].member_phone : 0,
-      cellPhone: userPhones[1].phone_number ? userPhones[1].phone_number : ''
+      billingPhoneId: userPhones[0].member_phone
+        ? userPhones[0].member_phone
+        : 0,
+      billingPhone: userPhones[0].phone_number ? userPhones[0].phone_number : 0,
+      cellPhoneId: userPhones[1] ? userPhones[1].member_phone : 0,
+      cellPhone: userPhones[1] ? userPhones[1].phone_number : ''
     });
   }
 
