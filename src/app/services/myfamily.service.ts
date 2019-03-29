@@ -38,7 +38,7 @@ export class MyFamilyService {
 
   addDependent(dependent: AddDependent) {
     const url = `${this.serviceURl}account/myfamily/adddependent`;
-    return this.http.put<APIResponse<boolean>>(url, dependent);
+    return this.http.post<APIResponse<boolean>>(url, dependent);
   }
 }
 
