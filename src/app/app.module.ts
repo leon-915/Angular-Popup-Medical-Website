@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import * as moment from 'moment';
 
+
 /* CONFIGURATIONS */
 /* CONFIGURATIONS */
 
@@ -113,6 +114,8 @@ import { SelectMyPlanComponent } from './components/signup/select-my-plan/select
 import { BillingInformationComponent } from './components/signup/billing-information/billing-information.component';
 import { OrderConfirmationComponent } from './components/signup/order-confirmation/order-confirmation.component';
 import { MedicalHistoryComponent } from './components/onboarding/medical-history/medical-history.component';
+import { MembershipCardComponent } from './components/membership-card/membership-card.component';
+import { NgbdCarouselBasicComponent } from './components/carousel-basic/carousel-basic.component';
 
 @NgModule({
   declarations: [
@@ -159,7 +162,9 @@ import { MedicalHistoryComponent } from './components/onboarding/medical-history
     SelectMyPlanComponent,
     BillingInformationComponent,
     OrderConfirmationComponent,
-    MedicalHistoryComponent
+    MedicalHistoryComponent,
+    MembershipCardComponent,
+    NgbdCarouselBasicComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

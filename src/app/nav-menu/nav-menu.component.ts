@@ -17,6 +17,15 @@ export class NavMenuComponent {
 
   showSideNav() {
     console.log(this.navbarOpen);
-    $('.sidenav').sidenav();
+    $('#mobile-demo').sidenav({
+      edge: 'left'
+    });
+  }
+
+  showSideNavRight() {
+    console.log(this.navbarOpen);
+    $('#right-sidevar').sidenav({
+      edge: 'right'
+    });
   }
 }

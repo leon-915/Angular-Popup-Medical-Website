@@ -43,7 +43,7 @@
           Found <strong> {{pharmacies.length}} </strong> Pharmacy(s) near 
           <strong> {{shippingAddress.address1}}, {{shippingAddress.state}} {{shippingAddress.zipCode}} </strong> 
         </p>
-        <li class="list-group-item" *ngFor="let pharmacy of pharmacies | slice:0:limitItems; let i = index;" (click)="selectPharmacy(pharmacy);"
+        <li class="list-group-item pointer" *ngFor="let pharmacy of pharmacies | slice:0:limitItems; let i = index;" (click)="selectPharmacy(pharmacy);"
         [ngClass]="{'active-pharmacy': primaryPharmacyAddress?.pharmacy_id === pharmacy.pharmacy_id}">
           <div>
               <p class="pharmacy-info"> {{pharmacy.name}} </p>
