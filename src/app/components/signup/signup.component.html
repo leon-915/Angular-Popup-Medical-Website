@@ -4,14 +4,8 @@
       <p *ngIf="currentStep === 1">Gathering your signup information... (Place the full screen loader here)</p>
       <app-select-my-plan *ngIf="currentStep === 2" [step]="currentStep" (action)="userAction($event)"></app-select-my-plan>
       <app-billing-information *ngIf="currentStep === 3" [step]="currentStep" (action)="userAction($event)"></app-billing-information>
+      <app-shipping-information *ngIf="currentStep === 4" [step]="currentStep" (action)="userAction($event)"></app-shipping-information>
       <app-order-confirmation *ngIf="currentStep === 5" [step]="currentStep" (action)="userAction($event)"></app-order-confirmation>
-      <!--<app-signup-step1 *ngIf="currentStep === 1" [step]="currentStep" (action)="userAction($event)"></app-signup-step1>-->
-      <!--<app-signup-confirm *ngIf="currentStep === 0"></app-signup-confirm>-->
-      <!--<app-signup-step2 *ngIf="currentStep === 2" [step]="currentStep" (action)="userAction($event)"></app-signup-step2>-->
-      <!--<app-signup-step3 *ngIf="currentStep === 3" [step]="currentStep" (action)="userAction($event)"></app-signup-step3>
-      <app-signup-step4 *ngIf="currentStep === 4" [step]="currentStep" (action)="userAction($event)"></app-signup-step4>
-      <app-signup-step5 *ngIf="currentStep === 5" [step]="currentStep" (action)="userAction($event)"></app-signup-step5>
-      <app-signup-step6 *ngIf="currentStep === 6" [step]="currentStep" (action)="userAction($event)" ></app-signup-step6>-->
     </div>
   </div>
 </div>

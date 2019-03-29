@@ -11,4 +11,5 @@ export class OrderModel {
     paymentPeriod: string;
     lastFour: string;
     email: string;
+    abbreviation: string;
 }

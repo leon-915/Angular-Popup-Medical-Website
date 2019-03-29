@@ -50,8 +50,18 @@ export class BillingInformationComponent implements OnInit {
   }
 
   userAction(action: string) {
-    const step = action === 'back' ? (this.step = 2) : (this.step = 4);
-    this.action.emit(step);
+
+    if (action === 'back') {
+      this.step = 2;
+    } else {
+      if (this.signupForm.get('billingSameShipping').value === true) {
+        this.step = 5;
+      } else {
+        this.step = 4;
+      }
+    }
+
+    this.action.emit(this.step);
   }
 
   loadInformation() {
@@ -74,7 +84,13 @@ export class BillingInformationComponent implements OnInit {
   }
 
   getStates() {
-    this.commonSrv.getStates().subscribe((response) => { this.states = response; });
+    this.signupSrv.getCommonFormData().subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.states = response.Result.stateList;
+        console.log(this.states);
+      }
+    }, error => { console.log(error); });
   }
 
   getCreditCardType(creditCardNumber) {
@@ -178,6 +194,10 @@ export class BillingInformationComponent implements OnInit {
   }
 
   doSignup() {
+
+    if (this.billingSameShipping.value) {
+      this.signupForm.controls.currentStep.setValue(5);
+    }
 
     console.log(this.signupForm.value);
     this.signupSrv.signup(this.signupForm.value).subscribe(
