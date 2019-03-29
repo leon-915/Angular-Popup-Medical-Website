@@ -16,7 +16,7 @@
     <p class="mb-0">Billing Address</p>
     <p class="mb-0">{{orderInfo.firstName + ' ' + orderInfo.lastName}}</p>
     <p class="mb-0">{{orderInfo.address1}}</p>
-    <p class="mb-0">{{orderInfo.city + ', ' + orderInfo.state + ' ' + orderInfo.zipcode}}</p>
+    <p class="mb-0">{{orderInfo.city + ', ' + orderInfo.abbreviation + ' ' + orderInfo.zipcode}}</p>
     <hr>
     <p class="mb-0"> <strong>TOTAL</strong> <strong class="float-right">{{orderInfo.orderPrice | currency}}</strong> </p>
   </div>

@@ -15,9 +15,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   siteKey = environment.recaptchaSiteKey;
 
-  showNavigationArrows = false;
-  showNavigationIndicators = false;
-
   constructor(
     private fb: FormBuilder,
     private accountSrv: AccountService,

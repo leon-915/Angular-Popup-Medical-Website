@@ -47,6 +47,7 @@ export class OrderConfirmationComponent implements OnInit {
           this.orderInfo.zipcode = response.Result.zipcode;
           this.orderInfo.lastFour = response.Result.lastfour;
           this.orderInfo.email = response.Result.email;
+          this.orderInfo.abbreviation = response.Result.abbreviation;
           console.log(this.orderInfo);
         }
       },
