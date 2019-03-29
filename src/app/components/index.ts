@@ -7,3 +7,4 @@ export * from './my-home/my-home.component';
 export * from './onboarding/index';
 export * from './invoice-generator/invoice-generator.component';
 export * from './register/register.component';
+export * from './membership-card/membership-card.component';

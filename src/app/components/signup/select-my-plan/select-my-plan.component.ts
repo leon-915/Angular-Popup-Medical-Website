@@ -1,6 +1,7 @@
 import { PlanService, SignupService } from 'src/app/services/index';
 import { PlanModel, SignupRequestModel } from './../../../models/index';
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-select-my-plan',
@@ -15,7 +16,8 @@ export class SelectMyPlanComponent implements OnInit {
   public plans: PlanModel[] = new Array<PlanModel>();
   public planSelected: PlanModel = new PlanModel();
 
-  constructor(private planSrv: PlanService, private signupSrv: SignupService) {}
+  constructor(private planSrv: PlanService, private signupSrv: SignupService) {
+  }
 
   ngOnInit() {
 

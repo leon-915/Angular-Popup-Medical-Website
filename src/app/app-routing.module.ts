@@ -1,7 +1,6 @@
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import {
   LoginComponent,
@@ -18,7 +17,8 @@ import {
   RegisterComponent,
   AccountFamilyComponent,
   FamilyEditComponent,
-  AddDependentComponent
+  AddDependentComponent,
+  MembershipCardComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 
@@ -65,6 +65,7 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductComponent },
   { path: 'onboarding', component: OnboardingComponent },
   { path: 'invoice-generator', component: InvoiceGeneratorComponent },
+  { path: 'membership-card', component: MembershipCardComponent },
   { path: '**', component: HomeComponent }
 ];
 

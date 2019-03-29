@@ -8,15 +8,20 @@
 
 <div class="d-none d-lg-block">
   <div class="card-deck">
-    <div class="card mb-3 plan-card" (click)="planSelected = plan" *ngFor="let plan of plans">
+    <div class="card mb-3 plan-card text-center" (click)="planSelected = plan" *ngFor="let plan of plans; let i = index" style="width: 18rem;">
       <div class="card-body d-flex flex-column">
         <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
-        <p class="text-justify plan-description">{{plan.description}}</p>
+        <p class="card-header-text"> Converage for you and <span>{{plan.user_limit}}</span> additional members </p>
         <hr>
-        <p class="h4 text-center plan-price mt-auto mx-auto"> {{plan.price_quarter | currency}}/Mo <br> 
-          <small class="billing-payment">billed quarterly</small>
-        </p>
-        <button type="button" class="mb-5 mx-auto btn btn-primary" (click)="selectPlan(plan);">Join Now</button>
+        <p class="card-body-text"> <span>{{plan.number_of_rx}} Free Rx</span> Certificates per Year </p>
+        <hr>
+        <p class="card-body-text"> <span>24/7 on demand</span> access to convenience care and IDE digital care assistants </p>
+        <hr>
+        <p class="card-body-text"> Converage for up to <span>2 additional members</span> which includes immediate family and/or sponsored members </p>
+        <hr>
+        <p class="h4 text-center plan-price mt-auto mx-auto mb-0"> <span>$</span>{{plan.price_quarter | number: '1.0-0'}}</p>
+        <small class="billing-payment mb-5">billed quarterly</small>
+        <button type="button" class="btn btn-primary btn-round mb-5 mx-auto" (click)="selectPlan(plan);">Join Now</button>
       </div>
     </div>
   </div>

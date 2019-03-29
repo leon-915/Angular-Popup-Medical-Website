@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,13 +15,16 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   siteKey = environment.recaptchaSiteKey;
 
+  showNavigationArrows = false;
+  showNavigationIndicators = false;
+
   constructor(
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private notificationSrv: NotificationService,
-    private router: Router
-  ) {}
+    private router: Router) {
+    }
 
   ngOnInit() {
     this.loginForm = this.fb.group({

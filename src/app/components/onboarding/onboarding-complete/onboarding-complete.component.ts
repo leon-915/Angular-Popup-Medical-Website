@@ -28,7 +28,7 @@ export class OnboardingCompleteComponent implements OnInit {
     this.action.emit(step);
   }
 
-  goToMyAccount() {
+  goToDashboard(url: string) {
     const onboardingModel = new OnboardingRequestModel();
     onboardingModel.currentStep = this.step;
     this.onboardingSrv.onboarding(onboardingModel).subscribe(
@@ -36,34 +36,12 @@ export class OnboardingCompleteComponent implements OnInit {
         console.log(response);
         if (!response.HasError) {
           console.log('my account');
-          this.router.navigateByUrl('/account');
+          this.router.navigateByUrl(url);
         } else {
           this.notificationSrv.showError(response.Message);
         }
       },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  goToInviteMember() {
-    console.log('step: ', this.step);
-    const onboardingModel = new OnboardingRequestModel();
-    onboardingModel.currentStep = this.step;
-    this.onboardingSrv.onboarding(onboardingModel).subscribe(
-      response => {
-        console.log(response);
-        if (!response.HasError) {
-          console.log('my account');
-          this.router.navigateByUrl('/account/family');
-        } else {
-          this.notificationSrv.showError(response.Message);
-        }
-      },
-      error => {
-        console.log(error);
-      }
+      error => { console.log(error); }
     );
   }
 }

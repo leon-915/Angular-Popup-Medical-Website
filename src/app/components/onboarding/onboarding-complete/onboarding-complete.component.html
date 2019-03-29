@@ -34,19 +34,19 @@
 </div>
 
 <div class="card-deck">
-  <div class="card text-center" (click)="goToMyAccount();">
+  <div class="card text-center pointer" (click)="goToDashboard('/account');">
     <div class="card-body">
       <i class="material-icons icon">developer_board</i>
       <p class="card-text">Go To My Dashboard Hub</p>
     </div>
   </div>
-  <div class="card text-center" (click)="goToInviteMember();">
+  <div class="card text-center pointer" (click)="goToDashboard('/account/family');">
     <div class="card-body">
       <i class="material-icons icon">account_circle</i>
       <p class="card-text">Add or Invite Members</p>
     </div>
   </div>
-  <div class="card text-center">
+  <div class="card text-center pointer" (click)="goToDashboard('/membership-card');">
     <div class="card-body">
       <i class="material-icons icon">credit_card</i>
       <p class="card-text">View My Membership Card</p>
