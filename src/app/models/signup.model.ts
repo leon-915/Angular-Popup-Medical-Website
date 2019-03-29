@@ -1,4 +1,4 @@
-import { GenderModel } from './gender.model';
+import { GenderModel, State } from './gender.model';
 
 export class SignupRequestModel {
   email: string;
@@ -41,4 +41,5 @@ export interface InvoiceModel {
 
 export class GetStartUpResponseModel {
   genderList?: GenderModel[];
+  stateList?: State[];
 }
