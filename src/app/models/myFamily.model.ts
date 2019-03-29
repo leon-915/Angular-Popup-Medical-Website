@@ -14,6 +14,8 @@ export class FamilyUser {
   'display_value': string;
   'invitation_code': string;
   'email': string;
+  'first_name'?: string;
+  'last_name'?: string;
 }
 
 export class EditUser extends FamilyUser {
@@ -22,6 +24,15 @@ export class EditUser extends FamilyUser {
   'last_name': string;
   'gender_id': number;
   'date_of_birth': Date;
+  'has_login': boolean;
+}
+
+export class AddDependent {
+  'first_name': string;
+  'last_name': string;
+  'member_relation_type_id': string;
+  'isDependent': boolean;
+  'birthday': Date;
 }
 
 export class GetMyFamilyResult {
@@ -29,6 +40,8 @@ export class GetMyFamilyResult {
   guestRelationTypes: RelationType[];
   familyUsers: FamilyUser[];
   guestUsers: FamilyUser[];
+  activeFamilyUsers: FamilyUser[];
+  activeGuestUsers: FamilyUser[];
 }
 
 export class GetMyFamilyEditResult {

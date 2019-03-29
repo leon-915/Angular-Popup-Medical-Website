@@ -25,6 +25,9 @@ export class AccountFamilyComponent implements OnInit {
   familyUsers: FamilyUser[];
   guestUsers: FamilyUser[];
 
+  activeFamilyUsers: FamilyUser[];
+  activeGuestUsers: FamilyUser[];
+
   constructor(
     private fb: FormBuilder,
     private accountSrv: AccountService,
@@ -60,6 +63,10 @@ export class AccountFamilyComponent implements OnInit {
         this.guestRelationTypes = resulData.guestRelationTypes;
         this.familyUsers = resulData.familyUsers;
         this.guestUsers = resulData.guestUsers;
+        this.activeFamilyUsers = resulData.activeFamilyUsers;
+        this.activeGuestUsers = resulData.activeGuestUsers;
+        this.familyUsers = this.familyUsers.concat(this.activeFamilyUsers);
+        this.guestUsers = this.guestUsers.concat(this.activeGuestUsers);
       }
     });
   }
@@ -109,7 +116,6 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   goToEdit(memberRelationId: number, isNewDependant: boolean) {
-    console.log('go to edit' + memberRelationId + ' ' + isNewDependant);
     this.myFamilyPd.setRelationId(memberRelationId);
     this.myFamilyPd.setIsNewDependantt(isNewDependant);
     if (isNewDependant) {

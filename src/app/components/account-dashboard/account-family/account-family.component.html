@@ -3,13 +3,16 @@
 
   <div class="container" style="width: 100%">
     <div class="row align-items-center">
-      <div class="col-md-4">
-        <span>Email</span>
+      <div class="col-md-2">
+        <span>Name</span>
       </div>
       <div class="col-md-3">
-        <span>Relationship</span>
+        <span>Email</span>
       </div>
       <div class="col-md-2">
+        <span>Relationship</span>
+      </div>
+      <div class="col-md-1">
         <span>Status</span>
       </div>
       <div class="col-md">
@@ -20,13 +23,16 @@
       </div>
     </div>
     <div class="row align-items-center" *ngFor="let member of familyUsers;  let i = index" [attr.data-index]="i">
-      <div class="col-md-4">
-        {{member.email}}
+      <div class="col-md-2">
+        {{member.first_name ? member.first_name : '-' }}
       </div>
       <div class="col-md-3">
-        {{member.display_value}}
+        {{member.email ? member.email : '-'}}
       </div>
       <div class="col-md-2">
+        {{member.display_value}}
+      </div>
+      <div class="col-md-1">
         {{member.status_display}}
       </div>
       <div class="col-md">

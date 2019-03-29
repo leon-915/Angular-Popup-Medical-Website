@@ -10,6 +10,8 @@ import {
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
+import { GenderModel } from 'src/app/models';
+import * as moment from 'moment';
 @Component({
   selector: 'app-add-dependent',
   templateUrl: './add-dependent.component.html',
@@ -21,6 +23,8 @@ export class AddDependentComponent implements OnInit {
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
+  genderList: GenderModel[];
+
   constructor(
     private fb: FormBuilder,
     private accountSrv: AccountService,
@@ -34,17 +38,22 @@ export class AddDependentComponent implements OnInit {
       {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        member_relation_type_id: [0, [Validators.required, Validators.min(1)]],
-        gender_id: [0, []],
-        gender: ['', []],
+        member_relation_type_id: [
+          { value: 'Dependent', disabled: true },
+          [Validators.required, Validators.min(1)]
+        ],
         isDependent: [{ value: true, disabled: true }, [Validators.required]],
-        birthday: [Date(), []]
+        birthday: [moment().format('YYYY-MM-DD'), []]
       },
       {}
     );
   }
 
   ngOnInit() {
+    // const genderList = localStorage.getItem('genderList');
+    // if (genderList) {
+    //   this.genderList = JSON.parse(genderList);
+    // }
     this.relationId = this.myFamilyPd.getRelationId();
     this.isNewDependant = this.myFamilyPd.getIsNewDependant();
     console.log(this.relationId);
@@ -52,15 +61,11 @@ export class AddDependentComponent implements OnInit {
       if (!res.HasError) {
         console.log(JSON.stringify(res.Result));
         const resulData = res.Result;
-        this.relationTypes = resulData.relationTypes.concat(
-          resulData.guestRelationTypes
-        );
+        this.relationTypes = resulData.relationTypes;
         this.guestRelationTypes = resulData.guestRelationTypes;
       } else {
         // TODO: redirect to my Fam dashboard
         console.log('exit to myFamily');
-        console.log(this.myFamilyPd.getRelationId());
-        console.log(this.myFamilyPd.getIsNewDependant());
         this.notificationSrv.showError('Error procesing the request');
         this.router.navigate(['/account/family']);
       }
@@ -70,6 +75,15 @@ export class AddDependentComponent implements OnInit {
   addDependentMember() {
     const formData = this.addMemberForm.getRawValue();
     console.log(JSON.stringify(formData));
+
+    this.myFamilySrv.addDependent(formData).subscribe(res => {
+      if (!res.HasError) {
+        this.notificationSrv.showSuccess(res.Message);
+        this.router.navigate(['/account/family']);
+      } else {
+        this.notificationSrv.showError(res.Message);
+      }
+    });
   }
   cancel() {
     this.myFamilyPd.setRelationId(null);

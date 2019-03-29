@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { APIResponse, GetMyFamilyResult, FamilyUser } from '../models/index';
 import { CommonService } from './common.service';
 import { HttpClient } from '@angular/common/http';
-import { GetMyFamilyEditResult } from '../models/myFamily.model';
+import { GetMyFamilyEditResult, AddDependent } from '../models/myFamily.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +31,14 @@ export class MyFamilyService {
       member_relation_id: memberId
     });
   }
-  putEditMyFamily(memberId: number) {
+  putEditMyFamily(familyMember) {
     const url = `${this.serviceURl}account/myfamily/edit`;
-    return this.http.put<APIResponse<GetMyFamilyEditResult>>(url, {
-      member_relation_id: memberId
-    });
+    return this.http.put<APIResponse<GetMyFamilyEditResult>>(url, familyMember);
+  }
+
+  addDependent(dependent: AddDependent) {
+    const url = `${this.serviceURl}account/myfamily/adddependent`;
+    return this.http.put<APIResponse<boolean>>(url, dependent);
   }
 }
 

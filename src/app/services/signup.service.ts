@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {APIResponse, SignupRequestModel, InvoiceModel } from './../models/index';
-import {CommonService} from './common.service';
+import { HttpClient } from '@angular/common/http';
+import {
+  APIResponse,
+  SignupRequestModel,
+  InvoiceModel,
+  GetStartUpResponseModel
+} from './../models/index';
+import { CommonService } from './common.service';
 
 @Injectable()
 export class SignupService {
-
   private signupStep = 1;
 
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
@@ -43,4 +47,8 @@ export class SignupService {
     return this.http.post<InvoiceModel>(url, null);
   }
 
+  getCommonFormData() {
+    const url = `${this.serviceURl}startup`;
+    return this.http.get<APIResponse<GetStartUpResponseModel>>(url);
+  }
 }

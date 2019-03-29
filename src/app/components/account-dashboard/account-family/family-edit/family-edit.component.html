@@ -34,7 +34,7 @@
               {{item.display_value}}</option>
           </select>
         </div>
-        <div *ngIf="!isDependent">
+        <div *ngIf="showGender">
           <div class="form-group">
             <label for="confirm">Gender</label>
             <select class="browser-default custom-select" formControlName="gender_id">
@@ -44,21 +44,14 @@
                 {{item.gender}}</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="validationCustom02">Date of Birth</label>
-            <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday"
-              required />
-            <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
-              Date of Birth is required.
-            </p>
-          </div>
         </div>
-
-        <div class="form-check">
-          <mat-checkbox formControlName="isDependent">
-            This person is a child or dependent and I will manage the account for this person. He/she will not get a
-            PopupCare login.
-          </mat-checkbox>
+        <div class="form-group">
+          <label for="validationCustom02">Date of Birth</label>
+          <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday"
+            required />
+          <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
+            Date of Birth is required.
+          </p>
         </div>
 
 

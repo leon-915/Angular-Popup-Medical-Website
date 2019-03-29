@@ -1,4 +1,4 @@
 export class GenderModel {
-    'gender_id': number;
-    'gender': string;
+  'gender_id': number;
+  'gender': string;
 }

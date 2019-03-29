@@ -28,30 +28,18 @@
         <div class="form-group">
           <label for="confirm">Relationship to Primary Member</label>
           <select class="browser-default custom-select" formControlName="member_relation_type_id">
-            <option selected=true value=0>
-              select an option</option>
-            <option *ngFor="let item of relationTypes;" value={{item.lookup_member_relation_type_id}}>
-              {{item.display_value}}</option>
+
+            <option *ngFor="let item of relationTypes;">
+              Dependent</option>
           </select>
         </div>
-        <div *ngIf="!isDependent">
-          <div class="form-group">
-            <label for="confirm">Gender</label>
-            <select class="browser-default custom-select" formControlName="member_relation_type_id">
-              <option selected=true value=0>
-                select an option</option>
-              <option *ngFor="let item of relationTypes;" value={{item.lookup_member_relation_type_id}}>
-                {{item.display_value}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="validationCustom02">Date of Birth</label>
-            <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday"
-              required />
-            <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
-              Date of Birth is required.
-            </p>
-          </div>
+        <div class="form-group">
+          <label for="validationCustom02">Date of Birth</label>
+          <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday"
+            required />
+          <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
+            Date of Birth is required.
+          </p>
         </div>
 
         <div class="form-check">

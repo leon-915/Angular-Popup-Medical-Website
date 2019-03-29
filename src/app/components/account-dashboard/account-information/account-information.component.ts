@@ -185,8 +185,8 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       longitude: userData.longitude ? userData.longitude : 0,
       billingPhoneId: userPhones[0].member_phone,
       billingPhone: userPhones[0].phone_number,
-      cellPhoneId: userPhones[1].member_phone,
-      cellPhone: userPhones[1].phone_number
+      cellPhoneId: userPhones[1].member_phone ? userPhones[1].member_phone : 0,
+      cellPhone: userPhones[1].phone_number ? userPhones[1].phone_number : ''
     });
   }
 
