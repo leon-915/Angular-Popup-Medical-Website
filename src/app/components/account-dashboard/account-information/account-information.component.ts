@@ -13,7 +13,7 @@ import {
   GooglePlacesService
 } from 'src/app/services';
 import * as moment from 'moment';
-import { ShippingAddressModel, GenderModel } from 'src/app/models';
+import { ShippingAddressModel, GenderModel, State } from 'src/app/models';
 
 @Component({
   selector: 'app-account-information',
@@ -31,6 +31,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
 
   userInfoForm: FormGroup;
   newAddressForm: FormGroup;
+  stateList: State[];
 
   constructor(
     private fb: FormBuilder,
@@ -50,9 +51,9 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         member_address: ['', []],
         address1: ['', [Validators.required]],
         address2: ['', []],
-        city: ['', [Validators.required]],
-        state: ['', [Validators.required]],
-        zipCode: ['', [Validators.required]],
+        city: [{ value: '', disabled: true }, [Validators.required]],
+        state: [{ value: '', disabled: true }, [Validators.required]],
+        zipCode: [{ value: '', disabled: true }, [Validators.required]],
         latitude: ['', []],
         longitude: ['', []],
         // shipping_addresses
@@ -71,9 +72,9 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         defaultShipping: [false, [Validators.required]],
         address1: ['', [Validators.required]],
         address2: ['', []],
-        city: ['', [Validators.required]],
-        state: ['', [Validators.required]],
-        zipcode: ['', [Validators.required]],
+        city: [{ value: '', disabled: true }, [Validators.required]],
+        state: [{ value: '', disabled: true }, [Validators.required]],
+        zipcode: [{ value: '', disabled: true }, [Validators.required]],
         latitude: [0, []],
         longitude: [0, []]
       },
@@ -82,6 +83,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.stateList = JSON.parse(localStorage.getItem('stateList'));
     this.accountSrv.getUserData().subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
@@ -116,7 +118,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       });
   }
   createShippingAddress() {
-    const newAdress = this.newAddressForm.value;
+    const newAdress = this.newAddressForm.getRawValue();
     if (this.shippingAdressList.length < 1) {
       this.newAddressForm.patchValue({
         defaultShipping: true
@@ -158,6 +160,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
   saveUserData() {
     // TODO: Check the phone number data how to display all phone numbers
     const userFormData = this.userInfoForm.getRawValue();
+
     this.accountSrv.updateUserData(userFormData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);

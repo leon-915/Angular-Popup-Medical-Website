@@ -7,5 +7,5 @@ export class State {
   id: number;
   'country_id': string;
   name: string;
-  abbrevation: string;
+  abbreviation: string;
 }

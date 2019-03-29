@@ -143,11 +143,16 @@
                       <input type="text" class="form-control" id="validationCustom04" placeholder="City"
                         formControlName="city" />
                     </div>
+
                     <div class="col-md-4 mb-3">
-                      <label for="validationCustom04">State </label>
-                      <input type="text" class="form-control" id="validationCustom04" placeholder="State"
-                        formControlName="state" />
+                      <label for="confirm">State</label>
+                      <select class="browser-default custom-select" formControlName="state">
+                        <option *ngFor="let item of stateList;" value={{item.abbreviation}}>
+                          {{item.abbreviation}}</option>
+                      </select>
+
                     </div>
+
 
                     <div class="col-md-2 mb-3">
                       <label for="validationCustom05">Zip Code </label>
