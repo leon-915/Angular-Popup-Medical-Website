@@ -4,25 +4,70 @@
     <h5 class="text-center subtitle mt-0 mb-4">Let's select a plan, you can change your plan anytime</h5>
   </div>
 </div>
- 
 
 <div class="d-none d-lg-block">
-  <div class="card-deck">
-    <div class="card mb-3 plan-card text-center" (click)="planSelected = plan" *ngFor="let plan of plans; let i = index" style="width: 18rem;">
-      <div class="card-body d-flex flex-column">
-        <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
-        <p class="card-header-text"> Converage for you and <span>{{plan.user_limit}}</span> additional members </p>
-        <hr>
-        <p class="card-body-text"> <span>{{plan.number_of_rx}} Free Rx</span> Certificates per Year </p>
-        <hr>
-        <p class="card-body-text"> <span>24/7 on demand</span> access to convenience care and IDE digital care assistants </p>
-        <hr>
-        <p class="card-body-text"> Converage for up to <span>2 additional members</span> which includes immediate family and/or sponsored members </p>
-        <hr>
-        <p class="h4 text-center plan-price mt-auto mx-auto mb-0"> <span>$</span>{{plan.price_quarter | number: '1.0-0'}}</p>
-        <small class="billing-payment mb-5">billed quarterly</small>
-        <button type="button" class="btn btn-primary btn-round mx-auto" (click)="selectPlan(plan);">Join Now</button>
+  <div class="container-fluid content-row">
+    <div class="row">
+      <div class="col" *ngFor="let plan of plans; let i = index">
+        <div class="card mb-3 plan-card text-center">
+          <div class="card-body">
+            <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
+            <p class="card-header-text"> Converage for you and <span>{{plan.user_limit}}</span> additional members </p>
+            <hr>
+            <p class="card-body-text"> <span>{{plan.number_of_rx}} Free Rx</span> Certificates per Year </p>
+            <hr>
+            <p class="card-body-text"> <span>24/7 on demand</span> access to convenience care and IDE digital care assistants </p>
+            <hr>
+            <p class="card-body-text"> Converage for up to <span>2 additional members</span> which includes immediate family and/or sponsored members </p>
+            <hr>
+            <p class="h4 text-center plan-price mt-auto mx-auto mb-0"> <span>$</span>{{plan.price_quarter | number: '1.0-0'}}</p>
+            <button type="button" class="btn btn-primary btn-round mx-auto mt-3" (click)="selectPlan(plan);">Join Now</button>
+            <p><small class="billing-payment mb-5">billed quarterly</small></p>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="d-lg-none">
+  <div class="row">
+      <div class="col-md-8">
+        <ng-container *ngFor="let plan of plans">
+          <p>{{item}}</p>
+          <div class="card plan-card text-center" *ngIf="plan.plan_id === selectedPlanMobile.plan_id">
+            <div class="card-body d-flex flex-column">
+              <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
+              <p class="card-header-text"> Converage for you and <span>{{plan.user_limit}}</span> additional members </p>
+              <hr>
+              <p class="card-body-text"> <span>{{plan.number_of_rx}} Free Rx</span> Certificates per Year </p>
+              <hr>
+              <p class="card-body-text"> <span>24/7 on demand</span> access to convenience care and IDE digital care assistants </p>
+              <hr>
+              <p class="card-body-text"> Converage for up to <span>2 additional members</span> which includes immediate family and/or sponsored members </p>
+              <hr>
+              <p class="h4 text-center plan-price mt-auto mx-auto mb-0"> <span>$</span>{{plan.price_quarter | number: '1.0-0'}}</p>
+              <small class="billing-payment mb-5">billed quarterly</small>
+              <button type="button" class="btn btn-primary btn-round mx-auto" (click)="selectPlan(plan);">Join Now</button>
+            </div>
+          </div>
+        </ng-container>   
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+          <button class="btn btn-primary float-left"
+          [disabled]="disableBack" (click)="back()"><i class="material-icons">keyboard_arrow_left</i></button>
+          <button class="btn btn-primary float-right"
+          [disabled]="disableNext" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
+      </div>
+    </div>
+</div>
+
+<div class="row text-center mt-5">
+  <div class="col-md-12">
+    <p class="pay-as-you-go">Not ready to pick a plan? <br> <span>Learn about our Pay As You Go Plan</span> </p>
+    <button class="btn btn-outline-secondary btn-round">Pay As You Go</button>
   </div>
 </div>

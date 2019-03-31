@@ -1,24 +1,33 @@
-<ngb-carousel *ngIf="images">
-  <ng-template ngbSlide>
-    <img [src]="images[0]" alt="Random first slide">
-    <div class="carousel-caption">
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <img [src]="images[1]" alt="Random second slide">
-    <div class="carousel-caption">
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <img [src]="images[2]" alt="Random third slide">
-    <div class="carousel-caption">
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </div>
-  </ng-template>
-</ngb-carousel>
-  
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+          <ng-container *ngFor="let item of plans">
+            <div class="card plan-card text-center" *ngIf="item.id === selectedPlan.id">
+              <div class="card-body d-flex flex-column">
+                <h5 class="text-center plan-name">{{item.name}}</h5>
+                <p class="card-header-text"> Converage for you and <span>4</span> additional members </p>
+                <hr>
+                <p class="card-body-text"> <span>4 Free Rx</span> Certificates per Year </p>
+                <hr>
+                <p class="card-body-text"> <span>24/7 on demand</span> access to convenience care and IDE digital care assistants </p>
+                <hr>
+                <p class="card-body-text"> Converage for up to <span>2 additional members</span> which includes immediate family and/or sponsored members </p>
+                <hr>
+                <p class="h4 text-center plan-price mt-auto mx-auto mb-0"> <span>$</span>4</p>
+                <small class="billing-payment mb-5">billed quarterly</small>
+                <button type="button" class="btn btn-primary btn-round mx-auto">Join Now</button>
+              </div>
+            </div>
+          </ng-container>
+         
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+            <button class="btn btn-primary float-left"
+            [disabled]="disableBack" (click)="back()"><i class="material-icons">keyboard_arrow_left</i></button>
+            <button class="btn btn-primary float-right"
+            [disabled]="disableNext" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
+        </div>
+      </div>
+</div>

@@ -16,6 +16,11 @@ export class SelectMyPlanComponent implements OnInit {
   public plans: PlanModel[] = new Array<PlanModel>();
   public planSelected: PlanModel = new PlanModel();
 
+  selectedPlanMobile = {};
+  disableBack = true;
+  disableNext = false;
+  currentPlan = 0;
+
   constructor(private planSrv: PlanService, private signupSrv: SignupService) {
   }
 
@@ -36,6 +41,10 @@ export class SelectMyPlanComponent implements OnInit {
       if (!response.HasError) {
         this.plans = response.Result;
         console.log(this.plans);
+        this.selectedPlanMobile = this.plans[0];
+        if (this.plans.length <= 1) {
+          this.disableNext = true;
+        }
       }
     }, error => { console.log(error); });
 
@@ -56,6 +65,26 @@ export class SelectMyPlanComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  back() {
+    console.log(this.selectedPlanMobile);
+    this.currentPlan -= 1;
+    this.selectedPlanMobile = this.plans[this.currentPlan];
+    this.disableNext = false;
+    if (this.currentPlan === 0) {
+      this.disableBack =  true;
+    }
+  }
+
+  next() {
+    console.log(this.selectedPlanMobile);
+    this.currentPlan += 1;
+    this.selectedPlanMobile = this.plans[this.currentPlan];
+    this.disableBack = false;
+    if (this.currentPlan === (this.plans.length - 1)) {
+      this.disableNext = true;
+    }
   }
 
 }

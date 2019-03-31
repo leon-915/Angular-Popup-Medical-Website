@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./account-dashboard.component.less']
 })
 export class AccountDashboardComponent implements OnInit {
-  constructor(private router: Router) {}
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {}
 
