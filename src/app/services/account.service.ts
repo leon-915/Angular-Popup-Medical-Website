@@ -49,9 +49,7 @@ export class AccountService {
   }
   addUserAddress(addAdressModel: AddAddressRequestModel) {
     const url = `${this.serviceURl}account/address`;
-    return this.http.post<APIResponse<AddAddressResult>>(url, {
-      newAddress: addAdressModel
-    });
+    return this.http.post<APIResponse<AddAddressResult>>(url, addAdressModel);
   }
   deleteAddress(addressId: number) {
     const url = `${this.serviceURl}account/deleteadress`;

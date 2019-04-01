@@ -118,12 +118,12 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       });
   }
   createShippingAddress() {
-    const newAdress = this.newAddressForm.getRawValue();
     if (this.shippingAdressList.length < 1) {
       this.newAddressForm.patchValue({
         defaultShipping: true
       });
     }
+    const newAdress = this.newAddressForm.getRawValue();
     this.accountSrv.addUserAddress(newAdress).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
