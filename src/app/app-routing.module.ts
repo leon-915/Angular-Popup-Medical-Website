@@ -59,6 +59,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'signup-confirm', component: SignupConfirmComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'register/:invitationCode/:email', component: RegisterComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
