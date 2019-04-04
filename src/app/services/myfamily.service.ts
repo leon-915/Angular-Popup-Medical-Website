@@ -40,8 +40,12 @@ export class MyFamilyService {
     const url = `${this.serviceURl}account/myfamily/adddependent`;
     return this.http.post<APIResponse<boolean>>(url, dependent);
   }
-}
 
+  upgradePhamilyAccount() {
+    const url = `${this.serviceURl}account/upgradeguestaccount`;
+    return this.http.put<APIResponse<boolean>>(url, {});
+  }
+}
 @Injectable()
 export class MyFamilyPersistData {
   private relationId: number;

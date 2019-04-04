@@ -37,5 +37,8 @@
     <p style="font-size: 12px; padding: 30px 0;">
       We'll change this component
     </p>
+    <div *ngIf="!isNormaluser">
+      <button class="btn" type='button' (click)="upgradeMember()">Upgrade your account</button>
+    </div>
   </div>
 </div>

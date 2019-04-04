@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   AccountService,
   NotificationService,
@@ -16,6 +16,7 @@ import {
   EditUser
 } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-family-edit',
@@ -39,7 +40,8 @@ export class FamilyEditComponent implements OnInit {
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.addMemberForm = this.fb.group(
       {
@@ -60,38 +62,40 @@ export class FamilyEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.relationId = this.myFamilyPd.getRelationId();
-    console.log(this.relationId);
+    this.route.params.subscribe(params => {
+      this.relationId = params.id
+        ? +decodeURIComponent(this.decrypt(params.id))
+        : 0;
+      console.log(`${this.relationId}`);
 
-    if (!isNaN(this.relationId)) {
-      this.myFamilySrv.getEditMyFamily(this.relationId).subscribe(res => {
-        if (!res.HasError) {
-          const resulData = res.Result;
-          this.relationTypes = resulData.relationTypes;
-          this.guestRelationTypes = resulData.guestRelationTypes;
-          this.familyUser = resulData.memberRelation;
-          this.genderList = resulData.genderList;
-          console.log(JSON.stringify(resulData));
-          this.showGender = this.familyUser.has_login;
-          this.addMemberForm.setValue({
-            member_id: this.familyUser.subscriber_member_id,
-            member_relation_id: this.familyUser.member_relation_id,
-            first_name: this.familyUser.first_name,
-            last_name: this.familyUser.last_name,
-            member_relation_type_id: this.familyUser.member_relation_type_id,
-            gender_id: this.familyUser.gender_id,
-            isDependent: false,
-            birthday: moment(this.familyUser.date_of_birth).format('YYYY-MM-DD')
-          });
-        }
-      });
-    } else {
-      // TODO: redirect to my Fam dashboard
-      console.log('exit to myFamily');
-      console.log(this.myFamilyPd.getRelationId());
-      console.log(this.myFamilyPd.getIsNewDependant());
-      this.router.navigate(['/account/family']);
-    }
+      if (!isNaN(this.relationId)) {
+        this.myFamilySrv.getEditMyFamily(this.relationId).subscribe(res => {
+          if (!res.HasError) {
+            const resulData = res.Result;
+            this.relationTypes = resulData.relationTypes;
+            this.guestRelationTypes = resulData.guestRelationTypes;
+            this.familyUser = resulData.memberRelation;
+            this.genderList = resulData.genderList;
+            console.log(JSON.stringify(resulData));
+            this.showGender = this.familyUser.has_login;
+            this.addMemberForm.setValue({
+              member_id: this.familyUser.subscriber_member_id,
+              member_relation_id: this.familyUser.member_relation_id,
+              first_name: this.familyUser.first_name,
+              last_name: this.familyUser.last_name,
+              member_relation_type_id: this.familyUser.member_relation_type_id,
+              gender_id: this.familyUser.gender_id,
+              isDependent: false,
+              birthday: moment(this.familyUser.date_of_birth).format(
+                'YYYY-MM-DD'
+              )
+            });
+          }
+        });
+      } else {
+        this.router.navigate(['/account/family']);
+      }
+    });
   }
 
   editFamilyMember() {
@@ -108,6 +112,13 @@ export class FamilyEditComponent implements OnInit {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['/account/family']);
+  }
+
+  decrypt(ciphertext) {
+    ciphertext = decodeURIComponent(ciphertext);
+    const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
+    const originalText = bytes.toString(CryptoJS.enc.Utf8);
+    return originalText;
   }
 
   // Getters

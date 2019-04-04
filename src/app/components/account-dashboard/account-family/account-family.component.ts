@@ -10,6 +10,7 @@ import {
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-account-family',
@@ -116,12 +117,18 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   goToEdit(memberRelationId: number, isNewDependant: boolean) {
+    console.log(memberRelationId);
+    const cipherRelationId = CryptoJS.AES.encrypt(
+      String(memberRelationId),
+      'Prox@2019'
+    ).toString();
+    const memberIdparam = encodeURIComponent(cipherRelationId);
     this.myFamilyPd.setRelationId(memberRelationId);
     this.myFamilyPd.setIsNewDependantt(isNewDependant);
     if (isNewDependant) {
       this.router.navigate(['/account/family/dependent']);
     } else {
-      this.router.navigate(['/account/family/edit']);
+      this.router.navigate([`/account/family/edit/${memberIdparam}`]);
     }
   }
   get email() {

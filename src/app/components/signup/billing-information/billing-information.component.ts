@@ -11,7 +11,6 @@ import { SignupRequestModel } from '../../../models/index';
   styleUrls: ['./billing-information.component.less']
 })
 export class BillingInformationComponent implements OnInit {
-
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   public states: Array<any> = new Array<any>();
@@ -20,16 +19,27 @@ export class BillingInformationComponent implements OnInit {
   public currentMask = '';
   public typeMask = '';
 
-  constructor(private signupSrv: SignupService, private commonSrv: CommonService, private fb: FormBuilder, private planSrv: PlanService) {
+  constructor(
+    private signupSrv: SignupService,
+    private commonSrv: CommonService,
+    private fb: FormBuilder,
+    private planSrv: PlanService
+  ) {
     this.getStates();
   }
 
   ngOnInit() {
     this.signupForm = this.fb.group({
-      creditCardNumber: ['', [Validators.required, CardValidator.checkCardFormat]],
+      creditCardNumber: [
+        '',
+        [Validators.required, CardValidator.checkCardFormat]
+      ],
       expirationMonth: [null, [Validators.required]],
       expirationYear: [null, [Validators.required]],
-      cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
+      cvv: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(3)]
+      ],
       nameOnCard: ['', [Validators.required]],
       promoCode: [''],
       address1: ['', [Validators.required]],
@@ -37,20 +47,21 @@ export class BillingInformationComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
-      textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
+      textMessagingPin: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(6)]
+      ],
       currentStep: this.step,
-      latitude: null,
-      longitude: null,
+      latitude: 0,
+      longitude: 0,
       billingSameShipping: false,
       planName: null
     });
 
     this.loadInformation();
-
   }
 
   userAction(action: string) {
-
     if (action === 'back') {
       this.step = 2;
     } else {
@@ -67,30 +78,43 @@ export class BillingInformationComponent implements OnInit {
   loadInformation() {
     const member = new SignupRequestModel();
     member.currentStep = this.step;
-    this.signupSrv.getSignupInformation(member).subscribe(response => {
-      console.log(response);
-      if (!response.HasError && response.Result) {
-        this.signupForm.controls.address1.setValue(response.Result.address1);
-        this.signupForm.controls.address2.setValue(response.Result.address2);
-        this.signupForm.controls.city.setValue(response.Result.city);
-        this.signupForm.controls.state.setValue(response.Result.state);
-        this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
-        this.signupForm.controls.textMessagingPin.setValue(response.Result.text_messaging_pin);
-        this.signupForm.controls.latitude.setValue(response.Result.latitude);
-        this.signupForm.controls.longitude.setValue(response.Result.longitude);
-        this.signupForm.controls.planName.setValue(response.Result.plan_name);
+    this.signupSrv.getSignupInformation(member).subscribe(
+      response => {
+        if (!response.HasError && response.Result) {
+          this.signupForm.controls.address1.setValue(response.Result.address1);
+          this.signupForm.controls.address2.setValue(response.Result.address2);
+          this.signupForm.controls.city.setValue(response.Result.city);
+          this.signupForm.controls.state.setValue(response.Result.state);
+          this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
+          this.signupForm.controls.textMessagingPin.setValue(
+            response.Result.text_messaging_pin
+          );
+          this.signupForm.controls.latitude.setValue(response.Result.latitude);
+          this.signupForm.controls.longitude.setValue(
+            response.Result.longitude
+          );
+          this.signupForm.controls.planName.setValue(response.Result.plan_name);
+        }
+      },
+      error => {
+        console.log(error);
       }
-    }, error => { console.log(error); });
+    );
   }
 
   getStates() {
-    this.signupSrv.getCommonFormData().subscribe((response) => {
-      console.log(response);
-      if (!response.HasError) {
-        this.states = response.Result.stateList;
-        console.log(this.states);
+    this.signupSrv.getCommonFormData().subscribe(
+      response => {
+        console.log(response);
+        if (!response.HasError) {
+          this.states = response.Result.stateList;
+          console.log(this.states);
+        }
+      },
+      error => {
+        console.log(error);
       }
-    }, error => { console.log(error); });
+    );
   }
 
   getCreditCardType(creditCardNumber) {
@@ -124,7 +148,10 @@ export class BillingInformationComponent implements OnInit {
 
   billingCheckbox(event) {
     this.billingSameShipping.setValue(event.checked);
-    console.log('Billing same as shipping is: ', this.billingSameShipping.value);
+    console.log(
+      'Billing same as shipping is: ',
+      this.billingSameShipping.value
+    );
   }
 
   // Getters
@@ -194,15 +221,12 @@ export class BillingInformationComponent implements OnInit {
   }
 
   doSignup() {
-
     if (this.billingSameShipping.value) {
       this.signupForm.controls.currentStep.setValue(5);
     }
 
-    console.log(this.signupForm.value);
-    this.signupSrv.signup(this.signupForm.value).subscribe(
+    this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           if (this.billingSameShipping.value) {
             console.log('billing and shipping ==');
@@ -218,7 +242,5 @@ export class BillingInformationComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
-
 }
