@@ -1,19 +1,18 @@
 import { DCIModel } from '../models/index';
 import { APIResponse } from './../models/common.model';
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CommonService } from './common.service';
 
 @Injectable()
 export class DciService {
-
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   dicURl: string = this.commonSrv.dciURL;
   serviceURL: string = this.commonSrv.apiURL;
 
   createDCIJsonRequest(json: any) {
-    const url = this.serviceURL + 'dci/create-dcijsonrequest';
+    const url = this.serviceURL + 'dci/create';
     return this.http.post<APIResponse<any>>(url, json);
   }
 
@@ -23,7 +22,8 @@ export class DciService {
   }
 
   createMemberCardRelation(digitalCard: DCIModel) {
-    const url = this.serviceURL + 'dci/create-membercardrelation';
+    const url =
+      'https://3ifg11qbs7.execute-api.us-west-2.amazonaws.com/dev/dci/create-membercardrelation';
     return this.http.post<APIResponse<any>>(url, digitalCard);
   }
 }

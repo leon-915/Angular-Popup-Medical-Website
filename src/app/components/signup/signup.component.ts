@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
     console.log(member.currentStep);
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
+        console.log(response);
         console.log(JSON.stringify(response));
         if (!response.HasError) {
           const result = response.Result;

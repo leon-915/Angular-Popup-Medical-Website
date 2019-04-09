@@ -221,10 +221,6 @@ export class BillingInformationComponent implements OnInit {
   }
 
   doSignup() {
-    if (this.billingSameShipping.value) {
-      this.signupForm.controls.currentStep.setValue(5);
-    }
-
     this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         if (!response.HasError) {

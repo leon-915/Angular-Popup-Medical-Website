@@ -16,22 +16,22 @@ export class SignupService {
   serviceURl: string = this.commonSrv.apiURL;
 
   signupCognito(signupRequestModel: SignupRequestModel) {
-    const url: string = this.serviceURl + 'signup/signupcognito';
+    const url: string = this.serviceURl + 'signup/cognito';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
   signup(signupRequestModel: SignupRequestModel) {
-    const url: string = this.serviceURl + 'signup/signup';
+    const url: string = this.serviceURl + 'signup';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
   register(signupRequestModel: SignupRequestModel) {
-    const url: string = this.serviceURl + 'signup/register';
+    const url: string = this.serviceURl + 'register';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
   getSignupInformation(signupRequestModel: SignupRequestModel) {
-    const url: string = this.serviceURl + 'signup/getsignupinfo';
+    const url: string = this.serviceURl + 'signup/info';
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
@@ -48,7 +48,7 @@ export class SignupService {
   }
 
   getCommonFormData() {
-    const url = `${this.serviceURl}startup`;
+    const url = `${this.serviceURl}startup/data`;
     return this.http.get<APIResponse<GetStartUpResponseModel>>(url);
   }
 }

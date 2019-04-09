@@ -35,6 +35,7 @@ export class OrderConfirmationComponent implements OnInit {
     console.log(member);
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
+        console.log(response);
         console.log('-----------------');
         console.log(JSON.stringify(response));
         if (!response.HasError) {
