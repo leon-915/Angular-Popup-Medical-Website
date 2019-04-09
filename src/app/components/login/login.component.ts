@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private reCaptchaV3Service: ReCaptchaV3Service,
     private notificationSrv: NotificationService,
     private router: Router) {
-    }
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   doLogin() {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
-        sessionStorage.setItem('token', res.Result.idToken);
+        sessionStorage.setItem('token', res.Result.token);
         this.router.navigateByUrl('/my-home');
       } else {
         this.notificationSrv.showError(res.Message);

@@ -56,7 +56,7 @@ export interface AccountResult {
 }
 
 export interface TokenResult {
-  idToken: string;
+  token: string;
 }
 
 export class LoginRequestModel {
