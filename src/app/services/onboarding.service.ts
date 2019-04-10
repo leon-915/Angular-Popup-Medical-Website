@@ -7,18 +7,17 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class OnboardingService {
-
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   serviceURl: string = this.commonSrv.apiURL;
 
   onboarding(onboardingRequestModel: OnboardingRequestModel) {
-    const url: string = this.serviceURl + 'onboarding/onboarding';
+    const url: string = this.serviceURl + 'onboarding';
     return this.http.post<APIResponse<any>>(url, onboardingRequestModel);
   }
 
   getOnboardingInfo(onboardingRequestModel: OnboardingRequestModel) {
-    const url: string = this.serviceURl + 'onboarding/getonboardinginfo';
+    const url: string = this.serviceURl + 'onboarding/info';
     return this.http.post<APIResponse<any>>(url, onboardingRequestModel);
   }
 }

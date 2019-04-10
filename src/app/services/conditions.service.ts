@@ -7,13 +7,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ConditionsService {
-
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   serviceURl: string = this.commonSrv.apiURL;
 
   getConditions() {
-    const url = this.serviceURl + 'conditions/getconditions';
+    const url = this.serviceURl + 'conditions';
     return this.http.get<APIResponse<any>>(url);
   }
 }

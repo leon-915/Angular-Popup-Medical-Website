@@ -1,7 +1,21 @@
 import { PharmacyModel } from './../../../models/index';
 import { AddressModel, OnboardingRequestModel } from './../../../models/index';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { GooglePlacesService, PharmaciesService, OnboardingService, NotificationService } from '../../../services/index';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
+import {
+  GooglePlacesService,
+  PharmaciesService,
+  OnboardingService,
+  NotificationService
+} from '../../../services/index';
 
 @Component({
   selector: 'app-primary-pharmacy',
@@ -9,7 +23,6 @@ import { GooglePlacesService, PharmaciesService, OnboardingService, Notification
   styleUrls: ['./primary-pharmacy.component.less']
 })
 export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
-
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   @ViewChild('address') address: ElementRef;
@@ -29,28 +42,35 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     private googleSrvPlaces: GooglePlacesService,
     private pharmacySrv: PharmaciesService,
     private onboardingSrv: OnboardingService,
-    private notificationSrv: NotificationService) {}
+    private notificationSrv: NotificationService
+  ) {}
 
   ngOnInit() {
-
     /*this.shippingAddress.latitude = 36.778259;
     this.shippingAddress.longitude = -119.417931;
     this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);*/
     this.getUserLocation();
-
   }
 
   ngAfterViewInit() {
-
-    this.googleSrvPlaces.loadMaps(this.address, this.setAddress).then(() => {
-      console.log('Google maps loaded');
-    }).catch((error) => {
-      console.log('error loading map', error);
-    });
-
+    this.googleSrvPlaces
+      .loadMaps(this.address, this.setAddress)
+      .then(() => {
+        console.log('Google maps loaded');
+      })
+      .catch(error => {
+        console.log('error loading map', error);
+      });
   }
 
-  setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
+  setAddress = (
+    address: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    latitude: number,
+    longitude: number
+  ) => {
     console.log(address);
     this.shippingAddress.address1 = address;
     this.shippingAddress.zipCode = city;
@@ -59,21 +79,27 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.shippingAddress.latitude = latitude;
     this.shippingAddress.longitude = longitude;
     this.primaryPharmacyAddress = null;
-    this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
-  }
+    this.loadNearestPharmacies(
+      this.shippingAddress.latitude,
+      this.shippingAddress.longitude
+    );
+  };
 
   loadNearestPharmacies(lat: number, long: number) {
-
     const pharmacyModel = new PharmacyModel();
     pharmacyModel.latitude = lat;
     pharmacyModel.longitude = long;
     this.pharmacies = [];
-    this.pharmacySrv.getNearestPharmacies(pharmacyModel).subscribe((response) => {
-      if (!response.HasError) {
-        this.pharmacies = response.Result;
+    this.pharmacySrv.getNearestPharmacies(pharmacyModel).subscribe(
+      response => {
+        if (!response.HasError) {
+          this.pharmacies = response.Result;
+        }
+      },
+      error => {
+        console.log(error);
       }
-    }, error => { console.log(error); });
-
+    );
   }
 
   userAction(action: string) {
@@ -86,7 +112,10 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       navigator.geolocation.getCurrentPosition(position => {
         this.shippingAddress.latitude = position.coords.latitude;
         this.shippingAddress.longitude = position.coords.longitude;
-        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
+        this.loadNearestPharmacies(
+          this.shippingAddress.latitude,
+          this.shippingAddress.longitude
+        );
       });
     }
   }
@@ -130,6 +159,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     onboardingModel.pharmacyId = this.primaryPharmacyAddress.pharmacy_id;
     onboardingModel.currentStep = this.step;
     this.onboardingSrv.onboarding(onboardingModel).subscribe(response => {
+      console.log(response);
       if (!response.HasError) {
         this.userAction('advance');
       } else {
@@ -142,7 +172,4 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.primaryPharmacyAddress = pharmacy;
     this.openWindow(this.primaryPharmacyAddress.pharmacy_id);
   }
-
-
-
 }

@@ -7,13 +7,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AllergiesService {
-
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   serviceURl: string = this.commonSrv.apiURL;
 
   getAllergies() {
-    const url = this.serviceURl + 'allergies/getallergies';
+    const url = this.serviceURl + 'allergies';
     return this.http.get<APIResponse<any>>(url);
   }
 }

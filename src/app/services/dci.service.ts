@@ -22,8 +22,7 @@ export class DciService {
   }
 
   createMemberCardRelation(digitalCard: DCIModel) {
-    const url =
-      'https://3ifg11qbs7.execute-api.us-west-2.amazonaws.com/dev/dci/create-membercardrelation';
+    const url = this.serviceURL + 'dci/member-card';
     return this.http.post<APIResponse<any>>(url, digitalCard);
   }
 }

@@ -7,13 +7,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DateService {
-
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   serviceURl: string = this.commonSrv.apiURL;
 
   getDateInfo() {
-    const url = this.serviceURl + 'date/getdatesinfo';
+    const url = this.serviceURl + 'startup/dates';
     return this.http.get<APIResponse<DateModel>>(url);
   }
 }
