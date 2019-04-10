@@ -84,6 +84,7 @@ export class MedicalHistoryComponent implements OnInit {
     if (newValue instanceof Object) {
       const index = this.selectedConditions.findIndex(
         ind => ind.display_value === newValue.display_value
+        // tslint:disable-next-line: semicolon
       );
       if (this.selectedConditions.length === 0) {
         this.selectedConditions.push(newValue);
@@ -154,6 +155,7 @@ export class MedicalHistoryComponent implements OnInit {
               )
               .slice(0, 10)
       )
+      // tslint:disable-next-line: semicolon
     );
 
   searchConditions = (text$: Observable<string>) =>
@@ -170,6 +172,7 @@ export class MedicalHistoryComponent implements OnInit {
               )
               .slice(0, 10)
       )
+      // tslint:disable-next-line: semicolon
     );
 
   searchMedications = (text$: Observable<string>) =>
@@ -186,6 +189,7 @@ export class MedicalHistoryComponent implements OnInit {
               )
               .slice(0, 10)
       )
+      // tslint:disable-next-line: semicolon
     );
 
   formatter = (x: { display_value: string }) => x.display_value;

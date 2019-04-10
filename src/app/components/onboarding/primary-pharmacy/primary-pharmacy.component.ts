@@ -83,6 +83,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       this.shippingAddress.latitude,
       this.shippingAddress.longitude
     );
+    // tslint:disable-next-line: semicolon
   };
 
   loadNearestPharmacies(lat: number, long: number) {
