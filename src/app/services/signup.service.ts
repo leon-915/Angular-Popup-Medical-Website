@@ -49,6 +49,6 @@ export class SignupService {
 
   getCommonFormData() {
     const url = `${this.serviceURl}startup/data`;
-    return this.http.get<APIResponse<GetStartUpResponseModel>>(url);
+    return this.http.get<APIResponse<any>>(url);
   }
 }

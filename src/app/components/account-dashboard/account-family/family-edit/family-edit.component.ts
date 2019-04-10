@@ -62,6 +62,14 @@ export class FamilyEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.genderList = JSON.parse(localStorage.getItem('genderList'));
+    this.relationTypes = JSON.parse(
+      localStorage.getItem('familyRelationTypeList')
+    );
+    this.guestRelationTypes = JSON.parse(
+      localStorage.getItem('guestRelationTypeList')
+    );
+
     this.route.params.subscribe(params => {
       this.relationId = params.id
         ? +decodeURIComponent(this.decrypt(params.id))
@@ -71,12 +79,7 @@ export class FamilyEditComponent implements OnInit {
       if (!isNaN(this.relationId)) {
         this.myFamilySrv.getEditMyFamily(this.relationId).subscribe(res => {
           if (!res.HasError) {
-            const resulData = res.Result;
-            this.relationTypes = resulData.relationTypes;
-            this.guestRelationTypes = resulData.guestRelationTypes;
-            this.familyUser = resulData.memberRelation;
-            this.genderList = resulData.genderList;
-            console.log(JSON.stringify(resulData));
+            this.familyUser = res.Result;
             this.showGender = this.familyUser.has_login;
             this.addMemberForm.setValue({
               member_id: this.familyUser.subscriber_member_id,

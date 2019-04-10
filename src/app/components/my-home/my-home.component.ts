@@ -43,6 +43,14 @@ export class MyHomeComponent implements OnInit {
           JSON.stringify(res.Result.genderList)
         );
         localStorage.setItem('stateList', JSON.stringify(res.Result.stateList));
+        localStorage.setItem(
+          'familyRelationTypeList',
+          JSON.stringify(res.Result.familyRelationTypeList)
+        );
+        localStorage.setItem(
+          'guestRelationTypeList',
+          JSON.stringify(res.Result.guestRelationTypeList)
+        );
       }
     });
   }

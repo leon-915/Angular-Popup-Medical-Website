@@ -105,8 +105,9 @@ export class AccountFamilyComponent implements OnInit {
   }
   removeMember(index: number, isGuest: boolean) {
     const member = isGuest ? this.guestUsers[index] : this.familyUsers[index];
+    const relationId = member.member_relation_id;
 
-    this.myFamilySrv.deleteMyFamilyMember(member).subscribe(res => {
+    this.myFamilySrv.deleteMyFamilyMember(relationId).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
         this.removefromList(index, isGuest);

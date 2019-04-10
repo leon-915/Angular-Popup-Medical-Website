@@ -41,6 +41,15 @@
             Date of Birth is required.
           </p>
         </div>
+        <div class="form-group">
+          <label for="confirm">Gender</label>
+          <select class="browser-default custom-select" formControlName="gender_id">
+            <option selected=true value=0>
+              select an option</option>
+            <option *ngFor="let item of genderList;" value={{item.gender_id}}>
+              {{item.gender}}</option>
+          </select>
+        </div>
 
         <div class="form-check">
           <mat-checkbox formControlName="isDependent">

@@ -22,7 +22,6 @@ export class AddDependentComponent implements OnInit {
   isNewDependant = true;
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
-  guestRelationTypes: RelationType[];
   genderList: GenderModel[];
 
   constructor(
@@ -43,33 +42,18 @@ export class AddDependentComponent implements OnInit {
           [Validators.required, Validators.min(1)]
         ],
         isDependent: [{ value: true, disabled: true }, [Validators.required]],
-        birthday: [moment().format('YYYY-MM-DD'), []]
+        birthday: [moment().format('YYYY-MM-DD'), []],
+        gender_id: [0, [Validators.required, Validators.min(1)]]
       },
       {}
     );
   }
 
   ngOnInit() {
-    // const genderList = localStorage.getItem('genderList');
-    // if (genderList) {
-    //   this.genderList = JSON.parse(genderList);
-    // }
-    this.relationId = this.myFamilyPd.getRelationId();
-    this.isNewDependant = this.myFamilyPd.getIsNewDependant();
-    console.log(this.relationId);
-    this.myFamilySrv.getEditMyFamily(0).subscribe(res => {
-      if (!res.HasError) {
-        console.log(JSON.stringify(res.Result));
-        const resulData = res.Result;
-        this.relationTypes = resulData.relationTypes;
-        this.guestRelationTypes = resulData.guestRelationTypes;
-      } else {
-        // TODO: redirect to my Fam dashboard
-        console.log('exit to myFamily');
-        this.notificationSrv.showError('Error procesing the request');
-        this.router.navigate(['/account/family']);
-      }
-    });
+    this.genderList = JSON.parse(localStorage.getItem('genderList'));
+    this.relationTypes = JSON.parse(
+      localStorage.getItem('familyRelationTypeList')
+    );
   }
 
   addDependentMember() {
