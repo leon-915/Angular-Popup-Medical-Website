@@ -21,9 +21,10 @@ export class MedicalHistoryComponent implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
-  public haveAllergies: boolean;
-  public haveConditions: boolean;
-  public takingMedications: boolean;
+  public haveAllergies = false;
+  public haveConditions = false;
+  public takingMedications = false;
+  public disableNext = false;
 
   public allergies = [];
   public conditions = [];
@@ -78,6 +79,7 @@ export class MedicalHistoryComponent implements OnInit {
       }
     }
     console.log(this.selectedAllergies);
+    this.validateUserSelections();
   }
 
   onChangeConditions(newValue, i) {
@@ -108,6 +110,7 @@ export class MedicalHistoryComponent implements OnInit {
       }
     }
     console.log(this.selectedConditions);
+    this.validateUserSelections();
   }
 
   onChangeMedications(newValue, i) {
@@ -139,6 +142,7 @@ export class MedicalHistoryComponent implements OnInit {
       }
     }
     console.log(this.selectedMedications);
+    this.validateUserSelections();
   }
 
   searchAllergies = (text$: Observable<string>) =>
@@ -269,6 +273,7 @@ export class MedicalHistoryComponent implements OnInit {
       this.allergiesModels = [];
       this.selectedAllergies = [{ display_value: null }];
     }
+    this.validateUserSelections();
   }
 
   conditionModelChange() {
@@ -276,6 +281,7 @@ export class MedicalHistoryComponent implements OnInit {
       this.conditionsModels = [];
       this.selectedConditions = [{ display_value: null }];
     }
+    this.validateUserSelections();
   }
 
   medicationModelChange() {
@@ -283,6 +289,26 @@ export class MedicalHistoryComponent implements OnInit {
       this.medicationsModel = [];
       this.selectedMedications = [{ display_value: null }];
     }
+    this.validateUserSelections();
+  }
+
+  validateUserSelections() {
+    console.log(this.selectedAllergies.length);
+    if (this.haveAllergies && this.selectedAllergies.length === 1) {
+      this.disableNext = true;
+    } else if (this.haveConditions && this.selectedConditions.length === 1) {
+      this.disableNext = true;
+    } else if (
+      this.takingMedications &&
+      this.selectedMedications.length === 1
+    ) {
+      this.disableNext = true;
+    } else {
+      this.disableNext = false;
+    }
+
+    console.log('disabled next: ', this.disableNext);
+    return this.disableNext;
   }
 
   loadAllergies() {
