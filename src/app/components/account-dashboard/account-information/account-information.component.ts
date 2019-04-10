@@ -86,9 +86,10 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     this.stateList = JSON.parse(localStorage.getItem('stateList'));
     this.accountSrv.getUserData().subscribe(res => {
       if (!res.HasError) {
+        console.log(JSON.stringify(res));
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
-        this.genderList = userData.genderList;
+        this.genderList = JSON.parse(localStorage.getItem('genderList'));
         this.updateUserForm(userData.userData[0], userData.userPhones);
         this.shippingAdressList.forEach(address => {
           this.addShippingaddress(address);
