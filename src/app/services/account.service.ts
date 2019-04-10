@@ -26,7 +26,7 @@ export class AccountService {
   private userEmail: string;
   private userEmailMasked: string;
 
-  constructor(private commonSrv: CommonService, private http: HttpClient) { }
+  constructor(private commonSrv: CommonService, private http: HttpClient) {}
   serviceURl: string = this.commonSrv.apiURL;
 
   signin(loginRequestModel: LoginRequestModel) {
@@ -56,6 +56,9 @@ export class AccountService {
     const requestPayload = { member_address: addressId };
     return this.http.post<APIResponse<boolean>>(url, requestPayload);
   }
+
+  // Reset password
+  // send code
   resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
     const url = `${this.serviceURl}password/sendcode`;
     return this.http.post<APIResponse<SendPassResetEmailResult>>(
@@ -63,11 +66,11 @@ export class AccountService {
       sendRequestEmailModel
     );
   }
-
+  // validate code
   resetPassValidateCode(
     sendRequestConfirmationModel: SendPassResetConfirmationRequestModel
   ) {
-    const url = `${this.serviceURl}password/validatecode`;
+    const url = `${this.serviceURl}password/validate-code`;
 
     return this.http.post<APIResponse<SendPassResetConfirmationResult>>(
       url,
