@@ -2,7 +2,7 @@ import { CardValidator } from './../../../validators/card.validator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from './../../../services/common.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SignupService, PlanService } from 'src/app/services';
+import { SignupService, PlanService, DateService } from 'src/app/services';
 import { SignupRequestModel } from '../../../models/index';
 
 @Component({
@@ -18,14 +18,17 @@ export class BillingInformationComponent implements OnInit {
   public signupForm: FormGroup;
   public currentMask = '';
   public typeMask = '';
+  public years = [];
 
   constructor(
     private signupSrv: SignupService,
     private commonSrv: CommonService,
     private fb: FormBuilder,
-    private planSrv: PlanService
+    private planSrv: PlanService,
+    private dateSrv: DateService
   ) {
     this.getStates();
+    this.getDateInfo();
   }
 
   ngOnInit() {
@@ -75,6 +78,20 @@ export class BillingInformationComponent implements OnInit {
     this.action.emit(this.step);
   }
 
+  getDateInfo() {
+    this.dateSrv.getDateInfo().subscribe(
+      response => {
+        console.log(response);
+        if (!response.HasError) {
+          this.years = response.Result.years;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   loadInformation() {
     const member = new SignupRequestModel();
     member.currentStep = this.step;
@@ -118,6 +135,7 @@ export class BillingInformationComponent implements OnInit {
   }
 
   getCreditCardType(creditCardNumber) {
+    console.log(creditCardNumber);
     let result = 'unknown';
 
     if (/^5[1-5]/.test(creditCardNumber)) {
@@ -213,9 +231,9 @@ export class BillingInformationComponent implements OnInit {
   }
 
   onChange() {
-    this.typeMask = this.getCreditCardType(this.creditCardNumber);
+    this.typeMask = this.getCreditCardType(this.creditCardNumber.value);
     this.currentMask = this.getMaskType(this.typeMask);
-    console.log('Credit card number: ', this.creditCardNumber);
+    console.log('Credit card number: ', this.creditCardNumber.value);
     console.log('Type mask: ', this.typeMask);
     console.log('Current mask: ', this.currentMask);
   }
