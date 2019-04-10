@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   OnboardingService,
-  NotificationService
+  NotificationService,
+  AccountService
 } from '../../../services/index';
 import { OnboardingRequestModel } from '../../../models/index';
 import { Router } from '@angular/router';
@@ -15,13 +16,18 @@ export class OnboardingCompleteComponent implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
 
+  public memberTypeId: number;
+
   constructor(
     private onboardingSrv: OnboardingService,
     private notificationSrv: NotificationService,
+    private accountSrv: AccountService,
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.consumePing();
+  }
 
   userAction(action: string) {
     const step = action === 'back' ? (this.step = 5) : (this.step = 7);
@@ -41,7 +47,16 @@ export class OnboardingCompleteComponent implements OnInit {
           this.notificationSrv.showError(response.Message);
         }
       },
-      error => { console.log(error); }
+      error => {
+        console.log(error);
+      }
     );
+  }
+
+  consumePing() {
+    this.accountSrv.ping().subscribe(response => {
+      // tslint:disable:no-string-literal
+      this.memberTypeId = response['member_type_id'];
+    });
   }
 }

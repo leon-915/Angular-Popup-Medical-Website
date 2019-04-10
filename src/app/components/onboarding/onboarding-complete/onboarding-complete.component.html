@@ -1,26 +1,38 @@
 <div class="row">
   <div class="col-md-12 text-center">
     <h1 class="text-center title mb-0">Onboarding Interview</h1>
-    <h5 class="text-center subtitle mt-0 mb-4">We need to know a little bit more about your medical history.<br> 
-    <span> Remember, you can change your answers anytime from the dashboard. </span></h5>
+    <h5 class="text-center subtitle mt-0 mb-4">
+      We need to know a little bit more about your medical history.<br />
+      <span>
+        Remember, you can change your answers anytime from the dashboard.
+      </span>
+    </h5>
   </div>
 </div>
-  
+
 <!-- Stepper -->
 <div class="row justify-content-md-center">
   <div class="steps-form">
     <div class="steps-row setup-panel">
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">check_circle</i> </button>
+        <button class="btn btn-secondary btn-round" disabled>
+          <i class="material-icons">check_circle</i>
+        </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">check_circle</i> </button>
+        <button class="btn btn-secondary btn-round" disabled>
+          <i class="material-icons">check_circle</i>
+        </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">check_circle</i> </button>
+        <button class="btn btn-secondary btn-round" disabled>
+          <i class="material-icons">check_circle</i>
+        </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-primary btn-round"> <i class="material-icons">flag</i></button>
+        <button class="btn btn-primary btn-round">
+          <i class="material-icons">flag</i>
+        </button>
       </div>
     </div>
   </div>
@@ -29,24 +41,32 @@
 <div class="row text-center">
   <div class="col-lg-8 mt-2 mx-auto">
     <p class="description-one">COMPLETE!</p>
-    <p class="description-two mb-3"> <strong>What would you like to do next?</strong> </p>
+    <p class="description-two mb-3">
+      <strong>What would you like to do next?</strong>
+    </p>
   </div>
 </div>
 
-<div class="card-deck">
-  <div class="card text-center pointer" (click)="goToDashboard('/account');">
+<div class="card-deck" *ngIf="memberTypeId === 1">
+  <div class="card text-center pointer" (click)="goToDashboard('/account')">
     <div class="card-body">
       <i class="material-icons icon">developer_board</i>
       <p class="card-text">Go To My Dashboard Hub</p>
     </div>
   </div>
-  <div class="card text-center pointer" (click)="goToDashboard('/account/family');">
+  <div
+    class="card text-center pointer"
+    (click)="goToDashboard('/account/family')"
+  >
     <div class="card-body">
       <i class="material-icons icon">account_circle</i>
       <p class="card-text">Add or Invite Members</p>
     </div>
   </div>
-  <div class="card text-center pointer" (click)="goToDashboard('/membership-card');">
+  <div
+    class="card text-center pointer"
+    (click)="goToDashboard('/membership-card')"
+  >
     <div class="card-body">
       <i class="material-icons icon">credit_card</i>
       <p class="card-text">View My Membership Card</p>
@@ -54,13 +74,13 @@
   </div>
 </div>
 
-<!--<h3 class="mb-3">Onboarding - Completed</h3>
-
-<div class="row mt-2">
-  <div class="col-md-12">
-    <div class="form-group">
-      <button class="btn btn-primary mr-3" (click)="userAction('back')">Add Another Member</button>
-      <button class="btn btn-primary" (click)="goToMyAccount();">Go to My Account</button>
+<div class="row" *ngIf="memberTypeId !== 1">
+  <div class="col-md-4 offset-md-4">
+    <div class="card text-center pointer" (click)="goToDashboard('/account')">
+      <div class="card-body">
+        <i class="material-icons icon">developer_board</i>
+        <p class="card-text">Go To My Dashboard Hub</p>
+      </div>
     </div>
   </div>
-</div>-->
+</div>
