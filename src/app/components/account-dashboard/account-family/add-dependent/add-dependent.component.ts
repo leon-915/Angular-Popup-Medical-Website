@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AccountService,
-  NotificationService,
-  MyFamilyService,
-  MyFamilyPersistData
-} from 'src/app/services';
+import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
@@ -37,10 +32,7 @@ export class AddDependentComponent implements OnInit {
       {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        member_relation_type_id: [
-          { value: 'Dependent', disabled: true },
-          [Validators.required, Validators.min(1)]
-        ],
+        member_relation_type_id: [{ value: 'Dependent', disabled: true }, [Validators.required, Validators.min(1)]],
         isDependent: [{ value: true, disabled: true }, [Validators.required]],
         birthday: [moment().format('YYYY-MM-DD'), []],
         gender_id: [0, [Validators.required, Validators.min(1)]]
@@ -51,15 +43,11 @@ export class AddDependentComponent implements OnInit {
 
   ngOnInit() {
     this.genderList = JSON.parse(localStorage.getItem('genderList'));
-    this.relationTypes = JSON.parse(
-      localStorage.getItem('familyRelationTypeList')
-    );
+    this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
   }
 
   addDependentMember() {
     const formData = this.addMemberForm.getRawValue();
-    console.log(JSON.stringify(formData));
-
     this.myFamilySrv.addDependent(formData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);

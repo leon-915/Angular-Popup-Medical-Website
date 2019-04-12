@@ -18,7 +18,8 @@ import {
   AccountFamilyComponent,
   FamilyEditComponent,
   AddDependentComponent,
-  MembershipCardComponent
+  MembershipCardComponent,
+  GuestEditComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 
@@ -47,8 +48,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'account/family/edit/:id',
+    path: 'account/family/family-edit/:id',
     component: FamilyEditComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/family/guest-edit/:id',
+    component: GuestEditComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -71,11 +77,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    MatDatepickerModule,
-    MatNativeDateModule
-  ],
+  imports: [RouterModule.forRoot(routes), MatDatepickerModule, MatNativeDateModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

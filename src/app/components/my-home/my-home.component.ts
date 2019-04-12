@@ -38,19 +38,10 @@ export class MyHomeComponent implements OnInit {
     this.signupSrv.getCommonFormData().subscribe(res => {
       if (!res.HasError) {
         // response.Result.last_step_completed === 5 ||
-        localStorage.setItem(
-          'genderList',
-          JSON.stringify(res.Result.genderList)
-        );
+        localStorage.setItem('genderList', JSON.stringify(res.Result.genderList));
         localStorage.setItem('stateList', JSON.stringify(res.Result.stateList));
-        localStorage.setItem(
-          'familyRelationTypeList',
-          JSON.stringify(res.Result.familyRelationTypeList)
-        );
-        localStorage.setItem(
-          'guestRelationTypeList',
-          JSON.stringify(res.Result.guestRelationTypeList)
-        );
+        localStorage.setItem('familyRelationTypeList', JSON.stringify(res.Result.familyRelationTypeList));
+        localStorage.setItem('guestRelationTypeList', JSON.stringify(res.Result.guestRelationTypeList));
       }
     });
   }

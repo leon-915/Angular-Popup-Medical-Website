@@ -1,10 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormsModule
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService, NotificationService } from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
@@ -98,7 +93,6 @@ export class AccountSecurityComponent implements OnInit {
   }
   sendTextPinForm() {
     const formValue = this.textPinForm.value;
-    console.log(JSON.stringify(formValue));
     this.accountSrv.changePinSecurity(formValue).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess('pin changed');

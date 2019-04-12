@@ -32,7 +32,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import * as moment from 'moment';
 
-
 /* CONFIGURATIONS */
 /* CONFIGURATIONS */
 
@@ -58,6 +57,7 @@ import {
   AllergiesComponent,
   ConditionsComponent,
   FamilyEditComponent,
+  GuestEditComponent,
   InvoiceGeneratorComponent,
   LoginComponent,
   MedicationsComponent,
@@ -164,7 +164,8 @@ import { NgbdCarouselBasicComponent } from './components/carousel-basic/carousel
     OrderConfirmationComponent,
     MedicalHistoryComponent,
     MembershipCardComponent,
-    NgbdCarouselBasicComponent
+    NgbdCarouselBasicComponent,
+    GuestEditComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

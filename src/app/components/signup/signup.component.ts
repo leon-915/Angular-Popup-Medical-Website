@@ -19,13 +19,9 @@ export class SignupComponent implements OnInit {
     console.log(member.currentStep);
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
-        console.log(response);
-        console.log(JSON.stringify(response));
         if (!response.HasError) {
           const result = response.Result;
-          const memberType = result.member_type_id
-            ? String(result.member_type_id)
-            : '';
+          const memberType = result.member_type_id ? String(result.member_type_id) : '';
           localStorage.setItem('member_type_id', memberType);
 
           if (response.Result.current_step === 6) {

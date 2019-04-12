@@ -83,7 +83,7 @@
     </div>
   </form>
   <div>
-    <button type="button" class="btn" (click)="goToEdit(0, true)">
+    <button type="button" class="btn" (click)="goToAddNewDependent()">
       Add Dependent
     </button>
   </div>
@@ -126,7 +126,7 @@
       </div>
       <div class="col-md">
         <button type="button" class="btn" [disabled]="!member.is_active"
-          (click)="goToEdit(member.member_relation_id, false)"><i class="material-icons">
+          (click)="goToEdit(member.member_relation_id, true)"><i class="material-icons">
             arrow_forward_ios
           </i>
         </button>

@@ -1,17 +1,7 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AccountService,
-  NotificationService,
-  GooglePlacesService
-} from 'src/app/services';
+import { AccountService, NotificationService, GooglePlacesService } from 'src/app/services';
 import * as moment from 'moment';
 import { ShippingAddressModel, GenderModel, State } from 'src/app/models';
 
@@ -86,7 +76,6 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     this.stateList = JSON.parse(localStorage.getItem('stateList'));
     this.accountSrv.getUserData().subscribe(res => {
       if (!res.HasError) {
-        console.log(JSON.stringify(res));
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
         this.genderList = JSON.parse(localStorage.getItem('genderList'));
@@ -129,8 +118,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
-        this.clearFormArray(this.userInfoForm.controls
-          .shipping_addresses as FormArray);
+        this.clearFormArray(this.userInfoForm.controls.shipping_addresses as FormArray);
 
         this.shippingAdressList.forEach(address => {
           this.addShippingaddress(address);
@@ -186,9 +174,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       zipCode: userData.zipcode,
       latitude: userData.latitude ? userData.latitude : 0,
       longitude: userData.longitude ? userData.longitude : 0,
-      billingPhoneId: userPhones[0].member_phone
-        ? userPhones[0].member_phone
-        : 0,
+      billingPhoneId: userPhones[0].member_phone ? userPhones[0].member_phone : 0,
       billingPhone: userPhones[0].phone_number ? userPhones[0].phone_number : 0,
       cellPhoneId: userPhones[1] ? userPhones[1].member_phone : 0,
       cellPhone: userPhones[1] ? userPhones[1].phone_number : ''
@@ -229,14 +215,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setBillingAddress(
-    address1: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    latitude: number,
-    longitude: number
-  ) {
+  setBillingAddress(address1: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) {
     this.userInfoForm.controls.address1.setValue(address1);
     this.userInfoForm.controls.city.setValue(city);
     this.userInfoForm.controls.state.setValue(state);
@@ -245,14 +224,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
     this.userInfoForm.controls.longitude.setValue(longitude);
   }
 
-  setShippingAddress(
-    address1: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    latitude: number,
-    longitude: number
-  ) {
+  setShippingAddress(address1: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) {
     this.newAddressForm.controls.address1.setValue(address1);
     this.newAddressForm.controls.city.setValue(city);
     this.newAddressForm.controls.state.setValue(state);
@@ -285,8 +257,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       address.is_default = false;
     });
     this.shippingAdressList.unshift(selectedAddress);
-    this.clearFormArray(this.userInfoForm.controls
-      .shipping_addresses as FormArray);
+    this.clearFormArray(this.userInfoForm.controls.shipping_addresses as FormArray);
 
     this.shippingAdressList.forEach(address => {
       this.addShippingaddress(address);

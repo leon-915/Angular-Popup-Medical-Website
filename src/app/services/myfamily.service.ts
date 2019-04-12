@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { APIResponse, GetMyFamilyResult, FamilyUser } from '../models/index';
 import { CommonService } from './common.service';
 import { HttpClient } from '@angular/common/http';
-import {
-  GetMyFamilyEditResult,
-  AddDependent,
-  EditUser
-} from '../models/myFamily.model';
+import { GetMyFamilyEditResult, AddDependent, EditUser } from '../models/myFamily.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +25,7 @@ export class MyFamilyService {
     const url = `${this.serviceURl}myfamily/member`;
     return this.http.post<APIResponse<FamilyUser>>(url, member);
   }
-  getEditMyFamily(memberRelationId: number) {
+  getFamilyMember(memberRelationId: number) {
     const url = `${this.serviceURl}myfamily/member/${memberRelationId}`;
     console.log(url);
     return this.http.get<APIResponse<EditUser>>(url);
@@ -37,6 +33,12 @@ export class MyFamilyService {
   putEditMyFamily(familyMember) {
     const url = `${this.serviceURl}myfamily/member`;
     return this.http.put<APIResponse<GetMyFamilyEditResult>>(url, familyMember);
+  }
+
+  getGuestMember(memberRelationId: number) {
+    const url = `${this.serviceURl}myfamily/guest/${memberRelationId}`;
+    console.log(url);
+    return this.http.get<APIResponse<EditUser>>(url);
   }
 
   addDependent(dependent: AddDependent) {

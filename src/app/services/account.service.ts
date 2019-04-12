@@ -60,31 +60,21 @@ export class AccountService {
   // send code
   resetPassSendCode(sendRequestEmailModel: SendPassResetEmailRequestModel) {
     const url = `${this.serviceURl}password/sendcode`;
-    return this.http.post<APIResponse<SendPassResetEmailResult>>(
-      url,
-      sendRequestEmailModel
-    );
+    return this.http.post<APIResponse<SendPassResetEmailResult>>(url, sendRequestEmailModel);
   }
   // validate code
-  resetPassValidateCode(
-    sendRequestConfirmationModel: SendPassResetConfirmationRequestModel
-  ) {
+  resetPassValidateCode(sendRequestConfirmationModel: SendPassResetConfirmationRequestModel) {
     const url = `${this.serviceURl}password/validate-code`;
 
-    return this.http.post<APIResponse<SendPassResetConfirmationResult>>(
-      url,
-      sendRequestConfirmationModel
-    );
+    return this.http.post<APIResponse<SendPassResetConfirmationResult>>(url, sendRequestConfirmationModel);
   }
   changePassSecurity(payload: ChangePasswordModel) {
     const url = `${this.serviceURl}security/password`;
-    console.log(JSON.stringify(payload));
 
     return this.http.post<APIResponse<boolean>>(url, payload);
   }
   changePinSecurity(payload: string) {
     const url = `${this.serviceURl}security/textpin`;
-    console.log(JSON.stringify(payload));
     return this.http.post<APIResponse<boolean>>(url, payload);
   }
 

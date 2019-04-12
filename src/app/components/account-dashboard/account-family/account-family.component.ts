@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AccountService,
-  NotificationService,
-  MyFamilyService,
-  MyFamilyPersistData
-} from 'src/app/services';
+import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
@@ -80,28 +75,24 @@ export class AccountFamilyComponent implements OnInit {
     }
   }
   addMember() {
-    this.myFamilySrv
-      .addMyFamilyMember(this.addMemberForm.value)
-      .subscribe(res => {
-        if (!res.HasError) {
-          this.familyUsers.push(res.Result);
-          this.notificationSrv.showSuccess(res.Message);
-        } else {
-          this.notificationSrv.showError(res.Message);
-        }
-      });
+    this.myFamilySrv.addMyFamilyMember(this.addMemberForm.value).subscribe(res => {
+      if (!res.HasError) {
+        this.familyUsers.push(res.Result);
+        this.notificationSrv.showSuccess(res.Message);
+      } else {
+        this.notificationSrv.showError(res.Message);
+      }
+    });
   }
   addGuestMember() {
-    this.myFamilySrv
-      .addMyFamilyMember(this.addGuestMemberForm.value)
-      .subscribe(res => {
-        if (!res.HasError) {
-          this.guestUsers.push(res.Result);
-          this.notificationSrv.showSuccess(res.Message);
-        } else {
-          this.notificationSrv.showError(res.Message);
-        }
-      });
+    this.myFamilySrv.addMyFamilyMember(this.addGuestMemberForm.value).subscribe(res => {
+      if (!res.HasError) {
+        this.guestUsers.push(res.Result);
+        this.notificationSrv.showSuccess(res.Message);
+      } else {
+        this.notificationSrv.showError(res.Message);
+      }
+    });
   }
   removeMember(index: number, isGuest: boolean) {
     const member = isGuest ? this.guestUsers[index] : this.familyUsers[index];
@@ -116,20 +107,18 @@ export class AccountFamilyComponent implements OnInit {
       }
     });
   }
+  goToAddNewDependent() {
+    this.router.navigate(['/account/family/dependent']);
+  }
 
-  goToEdit(memberRelationId: number, isNewDependant: boolean) {
+  goToEdit(memberRelationId: number, isGuest: boolean) {
     console.log(memberRelationId);
-    const cipherRelationId = CryptoJS.AES.encrypt(
-      String(memberRelationId),
-      'Prox@2019'
-    ).toString();
+    const cipherRelationId = CryptoJS.AES.encrypt(String(memberRelationId), 'Prox@2019').toString();
     const memberIdparam = encodeURIComponent(cipherRelationId);
-    this.myFamilyPd.setRelationId(memberRelationId);
-    this.myFamilyPd.setIsNewDependantt(isNewDependant);
-    if (isNewDependant) {
-      this.router.navigate(['/account/family/dependent']);
+    if (isGuest) {
+      this.router.navigate([`/account/family/guest-edit/${memberIdparam}`]);
     } else {
-      this.router.navigate([`/account/family/edit/${memberIdparam}`]);
+      this.router.navigate([`/account/family/family-edit/${memberIdparam}`]);
     }
   }
   get email() {

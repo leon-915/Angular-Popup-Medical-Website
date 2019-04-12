@@ -10,11 +10,11 @@ import { GenderModel } from 'src/app/models';
 import * as CryptoJS from 'crypto-js';
 
 @Component({
-  selector: 'app-family-edit',
-  templateUrl: './family-edit.component.html',
-  styleUrls: ['./family-edit.component.less']
+  selector: 'app-guest-edit',
+  templateUrl: './guest-edit.component.html',
+  styleUrls: ['./guest-edit.component.less']
 })
-export class FamilyEditComponent implements OnInit {
+export class GuestEditComponent implements OnInit {
   relationId: number;
   showGender = true;
   addMemberForm: FormGroup;
@@ -40,7 +40,7 @@ export class FamilyEditComponent implements OnInit {
         member_relation_id: ['', []],
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        member_relation_type_id: [{ value: 0, disabled: this.showGender }, [Validators.required, Validators.min(1)]],
+        member_relation_type_id: [0, [Validators.required, Validators.min(1)]],
         gender_id: [0, [Validators.required, Validators.min(1)]],
         isDependent: [false, []],
         birthday: [Date(), [Validators.required]]
@@ -56,10 +56,9 @@ export class FamilyEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.relationId = params.id ? +decodeURIComponent(this.decrypt(params.id)) : 0;
-      console.log(`${this.relationId}`);
 
       if (!isNaN(this.relationId)) {
-        this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
+        this.myFamilySrv.getGuestMember(this.relationId).subscribe(res => {
           if (!res.HasError) {
             this.familyUser = res.Result;
             this.showGender = this.familyUser.has_login;

@@ -1,11 +1,7 @@
 import { DCIModel } from './../../../models/dci.model';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  SignupService,
-  NotificationService,
-  DciService
-} from 'src/app/services';
+import { SignupService, NotificationService, DciService } from 'src/app/services';
 import { SignupRequestModel, OrderModel } from 'src/app/models';
 
 @Component({
@@ -35,9 +31,6 @@ export class OrderConfirmationComponent implements OnInit {
     console.log(member);
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
-        console.log(response);
-        console.log('-----------------');
-        console.log(JSON.stringify(response));
         if (!response.HasError) {
           this.orderInfo = new OrderModel();
           this.orderInfo.address1 = response.Result.address1;
@@ -68,14 +61,10 @@ export class OrderConfirmationComponent implements OnInit {
     const signupResponse = await this.signupSrv.signup(memberModel).toPromise();
     console.log(signupResponse);
     if (!signupResponse.HasError) {
-      const dciJsonResponse = await this.dciSrv
-        .createDCIJsonRequest({})
-        .toPromise();
+      const dciJsonResponse = await this.dciSrv.createDCIJsonRequest({}).toPromise();
       console.log(dciJsonResponse);
       if (!dciJsonResponse.HasError) {
-        const createDCICardResponse = await this.dciSrv
-          .createDigitalCard(dciJsonResponse.Result)
-          .toPromise();
+        const createDCICardResponse = await this.dciSrv.createDigitalCard(dciJsonResponse.Result).toPromise();
         console.log(createDCICardResponse);
         if (createDCICardResponse.card && createDCICardResponse.url) {
           console.log('dci card created...');
@@ -83,9 +72,7 @@ export class OrderConfirmationComponent implements OnInit {
           memberCard.card_uuid = createDCICardResponse.card;
           memberCard.url = createDCICardResponse.url;
           memberCard.card_content = dciJsonResponse.Result;
-          const createMemberCardRelation = await this.dciSrv
-            .createMemberCardRelation(memberCard)
-            .toPromise();
+          const createMemberCardRelation = await this.dciSrv.createMemberCardRelation(memberCard).toPromise();
           console.log(createMemberCardRelation);
           if (!createMemberCardRelation.HasError) {
             console.log('se creo la relacion');
