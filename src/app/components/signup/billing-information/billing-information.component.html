@@ -1,8 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <h1 class="text-center title mt-0 mb-0">
-      You've Selected {{ planName.value }}.
-    </h1>
+    <h1 class="text-center title mt-0 mb-0">You've Selected {{ planName.value }}.</h1>
     <h5 class="text-center subtitle mt-0 mb-4">
       Let's Fine Tine the Billing Details
     </h5>
@@ -27,20 +25,14 @@
             />
             <p
               class="mt-1 text-danger"
-              *ngIf="
-                (creditCardNumber.dirty || creditCardNumber.touched) &&
-                creditCardNumber.invalid &&
-                !!creditCardNumber.errors.required
-              "
+              *ngIf="(creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.required"
             >
               Credit Card Number is required.
             </p>
             <p
               class="mt-1 text-danger"
               *ngIf="
-                (creditCardNumber.dirty || creditCardNumber.touched) &&
-                creditCardNumber.invalid &&
-                !!creditCardNumber.errors.invalidNumber
+                (creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.invalidNumber
               "
             >
               Credit Card Number must be a valid credit card.
@@ -54,72 +46,43 @@
             <div class="form-group col-md-4">
               <select class="form-control" formControlName="expirationMonth">
                 <option disabled [ngValue]="null">MM</option>
-                <option
-                  [ngValue]="month"
-                  *ngFor="
-                    let month of [
-                      '01',
-                      '02',
-                      '03',
-                      '04',
-                      '05',
-                      '06',
-                      '07',
-                      '08',
-                      '09',
-                      '10',
-                      '11',
-                      '12'
-                    ]
-                  "
-                  >{{ month }}</option
-                >
+                <option [ngValue]="month" *ngFor="let month of ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']">{{
+                  month
+                }}</option>
               </select>
             </div>
             <div class="form-group col-md-4">
               <select class="form-control" formControlName="expirationYear">
                 <option disabled [ngValue]="null">YYYY</option>
-                <option [value]="year" *ngFor="let year of years">{{
-                  year
-                }}</option>
+                <option [value]="year" *ngFor="let year of years">{{ year }}</option>
               </select>
             </div>
             <div class="form-group col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="CVV"
-                appOnlyNumbers="true"
-                formControlName="cvv"
-                mask="000"
-              />
-              <p
-                class="mt-1 text-danger"
-                *ngIf="
-                  (cvv.dirty || cvv.touched) &&
-                  cvv.invalid &&
-                  !!cvv.errors.required
-                "
-              >
+              <input type="text" class="form-control" placeholder="CVV" appOnlyNumbers="true" formControlName="cvv" mask="0000" />
+              <p class="mt-1 text-danger" *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.required">
                 CVV is required.
               </p>
               <p
                 class="mt-1 text-danger"
-                *ngIf="
-                  (cvv.dirty || cvv.touched) &&
-                  cvv.invalid &&
-                  !!cvv.errors.minlength
-                "
+                *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask === 'amex'"
+              >
+                CVV must be at least 4 numbers long.
+              </p>
+              <p
+                class="mt-1 text-danger"
+                *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask === 'amex'"
+              >
+                CVV can be max 4 numbers long.
+              </p>
+              <p
+                class="mt-1 text-danger"
+                *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask !== 'amex'"
               >
                 CVV must be at least 3 numbers long.
               </p>
               <p
                 class="mt-1 text-danger"
-                *ngIf="
-                  (cvv.dirty || cvv.touched) &&
-                  cvv.invalid &&
-                  !!cvv.errors.maxlength
-                "
+                *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask !== 'amex'"
               >
                 CVV can be max 3 numbers long.
               </p>
@@ -128,65 +91,34 @@
 
           <div class="form-group">
             <mat-checkbox>
-              Save this payment method for future use. Note: Recurring billing
-              will occur after the first 30 days
+              Save this payment method for future use. Note: Recurring billing will occur after the first 30 days
             </mat-checkbox>
           </div>
 
           <div class="form-group">
-            <input
-              type="text"
-              placeholder="Name on Card"
-              class="form-control"
-              formControlName="nameOnCard"
-            />
+            <input type="text" placeholder="Name on Card" class="form-control" formControlName="nameOnCard" />
             <p
               class="mt-1 text-danger"
-              *ngIf="
-                (nameOnCard.dirty || nameOnCard.touched) &&
-                nameOnCard.invalid &&
-                !!nameOnCard.errors.required
-              "
+              *ngIf="(nameOnCard.dirty || nameOnCard.touched) && nameOnCard.invalid && !!nameOnCard.errors.required"
             >
               Name on Card is required.
             </p>
           </div>
 
           <div class="form-group">
-            <input
-              type="text"
-              placeholder="Promo Code"
-              class="form-control"
-              formControlName="promoCode"
-              appOnlyNumbers="true"
-            />
+            <input type="text" placeholder="Promo Code" class="form-control" formControlName="promoCode" appOnlyNumbers="true" />
           </div>
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <mat-checkbox
-              formControlName="billingSameShipping"
-              (change)="billingCheckbox($event)"
-            >
+            <mat-checkbox formControlName="billingSameShipping" (change)="billingCheckbox($event)">
               Billing Address Same As Shipping
             </mat-checkbox>
           </div>
 
           <div class="form-group">
-            <input
-              type="text"
-              placeholder="Billing Address Line 1"
-              class="form-control"
-              formControlName="address1"
-            />
-            <p
-              class="mt-1 text-danger"
-              *ngIf="
-                (address1.dirty || address1.touched) &&
-                address1.invalid &&
-                !!address1.errors.required
-              "
-            >
+            <input type="text" placeholder="Billing Address Line 1" class="form-control" formControlName="address1" />
+            <p class="mt-1 text-danger" *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
               Billing Address Line 1 Number is required.
             </p>
             <!--<p class="mt-1 text-danger" *ngIf="(lastFour.dirty || lastFour.touched) && lastFour.invalid && lastFour.errors.invalidNumber">
@@ -195,20 +127,8 @@
           </div>
 
           <div class="form-group">
-            <input
-              type="text"
-              placeholder="Billing Address Line 2"
-              class="form-control"
-              formControlName="address2"
-            />
-            <p
-              class="mt-1 text-danger"
-              *ngIf="
-                (address2.dirty || address2.touched) &&
-                address2.invalid &&
-                !!address2.errors.required
-              "
-            >
+            <input type="text" placeholder="Billing Address Line 2" class="form-control" formControlName="address2" />
+            <p class="mt-1 text-danger" *ngIf="(address2.dirty || address2.touched) && address2.invalid && !!address2.errors.required">
               Billing Address Line 2 Number is required.
             </p>
             <!--<p class="mt-1 text-danger" *ngIf="(lastFour.dirty || lastFour.touched) && lastFour.invalid && lastFour.errors.invalidNumber">
@@ -218,46 +138,19 @@
 
           <div class="form-row align-items-center">
             <div class="form-group col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="City"
-                formControlName="city"
-              />
-              <p
-                class="mt-1 text-danger"
-                *ngIf="
-                  (city.dirty || city.touched) &&
-                  city.invalid &&
-                  !!city.errors.required
-                "
-              >
+              <input type="text" class="form-control" placeholder="City" formControlName="city" />
+              <p class="mt-1 text-danger" *ngIf="(city.dirty || city.touched) && city.invalid && !!city.errors.required">
                 City is required.
               </p>
             </div>
             <div class="form-group col-md-4">
               <select class="form-control" formControlName="state">
-                <option [value]="state.id" *ngFor="let state of states">{{
-                  state.name
-                }}</option>
+                <option [value]="state.id" *ngFor="let state of states">{{ state.name }}</option>
               </select>
             </div>
             <div class="form-group col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Zip"
-                formControlName="zipCode"
-                appOnlyNumbers="true"
-              />
-              <p
-                class="mt-1 text-danger"
-                *ngIf="
-                  (zipCode.dirty || zipCode.touched) &&
-                  zipCode.invalid &&
-                  !!zipCode.errors.required
-                "
-              >
+              <input type="text" class="form-control" placeholder="Zip" formControlName="zipCode" appOnlyNumbers="true" />
+              <p class="mt-1 text-danger" *ngIf="(zipCode.dirty || zipCode.touched) && zipCode.invalid && !!zipCode.errors.required">
                 City is required.
               </p>
             </div>
@@ -273,20 +166,14 @@
             />
             <p
               class="mt-1 text-danger"
-              *ngIf="
-                (textMessagingPin.dirty || textMessagingPin.touched) &&
-                textMessagingPin.invalid &&
-                !!textMessagingPin.errors.required
-              "
+              *ngIf="(textMessagingPin.dirty || textMessagingPin.touched) && textMessagingPin.invalid && !!textMessagingPin.errors.required"
             >
               Text Messaging PIN is required.
             </p>
             <p
               class="mt-1 text-danger"
               *ngIf="
-                (textMessagingPin.dirty || textMessagingPin.touched) &&
-                textMessagingPin.invalid &&
-                !!textMessagingPin.errors.minlength
+                (textMessagingPin.dirty || textMessagingPin.touched) && textMessagingPin.invalid && !!textMessagingPin.errors.minlength
               "
             >
               Text Messaging PIN must be at least 4 numbers long.
@@ -294,9 +181,7 @@
             <p
               class="mt-1 text-danger"
               *ngIf="
-                (textMessagingPin.dirty || textMessagingPin.touched) &&
-                textMessagingPin.invalid &&
-                !!textMessagingPin.errors.maxlength
+                (textMessagingPin.dirty || textMessagingPin.touched) && textMessagingPin.invalid && !!textMessagingPin.errors.maxlength
               "
             >
               Text Messaging PIN can be max 6 numbers long.
@@ -304,9 +189,8 @@
           </div>
           <p class="text-justify">
             <small>
-              This is a 4 to 6 digit number you set and is used to confirm your
-              identity when using the chatbot. Occasionally you will be asked
-              this PIN to confirm your identity by the chatbot.
+              This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot. Occasionally you will be
+              asked this PIN to confirm your identity by the chatbot.
             </small>
           </p>
         </div>
@@ -314,17 +198,10 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <button
-            class="btn btn-primary float-left"
-            (click)="userAction('back')"
-          >
+          <button class="btn btn-primary float-left" (click)="userAction('back')">
             Back
           </button>
-          <button
-            class="btn btn-primary float-right"
-            type="submit"
-            [disabled]="!signupForm.valid"
-          >
+          <button class="btn btn-primary float-right" type="submit" [disabled]="!signupForm.valid">
             Continue
           </button>
         </div>

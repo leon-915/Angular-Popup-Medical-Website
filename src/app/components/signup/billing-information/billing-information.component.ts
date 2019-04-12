@@ -33,16 +33,10 @@ export class BillingInformationComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.fb.group({
-      creditCardNumber: [
-        '',
-        [Validators.required, CardValidator.checkCardFormat]
-      ],
+      creditCardNumber: ['', [Validators.required, CardValidator.checkCardFormat]],
       expirationMonth: [null, [Validators.required]],
       expirationYear: [null, [Validators.required]],
-      cvv: [
-        '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(3)]
-      ],
+      cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
       nameOnCard: ['', [Validators.required]],
       promoCode: [''],
       address1: ['', [Validators.required]],
@@ -50,10 +44,7 @@ export class BillingInformationComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
-      textMessagingPin: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(6)]
-      ],
+      textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       currentStep: this.step,
       latitude: 0,
       longitude: 0,
@@ -84,6 +75,10 @@ export class BillingInformationComponent implements OnInit {
         console.log(response);
         if (!response.HasError) {
           this.years = response.Result.years;
+          for (let i = 0; i < 8; i++) {
+            this.years.unshift(parseInt(this.years[0], 10) + 1);
+          }
+          console.log(this.years);
         }
       },
       error => {
@@ -103,13 +98,9 @@ export class BillingInformationComponent implements OnInit {
           this.signupForm.controls.city.setValue(response.Result.city);
           this.signupForm.controls.state.setValue(response.Result.state);
           this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
-          this.signupForm.controls.textMessagingPin.setValue(
-            response.Result.text_messaging_pin
-          );
+          this.signupForm.controls.textMessagingPin.setValue(response.Result.text_messaging_pin);
           this.signupForm.controls.latitude.setValue(response.Result.latitude);
-          this.signupForm.controls.longitude.setValue(
-            response.Result.longitude
-          );
+          this.signupForm.controls.longitude.setValue(response.Result.longitude);
           this.signupForm.controls.planName.setValue(response.Result.plan_name);
         }
       },
@@ -166,10 +157,7 @@ export class BillingInformationComponent implements OnInit {
 
   billingCheckbox(event) {
     this.billingSameShipping.setValue(event.checked);
-    console.log(
-      'Billing same as shipping is: ',
-      this.billingSameShipping.value
-    );
+    console.log('Billing same as shipping is: ', this.billingSameShipping.value);
   }
 
   // Getters
@@ -233,12 +221,20 @@ export class BillingInformationComponent implements OnInit {
   onChange() {
     this.typeMask = this.getCreditCardType(this.creditCardNumber.value);
     this.currentMask = this.getMaskType(this.typeMask);
-    console.log('Credit card number: ', this.creditCardNumber.value);
+    /*console.log('Credit card number: ', this.creditCardNumber.value);
     console.log('Type mask: ', this.typeMask);
-    console.log('Current mask: ', this.currentMask);
+    console.log('Current mask: ', this.currentMask);*/
+
+    if (this.typeMask === 'amex') {
+      this.cvv.setValidators([Validators.required, Validators.minLength(4), Validators.maxLength(4)]);
+    } else {
+      this.cvv.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(3)]);
+    }
+    this.cvv.updateValueAndValidity();
   }
 
   doSignup() {
+    console.log(this.signupForm.getRawValue());
     this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         if (!response.HasError) {
