@@ -48,7 +48,7 @@ export class MyFamilyService {
 
   upgradePhamilyAccount() {
     const url = `${this.serviceURl}upgrade-account`;
-    return this.http.put<APIResponse<boolean>>(url, {});
+    return this.http.post<APIResponse<boolean>>(url, {});
   }
 }
 @Injectable()

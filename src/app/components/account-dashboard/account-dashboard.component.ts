@@ -10,11 +10,7 @@ import { MyFamilyService, NotificationService } from 'src/app/services';
 export class AccountDashboardComponent implements OnInit {
   isNormaluser = true;
 
-  constructor(
-    private router: Router,
-    private myFamilySrv: MyFamilyService,
-    private notificationSrv: NotificationService
-  ) {}
+  constructor(private router: Router, private myFamilySrv: MyFamilyService, private notificationSrv: NotificationService) {}
 
   ngOnInit() {
     const membertype = localStorage.getItem('member_type_id');
