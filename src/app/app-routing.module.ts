@@ -22,6 +22,7 @@ import {
   GuestEditComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
+import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -63,6 +64,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'signup', component: SignupComponent },
+  { path: 'translator-test', component: TranslatorTestComponent },
   { path: 'signup-confirm', component: SignupConfirmComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register/:invitationCode/:email', component: RegisterComponent },

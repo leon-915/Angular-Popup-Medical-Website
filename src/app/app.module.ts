@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   MatAutocompleteModule,
@@ -31,6 +31,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import * as moment from 'moment';
+import { TranslateService } from './translator/translate.service';
 
 /* CONFIGURATIONS */
 /* CONFIGURATIONS */
@@ -116,9 +117,16 @@ import { OrderConfirmationComponent } from './components/signup/order-confirmati
 import { MedicalHistoryComponent } from './components/onboarding/medical-history/medical-history.component';
 import { MembershipCardComponent } from './components/membership-card/membership-card.component';
 import { NgbdCarouselBasicComponent } from './components/carousel-basic/carousel-basic.component';
+import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
+import { TranslatePipe } from './translator/translate.pipe';
+
+export function setupTranslateFactory(service: TranslateService) {
+  return () => service.use('en');
+}
 
 @NgModule({
   declarations: [
+    TranslatePipe,
     AccountDashboardComponent,
     AccountFamilyComponent,
     AccountInformationComponent,
@@ -165,7 +173,8 @@ import { NgbdCarouselBasicComponent } from './components/carousel-basic/carousel
     MedicalHistoryComponent,
     MembershipCardComponent,
     NgbdCarouselBasicComponent,
-    GuestEditComponent
+    GuestEditComponent,
+    TranslatorTestComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -209,8 +218,16 @@ import { NgbdCarouselBasicComponent } from './components/carousel-basic/carousel
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor
     },
+    TranslateService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setupTranslateFactory,
+      deps: [TranslateService],
+      multi: true
+    },
     AuthGuard,
     AccountService,
+    TranslateService,
     MyFamilyService,
     CommonService,
     ContentService,
