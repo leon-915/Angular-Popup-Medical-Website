@@ -7,13 +7,9 @@ export class GooglePlacesService {
   // tslint:disable-next-line
   loadMaps(addressReference: ElementRef, fn: Function): Promise<any> {
     return this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(
-        addressReference.nativeElement,
-        {
-          types: ['address'],
-          componentRestrictions: { country: 'us' }
-        }
-      );
+      const autocomplete = new google.maps.places.Autocomplete(addressReference.nativeElement, {
+        componentRestrictions: { country: 'us' }
+      });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -31,9 +27,7 @@ export class GooglePlacesService {
           const longitude = place.geometry.location.lng();
           const latitude = place.geometry.location.lat();
           place.address_components.forEach(addressComponent => {
-            if (
-              addressComponent.types.includes('administrative_area_level_1')
-            ) {
+            if (addressComponent.types.includes('administrative_area_level_1')) {
               state = addressComponent.short_name;
             } else if (addressComponent.types.includes('locality')) {
               city = addressComponent.long_name;

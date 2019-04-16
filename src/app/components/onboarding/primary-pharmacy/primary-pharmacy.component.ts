@@ -1,21 +1,7 @@
 import { PharmacyModel } from './../../../models/index';
 import { AddressModel, OnboardingRequestModel } from './../../../models/index';
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-  AfterViewInit
-} from '@angular/core';
-import {
-  GooglePlacesService,
-  PharmaciesService,
-  OnboardingService,
-  NotificationService
-} from '../../../services/index';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { GooglePlacesService, PharmaciesService, OnboardingService, NotificationService } from '../../../services/index';
 
 @Component({
   selector: 'app-primary-pharmacy',
@@ -50,6 +36,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.shippingAddress.longitude = -119.417931;
     this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);*/
     this.getUserLocation();
+    console.log(navigator.language);
   }
 
   ngAfterViewInit() {
@@ -63,14 +50,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       });
   }
 
-  setAddress = (
-    address: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    latitude: number,
-    longitude: number
-  ) => {
+  setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
     console.log(address);
     this.shippingAddress.address1 = address;
     this.shippingAddress.zipCode = city;
@@ -79,10 +59,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.shippingAddress.latitude = latitude;
     this.shippingAddress.longitude = longitude;
     this.primaryPharmacyAddress = null;
-    this.loadNearestPharmacies(
-      this.shippingAddress.latitude,
-      this.shippingAddress.longitude
-    );
+    this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
     // tslint:disable-next-line: semicolon
   };
 
@@ -113,10 +90,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       navigator.geolocation.getCurrentPosition(position => {
         this.shippingAddress.latitude = position.coords.latitude;
         this.shippingAddress.longitude = position.coords.longitude;
-        this.loadNearestPharmacies(
-          this.shippingAddress.latitude,
-          this.shippingAddress.longitude
-        );
+        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
       });
     }
   }
