@@ -23,6 +23,34 @@
               (ngModelChange)="onChange()"
               [mask]="currentMask"
             />
+            <p>type mask = {{ typeMask }}</p>
+            <div class="row">
+              <img
+                src="../../../../assets/icons/icons8-visa-48.png"
+                alt="visa"
+                *ngIf="typeMask === 'visa' || typeMask === '' || typeMask === 'unknown'"
+              />
+              <img
+                src="../../../../assets/icons/icons8-mastercard-48.png"
+                alt="mastercard"
+                *ngIf="typeMask === 'mastercard' || typeMask === '' || typeMask === 'unknown'"
+              />
+              <img
+                src="../../../../assets/icons/icons8-discover-48.png"
+                alt="discover"
+                *ngIf="typeMask === 'discover' || typeMask === '' || typeMask === 'unknown'"
+              />
+              <img
+                src="../../../../assets/icons/icons8-american-express-48.png"
+                alt="amex"
+                *ngIf="typeMask === 'amex' || typeMask === '' || typeMask === 'unknown'"
+              />
+              <img
+                src="../../../../assets/icons/icons8-diners-club-48.png"
+                alt="diners"
+                *ngIf="typeMask === 'diners' || typeMask === '' || typeMask === 'unknown'"
+              />
+            </div>
             <p
               class="mt-1 text-danger"
               *ngIf="(creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.required"
