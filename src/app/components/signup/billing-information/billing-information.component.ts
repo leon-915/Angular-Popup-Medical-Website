@@ -2,7 +2,7 @@ import { CardValidator } from './../../../validators/card.validator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from './../../../services/common.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SignupService, PlanService, DateService } from 'src/app/services';
+import { SignupService, PlanService, DateService, NotificationService } from 'src/app/services';
 import { SignupRequestModel } from '../../../models/index';
 
 @Component({
@@ -25,7 +25,8 @@ export class BillingInformationComponent implements OnInit {
     private commonSrv: CommonService,
     private fb: FormBuilder,
     private planSrv: PlanService,
-    private dateSrv: DateService
+    private dateSrv: DateService,
+    private notificationSrv: NotificationService
   ) {
     this.getStates();
     this.getDateInfo();
@@ -44,41 +45,66 @@ export class BillingInformationComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
-      textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
+      // textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       currentStep: this.step,
       latitude: 0,
       longitude: 0,
-      billingSameShipping: false,
-      planName: null
+      planName: null,
+      paymentMethod: [false, [Validators.required]], // true = ACH & false = credit card
+      routingNumber: [''],
+      bankAccountNumber: [''],
     });
 
     this.loadInformation();
+    this.onChangePaymentMethod();
   }
 
   userAction(action: string) {
-    if (action === 'back') {
-      this.step = 2;
-    } else {
-      if (this.signupForm.get('billingSameShipping').value === true) {
-        this.step = 5;
-      } else {
-        this.step = 4;
-      }
-    }
+    const step = action === 'back' ? (this.step = 2) : (this.step = 4);
+    this.action.emit(step);
+  }
 
-    this.action.emit(this.step);
+  onChangePaymentMethod() {
+    this.paymentMethod.valueChanges.subscribe((status) => {
+      console.log(status);
+      if (status) {
+        this.creditCardNumber.setValidators(null);
+        this.expirationMonth.setValidators(null);
+        this.expirationYear.setValidators(null);
+        this.cvv.setValidators(null);
+        this.nameOnCard.setValidators(null);
+        this.routingNumber.setValidators([Validators.required]);
+        this.bankAccountNumber.setValidators([Validators.required]);
+      } else {
+        this.creditCardNumber.setValidators([Validators.required, CardValidator.checkCardFormat]);
+        this.expirationMonth.setValidators([Validators.required]);
+        this.expirationYear.setValidators([Validators.required]);
+        this.cvv.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(3)]);
+        this.nameOnCard.setValidators([Validators.required]);
+        this.routingNumber.setValidators(null);
+        this.bankAccountNumber.setValidators(null);
+      }
+
+      this.creditCardNumber.updateValueAndValidity();
+      this.expirationMonth.updateValueAndValidity();
+      this.expirationYear.updateValueAndValidity();
+      this.cvv.updateValueAndValidity();
+      this.nameOnCard.updateValueAndValidity();
+      this.routingNumber.updateValueAndValidity();
+      this.bankAccountNumber.updateValueAndValidity();
+    });
   }
 
   getDateInfo() {
     this.dateSrv.getDateInfo().subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           this.years = response.Result.years;
-          for (let i = 0; i < 8; i++) {
-            this.years.unshift(parseInt(this.years[0], 10) + 1);
+          const cardYears = [];
+          for (let i = 0; i < 10; i++) {
+            cardYears.unshift(parseInt(this.years[0], 10) + i);
           }
-          console.log(this.years);
+          this.years = cardYears;
         }
       },
       error => {
@@ -98,7 +124,7 @@ export class BillingInformationComponent implements OnInit {
           this.signupForm.controls.city.setValue(response.Result.city);
           this.signupForm.controls.state.setValue(response.Result.state);
           this.signupForm.controls.zipCode.setValue(response.Result.zipcode);
-          this.signupForm.controls.textMessagingPin.setValue(response.Result.text_messaging_pin);
+          // this.signupForm.controls.textMessagingPin.setValue(response.Result.text_messaging_pin);
           this.signupForm.controls.latitude.setValue(response.Result.latitude);
           this.signupForm.controls.longitude.setValue(response.Result.longitude);
           this.signupForm.controls.planName.setValue(response.Result.plan_name);
@@ -155,11 +181,6 @@ export class BillingInformationComponent implements OnInit {
     return masks[cardType];
   }
 
-  billingCheckbox(event) {
-    this.billingSameShipping.setValue(event.checked);
-    console.log('Billing same as shipping is: ', this.billingSameShipping.value);
-  }
-
   // Getters
 
   get creditCardNumber() {
@@ -206,16 +227,24 @@ export class BillingInformationComponent implements OnInit {
     return this.signupForm.controls.zipCode;
   }
 
-  get textMessagingPin() {
+  /*get textMessagingPin() {
     return this.signupForm.controls.textMessagingPin;
-  }
-
-  get billingSameShipping() {
-    return this.signupForm.controls.billingSameShipping;
-  }
+  }*/
 
   get planName() {
     return this.signupForm.controls.planName;
+  }
+
+  get paymentMethod() {
+    return this.signupForm.controls.paymentMethod;
+  }
+
+  get routingNumber() {
+    return this.signupForm.controls.routingNumber;
+  }
+
+  get bankAccountNumber() {
+    return this.signupForm.controls.bankAccountNumber;
   }
 
   onChange() {
@@ -235,22 +264,19 @@ export class BillingInformationComponent implements OnInit {
 
   doSignup() {
     console.log(this.signupForm.getRawValue());
-    this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
+    /*this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
+        console.log(response);
         if (!response.HasError) {
-          if (this.billingSameShipping.value) {
-            console.log('billing and shipping ==');
-            this.step = 5;
-            this.action.emit(this.step);
-          } else {
-            console.log('hay que enviarlo a la pantalla de shipping address');
-            this.userAction('advance');
-          }
+          console.log('go to order overall information component');
+          this.userAction('advance');
+        } else {
+          this.notificationSrv.showError(response.Message);
         }
       },
       error => {
         console.log(error);
       }
-    );
+    );*/
   }
 }

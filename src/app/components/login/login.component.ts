@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AccountService, NotificationService } from '../../services/index';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -20,8 +22,8 @@ export class LoginComponent implements OnInit {
     private accountSrv: AccountService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private notificationSrv: NotificationService,
-    private router: Router) {
-  }
+    private router: Router,
+    private http: HttpClient) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
