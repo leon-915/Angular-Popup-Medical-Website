@@ -1,169 +1,221 @@
-  <h3 class="mb-3">My Care Phamily</h3>
-  <label class="mb-3">(5 of 6 members used)</label>
+<div class="row">
 
-  <div class="container" style="width: 100%">
-    <div class="row align-items-center">
-      <div class="col-md-2">
-        <span>Name</span>
-      </div>
-      <div class="col-md-3">
-        <span>Email</span>
-      </div>
-      <div class="col-md-2">
-        <span>Relationship</span>
-      </div>
-      <div class="col-md-1">
-        <span>Status</span>
-      </div>
-      <div class="col-md">
-        <span>Delete</span>
-      </div>
-      <div class="col-md">
-        <span>Edit</span>
-      </div>
-    </div>
-    <div class="row align-items-center" *ngFor="let member of familyUsers;  let i = index" [attr.data-index]="i">
-      <div class="col-md-2">
-        {{member.first_name ? member.first_name : '-' }}
-      </div>
-      <div class="col-md-3">
-        {{member.email ? member.email : '-'}}
-      </div>
-      <div class="col-md-2">
-        {{member.display_value}}
-      </div>
-      <div class="col-md-1">
-        {{member.status_display}}
-      </div>
-      <div class="col-md">
-        <button type="button" class="btn" (click)="removeMember(i, false)"><i class="material-icons">
-            remove
-          </i>
-        </button>
-      </div>
-      <div class="col-md">
-        <button type="button" class="btn" [disabled]="!member.is_active"
-          (click)="goToEdit(member.member_relation_id, false)"><i class="material-icons">
-            arrow_forward_ios
-          </i>
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- add familymember -->
-  <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
-
-    <div class="form-group row">
-      <div class="col-md-4 mb-3">
-        <label for="confirm">Add Member (enter email):</label>
-        <input type="email" placeholder="Email" formControlName="email" class="form-control">
-        <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.required">
-          Email is required.
-        </p>
-        <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.email">
-          Email must be a valid email address.
-        </p>
-      </div>
-      <div class="col-md-4 mb-3 align-self-center">
-        <label for="confirm">Relationship to Primary Member</label>
-        <select class="browser-default custom-select" formControlName="member_relation_type_id">
-          <option selected=true value=0>
-            select an option</option>
-          <option *ngFor="let item of relationTypes;" value={{item.lookup_member_relation_type_id}}>
-            {{item.display_value}}</option>
-        </select>
-      </div>
-      <div class="col d-flex align-self-center">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
-          Invite
-        </button>
-      </div>
-    </div>
-  </form>
   <div>
-    <button type="button" class="btn" (click)="goToAddNewDependent()">
-      Add Dependent
-    </button>
+    <label class="my-family-my-Hub"><i class="material-icons">
+        arrow_back
+      </i>My Hub
+    </label>
+  </div>
+  <div class="container text-center">
+    <label class="my-family-title">My Care Phamily
+    </label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-profile-box">
+      <div class="my-family-profile-title"></div>
+    </div>
   </div>
 
-  <!-- Guest list -->
-  <h3 class="mb-3">Guest Members</h3>
-  <div class="container" style="width: 100%">
-    <div class="row align-items-center">
-      <div class="col-md-4">
-        <span>Email</span>
-      </div>
-      <div class="col-md-3">
-        <span>Relationship</span>
-      </div>
-      <div class="col-md-2">
-        <span>Status</span>
-      </div>
-      <div class="col-md">
-        <span>Delete</span>
-      </div>
-      <div class="col-md">
-        <span>Edit</span>
-      </div>
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-member-box">
+      <div class="my-family-member-title"></div>
     </div>
-    <div class="row align-items-center" *ngFor="let member of guestUsers;  let i = index" [attr.data-index]="i">
-      <div class="col-md-4">
-        {{member.email}}
-      </div>
-      <div class="col-md-3">
-        {{member.display_value}}
-      </div>
-      <div class="col-md-2">
-        {{member.status_display}}
-      </div>
-      <div class="col-md">
-        <button type="button" class="btn" (click)="removeMember(i, true)"><i class="material-icons">
-            remove
-          </i>
-        </button>
-      </div>
-      <div class="col-md">
-        <button type="button" class="btn" [disabled]="!member.is_active"
-          (click)="goToEdit(member.member_relation_id, true)"><i class="material-icons">
-            arrow_forward_ios
-          </i>
-        </button>
-      </div>
+  </div>
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-member-box">
+      <div class="my-family-member-title"></div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-guest-box">
+      <div class="my-family-guest-title"></div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-guest-box">
+      <div class="my-family-guest-title"></div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-guest-box">
+      <div class="my-family-guest-title"></div>
     </div>
   </div>
 
 
-  <!-- add GuestFamilymember -->
-  <form [formGroup]="addGuestMemberForm" (ngSubmit)="addGuestMember()">
+</div>
 
-    <div class="form-group row">
-      <div class="col-md-4 mb-3">
-        <label for="confirm">Invite Guest Member (enter email):</label>
-        <input type="email" placeholder="Email" formControlName="email" class="form-control">
-        <p class="mt-1 text-danger"
-          *ngIf="(memberEmail.dirty || memberEmail.touched) && memberEmail.invalid && !!memberEmail.errors.required">
-          Email is required.
-        </p>
-        <p class="mt-1 text-danger"
-          *ngIf="(memberEmail.dirty || memberEmail.touched) && memberEmail.invalid && !!memberEmail.errors.email">
-          Email must be a valid email address.
-        </p>
-      </div>
-      <div class="col-md-4 mb-3 align-self-center">
-        <label for="confirm">Relationship to Primary Member</label>
-        <select class="browser-default custom-select" formControlName="member_relation_type_id">
-          <option selected=true value=0>
-            select an option</option>
-          <option *ngFor="let item of guestRelationTypes;" value={{item.lookup_member_relation_type_id}}>
-            {{item.display_value}}</option>
-        </select>
-      </div>
-      <div class="col d-flex align-self-center">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="!addGuestMemberForm.valid">
-          Invite
-        </button>
-      </div>
+
+
+<h3 class="mb-3">My Care Phamily</h3>
+<label class="mb-3">(5 of 6 members used)</label>
+
+<div class="container" style="width: 100%">
+  <div class="row align-items-center">
+    <div class="col-md-2">
+      <span>Name</span>
     </div>
-  </form>
+    <div class="col-md-3">
+      <span>Email</span>
+    </div>
+    <div class="col-md-2">
+      <span>Relationship</span>
+    </div>
+    <div class="col-md-1">
+      <span>Status</span>
+    </div>
+    <div class="col-md">
+      <span>Delete</span>
+    </div>
+    <div class="col-md">
+      <span>Edit</span>
+    </div>
+  </div>
+  <div class="row align-items-center" *ngFor="let member of familyUsers;  let i = index" [attr.data-index]="i">
+    <div class="col-md-2">
+      {{member.first_name ? member.first_name : '-' }}
+    </div>
+    <div class="col-md-3">
+      {{member.email ? member.email : '-'}}
+    </div>
+    <div class="col-md-2">
+      {{member.display_value}}
+    </div>
+    <div class="col-md-1">
+      {{member.status_display}}
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" (click)="removeMember(i, false)"><i class="material-icons">
+          remove
+        </i>
+      </button>
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" [disabled]="!member.is_active"
+        (click)="goToEdit(member.member_relation_id, false)"><i class="material-icons">
+          arrow_forward_ios
+        </i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- add familymember -->
+<form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
+
+  <div class="form-group row">
+    <div class="col-md-4 mb-3">
+      <label for="confirm">Add Member (enter email):</label>
+      <input type="email" placeholder="Email" formControlName="email" class="form-control">
+      <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.required">
+        Email is required.
+      </p>
+      <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.email">
+        Email must be a valid email address.
+      </p>
+    </div>
+    <div class="col-md-4 mb-3 align-self-center">
+      <label for="confirm">Relationship to Primary Member</label>
+      <select class="browser-default custom-select" formControlName="member_relation_type_id">
+        <option selected=true value=0>
+          select an option</option>
+        <option *ngFor="let item of relationTypes;" value={{item.lookup_member_relation_type_id}}>
+          {{item.display_value}}</option>
+      </select>
+    </div>
+    <div class="col d-flex align-self-center">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
+        Invite
+      </button>
+    </div>
+  </div>
+</form>
+<div>
+  <button type="button" class="btn" (click)="goToAddNewDependent()">
+    Add Dependent
+  </button>
+</div>
+
+<!-- Guest list -->
+<h3 class="mb-3">Guest Members</h3>
+<div class="container" style="width: 100%">
+  <div class="row align-items-center">
+    <div class="col-md-4">
+      <span>Email</span>
+    </div>
+    <div class="col-md-3">
+      <span>Relationship</span>
+    </div>
+    <div class="col-md-2">
+      <span>Status</span>
+    </div>
+    <div class="col-md">
+      <span>Delete</span>
+    </div>
+    <div class="col-md">
+      <span>Edit</span>
+    </div>
+  </div>
+  <div class="row align-items-center" *ngFor="let member of guestUsers;  let i = index" [attr.data-index]="i">
+    <div class="col-md-4">
+      {{member.email}}
+    </div>
+    <div class="col-md-3">
+      {{member.display_value}}
+    </div>
+    <div class="col-md-2">
+      {{member.status_display}}
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" (click)="removeMember(i, true)"><i class="material-icons">
+          remove
+        </i>
+      </button>
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" [disabled]="!member.is_active"
+        (click)="goToEdit(member.member_relation_id, true)"><i class="material-icons">
+          arrow_forward_ios
+        </i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- add GuestFamilymember -->
+<form [formGroup]="addGuestMemberForm" (ngSubmit)="addGuestMember()">
+
+  <div class="form-group row">
+    <div class="col-md-4 mb-3">
+      <label for="confirm">Invite Guest Member (enter email):</label>
+      <input type="email" placeholder="Email" formControlName="email" class="form-control">
+      <p class="mt-1 text-danger"
+        *ngIf="(memberEmail.dirty || memberEmail.touched) && memberEmail.invalid && !!memberEmail.errors.required">
+        Email is required.
+      </p>
+      <p class="mt-1 text-danger"
+        *ngIf="(memberEmail.dirty || memberEmail.touched) && memberEmail.invalid && !!memberEmail.errors.email">
+        Email must be a valid email address.
+      </p>
+    </div>
+    <div class="col-md-4 mb-3 align-self-center">
+      <label for="confirm">Relationship to Primary Member</label>
+      <select class="browser-default custom-select" formControlName="member_relation_type_id">
+        <option selected=true value=0>
+          select an option</option>
+        <option *ngFor="let item of guestRelationTypes;" value={{item.lookup_member_relation_type_id}}>
+          {{item.display_value}}</option>
+      </select>
+    </div>
+    <div class="col d-flex align-self-center">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!addGuestMemberForm.valid">
+        Invite
+      </button>
+    </div>
+  </div>
+</form>

@@ -11,7 +11,7 @@ export class MyFamilyService {
   // TODO : Upgrade method names
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
-  serviceURl: string = this.commonSrv.apiURL;
+  serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   getMyFamily() {
     const url = `${this.serviceURl}userfamily`;
