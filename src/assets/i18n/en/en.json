@@ -13,6 +13,13 @@
     "login": "Login",
     "language": "English"
   },
+  "login": {
+    "placeholder_email": "E-mail (username)",
+    "placeholder_password": "Password",
+    "submit_button": "Login",
+    "forgot_password_link": "Forgot Password?",
+    "not_a_member_yet_link": "Not a member yet?"
+  },
   "register": {
     "title": "Nice, Short and Catchy Headline",
     "subtitle": "Optional sub-headline here",
