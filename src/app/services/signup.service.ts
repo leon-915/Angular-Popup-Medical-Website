@@ -10,9 +10,10 @@ import { CommonService } from './common.service';
 
 @Injectable()
 export class SignupService {
-  private signupStep = 1;
 
-  constructor(private commonSrv: CommonService, private http: HttpClient) {}
+  constructor(private commonSrv: CommonService, private http: HttpClient) { }
+
+  // serviceURl: string = this.commonSrv.apiURL + 'en/';
   serviceURl: string = this.commonSrv.apiURL;
 
   signupCognito(signupRequestModel: SignupRequestModel) {
@@ -35,13 +36,6 @@ export class SignupService {
     return this.http.post<APIResponse<any>>(url, signupRequestModel);
   }
 
-  setSignupStep(step: number) {
-    this.signupStep = step;
-  }
-
-  getSignupStep() {
-    return this.signupStep;
-  }
   getInvoicePdf() {
     const url: string = this.serviceURl + 'signup/get-invoice-pdf';
     return this.http.post<InvoiceModel>(url, null);

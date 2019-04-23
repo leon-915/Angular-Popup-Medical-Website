@@ -12,5 +12,45 @@
     "join_now": "Join Now",
     "login": "Login",
     "language": "English"
-  }
+  },
+  "register": {
+    "title": "Nice, Short and Catchy Headline",
+    "subtitle": "Optional sub-headline here",
+    "minimun_password_requirements": "Minimum password requirements:",
+    "invitation_code": "I have an invitation code",
+    "terms_of_use_description": "By clicking Continue, I certify that: (1) I am the person who will receive the requested prescriptions, and the prescriptions are for my personal use only; (2) this constitutes my electronic signature; and (3) I agree to the",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy",
+    "hipaa": "HIPAA Privacy Practices",
+    "primary_btn": "Create My Account",
+    "account_already": "Already have an account? Please",
+    "signin": "sign in"
+  },
+  "register_errors": {
+    "email_required": "Email is required.",
+    "email_valid": "Email must be a valid email address.",
+    "mobile_number_required": "Mobile Phone Number is required.",
+    "first_name_required": "First Name is required.",
+    "last_name_required": "Last Name is required.",
+    "password_min_length": "Must be at least 8 characters.",
+    "password_number": "Must container at least one number.",
+    "password_capital_letter": "Must contain at least one capital letter.",
+    "password_small_letter": "Must container at least one small letter",
+    "password_special_character": "Must contain at least one special character.",
+    "confirm_password_required": "Confirm password is required.",
+    "password_no_match": "Password doesn't match."
+  },
+  "register_placeholders": {
+    "placeholder_email": "Email Address",
+    "placeholder_mobile_phone": "Mobile Phone Number",
+    "placeholder_first_name": "First Name",
+    "placeholder_last_name": "Last Name",
+    "placeholder_password": "Password",
+    "placeholder_confirm_password": "Confirm Password",
+    "placeholder_invitation_code": "Invitation Code"
+  },
+  "join_now": {
+    "step1_title": ""
+  },
+  "onboarding": {}
 }

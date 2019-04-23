@@ -2,110 +2,128 @@
   <div class="row">
     <div class="col-lg-12">
       <!--<h3 class="mb-5">Step 1 of 5</h3>-->
-      <h1 class="text-center title mb-0">Nice, Short and Catchy Headline</h1>
-      <h5 class="text-center subtitle mt-0 mb-4"> Optional sub-headline here </h5>
+      <h1 class="text-center title mb-0"> {{'register.title' | translate}} </h1>
+      <h5 class="text-center subtitle mt-0 mb-4"> {{'register.subtitle' | translate}} </h5>
       <form [formGroup]="signupForm" (ngSubmit)="doRegister()">
-      
+
         <div class="form-group">
           <!--<label>Email Address</label>-->
-          <input type="text" placeholder="Email Address" formControlName="email" class="form-control">
+          <input type="text" [placeholder]="'register_placeholders.placeholder_email' | translate"
+            formControlName="email" class="form-control">
           <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.required">
-            Email is required.
+            {{'register_errors.email_required' | translate}}
           </p>
           <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.email">
-            Email must be a valid email address.
+            {{'register_errors.email_valid' | translate}}
           </p>
         </div>
 
         <div class="form-group">
           <!--<label>Mobile Phone</label>-->
-          <input type="text" placeholder="Mobile Phone Number" formControlName="phoneNumber" class="form-control" mask='(000) 000-0000'>
-          <p class="mt-1 text-danger" *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.required">
-            Mobile Phone Number is required.
+          <input type="text" [placeholder]="'register_placeholders.placeholder_mobile_phone' | translate"
+            formControlName="phoneNumber" class="form-control" mask='(000) 000-0000'>
+          <p class="mt-1 text-danger"
+            *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.required">
+            {{'register_errors.mobile_number_required' | translate}}
           </p>
         </div>
-      
+
         <div class="form-group">
           <!--<label>First Name</label>-->
-          <input type="text" placeholder="First Name" formControlName="firstName" class="form-control">
-          <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required">
-            First Name is required.
+          <input type="text" [placeholder]="'register_placeholders.placeholder_first_name' | translate"
+            formControlName="firstName" class="form-control">
+          <p class="mt-1 text-danger"
+            *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required">
+            {{'register_errors.first_name_required' | translate}}
           </p>
         </div>
 
         <div class="form-group">
           <!--<label>Last Name</label>-->
-          <input type="text" placeholder="Last Name" formControlName="lastName" class="form-control">
-          <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required">
-            Last Name is required.
+          <input type="text" [placeholder]="'register_placeholders.placeholder_last_name' | translate"
+            formControlName="lastName" class="form-control">
+          <p class="mt-1 text-danger"
+            *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required">
+            {{'register_errors.last_name_required' | translate}}
           </p>
         </div>
 
 
         <div class="form-group">
           <!--<label for="pwd">Password</label>-->
-          <input type="password" placeholder="Password" formControlName="pwd" class="form-control">
+          <input type="password" [placeholder]="'register_placeholders.placeholder_password' | translate"
+            formControlName="pwd" class="form-control">
 
-          <p class="mt-5">Minimum password requirements:</p>
+          <p class="mt-5">{{'register.minimun_password_requirements' | translate}}</p>
 
           <p [ngClass]="pwd.hasError('required') || pwd.hasError('minlength') ? 'text-danger' : 'text-success'">
             <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ pwd.hasError('required') || pwd.hasError('minlength') ? 'clear' : 'done' }}
-            </i> Must be at least 8 characters.
+              {{ pwd.hasError('required') || pwd.hasError('minlength') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_min_length' | translate}}
           </p>
 
           <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasNumber') ? 'text-danger' : 'text-success'">
             <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ pwd.hasError('required') || pwd.hasError('hasNumber') ? 'clear' : 'done' }}
-            </i> Must container at least one number.
+              {{ pwd.hasError('required') || pwd.hasError('hasNumber') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_number' | translate}}
           </p>
 
           <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'text-danger' : 'text-success'">
             <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'clear' : 'done' }}
-            </i> Must contain at least one capital letter.
+              {{ pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_capital_letter' | translate}}
           </p>
 
           <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'text-danger' : 'text-success'">
             <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'clear' : 'done' }}
-            </i> Must container at least one small letter
+              {{ pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_small_letter' | translate}}
           </p>
 
           <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'"
-          class="mb-5">
+            class="mb-5">
             <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
-            </i> Must contain at least one special character.
+              {{ pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_special_character' | translate}}
           </p>
         </div>
-      
+
         <div class="form-group" *ngIf="(pwd.dirty || pwd.touched)">
           <!--<label for="confirm">Re-Type Password</label>-->
-          <input type="password" placeholder="Confirm your password" formControlName="confirm" class="form-control">
-          <p class="mt-1 text-danger" *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && confirm.errors?.required">
-            Confirm password is required.
+          <input type="password" [placeholder]="'register_placeholders.placeholder_confirm_password' | translate"
+            formControlName="confirm" class="form-control">
+          <p class="mt-1 text-danger"
+            *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && confirm.errors?.required">
+            {{'register_errors.confirm_password_required' | translate}}
           </p>
           <p class="mt-1 text-danger" *ngIf="signupForm.errors?.passwordsDoNotMatch">
-            Password doesn't match.
+            {{'register_errors.password_no_match' | translate}}
           </p>
         </div>
 
         <div class="form-group">
-          <mat-checkbox formControlName="receiveInvitationCode"> I have an invitation code </mat-checkbox>
+          <mat-checkbox formControlName="receiveInvitationCode"> {{'register.invitation_code' | translate}}
+          </mat-checkbox>
         </div>
 
         <div class="form-group" *ngIf="receiveInvitationCode.value">
-          <input type="text" class="form-control" placeholder="Invitation Code" formControlName="invitationCode" appOnlyNumbers="true">
+          <input type="text" class="form-control"
+            [placeholder]="'register_placeholders.placeholder_invitation_code' | translate"
+            formControlName="invitationCode" appOnlyNumbers="true">
         </div>
 
-        <p class="h5 text-center"> <small>By clicking Continue, I certify that: (1) I am the person who will receive the requested prescriptions, and the prescriptions 
-        are for my personal use only; (2) this constitutes my electronic signature; and (3) 
-        I agree to the <a href="">Terms of Service</a>, <a href=""> Privacy Policy</a> , and <a href="">HIPAA Privacy Practices</a> </small> </p>
-      
+        <p class="h5 text-center">
+          <small> {{'register.terms_of_use_description' | translate}} <a
+              href="">{{'register.terms_of_service' | translate}}</a>, <a href="">
+              {{'register.privacy_policy' | translate}}
+            </a> , <a href="">{{'register.hipaa' | translate}}</a> </small> </p>
+
         <div class="text-center mt-4">
-          <button mat-stroked-button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Create My Account</button>
-          <p class="mt-3 account-already"> Already have an account? Please <a [routerLink]="['/login']"> sign in </a> </p>
+          <button mat-stroked-button type="submit" class="btn btn-primary"
+            [disabled]="!signupForm.valid">{{'register.primary_btn' | translate}}</button>
+          <p class="mt-3 account-already"> {{'register.account_already' | translate}} <a [routerLink]="['/login']">
+              {{'register.signin' | translate}} </a>
+          </p>
         </div>
       </form>
     </div>
