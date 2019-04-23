@@ -1,4 +1,9 @@
 {
-  "title": "Hola mi nombre es George",
-  "menu.login": "Entrar"
+  "common": {
+    "current-language": "Espanol",
+    "title": "PopupCare"
+  },
+  "menu": {
+    "login": "Entrar"
+  }
 }

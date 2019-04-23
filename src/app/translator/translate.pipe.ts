@@ -8,7 +8,9 @@ import { TranslateService } from './translate.service';
 export class TranslatePipe implements PipeTransform {
   constructor(private translate: TranslateService) {}
 
-  transform(key: any): any {
-    return this.translate.data[key] || key;
+  transform(nskey: any): any {
+    const ns = nskey.split('.')[0];
+    const key = nskey.split('.')[1];
+    return this.translate.data[ns][key] || nskey;
   }
 }
