@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-// import { Observable } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TranslateService } from './../translator/translate.service';
 declare var $: any;
 
@@ -10,7 +9,8 @@ declare var $: any;
   styleUrls: ['./nav-menu.component.less']
 })
 export class NavMenuComponent implements OnInit {
-  constructor(private translate: TranslateService) {}
+  lang = localStorage.getItem('lng');
+  constructor(private translate: TranslateService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   navbarOpen = false;
 
@@ -33,8 +33,9 @@ export class NavMenuComponent implements OnInit {
       $('.dropdown-trigger').dropdown();
     });
   }
-  setLang(lang: string) {
-    localStorage.setItem('lng', lang);
+  setLang(language: string) {
+    this.lang = language;
+    localStorage.setItem('lng', language);
     this.translate.use();
   }
 }

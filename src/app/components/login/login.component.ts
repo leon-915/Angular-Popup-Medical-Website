@@ -4,9 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AccountService, NotificationService } from '../../services/index';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
-import { Router } from '@angular/router';
-
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +21,9 @@ export class LoginComponent implements OnInit {
     private reCaptchaV3Service: ReCaptchaV3Service,
     private notificationSrv: NotificationService,
     private router: Router,
-    private http: HttpClient) { }
+    private activatedRoute: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         sessionStorage.setItem('token', res.Result.token);
-        this.router.navigateByUrl('/my-home');
+        this.router.navigate(['../my-home'], { relativeTo: this.activatedRoute });
       } else {
         this.notificationSrv.showError(res.Message);
       }

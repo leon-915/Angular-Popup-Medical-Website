@@ -1,4 +1,4 @@
-<ul id="language_dd" class="dropdown-content">
+<ul id="desktop_language_dd" class="dropdown-content">
   <li><a (click)="setLang('en')">English</a></li>
   <li><a (click)="setLang('es')">Español</a></li>
 </ul>
@@ -9,7 +9,7 @@
     <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
       <li>
-        <a class="dropdown-trigger" href="#!" data-target="language_dd"><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a>
+        <a class="dropdown-trigger" href="#!" data-target="desktop_language_dd"><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a>
       </li>
       <li>
         <a href="sass.html"><i class="material-icons left">assignment_ind</i>{{ 'menu.digital_care_assitants' | translate }}</a>
@@ -27,10 +27,10 @@
         <a href="mobile.html"><i class="material-icons left">description</i>{{ 'menu.you_have_an_order' | translate }}</a>
       </li>
       <li>
-        <a [routerLink]="['/register']"><i class="material-icons left">supervisor_account</i>{{ 'menu.join_now' | translate }}</a>
+        <a [routerLink]="['register']"><i class="material-icons left">supervisor_account</i>{{ 'menu.join_now' | translate }}</a>
       </li>
       <li>
-        <a [routerLink]="['/login']"><i class="material-icons left">perm_identity</i>{{ 'menu.login' | translate }}</a>
+        <a [routerLink]="[lang, 'login']"><i class="material-icons left">perm_identity</i>{{ 'menu.login' | translate }}</a>
       </li>
     </ul>
     <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;">
@@ -39,9 +39,14 @@
   </div>
 </nav>
 
+<ul id="mobile_language_dd" class="dropdown-content">
+  <li><a (click)="setLang('en')">English</a></li>
+  <li><a (click)="setLang('es')">Español</a></li>
+</ul>
+
 <ul class="sidenav" id="mobile-demo">
   <li>
-    <a href="sass.html"><i class="material-icons left">language</i>{{ 'menu.language' | translate }}</a>
+    <a class="dropdown-trigger" href="#!" data-target="mobile_language_dd"><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a>
   </li>
   <li>
     <a href="sass.html"><i class="material-icons left">assignment_ind</i>{{ 'menu.digital_care_assitants' | translate }}</a>

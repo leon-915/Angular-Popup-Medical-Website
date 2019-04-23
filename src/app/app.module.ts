@@ -49,6 +49,8 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { LanguageComponent } from './components/language/language.component';
+
 import {
   AccountDashboardComponent,
   AccountFamilyComponent,
@@ -129,6 +131,7 @@ export function setupTranslateFactory(service: TranslateService) {
 @NgModule({
   declarations: [
     TranslatePipe,
+    LanguageComponent,
     AccountDashboardComponent,
     AccountFamilyComponent,
     AccountInformationComponent,
@@ -176,7 +179,8 @@ export function setupTranslateFactory(service: TranslateService) {
     MembershipCardComponent,
     NgbdCarouselBasicComponent,
     GuestEditComponent,
-    TranslatorTestComponent
+    TranslatorTestComponent,
+    LanguageComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
