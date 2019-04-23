@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 // import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 // import { Observable } from 'rxjs';
-
+import { TranslateService } from './../translator/translate.service';
 declare var $: any;
 
 @Component({
@@ -10,7 +10,6 @@ declare var $: any;
   styleUrls: ['./nav-menu.component.less']
 })
 export class NavMenuComponent {
-
   constructor() {}
 
   navbarOpen = false;

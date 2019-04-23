@@ -9,7 +9,8 @@ export class TranslatorTestComponent implements OnInit {
   constructor(private translate: TranslateService) {}
 
   setLang(lang: string) {
-    this.translate.use(lang);
+    localStorage.setItem('lng', lang);
+    this.translate.use();
   }
 
   ngOnInit() {}

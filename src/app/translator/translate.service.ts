@@ -7,9 +7,10 @@ export class TranslateService {
 
   constructor(private http: HttpClient) {}
 
-  use(lang: string): Promise<{}> {
+  use(): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
-      const langPath = `assets/i18n/${lang || 'en'}.json`;
+      const lang = localStorage.getItem('lng');
+      const langPath = `assets/i18n/${lang}/${lang}.json`;
 
       this.http.get<{}>(langPath).subscribe(
         translation => {

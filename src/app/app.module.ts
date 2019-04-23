@@ -121,7 +121,9 @@ import { TranslatorTestComponent } from './components/translator-test/translator
 import { TranslatePipe } from './translator/translate.pipe';
 
 export function setupTranslateFactory(service: TranslateService) {
-  return () => service.use('en');
+  const userLang = localStorage.getItem('lng') || 'en';
+  localStorage.setItem('lng', userLang);
+  return () => service.use();
 }
 
 @NgModule({

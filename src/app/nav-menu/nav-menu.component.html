@@ -1,47 +1,83 @@
+<nav>
+  <div class="nav-wrapper">
+    <a class="brand-logo"><img src="assets/images/popupcare-logo.png" style="width: 200px"/></a>
+    <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a href="sass.html"><i class="material-icons left">assignment_ind</i> Digital Care Assistants</a>
+      </li>
+      <li>
+        <a href="badges.html"><i class="material-icons left">card_membership</i>Membership</a>
+      </li>
+      <li>
+        <a href="collapsible.html"><i class="material-icons left">local_hospital</i>Medications</a>
+      </li>
+      <li>
+        <a href="mobile.html"><i class="material-icons left">help</i>Help</a>
+      </li>
+      <li>
+        <a href="mobile.html"><i class="material-icons left">description</i>You have an order</a>
+      </li>
+      <li>
+        <a [routerLink]="['/register']"><i class="material-icons left">supervisor_account</i>Join Now</a>
+      </li>
+      <li>
+        <a [routerLink]="['/login']"><i class="material-icons left">perm_identity</i>{{ 'menu.login' | translate }}</a>
+      </li>
+    </ul>
+    <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;">
+      <i class="material-icons">menu</i>
+    </a>
+  </div>
+</nav>
 
-
-
-  <nav>
-    <div class="nav-wrapper">
-      <a  class="brand-logo"><img src="assets/images/popupcare-logo.png" style="width: 200px"/></a>
-      <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li> <a href="sass.html"><i class="material-icons left">assignment_ind</i> Digital Care Assistants</a></li>
-        <li><a href="badges.html"><i class="material-icons left">card_membership</i>Membership</a></li>
-        <li><a href="collapsible.html"><i class="material-icons left">local_hospital</i>Medications</a></li>
-        <li><a href="mobile.html"><i class="material-icons left">help</i>Help</a></li>
-        <li><a href="mobile.html"><i class="material-icons left">description</i>You have an order</a></li>
-        <li><a [routerLink]="['/register']"><i class="material-icons left">supervisor_account</i>Join Now</a></li>
-        <li><a [routerLink]="['/login']" ><i class="material-icons left">perm_identity</i>Login</a></li>        
-      </ul>
-      <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;">
-        <i class="material-icons">menu</i>
-      </a>
-    </div>
-  </nav>
-
-  <ul class="sidenav" id="mobile-demo">
-      <li> <a href="sass.html"><i class="material-icons left">assignment_ind</i> Digital Care Assistants</a></li>
-      <li><a href="badges.html"><i class="material-icons left">card_membership</i>Membership</a></li>
-      <li><a href="collapsible.html"><i class="material-icons left">local_hospital</i>Medications</a></li>
-      <li><a href="mobile.html"><i class="material-icons left">help</i>Help</a></li>
-      <li><a href="mobile.html"><i class="material-icons left">description</i>You have an order</a></li>
-      <li><a [routerLink]="['/register']"><i class="material-icons left">supervisor_account</i>Join Now</a></li>
-      <li><a [routerLink]="['/login']" ><i class="material-icons left">perm_identity</i>Login</a></li>
-  </ul>
-
-  <ul class="sidenav" id="right-sidevar">
-    <li> <a href="sass.html"><i class="material-icons left">developer_board</i> DASHBOARD HUB </a></li>
-    <li> <a href="sass.html"><i class="material-icons left">add_to_queue</i> DIGITAL CARE </a></li>
-    <li> <a href="sass.html"><i class="material-icons left">notification_important</i> ORDERS </a></li>
-    <li> <a href="sass.html"><i class="material-icons left">account_circle</i> PROFILE</a></li>
-    <li> <a href="sass.html"><i class="material-icons left">credit_card</i> MEMBERSHIP CARD </a></li>
-    <li> <a href="sass.html"><i class="material-icons left">settings</i> SETTINGS </a></li>
-    <li> <a href="sass.html"><i class="material-icons left">exit_to_app</i> SIGN OUT </a></li>
+<ul class="sidenav" id="mobile-demo">
+  <li>
+    <a href="sass.html"><i class="material-icons left">assignment_ind</i> Digital Care Assistants</a>
+  </li>
+  <li>
+    <a href="badges.html"><i class="material-icons left">card_membership</i>Membership</a>
+  </li>
+  <li>
+    <a href="collapsible.html"><i class="material-icons left">local_hospital</i>Medications</a>
+  </li>
+  <li>
+    <a href="mobile.html"><i class="material-icons left">help</i>Help</a>
+  </li>
+  <li>
+    <a href="mobile.html"><i class="material-icons left">description</i>You have an order</a>
+  </li>
+  <li>
+    <a [routerLink]="['/register']"><i class="material-icons left">supervisor_account</i>Join Now</a>
+  </li>
+  <li>
+    <a [routerLink]="['/login']"><i class="material-icons left">perm_identity</i>{{ 'menu.login' | translate }}</a>
+  </li>
 </ul>
 
- 
-      
+<ul class="sidenav" id="right-sidevar">
+  <li>
+    <a href="sass.html"><i class="material-icons left">developer_board</i> DASHBOARD HUB </a>
+  </li>
+  <li>
+    <a href="sass.html"><i class="material-icons left">add_to_queue</i> DIGITAL CARE </a>
+  </li>
+  <li>
+    <a href="sass.html"><i class="material-icons left">notification_important</i> ORDERS </a>
+  </li>
+  <li>
+    <a href="sass.html"><i class="material-icons left">account_circle</i> PROFILE</a>
+  </li>
+  <li>
+    <a href="sass.html"><i class="material-icons left">credit_card</i> MEMBERSHIP CARD </a>
+  </li>
+  <li>
+    <a href="sass.html"><i class="material-icons left">settings</i> SETTINGS </a>
+  </li>
+  <li>
+    <a href="sass.html"><i class="material-icons left">exit_to_app</i> SIGN OUT </a>
+  </li>
+</ul>
 
 <!-- <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
