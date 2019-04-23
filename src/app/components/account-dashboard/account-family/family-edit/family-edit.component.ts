@@ -32,7 +32,7 @@ export class FamilyEditComponent implements OnInit {
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
     this.addMemberForm = this.fb.group(
       {
@@ -54,7 +54,7 @@ export class FamilyEditComponent implements OnInit {
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(params => {
       this.relationId = params.id ? +decodeURIComponent(this.decrypt(params.id)) : 0;
       console.log(`${this.relationId}`);
 
@@ -76,7 +76,7 @@ export class FamilyEditComponent implements OnInit {
           }
         });
       } else {
-        this.router.navigate(['/account/family']);
+        this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
       }
     });
   }
@@ -94,7 +94,7 @@ export class FamilyEditComponent implements OnInit {
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
-    this.router.navigate(['/account/family']);
+    this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
   }
 
   decrypt(ciphertext) {
