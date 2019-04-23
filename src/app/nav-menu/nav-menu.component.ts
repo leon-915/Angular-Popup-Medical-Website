@@ -10,7 +10,7 @@ declare var $: any;
   styleUrls: ['./nav-menu.component.less']
 })
 export class NavMenuComponent implements OnInit {
-  constructor() {}
+  constructor(private translate: TranslateService) {}
 
   navbarOpen = false;
 
@@ -32,5 +32,9 @@ export class NavMenuComponent implements OnInit {
     $(document).ready(function() {
       $('.dropdown-trigger').dropdown();
     });
+  }
+  setLang(lang: string) {
+    localStorage.setItem('lng', lang);
+    this.translate.use();
   }
 }

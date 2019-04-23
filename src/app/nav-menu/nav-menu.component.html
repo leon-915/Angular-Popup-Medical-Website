@@ -1,6 +1,6 @@
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">English</a></li>
-  <li><a href="#!">Español</a></li>
+<ul id="language_dd" class="dropdown-content">
+  <li><a (click)="setLang('en')">English</a></li>
+  <li><a (click)="setLang('es')">Español</a></li>
 </ul>
 
 <nav>
@@ -8,17 +8,8 @@
     <a class="brand-logo"><img src="assets/images/popupcare-logo.png" style="width: 200px"/></a>
     <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="material-icons left">language</i> {{ 'menu.language' | translate }}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">English</a>
-          <a class="dropdown-item" href="#">Español</a>
-        </div>
-      </li> -->
       <li>
-        <a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a>
+        <a class="dropdown-trigger" href="#!" data-target="language_dd"><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a>
       </li>
       <li>
         <a href="sass.html"><i class="material-icons left">assignment_ind</i>{{ 'menu.digital_care_assitants' | translate }}</a>
