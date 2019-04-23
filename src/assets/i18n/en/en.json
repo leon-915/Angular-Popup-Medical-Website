@@ -12,5 +12,12 @@
     "join_now": "Join Now",
     "login": "Login",
     "language": "English"
+  },
+  "login": {
+    "placeholder_email": "e-mail",
+    "placeholder_password": "password",
+    "submit_button": "Login",
+    "forgot_password_link": "Forgot Password?",
+    "not_a_member_yet": "Not a member yet?"
   }
 }
