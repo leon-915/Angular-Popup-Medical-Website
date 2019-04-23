@@ -1,6 +1,6 @@
 import { DCIModel } from './../../../models/dci.model';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SignupService, NotificationService, DciService } from 'src/app/services';
 import { SignupRequestModel, OrderModel } from 'src/app/models';
 
@@ -16,6 +16,7 @@ export class OrderConfirmationComponent implements OnInit {
 
   constructor(
     private signupSrv: SignupService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private notificationSrv: NotificationService,
     private dciSrv: DciService
@@ -76,7 +77,7 @@ export class OrderConfirmationComponent implements OnInit {
           console.log(createMemberCardRelation);
           if (!createMemberCardRelation.HasError) {
             console.log('se creo la relacion');
-            this.router.navigateByUrl('/onboarding');
+            this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
           } else {
             console.log('no se creo la relacion');
             this.notificationSrv.showError(createMemberCardRelation.Message);

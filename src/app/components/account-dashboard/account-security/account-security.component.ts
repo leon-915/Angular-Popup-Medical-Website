@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService } from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
 import { ReCaptchaV3Service } from 'ngx-captcha';
@@ -26,6 +26,7 @@ export class AccountSecurityComponent implements OnInit {
     private accountSrv: AccountService,
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
     {
@@ -85,7 +86,7 @@ export class AccountSecurityComponent implements OnInit {
         this.notificationSrv.showInfo('you need to login again');
 
         sessionStorage.setItem('token', '');
-        this.router.navigateByUrl('/login');
+        this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
       } else {
         this.notificationSrv.showError(res.Message);
       }

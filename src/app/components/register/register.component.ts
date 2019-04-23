@@ -20,12 +20,10 @@ export class RegisterComponent implements OnInit {
     private signupSrv: SignupService,
     private notificationSrv: NotificationService,
     private router: Router,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
-    this.route.params.subscribe(params => {
-      this.paramInvitationCode = params.invitationCode
-        ? this.decrypt(params.invitationCode)
-        : '';
+    this.activatedRoute.params.subscribe(params => {
+      this.paramInvitationCode = params.invitationCode ? this.decrypt(params.invitationCode) : '';
       this.paramEmailCode = params.email ? this.decrypt(params.email) : '';
       console.log(`${this.paramEmailCode} + ${this.paramInvitationCode}`);
     });
@@ -56,8 +54,7 @@ export class RegisterComponent implements OnInit {
         confirm: ['', [Validators.required]],
         awsAccountId: [''],
         languageCodeId: [1],
-        receiveInvitationCode:
-          this.paramInvitationCode.length > 0 ? true : false,
+        receiveInvitationCode: this.paramInvitationCode.length > 0 ? true : false,
         invitationCode: [this.paramInvitationCode]
       },
       { validator: PasswordValidator.checkPasswordEquality }
@@ -71,15 +68,13 @@ export class RegisterComponent implements OnInit {
       response => {
         console.log(response);
         if (!response.HasError) {
-          this.signupForm.controls.awsAccountId.setValue(
-            response.Result.userSub
-          );
+          this.signupForm.controls.awsAccountId.setValue(response.Result.userSub);
           if (!response.HasError) {
             this.signupSrv.register(this.signupForm.value).subscribe(
               resp => {
                 console.log(resp);
                 if (!resp.HasError) {
-                  this.router.navigateByUrl('/signup-confirm');
+                  this.router.navigate(['../signup-confirm'], { relativeTo: this.activatedRoute });
                 } else {
                   this.notificationSrv.showError(resp.Message);
                 }
@@ -102,22 +97,20 @@ export class RegisterComponent implements OnInit {
   }
 
   showInvitationCodeControl() {
-    this.signupForm.controls.receiveInvitationCode.valueChanges.subscribe(
-      status => {
-        console.log(status);
-        console.log(this.receiveInvitationCode.value);
+    this.signupForm.controls.receiveInvitationCode.valueChanges.subscribe(status => {
+      console.log(status);
+      console.log(this.receiveInvitationCode.value);
 
-        if (status) {
-          this.invitationCode.setValue('');
-          this.invitationCode.setValidators([Validators.required]);
-        } else {
-          this.invitationCode.setValue('');
-          this.invitationCode.setValidators(null);
-        }
-
-        this.invitationCode.updateValueAndValidity();
+      if (status) {
+        this.invitationCode.setValue('');
+        this.invitationCode.setValidators([Validators.required]);
+      } else {
+        this.invitationCode.setValue('');
+        this.invitationCode.setValidators(null);
       }
-    );
+
+      this.invitationCode.updateValueAndValidity();
+    });
   }
 
   decrypt(ciphertext) {

@@ -1,11 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  OnboardingService,
-  NotificationService,
-  AccountService
-} from '../../../services/index';
+import { OnboardingService, NotificationService, AccountService } from '../../../services/index';
 import { OnboardingRequestModel } from '../../../models/index';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-onboarding-complete',
@@ -22,6 +18,7 @@ export class OnboardingCompleteComponent implements OnInit {
     private onboardingSrv: OnboardingService,
     private notificationSrv: NotificationService,
     private accountSrv: AccountService,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
@@ -42,7 +39,7 @@ export class OnboardingCompleteComponent implements OnInit {
         console.log(response);
         if (!response.HasError) {
           console.log('my account');
-          this.router.navigateByUrl(url);
+          this.router.navigate([url], { relativeTo: this.activatedRoute });
         } else {
           this.notificationSrv.showError(response.Message);
         }

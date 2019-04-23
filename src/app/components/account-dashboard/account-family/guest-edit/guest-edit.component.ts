@@ -32,7 +32,7 @@ export class GuestEditComponent implements OnInit {
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
     this.addMemberForm = this.fb.group(
       {
@@ -54,7 +54,7 @@ export class GuestEditComponent implements OnInit {
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(params => {
       this.relationId = params.id ? +decodeURIComponent(this.decrypt(params.id)) : 0;
 
       if (!isNaN(this.relationId)) {
@@ -75,7 +75,7 @@ export class GuestEditComponent implements OnInit {
           }
         });
       } else {
-        this.router.navigate(['/account/family']);
+        this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
       }
     });
   }
@@ -93,7 +93,7 @@ export class GuestEditComponent implements OnInit {
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
-    this.router.navigate(['/account/family']);
+    this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
   }
 
   decrypt(ciphertext) {

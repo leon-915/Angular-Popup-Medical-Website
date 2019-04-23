@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password-step3',
@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class ResetPasswordStep3Component implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
-  constructor(private router: Router) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {}
 
   goToHome() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
   }
 }

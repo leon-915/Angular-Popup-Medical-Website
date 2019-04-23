@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SignupService, NotificationService } from 'src/app/services';
 import { PasswordValidator } from 'src/app/validators';
 import { SignupRequestModel } from 'src/app/models';
@@ -17,6 +17,7 @@ export class SignupStep1Component implements OnInit {
     private fb: FormBuilder,
     private signupSrv: SignupService,
     private notificationSrv: NotificationService,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
@@ -53,7 +54,7 @@ export class SignupStep1Component implements OnInit {
           this.signupSrv.register(this.signupForm.value).subscribe(
             resp => {
               if (!resp.HasError) {
-                this.router.navigateByUrl('/signup-confirm');
+                this.router.navigate(['../signup-confirm'], { relativeTo: this.activatedRoute });
               } else {
                 this.notificationSrv.showError(resp.Message);
               }

@@ -1,51 +1,5 @@
-.my-family-col-box {
-  margin-top: 60px;
-  text-align: -webkit-center
-}
-
-.my-family-profile-box {
-  width: 288px;
-  height: 220px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
-}
-
-.my-family-profile-title {
-  width: 288px;
-  height: 36px;
-  background-color: var(--orange);
-}
-
-.my-family-member-box {
-  width: 288px;
-  height: 220px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to bottom, #ffffff, #d1eadc);
-}
-
-.my-family-member-title {
-  width: 288px;
-  height: 36px;
-  background-color: var(--green);
-}
-
-
-.my-family-guest-box {
-  width: 288px;
-  height: 220px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-color: var(--bkg-gray);
-}
-
-.my-family-guest-title {
-  width: 288px;
-  height: 36px;
-  background-color: var(--gray);
-}
-
-
 .my-family-title {
-  width: 458px;
+  max-width: 458px;
   height: 66px;
   font-family: Montserrat;
   font-size: 54px;
@@ -55,8 +9,84 @@
   line-height: 1.33;
   letter-spacing: -0.3px;
   text-align: center;
-  color: var(--green);
+  color: #37a567;
 }
+
+.my-family-col-box {
+  margin-top: 60px;
+  text-align: -webkit-center
+}
+
+.my-family-profile-box {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 220px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+}
+
+.my-family-profile-title {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 36px;
+  background-color: #ff9331;
+}
+
+.my-family-member-box {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 220px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, #ffffff, #d1eadc);
+}
+
+.my-family-member-title {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 36px;
+  background-color: #37a567;
+}
+
+
+.my-family-guest-box {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 220px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-color: #f2f2f2;
+}
+
+.my-family-guest-title {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 36px;
+  background-color: #646464;
+}
+
+.my-family-add-box {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 220px;
+  border: solid 1px #cacaca;
+  background-color: #ffffff;
+}
+
+.my-family-add-title {
+  min-width: 288px;
+  max-width: 400px;
+
+  height: 36px;
+  background-color: #cacaca;
+}
+
+
 
 
 
@@ -69,11 +99,10 @@
   line-height: 1.46;
   letter-spacing: normal;
   text-align: left;
-  color: var(--mid-gray);
+  color: #979797;
 }
 
 .my-family-box-title-left {
-  width: 81px;
   height: 19px;
   font-family: Montserrat;
   font-size: 16px;
@@ -87,7 +116,6 @@
 }
 
 .my-family-box-title-right {
-  width: 70px;
   height: 18px;
   font-family: Montserrat;
   font-size: 14px;
@@ -111,7 +139,8 @@
   line-height: 1.2;
   letter-spacing: normal;
   text-align: center;
-  color: var(--black);
+  margin-top: 15%;
+  color: #373737;
 }
 
 .my-family-box-member-email {
@@ -125,14 +154,16 @@
   line-height: 1.71;
   letter-spacing: normal;
   text-align: center;
-  color: var(--black);
+  color: #373737;
 }
+
+
 
 .my-family-button-profile {
   width: 147.6px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px var(--orange);
+  border: solid 2px #ff9331;
   background-color: #ffffff;
 }
 
@@ -140,7 +171,7 @@
   width: 147.6px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px var(--green);
+  border: solid 2px #37a567;
   background-color: #ffffff;
 }
 
@@ -148,6 +179,45 @@
   width: 147.6px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px var(--mid-gray);
+  border: solid 2px #979797;
   background-color: #ffffff;
+}
+
+.my-family-button-add {
+  width: 216.7px;
+  height: 50px;
+  border-radius: 30px;
+  border: solid 2px #cacaca;
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.my-family-box-add-button-lbl {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.22;
+  letter-spacing: normal;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  color: #cacaca;
+}
+
+
+.pending-invitation {
+  width: 166px;
+  height: 18px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: italic;
+  font-stretch: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: center;
+  color: #e74c3c;
 }

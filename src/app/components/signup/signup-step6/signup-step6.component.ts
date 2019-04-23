@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SignupService, NotificationService } from 'src/app/services';
 import { SignupRequestModel, OrderModel } from 'src/app/models';
 
@@ -16,6 +16,7 @@ export class SignupStep6Component implements OnInit {
   constructor(
     private signupSrv: SignupService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private notificationSrv: NotificationService
   ) {
     const member = new SignupRequestModel();
@@ -59,7 +60,7 @@ export class SignupStep6Component implements OnInit {
       response => {
         console.log(response);
         if (!response.HasError) {
-          this.router.navigateByUrl('/onboarding');
+          this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
         } else {
           this.notificationSrv.showError(response.Message);
         }

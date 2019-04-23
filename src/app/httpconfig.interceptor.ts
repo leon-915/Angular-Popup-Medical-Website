@@ -1,24 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
-  HttpHandler,
-  HttpEvent,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
-  constructor() { }
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  constructor() {}
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = sessionStorage.getItem('token');
 
     if (token) {
@@ -63,7 +53,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     if (err.status === 401 || err.status === 403 || err.status === 0) {
       // navigate /delete cookies or whatever
       console.log('handled error ' + err.status);
-      // this.router.navigate(['/login']);
+      // this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
       /// window.open('/login', '_self');
       /* if you've caught/handled the error, you don't want to rethrow
             it unless you also want downstream consumers to have to handle it as well. */

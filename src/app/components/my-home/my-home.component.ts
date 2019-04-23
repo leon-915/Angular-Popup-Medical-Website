@@ -1,6 +1,6 @@
 import { SignupService } from '../../services/index';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SignupRequestModel } from 'src/app/models';
 
 @Component({
@@ -9,7 +9,7 @@ import { SignupRequestModel } from 'src/app/models';
   styleUrls: ['./my-home.component.less']
 })
 export class MyHomeComponent implements OnInit {
-  constructor(private signupSrv: SignupService, private router: Router) {}
+  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.getCommonFormData();
@@ -22,10 +22,10 @@ export class MyHomeComponent implements OnInit {
           // response.Result.last_step_completed === 5 ||
           if (response.Result.last_step_completed === 6) {
             console.log('Signup already done. Go to home page');
-            this.router.navigate(['/onboarding']);
+            this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
           } else {
             console.log('Last step was: ', response.Result.last_step_completed);
-            this.router.navigate(['/signup']);
+            this.router.navigate(['../signup'], { relativeTo: this.activatedRoute });
           }
         }
       },

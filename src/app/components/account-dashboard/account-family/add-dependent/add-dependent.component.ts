@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
+
 import * as moment from 'moment';
 @Component({
   selector: 'app-add-dependent',
@@ -26,6 +27,7 @@ export class AddDependentComponent implements OnInit {
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
     this.addMemberForm = this.fb.group(
@@ -51,7 +53,7 @@ export class AddDependentComponent implements OnInit {
     this.myFamilySrv.addDependent(formData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
-        this.router.navigate(['/account/family']);
+        this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
       } else {
         this.notificationSrv.showError(res.Message);
       }
@@ -60,7 +62,7 @@ export class AddDependentComponent implements OnInit {
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
-    this.router.navigate(['/account/family']);
+    this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
   }
 
   // Getters

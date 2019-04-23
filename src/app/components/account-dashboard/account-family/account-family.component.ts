@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
@@ -30,6 +30,7 @@ export class AccountFamilyComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
+    private activatedRoute: ActivatedRoute,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router
   ) {
@@ -108,7 +109,7 @@ export class AccountFamilyComponent implements OnInit {
     });
   }
   goToAddNewDependent() {
-    this.router.navigate(['/account/family/dependent']);
+    this.router.navigate(['../account/family/dependent'], { relativeTo: this.activatedRoute });
   }
 
   goToEdit(memberRelationId: number, isGuest: boolean) {
@@ -116,9 +117,9 @@ export class AccountFamilyComponent implements OnInit {
     const cipherRelationId = CryptoJS.AES.encrypt(String(memberRelationId), 'Prox@2019').toString();
     const memberIdparam = encodeURIComponent(cipherRelationId);
     if (isGuest) {
-      this.router.navigate([`/account/family/guest-edit/${memberIdparam}`]);
+      this.router.navigate([`../account/family/guest-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
     } else {
-      this.router.navigate([`/account/family/family-edit/${memberIdparam}`]);
+      this.router.navigate([`../account/family/family-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
     }
   }
   get email() {

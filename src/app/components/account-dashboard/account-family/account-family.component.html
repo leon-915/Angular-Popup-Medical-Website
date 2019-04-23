@@ -15,37 +15,81 @@
 <div class="row">
   <div class="col-sm-3 col-md-4 my-family-col-box">
     <div class="my-family-profile-box">
-      <div class="my-family-profile-title"></div>
+      <div class="my-family-profile-title row justify-content-between">
+        <div class="col-7" style=" text-align: left;">
+          <label class=" my-family-box-title-left">My Profile</label>
+        </div>
+        <div class="col-5">
+          <label class="my-family-box-title-right">Account</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <span class="my-family-box-member-name">Oscar Vargas Granados
+        </span>
+        <div class="row justify-content-center">
+          <div class="my-family-button-add">
+            <span class="my-family-box-add-button-lbl">Add Member/Guest
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="col-sm-3 col-md-4 my-family-col-box">
+  <!-- Family members -->
+  <div class="col-sm-3 col-md-4 my-family-col-box" *ngFor="let member of familyUsers;  let i = index">
     <div class="my-family-member-box">
-      <div class="my-family-member-title"></div>
-    </div>
-  </div>
-  <div class="col-sm-3 col-md-4 my-family-col-box">
-    <div class="my-family-member-box">
-      <div class="my-family-member-title"></div>
-    </div>
-  </div>
-  <div class="col-sm-3 col-md-4 my-family-col-box">
-    <div class="my-family-guest-box">
-      <div class="my-family-guest-title"></div>
-    </div>
-  </div>
-  <div class="col-sm-3 col-md-4 my-family-col-box">
-    <div class="my-family-guest-box">
-      <div class="my-family-guest-title"></div>
-    </div>
-  </div>
-  <div class="col-sm-3 col-md-4 my-family-col-box">
-    <div class="my-family-guest-box">
-      <div class="my-family-guest-title"></div>
+
+      <div class="my-family-member-title row justify-content-between">
+        <div class="col-7" style=" text-align: left;">
+          <label class=" my-family-box-title-left">{{member.display_value}}
+          </label>
+        </div>
+        <div class="col-5">
+          <label class="my-family-box-title-right">Member {{i}}</label>
+        </div>
+      </div>
     </div>
   </div>
 
-
+  <!-- Guest Members -->
+  <div class="col-sm-3 col-md-4 my-family-col-box" *ngFor="let member of guestUsers;  let i = index">
+    <div class="my-family-guest-box">
+      <div class="my-family-guest-title row justify-content-between">
+        <div class="col-7" style=" text-align: left;">
+          <label class=" my-family-box-title-left"> {{member.display_value}}
+          </label>
+        </div>
+        <div class="col-5">
+          <label class="my-family-box-title-right">Guest {{i}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-4 my-family-col-box">
+    <div class="my-family-add-box">
+      <div class="my-family-add-title row justify-content-between">
+        <div class="col-7" style=" text-align: left;">
+        </div>
+        <div class="col-5">
+          <label class="my-family-box-title-right">Add</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row justify-content-center">
+          <div class="my-family-button-add">
+            <span class="my-family-box-add-button-lbl">Add Dependent
+            </span>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="my-family-button-add">
+            <span class="my-family-box-add-button-lbl">Add Member/Guest
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 

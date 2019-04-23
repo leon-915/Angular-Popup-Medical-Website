@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MyFamilyService, NotificationService } from 'src/app/services';
 
 @Component({
@@ -10,7 +10,12 @@ import { MyFamilyService, NotificationService } from 'src/app/services';
 export class AccountDashboardComponent implements OnInit {
   isNormaluser = true;
 
-  constructor(private router: Router, private myFamilySrv: MyFamilyService, private notificationSrv: NotificationService) {}
+  constructor(
+    private router: Router,
+    private myFamilySrv: MyFamilyService,
+    private notificationSrv: NotificationService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     const membertype = localStorage.getItem('member_type_id');
@@ -25,7 +30,7 @@ export class AccountDashboardComponent implements OnInit {
     this.myFamilySrv.upgradePhamilyAccount().subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showInfo('success, please complete the sign up');
-        this.router.navigate(['/my-home']);
+        this.router.navigate(['../my-home'], { relativeTo: this.activatedRoute });
       } else {
         this.notificationSrv.showError(res.Message);
       }
@@ -33,6 +38,6 @@ export class AccountDashboardComponent implements OnInit {
   }
   logout() {
     sessionStorage.setItem('token', '');
-    this.router.navigate(['/login']);
+    this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
   }
 }

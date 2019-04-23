@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupService } from '../../services/index';
 import { SignupRequestModel } from '../../models/index';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
   public currentStep = 1;
 
-  constructor(private signupSrv: SignupService, private router: Router) {}
+  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     const member = new SignupRequestModel();
@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
           localStorage.setItem('member_type_id', memberType);
 
           if (response.Result.current_step === 6) {
-            this.router.navigateByUrl('/onboarding');
+            this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
           } else {
             this.currentStep = response.Result.current_step;
           }
