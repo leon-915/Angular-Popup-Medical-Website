@@ -11,7 +11,7 @@ export class LanguageComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      if (params.lang !== 'en' || params.lang !== 'es') {
+      if (params.lang !== 'en' && params.lang !== 'es') {
         localStorage.setItem('lng', 'en');
       } else {
         localStorage.setItem('lng', params.lang);
