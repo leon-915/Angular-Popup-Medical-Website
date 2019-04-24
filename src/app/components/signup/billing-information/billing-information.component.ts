@@ -264,7 +264,7 @@ export class BillingInformationComponent implements OnInit {
 
   doSignup() {
     console.log(this.signupForm.getRawValue());
-    /*this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
+    this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         console.log(response);
         if (!response.HasError) {
@@ -277,6 +277,6 @@ export class BillingInformationComponent implements OnInit {
       error => {
         console.log(error);
       }
-    );*/
+    );
   }
 }
