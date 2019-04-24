@@ -4,13 +4,10 @@
     "title": "PopupCare"
   },
   "menu": {
-    "digital_care_assitants": "Digital Care",
-    "membership": "Membership",
-    "medications": "Medications",
-    "help": "Help",
-    "you_have_an_order": "You have an order",
-    "join_now": "Join Now",
-    "login": "Login",
+    "how_it_works": "How it works?",
+    "plans": "Plans",
+    "faq": "FAQ",
+    "signin": "Sign In",
     "language": "English"
   },
   "login": {
