@@ -158,3 +158,8 @@ export class ChangePasswordModel {
   curerent_password: string;
   new_password: string;
 }
+
+export class amIAuthenticatedModel {
+  success: string;
+  message: string;
+}

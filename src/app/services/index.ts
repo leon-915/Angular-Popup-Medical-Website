@@ -14,3 +14,4 @@ export * from './medications.service';
 export * from './dci.service';
 export * from './myfamily.service';
 export * from './date.service';
+export * from './menu.service';

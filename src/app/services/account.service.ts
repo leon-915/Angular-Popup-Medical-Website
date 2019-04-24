@@ -9,7 +9,8 @@ import {
   AddAddressRequestModel,
   AddAddressResult,
   AccountUpdateRequest,
-  ChangePasswordModel
+  ChangePasswordModel,
+  amIAuthenticatedModel
 } from './../models/index';
 import { CommonService } from './common.service';
 
@@ -32,6 +33,11 @@ export class AccountService {
   signin(loginRequestModel: LoginRequestModel) {
     const url = `${this.serviceURl}login`;
     return this.http.post<APIResponse<TokenResult>>(url, loginRequestModel);
+  }
+
+  amIAuthenticated() {
+    const url = `${this.serviceURl}amIAuthenticated`;
+    return this.http.post<amIAuthenticatedModel>(url, null);
   }
 
   ping() {

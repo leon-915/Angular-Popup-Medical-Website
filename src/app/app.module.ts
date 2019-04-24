@@ -104,7 +104,8 @@ import {
   OnboardingService,
   PharmaciesService,
   PlanService,
-  MyFamilyPersistData
+  MyFamilyPersistData,
+  MenuService
 } from './services/index';
 /* SERVICES */
 
@@ -248,7 +249,8 @@ export function setupTranslateFactory(service: TranslateService) {
     MedicationsService,
     OnboardingService,
     PharmaciesService,
-    MyFamilyPersistData
+    MyFamilyPersistData,
+    MenuService
   ],
   bootstrap: [AppComponent]
 })
