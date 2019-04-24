@@ -30,8 +30,8 @@ export class AccountFamilyComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
-    private activatedRoute: ActivatedRoute,
     private reCaptchaV3Service: ReCaptchaV3Service,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
     this.addMemberForm = this.fb.group(
@@ -109,7 +109,7 @@ export class AccountFamilyComponent implements OnInit {
     });
   }
   goToAddNewDependent() {
-    this.router.navigate(['../account/family/dependent'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['./dependent'], { relativeTo: this.activatedRoute });
   }
 
   goToEdit(memberRelationId: number, isGuest: boolean) {
@@ -117,10 +117,14 @@ export class AccountFamilyComponent implements OnInit {
     const cipherRelationId = CryptoJS.AES.encrypt(String(memberRelationId), 'Prox@2019').toString();
     const memberIdparam = encodeURIComponent(cipherRelationId);
     if (isGuest) {
-      this.router.navigate([`../account/family/guest-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
+      this.router.navigate([`./guest-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
     } else {
-      this.router.navigate([`../account/family/family-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
+      this.router.navigate([`./family-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
     }
+  }
+
+  goToProfile() {
+    this.router.navigate(['../info'], { relativeTo: this.activatedRoute });
   }
   get email() {
     return this.addMemberForm.get('email');
