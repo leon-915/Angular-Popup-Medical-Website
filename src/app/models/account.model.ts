@@ -159,7 +159,7 @@ export class ChangePasswordModel {
   new_password: string;
 }
 
-export class amIAuthenticatedModel {
-  success: string;
+export class AmIAuthenticatedModel {
+  success: boolean;
   message: string;
 }

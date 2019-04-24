@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TranslateService } from './../translator/translate.service';
+import { MenuService } from './../services';
+import { Observable } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -10,7 +12,19 @@ declare var $: any;
 })
 export class NavMenuComponent implements OnInit {
   lang = localStorage.getItem('lng');
-  constructor(private translate: TranslateService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  isUserAuthenticated = false;
+
+  constructor(
+    private translate: TranslateService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private menuService: MenuService
+  ) {
+    this.menuService.updateStatus();
+    this.menuService.AuthenticationStatus().subscribe(status => {
+      this.isUserAuthenticated = status;
+    });
+  }
 
   navbarOpen = false;
 

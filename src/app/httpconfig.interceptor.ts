@@ -4,10 +4,12 @@ import { HttpInterceptor, HttpRequest, HttpResponse, HttpHandler, HttpEvent, Htt
 
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { MenuService } from './../app/services';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private menuService: MenuService, private router: Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = sessionStorage.getItem('token');
 
@@ -51,10 +53,12 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   handleAuthError(err: HttpErrorResponse): Observable<any> {
     // handle your auth error or rethrow
     if (err.status === 401 || err.status === 403 || err.status === 0) {
+      this.menuService.updateStatus();
       // navigate /delete cookies or whatever
       console.log('handled error ' + err.status);
-      // this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
-      /// window.open('/login', '_self');
+
+      this.router.navigate(['/']);
+
       /* if you've caught/handled the error, you don't want to rethrow
             it unless you also want downstream consumers to have to handle it as well. */
       return of(err.message);

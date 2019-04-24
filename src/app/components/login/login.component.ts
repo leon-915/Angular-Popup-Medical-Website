@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { AccountService, NotificationService } from '../../services/index';
+import { AccountService, NotificationService, MenuService } from '../../services/index';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
     private notificationSrv: NotificationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private menuService: MenuService
   ) {}
 
   ngOnInit() {
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         sessionStorage.setItem('token', res.Result.token);
+        this.menuService.updateStatus();
         this.router.navigate(['../my-home'], { relativeTo: this.activatedRoute });
       } else {
         this.notificationSrv.showError(res.Message);

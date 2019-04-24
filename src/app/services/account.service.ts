@@ -10,7 +10,7 @@ import {
   AddAddressResult,
   AccountUpdateRequest,
   ChangePasswordModel,
-  amIAuthenticatedModel
+  AmIAuthenticatedModel
 } from './../models/index';
 import { CommonService } from './common.service';
 
@@ -37,7 +37,7 @@ export class AccountService {
 
   amIAuthenticated() {
     const url = `${this.serviceURl}amIAuthenticated`;
-    return this.http.post<amIAuthenticatedModel>(url, null);
+    return this.http.post<AmIAuthenticatedModel>(url, null);
   }
 
   ping() {
