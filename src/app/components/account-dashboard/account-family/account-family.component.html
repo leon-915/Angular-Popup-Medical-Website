@@ -26,9 +26,9 @@
       <div class="col-md-12">
         <span class="my-family-box-member-name">Oscar Vargas Granados
         </span>
-        <div class="row justify-content-center">
-          <div class="my-family-button-add">
-            <span class="my-family-box-add-button-lbl">Add Member/Guest
+        <div class="row justify-content-center" style="margin-top:35px">
+          <div class="my-family-button-profile">
+            <span class="my-family-box-profile-button-lbl" (click)="goToProfile()">View
             </span>
           </div>
         </div>
@@ -48,6 +48,28 @@
           <label class="my-family-box-title-right">Member {{i}}</label>
         </div>
       </div>
+      <div class="col-md-12">
+        <span class="pending-invitation" *ngIf="!member.is_active">
+          — Pending Invitation —
+        </span>
+        <div>
+          <span class="my-family-box-member-name">
+            {{member.first_name? member.first_name : 'nameless' }}
+          </span>
+        </div>
+        <div>
+          <span class="my-family-box-member-email">
+            {{member.email ? member.email : 'no email'}}
+          </span>
+        </div>
+        <div class="row justify-content-center" style="margin-top:25px"
+          (click)="goToEdit(member.member_relation_id, false)">
+          <div class="my-family-button-member">
+            <span class="my-family-box-member-button-lbl">View
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -56,11 +78,36 @@
     <div class="my-family-guest-box">
       <div class="my-family-guest-title row justify-content-between">
         <div class="col-7" style=" text-align: left;">
-          <label class=" my-family-box-title-left"> {{member.display_value}}
+          <label class=" my-family-box-title-left">
+            {{member.display_value}}
           </label>
         </div>
         <div class="col-5">
-          <label class="my-family-box-title-right">Guest {{i}}</label>
+          <label class="my-family-box-title-right">
+            Guest {{i}}
+          </label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <span class="pending-invitation" *ngIf="!member.is_active">
+          — Pending Invitation —
+        </span>
+        <div>
+          <span class="my-family-box-member-name">
+            {{member.first_name? member.first_name : 'nameless' }}
+          </span>
+        </div>
+        <div>
+          <span class="my-family-box-member-email">
+            {{member.email ? member.email : 'no email'}}
+          </span>
+        </div>
+        <div class="row justify-content-center" style="margin-top:25px">
+          <div class="my-family-button-guest">
+            <span class="my-family-box-guest-button-lbl" (click)="removeMember(i, true)">
+              Delete Pass
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -71,19 +118,23 @@
         <div class="col-7" style=" text-align: left;">
         </div>
         <div class="col-5">
-          <label class="my-family-box-title-right">Add</label>
+          <label class="my-family-box-title-right">
+            Add
+          </label>
         </div>
       </div>
       <div class="col-md-12">
         <div class="row justify-content-center">
           <div class="my-family-button-add">
-            <span class="my-family-box-add-button-lbl">Add Dependent
+            <span class="my-family-box-add-button-lbl" (click)="goToAddNewDependent()">
+              Add Dependent
             </span>
           </div>
         </div>
         <div class="row justify-content-center">
           <div class="my-family-button-add">
-            <span class="my-family-box-add-button-lbl">Add Member/Guest
+            <span class="my-family-box-add-button-lbl">
+              Add Member/Guest
             </span>
           </div>
         </div>
@@ -93,7 +144,7 @@
 </div>
 
 
-
+<!--
 <h3 class="mb-3">My Care Phamily</h3>
 <label class="mb-3">(5 of 6 members used)</label>
 
@@ -120,7 +171,7 @@
   </div>
   <div class="row align-items-center" *ngFor="let member of familyUsers;  let i = index" [attr.data-index]="i">
     <div class="col-md-2">
-      {{member.first_name ? member.first_name : '-' }}
+      {{member? member.first_name : '-' }}
     </div>
     <div class="col-md-3">
       {{member.email ? member.email : '-'}}
@@ -145,10 +196,11 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- add familymember -->
+<!--
 <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
 
   <div class="form-group row">
@@ -182,9 +234,10 @@
   <button type="button" class="btn" (click)="goToAddNewDependent()">
     Add Dependent
   </button>
-</div>
+</div> -->
 
 <!-- Guest list -->
+<!--
 <h3 class="mb-3">Guest Members</h3>
 <div class="container" style="width: 100%">
   <div class="row align-items-center">
@@ -228,10 +281,12 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- add GuestFamilymember -->
+
+<!--
 <form [formGroup]="addGuestMemberForm" (ngSubmit)="addGuestMember()">
 
   <div class="form-group row">
@@ -262,4 +317,4 @@
       </button>
     </div>
   </div>
-</form>
+</form> -->
