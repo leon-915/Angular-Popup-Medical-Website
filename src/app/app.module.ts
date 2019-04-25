@@ -129,6 +129,8 @@ export function setupTranslateFactory(service: TranslateService) {
   return () => service.use();
 }
 
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -184,12 +186,13 @@ export function setupTranslateFactory(service: TranslateService) {
     LanguageComponent
   ],
   imports: [
+    AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: `${environment.googleApiKey}`,
       libraries: ['places']
     }),
     NgbModule,
-    AppRoutingModule,
+    NgbModalModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     BrowserModule,
