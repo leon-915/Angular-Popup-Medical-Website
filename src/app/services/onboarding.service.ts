@@ -7,9 +7,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class OnboardingService {
-  constructor(private commonSrv: CommonService, private http: HttpClient) {}
+  constructor(private commonSrv: CommonService, private http: HttpClient) { }
 
-  serviceURl: string = this.commonSrv.apiURL;
+  serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   onboarding(onboardingRequestModel: OnboardingRequestModel) {
     const url: string = this.serviceURl + 'onboarding';

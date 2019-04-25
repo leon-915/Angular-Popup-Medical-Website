@@ -84,8 +84,16 @@ import {
   SignupStep5Component,
   SignupStep6Component,
   SignupConfirmComponent,
-  ShippingInformationComponent
+  ShippingInformationComponent,
+  PaymentMethodsComponent,
+  RegisterComponent,
+  SelectMyPlanComponent,
+  BillingInformationComponent,
+  OrderConfirmationComponent,
+  MedicalHistoryComponent,
+  MembershipCardComponent
 } from './components/index';
+
 /* COMPONENTS */
 
 /* SERVICES */
@@ -113,13 +121,6 @@ import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 import { AuthGuard } from './guards/auth.guard';
-import { RegisterComponent } from './components/register/register.component';
-import { SelectMyPlanComponent } from './components/signup/select-my-plan/select-my-plan.component';
-import { BillingInformationComponent } from './components/signup/billing-information/billing-information.component';
-import { OrderConfirmationComponent } from './components/signup/order-confirmation/order-confirmation.component';
-import { MedicalHistoryComponent } from './components/onboarding/medical-history/medical-history.component';
-import { MembershipCardComponent } from './components/membership-card/membership-card.component';
-import { NgbdCarouselBasicComponent } from './components/carousel-basic/carousel-basic.component';
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
 import { TranslatePipe } from './translator/translate.pipe';
 
@@ -180,10 +181,10 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     OrderConfirmationComponent,
     MedicalHistoryComponent,
     MembershipCardComponent,
-    NgbdCarouselBasicComponent,
     GuestEditComponent,
     TranslatorTestComponent,
-    LanguageComponent
+    LanguageComponent,
+    PaymentMethodsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -257,4 +258,4 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

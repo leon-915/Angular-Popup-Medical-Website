@@ -11,7 +11,7 @@ export class MenuService {
   private serviceURL: string;
 
   constructor(private commonSrv: CommonService, private http: HttpClient) {
-    this.serviceURL = this.commonSrv.apiURL;
+    this.serviceURL = this.commonSrv.apiURL + 'en/';
   }
 
   updateStatus(): void {

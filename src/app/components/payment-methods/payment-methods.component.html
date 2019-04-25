@@ -1,0 +1,224 @@
+<!-- Header component -->
+<div class="row text-center">
+  <div class="col-md-12">
+    <h1 class="title">Payment Methods</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9 offset-md-3">
+    <!-- Body Component (member payment methods) -->
+    <div class="row">
+      <div class="col-md-3" *ngFor="let item of [1,2,3,4,5]">
+        <div class="card" *ngIf="item === 1">
+          <div class="card-header card-success-header">
+            <small class="card-title">Default payment</small>
+          </div>
+          <div class="card-body card-success text-center">
+            <p class="card-content mb-0 pb-0">Card ending in 1234</p>
+            <p class="card-content mb-0 pt-0">Expires 12/34</p>
+            <button class="btn-success-outline">Remove</button>
+          </div>
+        </div>
+        <div class="card" *ngIf="item !== 1">
+          <div class="card-header card-default-header">
+            <small class="card-title">Make Default</small>
+          </div>
+          <div class="card-body card-default text-center">
+            <p class="card-content mb-0 pb-0">Card ending in 1234</p>
+            <p class="card-content mb-0 pt-0">Expires 12/34</p>
+            <button class="btn-default-outline">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Add New Payment Method</h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <!-- Toggle Payment Method Type -->
+              <div class="form-group">
+                <div class="switch">
+                  <label class="toggle-text">
+                    Credit Card
+                    <input type="checkbox" formControlName="paymentMethod">
+                    <span class="lever toggle-text"></span> Pay by Check (ACH)
+                  </label>
+                </div>
+              </div>
+
+              <!-- Data for ACH Payment Method -->
+              <div class="form-group" *ngIf="paymentMethod.value">
+                <input type="text" placeholder="Routing Number" class="form-control input-bg"
+                  formControlName="routingNumber" />
+                <p class="mt-1 text-danger"
+                  *ngIf="(routingNumber.dirty || routingNumber.touched) && routingNumber.invalid && !!routingNumber.errors.required">
+                  Routing Number is required.
+                </p>
+              </div>
+
+              <div class="form-group" *ngIf="paymentMethod.value">
+                <input type="text" placeholder="Bank Account Number" class="form-control input-bg"
+                  formControlName="bankAccountNumber" />
+                <p class="mt-1 text-danger"
+                  *ngIf="(bankAccountNumber.dirty || bankAccountNumber.touched) && bankAccountNumber.invalid && !!bankAccountNumber.errors.required">
+                  Bank Account Number is required.
+                </p>
+              </div>
+
+              <!-- Data for Credit Card Payment Method -->
+              <div class="form-group" *ngIf="!paymentMethod.value">
+                <!--<label for="">Credit Card Number</label>-->
+                <input type="text" placeholder="Credit Card Number" class="form-control input-bg"
+                  formControlName="creditCardNumber" appOnlyNumbers="true" (ngModelChange)="onChange()"
+                  [mask]="currentMask" />
+                <p class="mt-1 text-danger"
+                  *ngIf="(creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.required">
+                  Credit Card Number is required.
+                </p>
+                <p class="mt-1 text-danger" *ngIf="
+                      (creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.invalidNumber
+                    ">
+                  Credit Card Number must be a valid credit card.
+                </p>
+                <div class="row">
+                  <div class="col-md-12 text-right pr-0">
+                    <img src="../../../../assets/icons/icons8-visa-48.png" alt="visa"
+                      *ngIf="typeMask === 'visa' || typeMask === '' || typeMask === 'unknown'" />
+                    <img src="../../../../assets/icons/icons8-mastercard-48.png" alt="mastercard"
+                      *ngIf="typeMask === 'mastercard' || typeMask === '' || typeMask === 'unknown'" />
+                    <img src="../../../../assets/icons/icons8-discover-48.png" alt="discover"
+                      *ngIf="typeMask === 'discover' || typeMask === '' || typeMask === 'unknown'" />
+                    <img src="../../../../assets/icons/icons8-american-express-48.png" alt="amex"
+                      *ngIf="typeMask === 'amex' || typeMask === '' || typeMask === 'unknown'" />
+                    <img src="../../../../assets/icons/icons8-diners-club-48.png" alt="diners"
+                      *ngIf="typeMask === 'diners' || typeMask === '' || typeMask === 'unknown'" />
+                  </div>
+                </div>
+
+              </div>
+
+              <p class="mb-0" *ngIf="!paymentMethod.value">
+                <small> <strong>Expiration</strong> </small>
+              </p>
+              <div class="form-row align-items-center" *ngIf="!paymentMethod.value">
+                <div class="form-group col-md-4">
+                  <select class="form-control input-bg" formControlName="expirationMonth">
+                    <option disabled [ngValue]="null">MM</option>
+                    <option [ngValue]="month"
+                      *ngFor="let month of ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']">{{
+                        month
+                      }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <select class="form-control input-bg" formControlName="expirationYear">
+                    <option disabled [ngValue]="null">YYYY</option>
+                    <option [value]="year" *ngFor="let year of years">{{ year }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <input type="text" class="form-control input-bg" placeholder="CVV" appOnlyNumbers="true"
+                    formControlName="cvv" mask="0000" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.required">
+                    CVV is required.
+                  </p>
+                  <p class="mt-1 text-danger"
+                    *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask === 'amex'">
+                    CVV must be at least 4 numbers long.
+                  </p>
+                  <p class="mt-1 text-danger"
+                    *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask === 'amex'">
+                    CVV can be max 4 numbers long.
+                  </p>
+                  <p class="mt-1 text-danger"
+                    *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask !== 'amex'">
+                    CVV must be at least 3 numbers long.
+                  </p>
+                  <p class="mt-1 text-danger"
+                    *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask !== 'amex'">
+                    CVV can be max 3 numbers long.
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <p> <small>I agree to have my payment method saved for recurring billing whicj will start after the
+                    first 30
+                    days</small>
+                </p>
+              </div>
+
+              <div class="form-group" *ngIf="!paymentMethod.value">
+                <input type="text" placeholder="Name on Card" class="form-control input-bg"
+                  formControlName="nameOnCard" />
+                <p class="mt-1 text-danger"
+                  *ngIf="(nameOnCard.dirty || nameOnCard.touched) && nameOnCard.invalid && !!nameOnCard.errors.required">
+                  Name on Card is required.
+                </p>
+              </div>
+
+
+            </div>
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg"
+                  formControlName="address1" />
+                <p class="mt-1 text-danger"
+                  *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
+                  Billing Address Line 1 Number is required.
+                </p>
+              </div>
+
+              <div class="form-group">
+                <input type="text" placeholder="Billing Address Line 2 (Apt, Suite, etc.)" class="form-control input-bg"
+                  formControlName="address2" />
+                <p class="mt-1 text-danger"
+                  *ngIf="(address2.dirty || address2.touched) && address2.invalid && !!address2.errors.required">
+                  Billing Address Line 2 Number is required.
+                </p>
+              </div>
+
+              <div class="form-row align-items-center">
+                <div class="form-group col-md-4">
+                  <input type="text" class="form-control input-bg" placeholder="City" formControlName="city" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(city.dirty || city.touched) && city.invalid && !!city.errors.required">
+                    City is required.
+                  </p>
+                </div>
+                <div class="form-group col-md-4">
+                  <select class="form-control ml-2" formControlName="state">
+                    <option disabled [ngValue]="null">State</option>
+                    <option [value]="state.id" *ngFor="let state of states">{{ state.abbreviation }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <input type="text" class="form-control input-bg ml-2" placeholder="Zip" formControlName="zipCode"
+                    appOnlyNumbers="true" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(zipCode.dirty || zipCode.touched) && zipCode.invalid && !!zipCode.errors.required">
+                    Zip is required.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

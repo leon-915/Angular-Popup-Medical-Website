@@ -13,8 +13,7 @@ export class SignupService {
 
   constructor(private commonSrv: CommonService, private http: HttpClient) { }
 
-  // serviceURl: string = this.commonSrv.apiURL + 'en/';
-  serviceURl: string = this.commonSrv.apiURL;
+  serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   signupCognito(signupRequestModel: SignupRequestModel) {
     const url: string = this.serviceURl + 'signup/cognito';

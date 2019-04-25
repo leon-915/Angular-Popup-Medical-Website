@@ -56,9 +56,10 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
-
 .input-bg {
-  background-color: @inputbackground  !important;
+  background-color: @inputbackground !important;
+  padding-left: 10px !important;
+  border-radius: 0px;
 }
 
 .btn {
@@ -79,13 +80,34 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.btn-outline-secondary {
+.btn-success-outline {
   background-color: @white;
   color: @green;
   border: 2px solid @green;
+  border-radius: 30px;
+  min-width: 120px;
+  height: 50px;
+  font-size: 18px;
 
   &:hover {
     background-color: @green;
+    border: 2px solid @green;
+    color: @white;
+  }
+}
+
+.btn-default-outline {
+  background-color: @white;
+  color: @gray;
+  border: 2px solid @gray;
+  border-radius: 30px;
+  min-width: 120px;
+  height: 50px;
+  font-size: 18px;
+
+  &:hover {
+    background-color: @gray;
+    border: 2px solid @gray;
     color: @white;
   }
 }

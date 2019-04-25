@@ -7,8 +7,9 @@ import { CommonService } from './common.service';
 
 @Injectable()
 export class PlanService {
-  constructor(private commonSrv: CommonService, private http: HttpClient) {}
-  serviceURl: string = this.commonSrv.apiURL;
+  constructor(private commonSrv: CommonService, private http: HttpClient) { }
+
+  serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   getPlans() {
     const url = this.serviceURl + 'plans';

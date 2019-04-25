@@ -20,7 +20,8 @@ import {
   FamilyEditComponent,
   AddDependentComponent,
   MembershipCardComponent,
-  GuestEditComponent
+  GuestEditComponent,
+  PaymentMethodsComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
@@ -51,7 +52,8 @@ const routes: Routes = [
       { path: 'product/:id', component: ProductComponent },
       { path: 'onboarding', component: OnboardingComponent },
       { path: 'invoice-generator', component: InvoiceGeneratorComponent },
-      { path: 'membership-card', component: MembershipCardComponent }
+      { path: 'membership-card', component: MembershipCardComponent },
+      { path: 'payment-methods', component: PaymentMethodsComponent },
     ]
   },
   { path: '**', redirectTo: '/en', pathMatch: 'full' }
@@ -61,4 +63,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), MatDatepickerModule, MatNativeDateModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

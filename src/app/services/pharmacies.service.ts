@@ -7,8 +7,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PharmaciesService {
-  constructor(private commonSrv: CommonService, private http: HttpClient) {}
-  serviceURl: string = this.commonSrv.apiURL;
+  constructor(private commonSrv: CommonService, private http: HttpClient) { }
+
+  serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   getNearestPharmacies(pharmacyModel: PharmacyModel) {
     const url = this.serviceURl + 'pharmacies';
