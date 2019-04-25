@@ -22,6 +22,7 @@ import {
   MembershipCardComponent,
   GuestEditComponent
 } from './components/index';
+import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
 
 const routes: Routes = [
@@ -57,6 +58,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  imports: [RouterModule.forRoot(routes), MatDatepickerModule, MatNativeDateModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
