@@ -126,6 +126,9 @@ export class AccountFamilyComponent implements OnInit {
   goToProfile() {
     this.router.navigate(['../info'], { relativeTo: this.activatedRoute });
   }
+  goToDashboard() {
+    this.router.navigate(['../../account'], { relativeTo: this.activatedRoute });
+  }
   get email() {
     return this.addMemberForm.get('email');
   }

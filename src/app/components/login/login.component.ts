@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
       if (!res.HasError) {
         sessionStorage.setItem('token', res.Result.token);
+        localStorage.setItem('member_type_id', String(res.Result.member_type_id));
+
         this.menuService.updateStatus();
         this.router.navigate(['../my-home'], { relativeTo: this.activatedRoute });
       } else {

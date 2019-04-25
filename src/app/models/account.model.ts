@@ -57,6 +57,7 @@ export interface AccountResult {
 
 export interface TokenResult {
   token: string;
+  member_type_id: number;
 }
 
 export class LoginRequestModel {
