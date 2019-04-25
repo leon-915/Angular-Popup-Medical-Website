@@ -43,6 +43,8 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    // TODO:  @Jorge check this
+    // tslint:disable-next-line: only-arrow-functions
     $(document).ready(function() {
       $('.dropdown-trigger').dropdown();
     });
