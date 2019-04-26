@@ -27,8 +27,8 @@
         <span class="my-family-box-member-name">Oscar Vargas Granados
         </span>
         <div class="row justify-content-center" style="margin-top:35px">
-          <div class="my-family-button-profile">
-            <span class="my-family-box-profile-button-lbl" (click)="goToProfile()">View
+          <div class="my-family-button-profile" (click)="goToProfile()">
+            <span class="my-family-box-profile-button-lbl">View
             </span>
           </div>
         </div>
@@ -132,11 +132,8 @@
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="my-family-button-add">
-            <span class="my-family-box-add-button-lbl">
-              Add Member/Guest
-            </span>
-          </div>
+          <app-add-member></app-add-member>
+
         </div>
       </div>
     </div>
@@ -145,7 +142,7 @@
 
 
 
-<!-- add familymember -->
+<!-- add familymember
 
 <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
 
@@ -177,7 +174,7 @@
   </div>
 </form>
 
-<!-- add GuestFamilymember -->
+ add GuestFamilymember
 
 
 <form [formGroup]="addGuestMemberForm" (ngSubmit)="addGuestMember()">
@@ -212,7 +209,7 @@
   </div>
 </form>
 
-
+-->
 <!--
 <h3 class="mb-3">My Care Phamily</h3>
 <label class="mb-3">(5 of 6 members used)</label>

@@ -1,0 +1,76 @@
+<ng-template #content let-modal>
+  <div class="modal-body" style="text-align: center">
+    <div class="">
+      <span>Invite Guest </span>
+      <mat-slide-toggle [(ngModel)]="isMember" (click)="clearRelation()"></mat-slide-toggle>
+      <span> Add Member</span>
+    </div>
+
+
+    <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
+      <span class="myfamily-add-member-title">Add Member To My Plan </span>
+      <div class="col mb-3">
+        <div class="form-group">
+          <input type="text" placeholder="First name" formControlName="firstName" class="form-control">
+          <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
+            Fist name is required.
+          </p>
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Last name" formControlName="lastName" class="form-control">
+          <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
+            Fist name is required.
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="confirm">Relationship to Primary Member</label>
+
+          <select class="browser-default custom-select" formControlName="member_relation_type_id"
+            *ngIf="isMember; else templateName">
+            <option selected=true value=0>
+              select an option</option>
+            <option *ngFor="let item of relationTypes;" value={{item.lookup_member_relation_type_id}}>
+              {{item.display_value}}</option>
+          </select>
+          <ng-template #templateName>
+            <select class="browser-default custom-select" formControlName="member_relation_type_id">
+              <option selected=true value=0>
+                select an option</option>
+              <option *ngFor="let item of guestRelationTypes;" value={{item.lookup_member_relation_type_id}}>
+                {{item.display_value}}</option>
+            </select>
+          </ng-template>
+
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Email" formControlName="email" class="form-control">
+          <p class="mt-1 text-danger"
+            *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.required">
+            Email is required.
+          </p>
+          <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.email">
+            Email must be a valid email address.
+          </p>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
+            Submit
+          </button>
+          <div class="my-family-button-guest" style="margin-top: 15px" (click)="modal.close('Save click')">
+            <span class="my-family-box-guest-button-lbl">
+              Cancel
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<div class="my-family-button-add" (click)="open(content)">
+  <span class="my-family-box-add-button-lbl">
+    Add Member/Guest
+  </span>
+</div>

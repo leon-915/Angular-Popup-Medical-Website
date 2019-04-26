@@ -76,7 +76,7 @@ export class FamilyEditComponent implements OnInit {
           }
         });
       } else {
-        this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
       }
     });
   }
@@ -94,7 +94,7 @@ export class FamilyEditComponent implements OnInit {
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
-    this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
   decrypt(ciphertext) {

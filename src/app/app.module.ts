@@ -20,7 +20,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ToastrModule } from 'ngx-toastr';
@@ -56,6 +57,7 @@ import {
   AccountFamilyComponent,
   AccountInformationComponent,
   AccountSecurityComponent,
+  AddMemberComponent,
   AddDependentComponent,
   AllergiesComponent,
   ConditionsComponent,
@@ -184,7 +186,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     GuestEditComponent,
     TranslatorTestComponent,
     LanguageComponent,
-    PaymentMethodsComponent
+    PaymentMethodsComponent,
+    AddMemberComponent
   ],
   imports: [
     AppRoutingModule,
@@ -212,6 +215,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatRadioModule,
     MatListModule,
     MatProgressBarModule,
@@ -258,4 +262,4 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
