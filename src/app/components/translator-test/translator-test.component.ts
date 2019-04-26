@@ -10,7 +10,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TranslatorTestComponent implements OnInit {
   closeResult: string;
-  constructor(private translate: TranslateService, private modalService: NgbModal) {}
+  constructor(private translate: TranslateService, private modalSvr: NgbModal) {}
 
   setLang(lang: string) {
     localStorage.setItem('lng', lang);
@@ -20,7 +20,7 @@ export class TranslatorTestComponent implements OnInit {
   ngOnInit() {}
 
   open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.modalSvr.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;
       },

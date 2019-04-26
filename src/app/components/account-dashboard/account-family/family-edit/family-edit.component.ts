@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
-import { ReCaptchaV3Service } from 'ngx-captcha';
 import * as moment from 'moment';
 
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
@@ -20,7 +19,6 @@ export class FamilyEditComponent implements OnInit {
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
-
   genderList: GenderModel[];
   familyUser: EditUser;
 
@@ -30,7 +28,6 @@ export class FamilyEditComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
-    private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -76,7 +73,7 @@ export class FamilyEditComponent implements OnInit {
           }
         });
       } else {
-        this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
       }
     });
   }
@@ -94,7 +91,7 @@ export class FamilyEditComponent implements OnInit {
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
-    this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
   decrypt(ciphertext) {

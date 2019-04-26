@@ -117,9 +117,20 @@ export class AccountFamilyComponent implements OnInit {
     const cipherRelationId = CryptoJS.AES.encrypt(String(memberRelationId), 'Prox@2019').toString();
     const memberIdparam = encodeURIComponent(cipherRelationId);
     if (isGuest) {
-      this.router.navigate([`./guest-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
+      this.router.navigate(['./guest-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
     } else {
-      this.router.navigate([`./family-edit/${memberIdparam}`], { relativeTo: this.activatedRoute });
+      this.router.navigate(['./family-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
+    }
+  }
+  getResult(result) {
+    const member = result.member;
+    const message = result.message;
+
+    if (member) {
+      this.familyUsers.push(member);
+      this.notificationSrv.showSuccess(message);
+    } else {
+      this.notificationSrv.showError(message);
     }
   }
 

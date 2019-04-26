@@ -38,8 +38,8 @@ const routes: Routes = [
       { path: 'account/info', component: AccountInformationComponent, canActivate: [AuthGuard] },
       { path: 'account/security', component: AccountSecurityComponent, canActivate: [AuthGuard] },
       { path: 'account/family', component: AccountFamilyComponent, canActivate: [AuthGuard] },
-      { path: 'account/family/family-edit/:id', component: FamilyEditComponent, canActivate: [AuthGuard] },
-      { path: 'account/family/guest-edit/:id', component: GuestEditComponent, canActivate: [AuthGuard] },
+      { path: 'account/family/family-edit', component: FamilyEditComponent, canActivate: [AuthGuard] },
+      { path: 'account/family/guest-edit', component: GuestEditComponent, canActivate: [AuthGuard] },
       { path: 'account/family/dependent', component: AddDependentComponent, canActivate: [AuthGuard] },
       { path: 'account/payment-methods', component: PaymentMethodsComponent, canActivate: [AuthGuard] },
       { path: 'signup', component: SignupComponent },
@@ -63,4 +63,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), MatDatepickerModule, MatNativeDateModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

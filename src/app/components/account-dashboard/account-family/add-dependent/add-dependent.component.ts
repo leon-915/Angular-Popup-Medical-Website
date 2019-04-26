@@ -62,7 +62,7 @@ export class AddDependentComponent implements OnInit {
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
-    this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
   // Getters
