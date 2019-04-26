@@ -9,18 +9,30 @@
   <div class="col-md-9 offset-md-3">
     <!-- Body Component (member payment methods) -->
     <div class="row">
-      <div class="col-md-3" *ngFor="let item of [1,2,3,4,5]">
-        <div class="card" *ngIf="item === 1">
-          <div class="card-header card-success-header">
-            <small class="card-title">Default payment</small>
+      <div class="col-md-3" *ngFor="let paymentMethod of paymentMethods">
+        <div class="card">
+          <!-- *ngIf="item === 1" -->
+          <div class="card-header card-default-header">
+            <small class="card-title">
+              <!--<mat-checkbox>Make Default </mat-checkbox>-->
+              Make Default
+            </small>
           </div>
-          <div class="card-body card-success text-center">
-            <p class="card-content mb-0 pb-0">Card ending in 1234</p>
-            <p class="card-content mb-0 pt-0">Expires 12/34</p>
-            <button class="btn-success-outline">Remove</button>
+          <div class="card-body card-default text-center" *ngIf="paymentMethod.payment.bankAccount">
+            <p class="card-content mb-0 pb-0">Account Number {{paymentMethod.payment.bankAccount.accountNumber}}</p>
+            <p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.payment.bankAccount.routingNumber}}</p>
+            <button class="btn-default-outline"
+              (click)="deletePaymentMethod(paymentMethod.customerPaymentProfileId)">Remove</button>
+          </div>
+          <div class="card-body card-default text-center" *ngIf="paymentMethod.payment.creditCard">
+            <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.payment.creditCard.cardNumber}}</p>
+            <p class="card-content mb-0 pt-0">Expires {{paymentMethod.payment.creditCard.expirationDate}}</p>
+            <button class="btn-default-outline"
+              (click)="deletePaymentMethod(paymentMethod.customerPaymentProfileId)">Remove</button>
           </div>
         </div>
-        <div class="card" *ngIf="item !== 1">
+        <!-- <div class="card" *ngIf="2 + 2 = 5">
+          dummy ngif - need to validate default payment - *ngIf="item !== 1"
           <div class="card-header card-default-header">
             <small class="card-title">Make Default</small>
           </div>
@@ -29,7 +41,7 @@
             <p class="card-content mb-0 pt-0">Expires 12/34</p>
             <button class="btn-default-outline">Remove</button>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
 
@@ -174,7 +186,7 @@
             <div class="col-md-6">
 
               <div class="form-group">
-                <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg"
+                <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg" #address
                   formControlName="address1" />
                 <p class="mt-1 text-danger"
                   *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
@@ -215,8 +227,15 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <button class="btn btn-primary float-right" type="submit" [disabled]="!signupForm.valid">
+                  Add card
+                </button>
+              </div>
+
             </div>
           </div>
+
         </form>
       </div>
     </div>

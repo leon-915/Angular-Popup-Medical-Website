@@ -28,6 +28,7 @@ export class AccountService {
   private userEmailMasked: string;
 
   constructor(private commonSrv: CommonService, private http: HttpClient) {}
+  
   serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   signin(loginRequestModel: LoginRequestModel) {

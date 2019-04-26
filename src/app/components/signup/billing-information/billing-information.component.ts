@@ -41,7 +41,7 @@ export class BillingInformationComponent implements OnInit {
       nameOnCard: ['', [Validators.required]],
       promoCode: [''],
       address1: ['', [Validators.required]],
-      address2: ['', [Validators.required]],
+      address2: [''],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
