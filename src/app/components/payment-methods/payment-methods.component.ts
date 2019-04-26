@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SignupService, CommonService, PlanService, DateService, NotificationService, GooglePlacesService, PaymentProviderService } from '../../services/index';
+import {
+  SignupService, CommonService, PlanService, DateService,
+  NotificationService, GooglePlacesService, PaymentProviderService
+} from '../../services/index';
 import { CardValidator } from 'src/app/validators';
 
 @Component({
@@ -88,7 +91,7 @@ export class PaymentMethodsComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit() {
+  AfterViewInit() {
     this.googlePlaceSrv
       .loadMaps(this.address, this.setAddress)
       .then(() => {
@@ -113,10 +116,8 @@ export class PaymentMethodsComponent implements OnInit {
         this.state.setValue(item.id);
         this.stateName.setValue(state);
       }
-
     });
-
-  };
+  }
 
   getDateInfo() {
     this.dateSrv.getDateInfo().subscribe(

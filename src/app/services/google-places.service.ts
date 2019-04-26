@@ -40,8 +40,7 @@ export class GooglePlacesService {
               route = addressComponent.long_name;
             } else if (addressComponent.types.includes('street_number')) {
               num = addressComponent.long_name;
-            }
-            else if (addressComponent.types.includes('country')) {
+            } else if (addressComponent.types.includes('country')) {
               country = addressComponent.short_name;
             }
           });
