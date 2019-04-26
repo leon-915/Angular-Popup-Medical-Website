@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
-import { ReCaptchaV3Service } from 'ngx-captcha';
 import * as moment from 'moment';
 
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
@@ -20,7 +19,6 @@ export class FamilyEditComponent implements OnInit {
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
-
   genderList: GenderModel[];
   familyUser: EditUser;
 
@@ -30,7 +28,6 @@ export class FamilyEditComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
-    private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
