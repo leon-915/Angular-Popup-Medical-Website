@@ -122,6 +122,17 @@ export class AccountFamilyComponent implements OnInit {
       this.router.navigate(['./family-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
     }
   }
+  getResult(result) {
+    const member = result.member;
+    const message = result.message;
+
+    if (member) {
+      this.familyUsers.push(member);
+      this.notificationSrv.showSuccess(message);
+    } else {
+      this.notificationSrv.showError(message);
+    }
+  }
 
   goToProfile() {
     this.router.navigate(['../info'], { relativeTo: this.activatedRoute });

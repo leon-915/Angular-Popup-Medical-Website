@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
@@ -6,7 +6,7 @@ import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
 import * as CryptoJS from 'crypto-js';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-add-member',
@@ -15,6 +15,11 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddMemberComponent implements OnInit {
   closeResult: string;
+  modalReference: NgbModalRef;
+
+  @Input() addUser: () => {};
+  // tslint:disable-next-line: ban-types
+  @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
 
   isMember = true;
 
@@ -46,7 +51,9 @@ export class AddMemberComponent implements OnInit {
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
   }
   open(content) {
-    this.modalSvr.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.modalReference = this.modalSvr.open(content);
+
+    this.modalReference.result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;
       },
@@ -69,14 +76,20 @@ export class AddMemberComponent implements OnInit {
   addMember() {
     this.myFamilySrv.addMyFamilyMember(this.addMemberForm.value).subscribe(res => {
       if (!res.HasError) {
-        this.familyUsers.push(res.Result);
-        this.notificationSrv.showSuccess(res.Message);
+        this.returnResult(res.Result, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
       } else {
-        this.notificationSrv.showError(res.Message);
+        this.returnResult(null, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
       }
     });
   }
-
+  returnResult(member: FamilyUser, message: string) {
+    const result = { member, message };
+    this.action.emit(result);
+  }
   clearRelation() {
     this.addMemberForm.patchValue({ member_relation_type_id: 0 });
   }
