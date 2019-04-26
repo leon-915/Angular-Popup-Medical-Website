@@ -3,7 +3,7 @@ import { Injectable, NgZone, ElementRef } from '@angular/core';
 
 @Injectable()
 export class GooglePlacesService {
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
   // tslint:disable-next-line
   loadMaps(addressReference: ElementRef, fn: Function): Promise<any> {
     return this.mapsAPILoader.load().then(() => {
@@ -17,13 +17,16 @@ export class GooglePlacesService {
             return;
           }
 
-          place.address_components.forEach(addressComponent => {});
+          place.address_components.forEach(addressComponent => { });
+
+          console.log(place);
 
           let zipcode = '';
           let city = '';
           let state = '';
           let route = '';
           let num = '';
+          let country = '';
           const longitude = place.geometry.location.lng();
           const latitude = place.geometry.location.lat();
           place.address_components.forEach(addressComponent => {
@@ -38,11 +41,14 @@ export class GooglePlacesService {
             } else if (addressComponent.types.includes('street_number')) {
               num = addressComponent.long_name;
             }
+            else if (addressComponent.types.includes('country')) {
+              country = addressComponent.short_name;
+            }
           });
 
           // Record geocoding results.
           const ps = [num, route].filter(Boolean);
-          fn(ps.join(' '), city, state, zipcode, latitude, longitude);
+          fn(ps.join(' '), city, state, zipcode, latitude, longitude, country);
         });
       });
     });

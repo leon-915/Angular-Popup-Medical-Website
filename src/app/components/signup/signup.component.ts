@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SignupComponent implements OnInit {
   public currentStep = 1;
 
-  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     const member = new SignupRequestModel();
@@ -19,12 +19,13 @@ export class SignupComponent implements OnInit {
     console.log(member.currentStep);
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
+        console.log(response);
         if (!response.HasError) {
           const result = response.Result;
           const memberType = result.member_type_id ? String(result.member_type_id) : '';
           localStorage.setItem('member_type_id', memberType);
 
-          if (response.Result.current_step === 6) {
+          if (response.Result.current_step === 5) {
             this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
           } else {
             this.currentStep = response.Result.current_step;

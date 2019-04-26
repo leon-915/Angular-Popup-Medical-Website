@@ -41,6 +41,7 @@ const routes: Routes = [
       { path: 'account/family/family-edit/:id', component: FamilyEditComponent, canActivate: [AuthGuard] },
       { path: 'account/family/guest-edit/:id', component: GuestEditComponent, canActivate: [AuthGuard] },
       { path: 'account/family/dependent', component: AddDependentComponent, canActivate: [AuthGuard] },
+      { path: 'account/payment-methods', component: PaymentMethodsComponent, canActivate: [AuthGuard] },
       { path: 'signup', component: SignupComponent },
       { path: 'translator-test', component: TranslatorTestComponent },
       { path: 'signup-confirm', component: SignupConfirmComponent },
@@ -52,8 +53,7 @@ const routes: Routes = [
       { path: 'product/:id', component: ProductComponent },
       { path: 'onboarding', component: OnboardingComponent },
       { path: 'invoice-generator', component: InvoiceGeneratorComponent },
-      { path: 'membership-card', component: MembershipCardComponent },
-      { path: 'payment-methods', component: PaymentMethodsComponent },
+      { path: 'membership-card', component: MembershipCardComponent }
     ]
   },
   { path: '**', redirectTo: '/en', pathMatch: 'full' }

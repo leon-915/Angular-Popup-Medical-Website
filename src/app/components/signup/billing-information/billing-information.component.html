@@ -134,7 +134,9 @@
         <div class="col-lg-6">
 
           <div class="form-group">
-            <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg"
+            <!--<input type="text" placeholder="Billing Address Line 1" class="form-control input-bg"
+              formControlName="address1" />-->
+            <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg" #address
               formControlName="address1" />
             <p class="mt-1 text-danger"
               *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
