@@ -43,7 +43,6 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO:  @Jorge check this
     // tslint:disable-next-line: only-arrow-functions
     $(document).ready(function() {
       $('.dropdown-trigger').dropdown();
@@ -53,5 +52,11 @@ export class NavMenuComponent implements OnInit {
     this.lang = language;
     localStorage.setItem('lng', language);
     this.translate.use();
+  }
+
+  signout() {
+    sessionStorage.removeItem('token');
+    this.menuService.updateStatus();
+    this.router.navigate([this.lang, './'], { relativeTo: this.activatedRoute });
   }
 }

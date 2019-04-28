@@ -10,6 +10,12 @@
     "signin": "Sign In",
     "language": "English"
   },
+  "menu_authenticated": {
+    "digital_care": "Digital Care",
+    "orders": "Orders",
+    "myhub": "MyHub",
+    "signout": "SignOut"
+  },
   "login": {
     "placeholder_email": "E-mail (username)",
     "placeholder_password": "Password",

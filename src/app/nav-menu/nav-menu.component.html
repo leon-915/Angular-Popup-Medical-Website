@@ -13,18 +13,38 @@
           }}<i class="material-icons right">arrow_drop_down</i></a
         >
       </li>
-      <li>
+      <!--Anonymous user-->
+      <li *ngIf="!isUserAuthenticated">
         <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
       </li>
-      <li>
+      <li *ngIf="!isUserAuthenticated">
         <a href="badges.html"><i class="material-icons left">card_membership</i>{{ 'menu.plans' | translate }}</a>
       </li>
-      <li>
+      <li *ngIf="!isUserAuthenticated">
         <a href="collapsible.html"><i class="material-icons left">local_hospital</i>{{ 'menu.faq' | translate }}</a>
       </li>
-      <li>
+      <li *ngIf="!isUserAuthenticated">
         <a [routerLink]="[lang, 'login']"><i class="material-icons left">perm_identity</i>{{ 'menu.signin' | translate }}</a>
       </li>
+      <!--Anonymous user-->
+
+      <!--Authenticated user-->
+      <li *ngIf="isUserAuthenticated">
+        <a [routerLink]="[lang, '']">
+          <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a
+        >
+      </li>
+      <li *ngIf="isUserAuthenticated">
+        <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
+      </li>
+      <li *ngIf="isUserAuthenticated">
+        <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
+      </li>
+      <li *ngIf="isUserAuthenticated">
+        <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
+      </li>
+
+      <!--Authenticated user-->
     </ul>
     <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;">
       <i class="material-icons">menu</i>

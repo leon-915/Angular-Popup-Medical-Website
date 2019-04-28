@@ -10,6 +10,12 @@
     "signin": "Entrar",
     "language": "Español"
   },
+  "menu_authenticated": {
+    "digital_care": "Atención Digital",
+    "orders": "Ordenes",
+    "myhub": "Mis opciones",
+    "signout": "Salir"
+  },
   "login": {
     "placeholder_email": "Correo electrónico",
     "placeholder_password": "Contraseña",
