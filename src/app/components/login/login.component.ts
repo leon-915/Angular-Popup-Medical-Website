@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     private menuService: MenuService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
     this.accountSrv.signin(this.loginForm.value).subscribe(res => {
+      console.log(res);
       if (!res.HasError) {
         sessionStorage.setItem('token', res.Result.token);
         // CODEREVIEW

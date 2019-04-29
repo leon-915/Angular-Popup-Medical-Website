@@ -27,6 +27,8 @@ export class GooglePlacesService {
           let route = '';
           let num = '';
           let country = '';
+          const address = place.formatted_address;
+
           const longitude = place.geometry.location.lng();
           const latitude = place.geometry.location.lat();
           place.address_components.forEach(addressComponent => {
@@ -46,8 +48,8 @@ export class GooglePlacesService {
           });
 
           // Record geocoding results.
-          const ps = [num, route].filter(Boolean);
-          fn(ps.join(' '), city, state, zipcode, latitude, longitude, country);
+          // const ps = [num, route].filter(Boolean);
+          fn(city, state, zipcode, latitude, longitude, country, address);
         });
       });
     });
