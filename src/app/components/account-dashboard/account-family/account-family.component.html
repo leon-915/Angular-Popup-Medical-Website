@@ -53,12 +53,21 @@
             {{ member.email ? member.email : 'legal dependent' }}
           </p>
         </div>
+        <div *ngIf="member.is_active; else notActive">
+          <app-family-edit
+            [relationId]="member.member_relation_id"
+            [isActive]="!member.is_active"
+            (action)="getEditResult($event)"
+          ></app-family-edit>
+        </div>
 
-        <app-family-edit
-          [relationId]="member.member_relation_id"
-          [isActive]="!member.is_active"
-          (action)="getEditResult($event)"
-        ></app-family-edit>
+        <ng-template #notActive>
+          <app-edit-invitation
+            [relationId]="member.member_relation_id"
+            [isActive]="!member.is_active"
+            (action)="getEditResult($event)"
+          ></app-edit-invitation>
+        </ng-template>
         <!-- <button type="button" (click)="goToEdit(member.member_relation_id, false)"
           class=" btn-success-outline">View</button> -->
       </div>
@@ -84,7 +93,7 @@
             — Pending Invitation —
           </span>
           <p class="card-content mb-0 pt-0 my-family-box-member-name">
-            {{ member.first_name ? member.first_name : 'nameless' }}
+            {{ member.first_name }}
           </p>
           <p class="card-content mb-0 pt-0 my-family-box-member-email">
             {{ member.email ? member.email : 'legal dependent' }}

@@ -8,28 +8,27 @@ import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.mode
 import { GenderModel } from 'src/app/models';
 import * as CryptoJS from 'crypto-js';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
 @Component({
-  selector: 'app-family-edit',
-  templateUrl: './family-edit.component.html',
-  styleUrls: ['./family-edit.component.less']
+  selector: 'app-edit-invitation',
+  templateUrl: './edit-invitation.component.html',
+  styleUrls: ['./edit-invitation.component.less']
 })
-export class FamilyEditComponent implements OnInit {
-  closeResult: string;
-  modalReference: NgbModalRef;
-
+export class EditInvitationComponent implements OnInit {
   @Input() relationId: number;
   @Input() isActive: boolean;
 
   // tslint:disable-next-line: ban-types
   @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
+
+  closeResult: string;
+  modalReference: NgbModalRef;
+
   showGender = true;
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
   genderList: GenderModel[];
   familyUser: EditUser;
-
   constructor(
     private modalSvr: NgbModal,
 
@@ -43,26 +42,24 @@ export class FamilyEditComponent implements OnInit {
   ) {
     this.addMemberForm = this.fb.group(
       {
-        member_id: ['', []],
         member_relation_id: ['', []],
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        member_relation_type_id: [{ value: 0, disabled: this.showGender }, [Validators.required, Validators.min(1)]],
-        gender_id: [0, [Validators.required, Validators.min(1)]],
-        isDependent: [false, []],
-        birthday: [Date(), [Validators.required]]
+        email: ['', [Validators.email, Validators.required]],
+        member_relation_type_id: [{ value: 0, disabled: this.showGender }, [Validators.required, Validators.min(1)]]
       },
       {}
     );
   }
-
   ngOnInit() {
     console.log(this.isActive);
   }
 
-  editFamilyMember() {
+  editInvitation() {
     const formData = this.addMemberForm.getRawValue();
-    this.myFamilySrv.putEditMyFamily(formData).subscribe(res => {
+
+    this.myFamilySrv.putInvitation(formData).subscribe(res => {
+      console.log(JSON.stringify(res));
       if (!res.HasError) {
         this.returnResult(res.Result, res.Message);
         this.modalReference.close();
@@ -96,20 +93,16 @@ export class FamilyEditComponent implements OnInit {
     this.modalReference = this.modalSvr.open(content);
 
     if (!isNaN(this.relationId)) {
-      this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
+      this.myFamilySrv.getInvitation(this.relationId).subscribe(res => {
         console.log(JSON.stringify(res));
         if (!res.HasError) {
           this.familyUser = res.Result;
-          this.showGender = this.familyUser.has_login;
           this.addMemberForm.setValue({
-            member_id: this.familyUser.subscriber_member_id,
             member_relation_id: this.familyUser.member_relation_id,
             first_name: this.familyUser.first_name,
             last_name: this.familyUser.last_name,
-            member_relation_type_id: this.familyUser.member_relation_type_id,
-            gender_id: this.familyUser.gender_id,
-            isDependent: false,
-            birthday: moment(this.familyUser.date_of_birth).format('YYYY-MM-DD')
+            email: this.familyUser.email,
+            member_relation_type_id: this.familyUser.member_relation_type_id
           });
         }
       });
@@ -152,11 +145,5 @@ export class FamilyEditComponent implements OnInit {
   }
   get lastName() {
     return this.addMemberForm.get('last_name');
-  }
-  get birthday() {
-    return this.addMemberForm.get('birthday');
-  }
-  get isDependent() {
-    return this.addMemberForm.get('isDependent').value;
   }
 }
