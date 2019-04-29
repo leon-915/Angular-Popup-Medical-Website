@@ -1,8 +1,8 @@
 import { CardValidator } from './../../../validators/card.validator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from './../../../services/common.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SignupService, PlanService, DateService, NotificationService } from 'src/app/services';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { SignupService, PlanService, DateService, NotificationService, GooglePlacesService, AccountService } from 'src/app/services';
 import { SignupRequestModel } from '../../../models/index';
 
 @Component({
@@ -11,14 +11,17 @@ import { SignupRequestModel } from '../../../models/index';
   styleUrls: ['./billing-information.component.less']
 })
 export class BillingInformationComponent implements OnInit {
+
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
+  @ViewChild('address') address: ElementRef;
   public states: Array<any> = new Array<any>();
 
   public signupForm: FormGroup;
   public currentMask = '';
   public typeMask = '';
   public years = [];
+  public allowACH;
 
   constructor(
     private signupSrv: SignupService,
@@ -26,7 +29,9 @@ export class BillingInformationComponent implements OnInit {
     private fb: FormBuilder,
     private planSrv: PlanService,
     private dateSrv: DateService,
-    private notificationSrv: NotificationService
+    private notificationSrv: NotificationService,
+    private googlePlaceSrv: GooglePlacesService,
+    private accountSrv: AccountService
   ) {
     this.getStates();
     this.getDateInfo();
@@ -44,12 +49,14 @@ export class BillingInformationComponent implements OnInit {
       address2: [''],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
+      stateName: [''],
       zipCode: ['', [Validators.required]],
       // textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       currentStep: this.step,
       latitude: 0,
       longitude: 0,
       planName: null,
+      country: ['', [Validators.required]],
       paymentMethod: [false, [Validators.required]], // true = ACH & false = credit card
       routingNumber: [''],
       bankAccountNumber: [''],
@@ -59,9 +66,48 @@ export class BillingInformationComponent implements OnInit {
     this.onChangePaymentMethod();
   }
 
+  // tslint:disable-next-line
+  ngAfterViewInit() {
+    console.log('asdasd');
+    this.googlePlaceSrv
+      .loadMaps(this.address, this.setAddress)
+      .then(() => {
+        console.log('Google maps loaded');
+      })
+      .catch(error => {
+        console.log('error loading map', error);
+      });
+  }
+
   userAction(action: string) {
     const step = action === 'back' ? (this.step = 2) : (this.step = 4);
     this.action.emit(step);
+  }
+
+  getConfigurationById() {
+    this.accountSrv.getConfigirationById(8).subscribe((response) => {
+      console.log(response);
+      if (!response.HasError) {
+        this.allowACH = response.Result[0].value === 'true' ? true : false;
+        console.log(this.allowACH);
+      }
+    });
+  }
+
+  setAddress = (city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string, address: string) => {
+    this.address1.setValue(address);
+    this.city.setValue(city);
+    this.zipCode.setValue(zipCode);
+    this.country.setValue(country);
+
+    this.states.forEach(item => {
+      console.log(item);
+      if (item.abbreviation === state) {
+        console.log('state encontrado');
+        this.state.setValue(item.id);
+        this.stateName.setValue(state);
+      }
+    });
   }
 
   onChangePaymentMethod() {
@@ -118,7 +164,9 @@ export class BillingInformationComponent implements OnInit {
     member.currentStep = this.step;
     this.signupSrv.getSignupInformation(member).subscribe(
       response => {
+        console.log(response);
         if (!response.HasError && response.Result) {
+          console.log(response.Result.address1);
           this.signupForm.controls.address1.setValue(response.Result.address1);
           this.signupForm.controls.address2.setValue(response.Result.address2);
           this.signupForm.controls.city.setValue(response.Result.city);
@@ -128,6 +176,7 @@ export class BillingInformationComponent implements OnInit {
           this.signupForm.controls.latitude.setValue(response.Result.latitude);
           this.signupForm.controls.longitude.setValue(response.Result.longitude);
           this.signupForm.controls.planName.setValue(response.Result.plan_name);
+          this.signupForm.controls.country.setValue(response.Result.country_id);
         }
       },
       error => {
@@ -223,6 +272,10 @@ export class BillingInformationComponent implements OnInit {
     return this.signupForm.controls.state;
   }
 
+  get stateName() {
+    return this.signupForm.controls.stateName;
+  }
+
   get zipCode() {
     return this.signupForm.controls.zipCode;
   }
@@ -230,6 +283,10 @@ export class BillingInformationComponent implements OnInit {
   /*get textMessagingPin() {
     return this.signupForm.controls.textMessagingPin;
   }*/
+
+  get country() {
+    return this.signupForm.controls.country;
+  }
 
   get planName() {
     return this.signupForm.controls.planName;

@@ -84,6 +84,11 @@ export class AccountService {
     return this.http.post<APIResponse<boolean>>(url, payload);
   }
 
+  getConfigirationById(configId: number) {
+    const url = `${this.serviceURl}configurations/${configId}`;
+    return this.http.get<APIResponse<boolean>>(url);
+  }
+
   // Setters Getters
   setUserEmail(email: string) {
     this.userEmail = email;
