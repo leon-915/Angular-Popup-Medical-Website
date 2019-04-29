@@ -19,6 +19,8 @@ export class FamilyEditComponent implements OnInit {
   modalReference: NgbModalRef;
 
   @Input() relationId: number;
+  @Input() isActive: boolean;
+
   // tslint:disable-next-line: ban-types
   @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
   showGender = true;
@@ -54,15 +56,21 @@ export class FamilyEditComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.isActive);
+  }
 
   editFamilyMember() {
     const formData = this.addMemberForm.getRawValue();
     this.myFamilySrv.putEditMyFamily(formData).subscribe(res => {
       if (!res.HasError) {
-        this.notificationSrv.showSuccess(res.Message);
+        this.returnResult(res.Result, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
       } else {
-        this.notificationSrv.showError(res.Message);
+        this.returnResult(null, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
       }
     });
   }
@@ -72,14 +80,15 @@ export class FamilyEditComponent implements OnInit {
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
-  decrypt(ciphertext) {
-    ciphertext = decodeURIComponent(ciphertext);
-    const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
-    const originalText = bytes.toString(CryptoJS.enc.Utf8);
-    return originalText;
-  }
+  // decrypt(ciphertext) {
+  //   ciphertext = decodeURIComponent(ciphertext);
+  //   const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
+  //   const originalText = bytes.toString(CryptoJS.enc.Utf8);
+  //   return originalText;
+  // }
 
   open(content) {
+    console.log(this.isActive);
     this.genderList = JSON.parse(localStorage.getItem('genderList'));
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));

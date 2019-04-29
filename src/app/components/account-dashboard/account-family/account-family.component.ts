@@ -122,7 +122,23 @@ export class AccountFamilyComponent implements OnInit {
       this.router.navigate(['./family-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
     }
   }
-  getResult(result) {
+
+  getEditResult(result) {
+    const member = result.member;
+    const message = result.message;
+    console.log(JSON.stringify(member));
+    console.log('--------------');
+    console.log(JSON.stringify(member));
+    console.log(member.member_relation_id);
+
+    const index = this.familyUsers.findIndex(currentMember => currentMember.member_relation_id === member.member_relation_id);
+    if (index > -1) {
+      this.familyUsers[index].first_name = member.first_name;
+      this.familyUsers[index].last_name = member.last_name;
+      this.familyUsers[index].member_relation_type_id = member.member_relation_type_id;
+    }
+  }
+  getAddResult(result) {
     const member = result.member;
     const message = result.message;
 

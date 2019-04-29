@@ -32,7 +32,7 @@ export class MyFamilyService {
   }
   putEditMyFamily(familyMember) {
     const url = `${this.serviceURl}myfamily/member`;
-    return this.http.put<APIResponse<GetMyFamilyEditResult>>(url, familyMember);
+    return this.http.put<APIResponse<FamilyUser>>(url, familyMember);
   }
 
   getGuestMember(memberRelationId: number) {

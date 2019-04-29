@@ -54,7 +54,11 @@
           </p>
         </div>
 
-        <app-family-edit [relationId]="member.member_relation_id"></app-family-edit>
+        <app-family-edit
+          [relationId]="member.member_relation_id"
+          [isActive]="!member.is_active"
+          (action)="getEditResult($event)"
+        ></app-family-edit>
         <!-- <button type="button" (click)="goToEdit(member.member_relation_id, false)"
           class=" btn-success-outline">View</button> -->
       </div>
@@ -115,7 +119,7 @@
               </div>
             </div>
             <div class="row justify-content-center">
-              <app-add-member (action)="getResult($event)"></app-add-member>
+              <app-add-member (action)="getAddResult($event)"></app-add-member>
             </div>
           </div>
         </div>
