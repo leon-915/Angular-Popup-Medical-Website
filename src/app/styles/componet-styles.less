@@ -1,14 +1,95 @@
-// myFamily styles
+@import './variables.less';
 
-// herencia!!
-// .base-class{
-// }
-// .ejemplo-1{
-//  .base-class;
-// }
-// .ejemplo-2{
-//  .base-class;
-// }
+.title {
+  font-size: 54px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: -0.3px;
+  color: @green;
+}
+
+.card {
+  // max-width: 288px;
+}
+
+.card-header {
+  padding: 5px;
+  height: 40px;
+}
+
+.card-title {
+  color: @white;
+  font-size: 16px;
+}
+
+.card-content {
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: @light-black;
+}
+
+.card-body {
+  min-height: 180px;
+
+}
+
+.card-success-header {
+  vertical-align: middle;
+  background-color: @green;
+}
+
+.card-default-header {
+  vertical-align: middle;
+  background-color: @gray;
+}
+
+.card-warning-header {
+  vertical-align: middle;
+  background-color: @orange;
+}
+
+.card-success {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, #ffffff, #d1eadc);
+
+}
+
+.card-default {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-color: #f2f2f2;
+}
+
+.card-warning {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: @green;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: @white;
+}
+
+.switch label .lever:after {
+  background-color: @white;
+}
+
+.switch label .lever {
+  background-color: @orange;
+}
+
+
+
+
+// my family
 
 .my-family-title {
   max-width: 458px;
@@ -38,9 +119,6 @@
 }
 
 .my-family-profile-title {
-  min-width: 288px;
-  max-width: 400px;
-  height: 36px;
   background-color: #ff9331;
 }
 
@@ -130,23 +208,18 @@
 }
 
 .my-family-box-member-name {
-  width: 245px;
-  height: 59px;
   font-family: Montserrat;
   font-size: 20px;
-  font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.2;
   letter-spacing: normal;
   text-align: center;
-  margin-top: 15%;
+  padding-bottom: 0px !important;
   color: #373737;
 }
 
 .my-family-box-member-email {
-  width: 162px;
-  height: 18px;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: normal;
@@ -156,6 +229,7 @@
   letter-spacing: normal;
   text-align: center;
   color: #373737;
+  padding-bottom: 0px !important;
   overflow-wrap: break-word;
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
 import * as CryptoJS from 'crypto-js';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-family-edit',
@@ -14,7 +15,12 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./family-edit.component.less']
 })
 export class FamilyEditComponent implements OnInit {
-  relationId: number;
+  closeResult: string;
+  modalReference: NgbModalRef;
+
+  @Input() relationId: number;
+  // tslint:disable-next-line: ban-types
+  @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
   showGender = true;
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
@@ -23,6 +29,8 @@ export class FamilyEditComponent implements OnInit {
   familyUser: EditUser;
 
   constructor(
+    private modalSvr: NgbModal,
+
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
@@ -46,37 +54,7 @@ export class FamilyEditComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    this.genderList = JSON.parse(localStorage.getItem('genderList'));
-    this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
-    this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
-
-    this.activatedRoute.params.subscribe(params => {
-      this.relationId = params.id ? +decodeURIComponent(this.decrypt(params.id)) : 0;
-      console.log(`${this.relationId}`);
-
-      if (!isNaN(this.relationId)) {
-        this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
-          if (!res.HasError) {
-            this.familyUser = res.Result;
-            this.showGender = this.familyUser.has_login;
-            this.addMemberForm.setValue({
-              member_id: this.familyUser.subscriber_member_id,
-              member_relation_id: this.familyUser.member_relation_id,
-              first_name: this.familyUser.first_name,
-              last_name: this.familyUser.last_name,
-              member_relation_type_id: this.familyUser.member_relation_type_id,
-              gender_id: this.familyUser.gender_id,
-              isDependent: false,
-              birthday: moment(this.familyUser.date_of_birth).format('YYYY-MM-DD')
-            });
-          }
-        });
-      } else {
-        this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
-      }
-    });
-  }
+  ngOnInit() {}
 
   editFamilyMember() {
     const formData = this.addMemberForm.getRawValue();
@@ -99,6 +77,64 @@ export class FamilyEditComponent implements OnInit {
     const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
     const originalText = bytes.toString(CryptoJS.enc.Utf8);
     return originalText;
+  }
+
+  open(content) {
+    this.genderList = JSON.parse(localStorage.getItem('genderList'));
+    this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
+    this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
+
+    this.modalReference = this.modalSvr.open(content);
+
+    this.activatedRoute.params.subscribe(params => {
+      console.log(`${this.relationId}`);
+
+      if (!isNaN(this.relationId)) {
+        this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
+          console.log(JSON.stringify(res));
+          if (!res.HasError) {
+            this.familyUser = res.Result;
+            this.showGender = this.familyUser.has_login;
+            this.addMemberForm.setValue({
+              member_id: this.familyUser.subscriber_member_id,
+              member_relation_id: this.familyUser.member_relation_id,
+              first_name: this.familyUser.first_name,
+              last_name: this.familyUser.last_name,
+              member_relation_type_id: this.familyUser.member_relation_type_id,
+              gender_id: this.familyUser.gender_id,
+              isDependent: false,
+              birthday: moment(this.familyUser.date_of_birth).format('YYYY-MM-DD')
+            });
+          }
+        });
+      } else {
+        this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
+      }
+    });
+
+    this.modalReference.result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  returnResult(member: FamilyUser, message: string) {
+    const result = { member, message };
+    this.action.emit(result);
   }
 
   // Getters
