@@ -122,12 +122,37 @@ export class AccountFamilyComponent implements OnInit {
       this.router.navigate(['./family-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
     }
   }
-  getResult(result) {
+
+  getEditResult(result) {
     const member = result.member;
     const message = result.message;
 
     if (member) {
-      this.familyUsers.push(member);
+      this.notificationSrv.showSuccess(message);
+      const index = this.familyUsers.findIndex(currentMember => currentMember.member_relation_id === member.member_relation_id);
+      if (index > -1) {
+        this.familyUsers[index].first_name = member.first_name;
+        this.familyUsers[index].last_name = member.last_name;
+        this.familyUsers[index].member_relation_type_id = member.member_relation_type_id;
+      }
+    } else {
+      this.notificationSrv.showError(message);
+    }
+  }
+  getAddResult(result) {
+    const member = result.member;
+    const message = result.message;
+
+    if (member) {
+      const index = this.guestRelationTypes.findIndex(
+        relation => relation.lookup_member_relation_type_id === member.member_relation_type_id
+      );
+
+      if (index > -1) {
+        this.guestUsers.push(member);
+      } else {
+        this.familyUsers.push(member);
+      }
       this.notificationSrv.showSuccess(message);
     } else {
       this.notificationSrv.showError(message);

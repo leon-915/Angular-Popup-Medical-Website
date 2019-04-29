@@ -30,9 +30,19 @@ export class MyFamilyService {
     console.log(url);
     return this.http.get<APIResponse<EditUser>>(url);
   }
+
+  getInvitation(memberRelationId: number) {
+    const url = `${this.serviceURl}myfamily/invitation/${memberRelationId}`;
+    console.log(url);
+    return this.http.get<APIResponse<EditUser>>(url);
+  }
+  putInvitation(invitation) {
+    const url = `${this.serviceURl}myfamily/invitation`;
+    return this.http.put<APIResponse<FamilyUser>>(url, invitation);
+  }
   putEditMyFamily(familyMember) {
     const url = `${this.serviceURl}myfamily/member`;
-    return this.http.put<APIResponse<GetMyFamilyEditResult>>(url, familyMember);
+    return this.http.put<APIResponse<FamilyUser>>(url, familyMember);
   }
 
   getGuestMember(memberRelationId: number) {

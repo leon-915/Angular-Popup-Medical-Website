@@ -1,146 +1,141 @@
-<div class="row">
-
-  <div (click)="goToDashboard()">
-    <label class="my-family-my-Hub"><i class="material-icons">
-        arrow_back
-      </i>My Hub
-    </label>
-  </div>
-  <div class="container text-center">
-    <label class="my-family-title">My Care Phamily
-    </label>
-  </div>
+<div class="d-flex justify-content-around bg-secondary mb-3">
+  <div class="p-2 bg-info">Flex item 1</div>
+  <div class="p-2 bg-warning">Flex item 2</div>
+  <div class="p-2 bg-primary">Flex item 3</div>
 </div>
 
-<div class="row">
-  <div class="col-sm-3 col-md-4 my-family-col-box">
-    <div class="my-family-profile-box">
-      <div class="my-family-profile-title row justify-content-between">
-        <div class="col-7" style=" text-align: left;">
-          <label class=" my-family-box-title-left">My Profile</label>
-        </div>
-        <div class="col-5">
-          <label class="my-family-box-title-right">Account</label>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <span class="my-family-box-member-name">Oscar Vargas Granados
-        </span>
-        <div class="row justify-content-center" style="margin-top:35px">
-          <div class="my-family-button-profile" (click)="goToProfile()">
-            <span class="my-family-box-profile-button-lbl">View
-            </span>
+<div class="row  justify-content-md-center">
+  <!-- Profile -->
+  <div class="col-md-4 text-center">
+    <div class="card">
+      <div class="card-header card-warning-header">
+        <div class="row  justify-content-between ">
+          <div class="col" style="padding-left: .75rem;">
+            <label class=" my-family-box-title-left">My Profile</label>
+          </div>
+          <div class="col" style="text-align: right; padding-right: .75rem">
+            <label class="my-family-box-title-right">Account</label>
           </div>
         </div>
       </div>
+      <div class="card-body card-warning text-center">
+        <div style="height: 90px; padding: 5px;">
+          <p class="card-content my-family-box-member-name">Oscar Vargas Granados</p>
+        </div>
+        <button type="button" (click)="goToProfile()" class=" btn-warning-outline">View</button>
+      </div>
     </div>
   </div>
+
   <!-- Family members -->
-  <div class="col-sm-3 col-md-4 my-family-col-box" *ngFor="let member of familyUsers;  let i = index">
-    <div class="my-family-member-box">
 
-      <div class="my-family-member-title row justify-content-between">
-        <div class="col-7" style=" text-align: left;">
-          <label class=" my-family-box-title-left">{{member.display_value}}
-          </label>
-        </div>
-        <div class="col-5">
-          <label class="my-family-box-title-right">Member {{i}}</label>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <span class="pending-invitation" *ngIf="!member.is_active">
-          — Pending Invitation —
-        </span>
-        <div>
-          <span class="my-family-box-member-name">
-            {{member.first_name? member.first_name : 'nameless' }}
-          </span>
-        </div>
-        <div>
-          <span class="my-family-box-member-email">
-            {{member.email ? member.email : 'legal dependent'}}
-          </span>
-        </div>
-        <div class="row justify-content-center" style="margin-top:25px"
-          (click)="goToEdit(member.member_relation_id, false)">
-          <div class="my-family-button-member">
-            <span class="my-family-box-member-button-lbl">View
-            </span>
+  <div class="col-md-4 text-center" *ngFor="let member of familyUsers; let i = index">
+    <div class="card">
+      <div class="card-header card-success-header">
+        <div class="row  justify-content-between ">
+          <div class="col">
+            <label class=" my-family-box-title-left">{{ member.display_value }}</label>
+          </div>
+          <div class="col" style="text-align: right;">
+            <label class="my-family-box-title-right">Member {{ i }}</label>
           </div>
         </div>
       </div>
+      <div class="card-body card-success text-center">
+        <div style="height: 90px; vertical-align: middle;">
+          <span class="pending-invitation" *ngIf="!member.is_active">
+            — Pending Invitation —
+          </span>
+          <p class="card-content mb-0 pt-0 my-family-box-member-name">
+            {{ member.first_name ? member.first_name : 'nameless' }}
+          </p>
+          <p class="card-content mb-0 pt-0 my-family-box-member-email">
+            {{ member.email ? member.email : 'legal dependent' }}
+          </p>
+        </div>
+        <div *ngIf="member.is_active; else notActive">
+          <app-family-edit
+            [relationId]="member.member_relation_id"
+            [isActive]="!member.is_active"
+            (action)="getEditResult($event)"
+          ></app-family-edit>
+        </div>
+
+        <ng-template #notActive>
+          <app-edit-invitation
+            [relationId]="member.member_relation_id"
+            [isActive]="!member.is_active"
+            (action)="getEditResult($event)"
+          ></app-edit-invitation>
+        </ng-template>
+        <!-- <button type="button" (click)="goToEdit(member.member_relation_id, false)"
+          class=" btn-success-outline">View</button> -->
+      </div>
     </div>
   </div>
-
   <!-- Guest Members -->
-  <div class="col-sm-3 col-md-4 my-family-col-box" *ngFor="let member of guestUsers;  let i = index">
-    <div class="my-family-guest-box">
-      <div class="my-family-guest-title row justify-content-between">
-        <div class="col-7" style=" text-align: left;">
-          <label class=" my-family-box-title-left">
-            {{member.display_value}}
-          </label>
-        </div>
-        <div class="col-5">
-          <label class="my-family-box-title-right">
-            Guest {{i}}
-          </label>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <span class="pending-invitation" *ngIf="!member.is_active">
-          — Pending Invitation —
-        </span>
-        <div>
-          <span class="my-family-box-member-name">
-            {{member.first_name? member.first_name : 'nameless' }}
-          </span>
-        </div>
-        <div>
-          <span class="my-family-box-member-email">
-            {{member.email ? member.email : 'no email'}}
-          </span>
-        </div>
-        <div class="row justify-content-center" style="margin-top:25px">
-          <div class="my-family-button-guest">
-            <span class="my-family-box-guest-button-lbl" (click)="removeMember(i, true)">
-              Delete Pass
-            </span>
+
+  <div class="col-md-4" *ngFor="let member of guestUsers; let i = index">
+    <div class="card">
+      <div class="card-header card-default-header">
+        <div class="row  justify-content-between ">
+          <div class="col">
+            <label class=" my-family-box-title-left">{{ member.display_value }}</label>
+          </div>
+          <div class="col" style="text-align: right;">
+            <label class="my-family-box-title-right">Member {{ i }}</label>
           </div>
         </div>
+      </div>
+      <div class="card-body card-default text-center">
+        <div style="height: 90px; vertical-align: middle;">
+          <span class="pending-invitation" *ngIf="!member.is_active">
+            — Pending Invitation —
+          </span>
+          <p class="card-content mb-0 pt-0 my-family-box-member-name">
+            {{ member.first_name }}
+          </p>
+          <p class="card-content mb-0 pt-0 my-family-box-member-email">
+            {{ member.email ? member.email : 'legal dependent' }}
+          </p>
+        </div>
+        <button type="button" (click)="removeMember(i, true)" class="btn-default-outline">Delete Pass</button>
       </div>
     </div>
   </div>
-  <div class="col-sm-3 col-md-4 my-family-col-box">
-    <div class="my-family-add-box">
-      <div class="my-family-add-title row justify-content-between">
-        <div class="col-7" style=" text-align: left;">
-        </div>
-        <div class="col-5">
-          <label class="my-family-box-title-right">
-            Add
-          </label>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="row justify-content-center">
-          <div class="my-family-button-add">
-            <span class="my-family-box-add-button-lbl" (click)="goToAddNewDependent()">
-              Add Dependent
-            </span>
+  <!-- Add  Members -->
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-success-header">
+        <div class="row  justify-content-between ">
+          <div class="col">
+            <label class=" my-family-box-title-left">Add</label>
+          </div>
+          <div class="col" style="text-align: right;">
+            <label class="my-family-box-title-right"></label>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <app-add-member (action)="getResult($event)"></app-add-member>
-
+      </div>
+      <div class="card-body card-success text-center">
+        <div style="height: 90px; vertical-align: middle;">
+          <div class="col-md-12">
+            <div class="row justify-content-center">
+              <div class="my-family-button-add">
+                <span class="my-family-box-add-button-lbl" (click)="goToAddNewDependent()">
+                  Add Dependent
+                </span>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <app-add-member (action)="getAddResult($event)"></app-add-member>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <!-- add familymember
 
@@ -263,8 +258,6 @@
     </div>
   </div>
 </div> -->
-
-
 
 <!-- Guest list -->
 <!--
