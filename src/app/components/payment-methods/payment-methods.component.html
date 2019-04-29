@@ -1,3 +1,17 @@
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <p class="txt-danger">Are you sure you want to remove this payment method?</p>
+    <div class="row justify-content-center align-items-center">
+      <button type="button" class="btn btn-danger btn-block mb-2" (click)="deletePaymentMethod()">
+        Confirm
+      </button>
+      <button type="button" class="btn btn-default-outline" (click)="modal.close('Action Canceled')">
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+
 <!-- Header component -->
 <div class="row text-center">
   <div class="col-md-12">
@@ -10,44 +24,60 @@
     <!-- Body Component (member payment methods) -->
     <div class="row">
       <div class="col-md-3" *ngFor="let paymentMethod of paymentMethods">
-        <div class="card">
-          <!-- *ngIf="item === 1" -->
-          <div class="card-header card-default-header">
+        <div class="card" *ngIf="paymentMethod.is_default">
+          <div class="card-header card-success-header">
             <small class="card-title">
-              <!--<mat-checkbox>Make Default </mat-checkbox>-->
-              Make Default
+              Default Payment
             </small>
           </div>
-          <div class="card-body card-default text-center" *ngIf="paymentMethod.payment.bankAccount">
-            <p class="card-content mb-0 pb-0">Account Number {{paymentMethod.payment.bankAccount.accountNumber}}</p>
-            <p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.payment.bankAccount.routingNumber}}</p>
-            <button class="btn-default-outline"
-              (click)="deletePaymentMethod(paymentMethod.customerPaymentProfileId)">Remove</button>
+          <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
+            <p class="card-content mb-0 pb-0">Account Number {{paymentMethod.bank_account_number}}</p>
+            <p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>
+            <button class="btn-success-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+            <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
           </div>
-          <div class="card-body card-default text-center" *ngIf="paymentMethod.payment.creditCard">
-            <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.payment.creditCard.cardNumber}}</p>
-            <p class="card-content mb-0 pt-0">Expires {{paymentMethod.payment.creditCard.expirationDate}}</p>
-            <button class="btn-default-outline"
-              (click)="deletePaymentMethod(paymentMethod.customerPaymentProfileId)">Remove</button>
+          <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
+            <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.lastfour}}</p>
+            <p class="card-content mb-0 pt-0">Expires {{paymentMethod.expiration}}</p>
+            <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">Not usable</p>
+            <button class="btn-success-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
           </div>
         </div>
-        <!-- <div class="card" *ngIf="2 + 2 = 5">
-          dummy ngif - need to validate default payment - *ngIf="item !== 1"
-          <div class="card-header card-default-header">
-            <small class="card-title">Make Default</small>
+        <div class="card" *ngIf="!paymentMethod.is_default">
+          <div class="card-header card-default-header" *ngIf="paymentMethod.valid_card">
+            <small class="card-title">
+              <mat-checkbox (change)="setDefaultPaymentMethod(paymentMethod.payment_profile_payment_provider_id)">
+              </mat-checkbox> Make Default
+            </small>
           </div>
-          <div class="card-body card-default text-center">
-            <p class="card-content mb-0 pb-0">Card ending in 1234</p>
-            <p class="card-content mb-0 pt-0">Expires 12/34</p>
-            <button class="btn-default-outline">Remove</button>
+          <div class="card-header card-default-header" *ngIf="!paymentMethod.valid_card">
+            <small class="card-title">
+              Not Usable
+            </small>
           </div>
-        </div>-->
+          <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
+            <p class="card-content mb-0 pb-0">Account Number {{paymentMethod.bank_account_number}}</p>
+            <p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>
+            <button class="btn-default-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+            <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
+          </div>
+          <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
+            <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.lastfour}}</p>
+            <p class="card-content mb-0 pt-0">Expires {{paymentMethod.expiration}}</p>
+            <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">Not usable</p>
+            <button class="btn-default-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+        <form [formGroup]="paymentForm" (ngSubmit)="createPaymentMethod()">
 
           <div class="row">
             <div class="col-md-12">
@@ -59,7 +89,7 @@
             <div class="col-md-6">
 
               <!-- Toggle Payment Method Type -->
-              <div class="form-group">
+              <div class="form-group" *ngIf="allowACH">
                 <div class="switch">
                   <label class="toggle-text">
                     Credit Card
@@ -228,7 +258,7 @@
               </div>
 
               <div class="form-group">
-                <button class="btn btn-primary float-right" type="submit" [disabled]="!signupForm.valid">
+                <button class="btn btn-primary float-right" type="submit" [disabled]="!paymentForm.valid">
                   Add card
                 </button>
               </div>

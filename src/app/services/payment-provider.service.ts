@@ -17,12 +17,18 @@ export class PaymentProviderService {
     return this.http.post<APIResponse<any>>(url, paymentInformation);
   }
 
-  getCustomerProfile() {
-    const url = this.serviceURl + 'get/profile';
+  getPaymentMethods() {
+    const url = this.serviceURl + 'get/payment-methods';
     return this.http.get<APIResponse<any>>(url);
   }
 
-  deletePaymentMethod(paymentMethod) {
+  updateDefaultPaymentMethod(paymentMethod: any) {
+    console.log('calling this services');
+    const url = this.serviceURl + 'update/default-payment-method';
+    return this.http.post<APIResponse<any>>(url, paymentMethod);
+  }
+
+  deletePaymentMethod(paymentMethod: any) {
     const url = this.serviceURl + 'delete/payment-profile';
     return this.http.post<APIResponse<any>>(url, paymentMethod);
   }

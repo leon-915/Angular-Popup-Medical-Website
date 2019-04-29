@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   SignupService, CommonService, PlanService, DateService,
-  NotificationService, GooglePlacesService, PaymentProviderService
+  NotificationService, GooglePlacesService, PaymentProviderService, AccountService
 } from '../../services/index';
 import { CardValidator } from 'src/app/validators';
+import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-payment-methods',
@@ -14,13 +15,16 @@ import { CardValidator } from 'src/app/validators';
 export class PaymentMethodsComponent implements OnInit {
 
   @ViewChild('address') address: ElementRef;
+  public modalReference: NgbModalRef;
 
-  public signupForm: FormGroup;
+  public paymentForm: FormGroup;
   public currentMask = '';
   public typeMask = '';
   public years = [];
   public states = [];
   public paymentMethods = [];
+  public allowACH;
+  public currentPaymentMethodId: string;
 
   constructor(
     private signupSrv: SignupService,
@@ -30,7 +34,9 @@ export class PaymentMethodsComponent implements OnInit {
     private dateSrv: DateService,
     private notificationSrv: NotificationService,
     private googlePlaceSrv: GooglePlacesService,
-    private paymentSrv: PaymentProviderService
+    private paymentSrv: PaymentProviderService,
+    private modalSvr: NgbModal,
+    private accountSrv: AccountService
   ) {
     this.getStates();
     this.getDateInfo();
@@ -38,7 +44,7 @@ export class PaymentMethodsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.signupForm = this.fb.group({
+    this.paymentForm = this.fb.group({
       creditCardNumber: ['', [Validators.required, CardValidator.checkCardFormat]],
       expirationMonth: [null, [Validators.required]],
       expirationYear: [null, [Validators.required]],
@@ -57,11 +63,19 @@ export class PaymentMethodsComponent implements OnInit {
     });
 
     this.onChangePaymentMethod();
+    this.getConfigurationById();
+  }
+
+  getConfigurationById() {
+    this.accountSrv.getConfigirationById(8).subscribe((response) => {
+      if (!response.HasError) {
+        this.allowACH = response.Result[0].value === 'true' ? true : false;
+      }
+    });
   }
 
   onChangePaymentMethod() {
     this.paymentMethod.valueChanges.subscribe((status) => {
-      console.log(status);
       if (status) {
         this.creditCardNumber.setValidators(null);
         this.expirationMonth.setValidators(null);
@@ -78,7 +92,6 @@ export class PaymentMethodsComponent implements OnInit {
         this.expirationYear.setValidators([Validators.required]);
         this.cvv.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(3)]);
         this.nameOnCard.setValidators([Validators.required]);
-
       }
 
       this.creditCardNumber.updateValueAndValidity();
@@ -91,7 +104,8 @@ export class PaymentMethodsComponent implements OnInit {
     });
   }
 
-  AfterViewInit() {
+  // tslint:disable-next-line
+  ngAfterViewInit() {
     this.googlePlaceSrv
       .loadMaps(this.address, this.setAddress)
       .then(() => {
@@ -102,17 +116,14 @@ export class PaymentMethodsComponent implements OnInit {
       });
   }
 
-  setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string) => {
-    console.log(address);
-    console.log(state);
+  setAddress = (city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string, address: string) => {
     this.city.setValue(city);
     this.zipCode.setValue(zipCode);
     this.country.setValue(country);
+    this.address1.setValue(address);
 
     this.states.forEach(item => {
-      console.log(item);
       if (item.abbreviation === state) {
-        console.log('state encontrado');
         this.state.setValue(item.id);
         this.stateName.setValue(state);
       }
@@ -139,13 +150,10 @@ export class PaymentMethodsComponent implements OnInit {
 
 
   getStates() {
-    console.log('asdasdasd');
     this.signupSrv.getCommonFormData().subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           this.states = response.Result.stateList;
-          console.log(this.states);
         }
       },
       error => {
@@ -155,7 +163,6 @@ export class PaymentMethodsComponent implements OnInit {
   }
 
   getCreditCardType(creditCardNumber) {
-    console.log(creditCardNumber);
     let result = 'unknown';
 
     if (/^5[1-5]/.test(creditCardNumber)) {
@@ -187,63 +194,63 @@ export class PaymentMethodsComponent implements OnInit {
   // Getters
 
   get creditCardNumber() {
-    return this.signupForm.controls.creditCardNumber;
+    return this.paymentForm.controls.creditCardNumber;
   }
 
   get expirationMonth() {
-    return this.signupForm.controls.expirationMonth;
+    return this.paymentForm.controls.expirationMonth;
   }
 
   get expirationYear() {
-    return this.signupForm.controls.expirationYear;
+    return this.paymentForm.controls.expirationYear;
   }
 
   get cvv() {
-    return this.signupForm.controls.cvv;
+    return this.paymentForm.controls.cvv;
   }
 
   get nameOnCard() {
-    return this.signupForm.controls.nameOnCard;
+    return this.paymentForm.controls.nameOnCard;
   }
 
   get address1() {
-    return this.signupForm.controls.address1;
+    return this.paymentForm.controls.address1;
   }
 
   get address2() {
-    return this.signupForm.controls.address2;
+    return this.paymentForm.controls.address2;
   }
 
   get city() {
-    return this.signupForm.controls.city;
+    return this.paymentForm.controls.city;
   }
 
   get state() {
-    return this.signupForm.controls.state;
+    return this.paymentForm.controls.state;
   }
 
   get stateName() {
-    return this.signupForm.controls.stateName;
+    return this.paymentForm.controls.stateName;
   }
 
   get zipCode() {
-    return this.signupForm.controls.zipCode;
+    return this.paymentForm.controls.zipCode;
   }
 
   get country() {
-    return this.signupForm.controls.country;
+    return this.paymentForm.controls.country;
   }
 
   get paymentMethod() {
-    return this.signupForm.controls.paymentMethod;
+    return this.paymentForm.controls.paymentMethod;
   }
 
   get routingNumber() {
-    return this.signupForm.controls.routingNumber;
+    return this.paymentForm.controls.routingNumber;
   }
 
   get bankAccountNumber() {
-    return this.signupForm.controls.bankAccountNumber;
+    return this.paymentForm.controls.bankAccountNumber;
   }
 
   onChange() {
@@ -259,27 +266,22 @@ export class PaymentMethodsComponent implements OnInit {
   }
 
   getPaymentMethods() {
-
-    console.log('getting payment methods..');
-    this.paymentSrv.getCustomerProfile().subscribe((response) => {
+    this.paymentSrv.getPaymentMethods().subscribe((response) => {
       this.paymentMethods = [];
-      console.log(response);
       if (!response.HasError) {
-        this.paymentMethods = response.Result.profile.paymentProfiles;
-        console.log(this.paymentMethods);
+        this.paymentMethods = response.Result;
       }
     }, error => { console.log(error); });
 
   }
 
-  deletePaymentMethod(paymentMethodId: string) {
+  setDefaultPaymentMethod(paymentMethodId: string) {
 
-    const event = {
-      customerPaymentProfileId: paymentMethodId
+    const request = {
+      paymentProfileId: paymentMethodId
     };
 
-    this.paymentSrv.deletePaymentMethod(event).subscribe((response) => {
-      console.log(response);
+    this.paymentSrv.updateDefaultPaymentMethod(request).subscribe((response) => {
       if (!response.HasError) {
         this.notificationSrv.showSuccess(response.Message);
         this.getPaymentMethods();
@@ -290,13 +292,54 @@ export class PaymentMethodsComponent implements OnInit {
 
   }
 
-  doSignup() {
-    console.log(this.signupForm.getRawValue());
-    this.paymentSrv.addPaymentMethod(this.signupForm.getRawValue()).subscribe((response) => {
-      console.log(response);
+  deletePaymentMethod() {
+    const request = {
+      customerPaymentProfileId: this.currentPaymentMethodId
+    };
+
+    this.paymentSrv.deletePaymentMethod(request).subscribe((response) => {
       if (!response.HasError) {
-        this.signupForm.reset();
         this.notificationSrv.showSuccess(response.Message);
+        this.modalReference.close();
+        this.getPaymentMethods();
+      } else {
+        this.notificationSrv.showError(response.Message);
+      }
+    }, error => { console.log(error); });
+
+  }
+
+  open(content, paymentMethodId: string) {
+    this.currentPaymentMethodId = paymentMethodId;
+    this.modalReference = this.modalSvr.open(content);
+    this.modalReference.result.then(
+      result => {
+        // this.closeResult = `Closed with: ${result}`;
+        console.log('closed with: ', result);
+      },
+      reason => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.modalReference.close();
+      }
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  createPaymentMethod() {
+    this.paymentSrv.addPaymentMethod(this.paymentForm.getRawValue()).subscribe((response) => {
+      if (!response.HasError) {
+        this.paymentForm.reset();
+        this.notificationSrv.showSuccess(response.Message);
+        this.getPaymentMethods();
       } else {
         this.notificationSrv.showError(response.Message);
       }
