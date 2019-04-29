@@ -20,6 +20,7 @@ export class FamilyEditComponent implements OnInit {
 
   @Input() relationId: number;
   @Input() isActive: boolean;
+  @Input() index: number;
 
   // tslint:disable-next-line: ban-types
   @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
@@ -60,15 +61,16 @@ export class FamilyEditComponent implements OnInit {
     console.log(this.isActive);
   }
 
+  //  1: edit, 2: delete
   editFamilyMember() {
     const formData = this.addMemberForm.getRawValue();
     this.myFamilySrv.putEditMyFamily(formData).subscribe(res => {
       if (!res.HasError) {
-        this.returnResult(res.Result, res.Message);
+        this.returnResult(1, res.Result, res.Message);
         this.modalReference.close();
         this.getDismissReason('logic');
       } else {
-        this.returnResult(null, res.Message);
+        this.returnResult(1, null, res.Message);
         this.modalReference.close();
         this.getDismissReason('logic');
       }
@@ -79,7 +81,22 @@ export class FamilyEditComponent implements OnInit {
     this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
+  removeInvitation() {
+    // TODO Another Modal (stacked).
 
+    this.myFamilySrv.deleteMyFamilyMember(this.relationId).subscribe(res => {
+      if (!res.HasError) {
+        const memberToDelete = { index: this.index, relationId: this.relationId };
+        this.returnResult(2, memberToDelete, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
+      } else {
+        this.returnResult(2, null, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
+      }
+    });
+  }
   // decrypt(ciphertext) {
   //   ciphertext = decodeURIComponent(ciphertext);
   //   const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
@@ -137,8 +154,10 @@ export class FamilyEditComponent implements OnInit {
     }
   }
 
-  returnResult(member: FamilyUser, message: string) {
-    const result = { member, message };
+  // method is a number to determine if is edit or is delete
+  //  1: edit, 2: delete
+  returnResult(method: number, member, message: string) {
+    const result = { method, member, message };
     this.action.emit(result);
   }
 

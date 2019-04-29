@@ -1,12 +1,19 @@
-<div class="d-flex justify-content-around bg-secondary mb-3">
-  <div class="p-2 bg-info">Flex item 1</div>
-  <div class="p-2 bg-warning">Flex item 2</div>
-  <div class="p-2 bg-primary">Flex item 3</div>
+<div class="row justify-content-around">
+  <div class="col-sm-3">
+    <div (click)="goToDashboard()">
+      <label class="my-family-my-Hub"><i class="material-icons"> arrow_back </i>My Hub </label>
+    </div>
+  </div>
+
+  <div class="col-lg-6 text-center">
+    <label class="my-family-title">My Care Phamily </label>
+  </div>
+  <div class="col-sm-3"></div>
 </div>
 
 <div class="row  justify-content-md-center">
   <!-- Profile -->
-  <div class="col-md-4 text-center">
+  <div class="col-sm-4 text-center">
     <div class="card">
       <div class="card-header card-warning-header">
         <div class="row  justify-content-between ">
@@ -29,7 +36,7 @@
 
   <!-- Family members -->
 
-  <div class="col-md-4 text-center" *ngFor="let member of familyUsers; let i = index">
+  <div class="col-sm-4 text-center" *ngFor="let member of familyUsers; let i = index">
     <div class="card">
       <div class="card-header card-success-header">
         <div class="row  justify-content-between ">
@@ -57,6 +64,7 @@
           <app-family-edit
             [relationId]="member.member_relation_id"
             [isActive]="!member.is_active"
+            [index]="i"
             (action)="getEditResult($event)"
           ></app-family-edit>
         </div>
@@ -65,6 +73,7 @@
           <app-edit-invitation
             [relationId]="member.member_relation_id"
             [isActive]="!member.is_active"
+            [index]="i"
             (action)="getEditResult($event)"
           ></app-edit-invitation>
         </ng-template>
@@ -75,7 +84,7 @@
   </div>
   <!-- Guest Members -->
 
-  <div class="col-md-4" *ngFor="let member of guestUsers; let i = index">
+  <div class="col-sm-4" *ngFor="let member of guestUsers; let i = index">
     <div class="card">
       <div class="card-header card-default-header">
         <div class="row  justify-content-between ">
@@ -106,8 +115,8 @@
   <!-- Add  Members -->
 
   <div class="col-md-4">
-    <div class="card">
-      <div class="card-header card-success-header">
+    <div class="card" style=" box-shadow: none !important;">
+      <div class="card-header card-unavailable-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">Add</label>
@@ -117,7 +126,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body card-success text-center">
+      <div class="card-body card-unavailable text-center">
         <div style="height: 90px; vertical-align: middle;">
           <div class="col-md-12">
             <div class="row justify-content-center">

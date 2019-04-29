@@ -126,17 +126,28 @@ export class AccountFamilyComponent implements OnInit {
   getEditResult(result) {
     const member = result.member;
     const message = result.message;
-
-    if (member) {
-      this.notificationSrv.showSuccess(message);
-      const index = this.familyUsers.findIndex(currentMember => currentMember.member_relation_id === member.member_relation_id);
-      if (index > -1) {
-        this.familyUsers[index].first_name = member.first_name;
-        this.familyUsers[index].last_name = member.last_name;
-        this.familyUsers[index].member_relation_type_id = member.member_relation_type_id;
+    //  1: edit, 2: delete
+    const method = result.method;
+    if (method === 1) {
+      if (member) {
+        this.notificationSrv.showSuccess(message);
+        const index = this.familyUsers.findIndex(currentMember => currentMember.member_relation_id === member.member_relation_id);
+        if (index > -1) {
+          this.familyUsers[index].first_name = member.first_name;
+          this.familyUsers[index].last_name = member.last_name;
+          this.familyUsers[index].member_relation_type_id = member.member_relation_type_id;
+        }
+      } else {
+        this.notificationSrv.showError(message);
       }
     } else {
-      this.notificationSrv.showError(message);
+      // delete
+      if (member) {
+        this.notificationSrv.showSuccess(message);
+        this.removefromList(member.index, false);
+      } else {
+        this.notificationSrv.showSuccess(message);
+      }
     }
   }
   getAddResult(result) {

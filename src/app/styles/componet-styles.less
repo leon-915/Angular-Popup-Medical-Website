@@ -54,6 +54,11 @@
   background-color: @orange;
 }
 
+.card-unavailable-header {
+  vertical-align: middle;
+  background-color: @light-gray-2;
+}
+
 .card-success {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
   background-image: linear-gradient(to bottom, #ffffff, #d1eadc);
@@ -68,6 +73,13 @@
 .card-warning {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
   background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+}
+
+.card-unavailable {
+  background-color: #ffffff;
+  border-top: transparent !important;
+  border-color: @light-gray-2;
+  border-style: dashed;
 }
 
 .switch label input[type=checkbox]:checked+.lever {

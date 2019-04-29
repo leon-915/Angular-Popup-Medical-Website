@@ -16,6 +16,7 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 export class EditInvitationComponent implements OnInit {
   @Input() relationId: number;
   @Input() isActive: boolean;
+  @Input() index: number;
 
   // tslint:disable-next-line: ban-types
   @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
@@ -54,6 +55,7 @@ export class EditInvitationComponent implements OnInit {
   ngOnInit() {
     console.log(this.isActive);
   }
+  //  1: edit, 2: delete
 
   editInvitation() {
     const formData = this.addMemberForm.getRawValue();
@@ -61,11 +63,11 @@ export class EditInvitationComponent implements OnInit {
     this.myFamilySrv.putInvitation(formData).subscribe(res => {
       console.log(JSON.stringify(res));
       if (!res.HasError) {
-        this.returnResult(res.Result, res.Message);
+        this.returnResult(1, res.Result, res.Message);
         this.modalReference.close();
         this.getDismissReason('logic');
       } else {
-        this.returnResult(null, res.Message);
+        this.returnResult(1, null, res.Message);
         this.modalReference.close();
         this.getDismissReason('logic');
       }
@@ -83,6 +85,23 @@ export class EditInvitationComponent implements OnInit {
   //   const originalText = bytes.toString(CryptoJS.enc.Utf8);
   //   return originalText;
   // }
+
+  removeInvitation() {
+    // TODO Another Modal (stacked).
+
+    this.myFamilySrv.deleteMyFamilyMember(this.relationId).subscribe(res => {
+      if (!res.HasError) {
+        const memberToDelete = { index: this.index, relationId: this.relationId };
+        this.returnResult(2, memberToDelete, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
+      } else {
+        this.returnResult(2, null, res.Message);
+        this.modalReference.close();
+        this.getDismissReason('logic');
+      }
+    });
+  }
 
   open(content) {
     console.log(this.isActive);
@@ -130,8 +149,11 @@ export class EditInvitationComponent implements OnInit {
     }
   }
 
-  returnResult(member: FamilyUser, message: string) {
-    const result = { member, message };
+  // method is a number to determine if is edit or is delete
+  //  1: edit, 2: delete
+
+  returnResult(method: number, member, message: string) {
+    const result = { method, member, message };
     this.action.emit(result);
   }
 
