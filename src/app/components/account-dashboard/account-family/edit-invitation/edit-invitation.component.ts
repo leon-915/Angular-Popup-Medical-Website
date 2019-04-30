@@ -2,11 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
-import * as moment from 'moment';
+import { TranslateService } from 'src/app/translator/translate.service';
 
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
-import * as CryptoJS from 'crypto-js';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-edit-invitation',
@@ -37,7 +36,7 @@ export class EditInvitationComponent implements OnInit {
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
-    private notificationSrv: NotificationService,
+    private translate: TranslateService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -51,6 +50,10 @@ export class EditInvitationComponent implements OnInit {
       },
       {}
     );
+  }
+  setLang(lang: string) {
+    localStorage.setItem('lng', lang);
+    this.translate.use();
   }
   ngOnInit() {
     console.log(this.isActive);

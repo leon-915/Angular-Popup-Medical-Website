@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from './../../translator/translate.service';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from 'src/app/translator/translate.service';
 
 @Component({
   selector: 'app-translator-test',

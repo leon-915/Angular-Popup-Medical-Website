@@ -8,6 +8,9 @@ import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
 import * as CryptoJS from 'crypto-js';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+import { TranslateService } from 'src/app/translator/translate.service';
+
+
 @Component({
   selector: 'app-add-member',
   templateUrl: './add-member.component.html',
@@ -33,6 +36,8 @@ export class AddMemberComponent implements OnInit {
     private modalSvr: NgbModal,
     private fb: FormBuilder,
     private myFamilySrv: MyFamilyService,
+    private translate: TranslateService,
+
     private notificationSrv: NotificationService
   ) {
     this.addMemberForm = this.fb.group(

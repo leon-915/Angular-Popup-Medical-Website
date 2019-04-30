@@ -61,22 +61,22 @@
 
 .card-success {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to bottom, #ffffff, #d1eadc);
+  background-image: linear-gradient(to bottom, @white, #d1eadc);
 
 }
 
 .card-default {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-color: #f2f2f2;
+  background-color: @white;
 }
 
 .card-warning {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+  background-image: linear-gradient(to bottom, @white, #ffe6cf);
 }
 
 .card-unavailable {
-  background-color: #ffffff;
+  background-color: @white;
   border-top: transparent !important;
   border-color: @light-gray-2;
   border-style: dashed;
@@ -114,7 +114,7 @@
   line-height: 1.33;
   letter-spacing: -0.3px;
   text-align: center;
-  color: #37a567;
+  color: @green;
 }
 
 .my-family-col-box {
@@ -127,11 +127,11 @@
   max-width: 400px;
   height: 220px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+  background-image: linear-gradient(to bottom, @white, #ffe6cf);
 }
 
 .my-family-profile-title {
-  background-color: #ff9331;
+  background-color: @orange;
 }
 
 .my-family-member-box {
@@ -139,14 +139,14 @@
   max-width: 400px;
   height: 220px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to bottom, #ffffff, #d1eadc);
+  background-image: linear-gradient(to bottom, @white, #d1eadc);
 }
 
 .my-family-member-title {
   min-width: 288px;
   max-width: 400px;
   height: 36px;
-  background-color: #37a567;
+  background-color: @green;
 }
 
 
@@ -156,29 +156,29 @@
 
   height: 220px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
-  background-color: #f2f2f2;
+  background-color: @bkg-gray;
 }
 
 .my-family-guest-title {
   min-width: 288px;
   max-width: 400px;
   height: 36px;
-  background-color: #646464;
+  background-color: @gray;
 }
 
 .my-family-add-box {
   min-width: 288px;
   max-width: 400px;
   height: 220px;
-  border: solid 1px #cacaca;
-  background-color: #ffffff;
+  border: solid 1px @light-gray-2;
+  background-color: @white;
 }
 
 .my-family-add-title {
   min-width: 288px;
   max-width: 400px;
   height: 36px;
-  background-color: #cacaca;
+  background-color: @light-gray-2;
 }
 
 .my-family-my-Hub {
@@ -190,7 +190,7 @@
   line-height: 1.46;
   letter-spacing: normal;
   text-align: left;
-  color: #979797;
+  color: @mid-gray;
 }
 
 .my-family-box-title-left {
@@ -203,7 +203,7 @@
   line-height: 1.81;
   letter-spacing: -0.1px;
   text-align: left;
-  color: #ffffff;
+  color: @white;
 }
 
 .my-family-box-title-right {
@@ -216,7 +216,7 @@
   line-height: 2.07;
   letter-spacing: -0.1px;
   text-align: right;
-  color: #ffffff;
+  color: @white;
 }
 
 .my-family-box-member-name {
@@ -228,7 +228,7 @@
   letter-spacing: normal;
   text-align: center;
   padding-bottom: 0px !important;
-  color: #373737;
+  color: @light-black;
 }
 
 .my-family-box-member-email {
@@ -240,7 +240,7 @@
   line-height: 1.71;
   letter-spacing: normal;
   text-align: center;
-  color: #373737;
+  color: @light-black;
   padding-bottom: 0px !important;
   overflow-wrap: break-word;
 }
@@ -251,31 +251,31 @@
   width: 147.6px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px #ff9331;
-  background-color: #ffffff;
+  border: solid 2px @orange;
+  background-color: @white;
 }
 
 .my-family-button-member {
   width: 147.6px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px #37a567;
-  background-color: #ffffff;
+  border: solid 2px @green;
+  background-color: @white;
 }
 
 .my-family-button-guest {
   width: 147.6px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px #979797;
-  background-color: #ffffff;
+  border: solid 2px @mid-gray;
+  background-color: @white;
 }
 
 .my-family-button-add {
   width: 216.7px;
   height: 50px;
   border-radius: 30px;
-  border: solid 2px #cacaca;
+  border: solid 2px @light-gray-2;
   text-align: center;
   vertical-align: middle;
 
@@ -292,7 +292,7 @@
   min-height: 50px;
   display: inline-flex;
   align-items: center;
-  color: #cacaca;
+  color: @light-gray-2;
 }
 
 .my-family-box-profile-button-lbl {
@@ -306,7 +306,7 @@
   min-height: 50px;
   display: inline-flex;
   align-items: center;
-  color: #ff9331;
+  color: @orange;
 }
 
 .my-family-box-member-button-lbl {
@@ -320,7 +320,7 @@
   min-height: 50px;
   display: inline-flex;
   align-items: center;
-  color: #37a567;
+  color: @green;
 }
 
 .my-family-box-guest-button-lbl {
@@ -334,7 +334,7 @@
   min-height: 50px;
   display: inline-flex;
   align-items: center;
-  color: #646464;
+  color: @gray;
 }
 
 
@@ -349,7 +349,7 @@
   line-height: 1.71;
   letter-spacing: normal;
   text-align: center;
-  color: #e74c3c;
+  color: @error;
 }
 
 
@@ -367,40 +367,40 @@
 }
 
 .dark-modal .modal-content {
-  background-color: #292b2c;
-  color: white;
+  // background-color: #292b2c;
+  color: @white;
 }
 
 .dark-modal .close {
-  color: white;
+  color: @white;
 }
 
 .light-blue-backdrop {
-  background-color: #5cb3fd;
+  background-color: @black_drop;
 }
 
 // toggle
 .mat-slide-toggle-bar {
-  background-color: #37a567;
+  background-color: @green;
 }
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-  background-color: #37a567;
+  background-color: @green;
 }
 
 
 // toggle
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-  background-color: #ffffff;
+  background-color: @white;
 }
 
 /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-  background-color: #49c5b6;
+  background-color: @toggle_bar;
 }
 
 /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-  background-color: #49c5b6;
+  background-color: @toggle_thumb;
 }
 
 .myfamily-add-member-title {
@@ -414,5 +414,5 @@
   line-height: 1.21;
   letter-spacing: normal;
   text-align: center;
-  color: #37a567;
+  color: @green;
 }

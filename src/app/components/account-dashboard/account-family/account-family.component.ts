@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
-import { ReCaptchaV3Service } from 'ngx-captcha';
+import { TranslateService } from 'src/app/translator/translate.service';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
 import * as CryptoJS from 'crypto-js';
@@ -30,7 +30,7 @@ export class AccountFamilyComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
-    private reCaptchaV3Service: ReCaptchaV3Service,
+    private translate: TranslateService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -48,6 +48,11 @@ export class AccountFamilyComponent implements OnInit {
       },
       {}
     );
+  }
+
+  setLang(lang: string) {
+    localStorage.setItem('lng', lang);
+    this.translate.use();
   }
 
   ngOnInit() {

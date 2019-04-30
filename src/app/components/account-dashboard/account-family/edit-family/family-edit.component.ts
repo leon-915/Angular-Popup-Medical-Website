@@ -9,6 +9,9 @@ import { GenderModel } from 'src/app/models';
 import * as CryptoJS from 'crypto-js';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+import { TranslateService } from 'src/app/translator/translate.service';
+
+
 @Component({
   selector: 'app-family-edit',
   templateUrl: './family-edit.component.html',
@@ -39,6 +42,7 @@ export class FamilyEditComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
+    private translate: TranslateService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -55,6 +59,10 @@ export class FamilyEditComponent implements OnInit {
       },
       {}
     );
+  }
+  setLang(lang: string) {
+    localStorage.setItem('lng', lang);
+    this.translate.use();
   }
 
   ngOnInit() {
