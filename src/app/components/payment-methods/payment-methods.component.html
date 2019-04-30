@@ -26,7 +26,7 @@
       <div class="col-md-3" *ngFor="let paymentMethod of paymentMethods">
         <div class="card" *ngIf="paymentMethod.is_default">
           <div class="card-header card-success-header">
-            <small class="card-title">
+            <small class="card-title ml-3">
               Default Payment
             </small>
           </div>
@@ -40,20 +40,20 @@
           <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
             <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.lastfour}}</p>
             <p class="card-content mb-0 pt-0">Expires {{paymentMethod.expiration}}</p>
-            <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">Not usable</p>
+            <p class="card-content mb-0 pt-0 payment-not-usable" *ngIf="!paymentMethod.valid_card">Not usable</p>
             <button class="btn-success-outline"
               (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
           </div>
         </div>
         <div class="card" *ngIf="!paymentMethod.is_default">
           <div class="card-header card-default-header" *ngIf="paymentMethod.valid_card">
-            <small class="card-title">
+            <small class="card-title ml-3">
               <mat-checkbox (change)="setDefaultPaymentMethod(paymentMethod.payment_profile_payment_provider_id)">
               </mat-checkbox> Make Default
             </small>
           </div>
           <div class="card-header card-default-header" *ngIf="!paymentMethod.valid_card">
-            <small class="card-title">
+            <small class="card-title ml-3">
               Not Usable
             </small>
           </div>

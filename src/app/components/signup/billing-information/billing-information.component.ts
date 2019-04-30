@@ -56,6 +56,7 @@ export class BillingInformationComponent implements OnInit {
       latitude: 0,
       longitude: 0,
       planName: null,
+      planPrice: null,
       country: ['', [Validators.required]],
       paymentMethod: [false, [Validators.required]], // true = ACH & false = credit card
       routingNumber: [''],
@@ -64,6 +65,7 @@ export class BillingInformationComponent implements OnInit {
 
     this.loadInformation();
     this.onChangePaymentMethod();
+    this.getConfigurationById();
   }
 
   // tslint:disable-next-line
@@ -176,6 +178,7 @@ export class BillingInformationComponent implements OnInit {
           this.signupForm.controls.latitude.setValue(response.Result.latitude);
           this.signupForm.controls.longitude.setValue(response.Result.longitude);
           this.signupForm.controls.planName.setValue(response.Result.plan_name);
+          this.signupForm.controls.planPrice.setValue(response.Result.price_quarter);
           this.signupForm.controls.country.setValue(response.Result.country_id);
         }
       },
@@ -290,6 +293,10 @@ export class BillingInformationComponent implements OnInit {
 
   get planName() {
     return this.signupForm.controls.planName;
+  }
+
+  get planPrice() {
+    return this.signupForm.controls.planPrice;
   }
 
   get paymentMethod() {
