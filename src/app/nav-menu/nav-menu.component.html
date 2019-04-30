@@ -65,51 +65,55 @@
       ><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a
     >
   </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">assignment_ind</i>{{ 'menu.digital_care_assitants' | translate }}</a>
+
+  <!--Anonymous user-->
+  <li *ngIf="!isUserAuthenticated">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
   </li>
-  <li>
-    <a href="badges.html"><i class="material-icons left">card_membership</i>{{ 'menu.membership' | translate }}</a>
+  <li *ngIf="!isUserAuthenticated">
+    <a href="badges.html"><i class="material-icons left">card_membership</i>{{ 'menu.plans' | translate }}</a>
   </li>
-  <li>
-    <a href="collapsible.html"><i class="material-icons left">local_hospital</i>{{ 'menu.medications' | translate }}</a>
+  <li *ngIf="!isUserAuthenticated">
+    <a href="collapsible.html"><i class="material-icons left">local_hospital</i>{{ 'menu.faq' | translate }}</a>
   </li>
-  <li>
-    <a href="mobile.html"><i class="material-icons left">help</i>{{ 'menu.help' | translate }}</a>
+  <li *ngIf="!isUserAuthenticated">
+    <a [routerLink]="[lang, 'login']"><i class="material-icons left">perm_identity</i>{{ 'menu.signin' | translate }}</a>
   </li>
-  <li>
-    <a href="mobile.html"><i class="material-icons left">description</i>{{ 'menu.you_have_an_order' | translate }}</a>
+  <!--Anonymous user-->
+
+  <!--Authenticated user-->
+  <li *ngIf="isUserAuthenticated">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a>
   </li>
-  <li>
-    <a [routerLink]="['/register']"><i class="material-icons left">supervisor_account</i>{{ 'menu.join_now' | translate }}</a>
+  <li *ngIf="isUserAuthenticated">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
   </li>
-  <li>
-    <a [routerLink]="['/login']"><i class="material-icons left">perm_identity</i>{{ 'menu.login' | translate }}</a>
+  <li *ngIf="isUserAuthenticated">
+    <a [routerLink]="[lang, 'account']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
   </li>
+  <li *ngIf="isUserAuthenticated">
+    <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
+  </li>
+
+  <!--Authenticated user-->
 </ul>
 
-<ul class="sidenav" id="right-sidevar">
-  <li>
-    <a href="sass.html"><i class="material-icons left">developer_board</i> DASHBOARD HUB </a>
+<ul class="sidenav" id="right-sidevar" *ngIf="isUserAuthenticated">
+  <!--Authenticated user-->
+  <li *ngIf="isUserAuthenticated">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a>
   </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">add_to_queue</i> DIGITAL CARE </a>
+  <li *ngIf="isUserAuthenticated">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
   </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">notification_important</i> ORDERS </a>
+  <li *ngIf="isUserAuthenticated">
+    <a [routerLink]="[lang, 'account']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
   </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">account_circle</i> PROFILE</a>
+  <li *ngIf="isUserAuthenticated">
+    <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
   </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">credit_card</i> MEMBERSHIP CARD </a>
-  </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">settings</i> SETTINGS </a>
-  </li>
-  <li>
-    <a href="sass.html"><i class="material-icons left">exit_to_app</i> SIGN OUT </a>
-  </li>
+
+  <!--Authenticated user-->
 </ul>
 
 <!-- <mat-sidenav-container class="sidenav-container">

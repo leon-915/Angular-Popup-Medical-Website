@@ -163,4 +163,5 @@ export class ChangePasswordModel {
 export class AmIAuthenticatedModel {
   success: boolean;
   message: string;
+  data: { member_type_id: number };
 }

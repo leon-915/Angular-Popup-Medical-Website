@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     private menuService: MenuService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -50,9 +50,12 @@ export class LoginComponent implements OnInit {
       console.log(res);
       if (!res.HasError) {
         sessionStorage.setItem('token', res.Result.token);
-        // CODEREVIEW
-        localStorage.setItem('member_type_id', String(res.Result.member_type_id));
-        // CODEREVIEW
+
+        // // CODEREVIEW
+        // localStorage.setItem('member_type_id', String(res.Result.member_type_id));
+        // // CODEREVIEW
+        this.accountSrv.member_type_id = res.Result.member_type_id;
+
         this.menuService.updateStatus();
         this.router.navigate(['../my-home'], { relativeTo: this.activatedRoute });
       } else {

@@ -27,8 +27,11 @@ export class AccountService {
   private userEmail: string;
   private userEmailMasked: string;
 
-  constructor(private commonSrv: CommonService, private http: HttpClient) { }
+  constructor(private commonSrv: CommonService, private http: HttpClient) {}
   serviceURl: string = this.commonSrv.apiURL + 'en/';
+
+  // tslint:disable-next-line: variable-name
+  member_type_id = 0;
 
   signin(loginRequestModel: LoginRequestModel) {
     const url = `${this.serviceURl}login`;

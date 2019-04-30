@@ -13,6 +13,8 @@ declare var $: any;
 export class NavMenuComponent implements OnInit {
   lang = localStorage.getItem('lng');
   isUserAuthenticated = false;
+  // tslint:disable-next-line: variable-name
+  member_type_id = 0;
 
   constructor(
     private translate: TranslateService,
@@ -21,8 +23,13 @@ export class NavMenuComponent implements OnInit {
     private menuService: MenuService
   ) {
     this.menuService.updateStatus();
+
     this.menuService.AuthenticationStatus().subscribe(status => {
       this.isUserAuthenticated = status;
+    });
+
+    this.menuService.member_type_id_obs().subscribe(result => {
+      this.member_type_id = result;
     });
   }
 

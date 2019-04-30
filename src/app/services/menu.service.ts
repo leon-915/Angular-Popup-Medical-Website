@@ -8,6 +8,10 @@ import { AmIAuthenticatedModel } from '../models';
 })
 export class MenuService {
   private isAuthenticated = new Subject<boolean>();
+
+  // tslint:disable-next-line: variable-name
+  private member_type_id = new Subject<number>();
+
   private serviceURL: string;
 
   constructor(private commonSrv: CommonService, private http: HttpClient) {
@@ -17,10 +21,15 @@ export class MenuService {
   updateStatus(): void {
     const url = `${this.serviceURL}amIAuthenticated`;
     this.http.post<AmIAuthenticatedModel>(url, null).subscribe(result => {
+      this.member_type_id.next(result.data ? result.data.member_type_id : 0);
+
       this.isAuthenticated.next(result.success);
     });
   }
 
+  member_type_id_obs(): Observable<number> {
+    return this.member_type_id.asObservable();
+  }
   AuthenticationStatus(): Observable<boolean> {
     return this.isAuthenticated.asObservable();
   }
