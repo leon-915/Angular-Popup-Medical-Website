@@ -40,6 +40,7 @@ export class SelectMyPlanComponent implements OnInit {
   getPlans() {
     this.planSrv.getPlans().subscribe(
       response => {
+        console.log(response);
         if (!response.HasError) {
           this.plans = response.Result;
           console.log(this.plans);

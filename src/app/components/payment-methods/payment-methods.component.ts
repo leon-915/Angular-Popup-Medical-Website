@@ -267,6 +267,7 @@ export class PaymentMethodsComponent implements OnInit {
 
   getPaymentMethods() {
     this.paymentSrv.getPaymentMethods().subscribe((response) => {
+      console.log(response);
       this.paymentMethods = [];
       if (!response.HasError) {
         this.paymentMethods = response.Result;

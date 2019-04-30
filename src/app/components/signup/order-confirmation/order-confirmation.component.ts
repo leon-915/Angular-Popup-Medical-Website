@@ -20,7 +20,7 @@ export class OrderConfirmationComponent implements OnInit {
     private router: Router,
     private notificationSrv: NotificationService,
     private dciSrv: DciService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getOrderInformation();
@@ -62,7 +62,13 @@ export class OrderConfirmationComponent implements OnInit {
     const signupResponse = await this.signupSrv.signup(memberModel).toPromise();
     console.log(signupResponse);
     if (!signupResponse.HasError) {
-      const dciJsonResponse = await this.dciSrv.createDCIJsonRequest({}).toPromise();
+      // console.log('se creo la relacion');
+      this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
+
+      /* TODO: "right now the membership card process is not working because network configuration.
+      /When this works, it's only remove this comment. This process was working correctlybefore that."*/
+
+      /*const dciJsonResponse = await this.dciSrv.createDCIJsonRequest({}).toPromise();
       console.log(dciJsonResponse);
       if (!dciJsonResponse.HasError) {
         const createDCICardResponse = await this.dciSrv.createDigitalCard(dciJsonResponse.Result).toPromise();
@@ -85,7 +91,7 @@ export class OrderConfirmationComponent implements OnInit {
         } else {
           console.log('error generating dci card...');
         }
-      }
+      }*/
     } else {
       this.notificationSrv.showError(signupResponse.Message);
     }
