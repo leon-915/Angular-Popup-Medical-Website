@@ -1,7 +1,7 @@
 <div class="row justify-content-around">
   <div class="col-sm-3">
     <div (click)="goToDashboard()">
-      <label class="my-family-my-Hub"><i class="material-icons"> arrow_back </i>{{ 'my_family_placeholders.hub_lbl' | translate }}</label>
+      <label class="my-hub"><i class="material-icons"> arrow_back </i>{{ 'my_family_placeholders.hub_lbl' | translate }}</label>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="card-body card-success text-center">
-        <div style="height: 90px; vertical-align: middle;">
+        <div class="mb-2" style="height: 90px; vertical-align: middle;">
           <span class="pending-invitation" *ngIf="!member.is_active">
             {{ 'my_family_placeholders.pending_invitation_lbl' | translate }}
           </span>
