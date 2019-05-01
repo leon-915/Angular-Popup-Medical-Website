@@ -26,7 +26,7 @@ export class SelectMyPlanComponent implements OnInit {
   disableNext = false;
   currentPlan = 0;
 
-  constructor(private planSrv: PlanService, private signupSrv: SignupService) {}
+  constructor(private planSrv: PlanService, private signupSrv: SignupService) { }
 
   ngOnInit() {
     this.getPlans();
