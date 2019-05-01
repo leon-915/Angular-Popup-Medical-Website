@@ -1,9 +1,8 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <h1 class="text-center title mb-0">Onboarding Interview</h1>
-    <h5 class="text-center subtitle mt-0 mb-4">
-      We need to know a little bit more about your medical history.<br />
-      <span> Remember, you can change your answers anytime from the dashboard. </span>
+    <h1 class="text-center title mb-0">{{'primary_pharmacy.title' | translate}}</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">{{'primary_pharmacy.subtitle' | translate}}<br />
+      <span> {{'primary_pharmacy.reminder' | translate}} </span>
     </h5>
   </div>
 </div>
@@ -30,57 +29,51 @@
 
 <div class="row text-center">
   <div class="col-lg-8 mt-2 mx-auto">
-    <p class="description-one">Please Choose A Primary Pharmacy To Send Your Prescriptions To</p>
-    <p class="description-two mb-3"><strong>Search by Zip Code or City & State:</strong></p>
-    <input type="text" placeholder="Address or Zip Code" class="form-control" #address />
+    <p class="description-one">{{'primary_pharmacy.choose_primary_pharmacy' | translate}}</p>
+    <p class="description-two mb-3"><strong>{{'primary_pharmacy.search_by' | translate}}</strong></p>
+    <input type="text" [placeholder]="'primary_pharmacy.address_placeholder' | translate" class="form-control"
+      #address />
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <div class="card m-0" *ngIf="pharmacies.length > 0">
-      <div class="card-body">
-        <p class="text-center">
-          Found <strong> {{ pharmacies.length }} </strong> Pharmacy(s) near
+      <div class="">
+        <p class="text-center mt-2">
+          {{'primary_pharmacy.found' | translate}} <strong> {{ pharmacies.length }} </strong>
+          {{'primary_pharmacy.near' | translate}}
           <strong> {{ shippingAddress.address1 }}, {{ shippingAddress.state }} {{ shippingAddress.zipCode }} </strong>
         </p>
-        <li
-          class="list-group-item pointer"
-          *ngFor="let pharmacy of (pharmacies | slice: 0:limitItems); let i = index"
+        <li class="list-group-item pointer" *ngFor="let pharmacy of (pharmacies | slice: 0:limitItems); let i = index"
           (click)="selectPharmacy(pharmacy)"
-          [ngClass]="{ 'active-pharmacy': primaryPharmacyAddress?.pharmacy_id === pharmacy.pharmacy_id }"
-        >
+          [ngClass]="{ 'active-pharmacy': primaryPharmacyAddress?.pharmacy_id === pharmacy.pharmacy_id }">
           <div>
             <p class="pharmacy-info">{{ pharmacy.name }}</p>
             <p class="pharmacy-info">{{ pharmacy.address }}</p>
             <p class="pharmacy-info">{{ pharmacy.city }} {{ pharmacy.state }}, {{ pharmacy.zipcode }}</p>
             <p class="pharmacy-info">Ph: {{ pharmacy.phone }}</p>
             <p class="pharmacy-info">Fax: {{ pharmacy.fax }}</p>
-            <p class="pharmacy-info">Distance: {{ pharmacy.miles_distance | number }} miles</p>
+            <p class="pharmacy-info">{{'primary_pharmacy.distance' | translate}}: {{ pharmacy.miles_distance | number }}
+              miles</p>
           </div>
         </li>
-        <button
-          type="button"
-          class="btn btn-primary btn-round float-right mt-5 mb-5"
-          *ngIf="pharmacies && limitItems < pharmacies.length"
-          (click)="limitItems = limitItems + 3"
-        >
-          More pharmacies
+        <button type="button" class="btn btn-primary float-right mr-2 mb-2 mt-2"
+          *ngIf="pharmacies && limitItems < pharmacies.length" (click)="limitItems = limitItems + 3">
+          {{'primary_pharmacy.more_pharmacies' | translate}}
         </button>
       </div>
     </div>
   </div>
   <div class="col-md-6">
-    <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:500px;" [zoom]="13">
-      <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default"></agm-marker>
-      <agm-marker
-        [latitude]="pharmacy.latitude"
-        [longitude]="pharmacy.longitude"
-        [label]="pharmacy.name"
-        *ngFor="let pharmacy of pharmacies"
-        (markerClick)="openWindow(pharmacy.pharmacy_id)"
-      >
-        <agm-info-window [isOpen]="isInfoWindowOpen(pharmacy.pharmacy_id)" [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude">
+    <agm-map [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" style="height:500px;"
+      [zoom]="13">
+      <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default">
+      </agm-marker>
+      <agm-marker [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude" [label]="pharmacy.name"
+        *ngFor="let pharmacy of pharmacies" (markerClick)="openWindow(pharmacy.pharmacy_id)">
+        <agm-info-window [isOpen]="isInfoWindowOpen(pharmacy.pharmacy_id)" [latitude]="pharmacy.latitude"
+          [longitude]="pharmacy.longitude">
           <small>
             <strong> {{ pharmacy.name }} </strong>
           </small>
@@ -97,10 +90,10 @@
   <div class="col-lg-8 mt-2 mx-auto">
     <p>
       <small>
-        By clicking Complete, I certify that: (1) give consent to share my information with the selected pharmacy (2) I am the person who
-        will receive the requested prescriptions, and the prescriptions are for my personal use only; (3) this constitutes my electronic
-        signature; and (4) I agree to the <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, and
-        <a href="">HIPAA Privacy Practices</a>.
+        {{'primary_pharmacy.by_clicking_complete' | translate}} <a
+          href="">{{'primary_pharmacy.terms_service' | translate}}</a>,
+        <a href="">{{'primary_pharmacy.privacy_policy' | translate}} </a>
+        <a href=""> {{'primary_pharmacy.hipaa' | translate}} </a>.
       </small>
     </p>
   </div>
@@ -108,14 +101,12 @@
 
 <div class="row justify-content-md-center">
   <div class="col-lg-8">
-    <button class="btn btn-secondary btn-round btn-lg" type="button" (click)="userAction('back')">Back</button>
-    <button
-      class="btn btn-secondary btn-round btn-lg float-right"
-      type="button"
-      (click)="completeOnboarding()"
-      [disabled]="!primaryPharmacyAddress"
-    >
-      Complete
+    <button class="btn btn-secondary btn-round btn-lg" type="button" (click)="userAction('back')">
+      {{'primary_pharmacy.back_btn' | translate}}
+    </button>
+    <button class="btn btn-secondary btn-round btn-lg float-right" type="button" (click)="completeOnboarding()"
+      [disabled]="!primaryPharmacyAddress">
+      {{'primary_pharmacy.complete_btn' | translate}}
     </button>
   </div>
 </div>

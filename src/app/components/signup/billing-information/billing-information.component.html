@@ -1,9 +1,7 @@
 <div class="row">
   <div class="col-md-12">
-    <h1 class="text-center title mt-0 mb-0">You've Selected {{ planName.value }}.</h1>
-    <h5 class="text-center subtitle mt-0 mb-4">
-      Let's Fine Tine the Billing Details
-    </h5>
+    <h1 class="text-center title mt-0 mb-0">{{'billing_information.title' | translate}} {{ planName.value }}.</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">{{'billing_information.subtitle' | translate}}</h5>
   </div>
 </div>
 
@@ -16,44 +14,44 @@
           <div class="form-group" *ngIf="allowACH">
             <div class="switch">
               <label class="toggle-text">
-                Credit Card
+                {{'billing_information.toggle_cc' | translate}}
                 <input type="checkbox" formControlName="paymentMethod">
-                <span class="lever toggle-text"></span> Pay by Check (ACH)
+                <span class="lever toggle-text"></span> {{'billing_information.toggle_ach' | translate}}
               </label>
             </div>
           </div>
 
           <div class="form-group" *ngIf="paymentMethod.value">
-            <input type="text" placeholder="Routing Number" class="form-control input-bg"
-              formControlName="routingNumber" />
+            <input type="text" [placeholder]="'billing_information_placeholder.routing_number_placeholder' | translate"
+              class="form-control input-bg" formControlName="routingNumber" />
             <p class="mt-1 text-danger"
               *ngIf="(routingNumber.dirty || routingNumber.touched) && routingNumber.invalid && !!routingNumber.errors.required">
-              Routing Number is required.
+              {{'billing_information_errors.routing_number_required' | translate}}
             </p>
           </div>
 
           <div class="form-group" *ngIf="paymentMethod.value">
-            <input type="text" placeholder="Bank Account Number" class="form-control input-bg"
-              formControlName="bankAccountNumber" />
+            <input type="text" [placeholder]="'billing_information_placeholder.bank_account_placeholder' | translate"
+              class="form-control input-bg" formControlName="bankAccountNumber" />
             <p class="mt-1 text-danger"
               *ngIf="(bankAccountNumber.dirty || bankAccountNumber.touched) && bankAccountNumber.invalid && !!bankAccountNumber.errors.required">
-              Bank Account Number is required.
+              {{'billing_information_errors.bank_account_required' | translate}}
             </p>
           </div>
 
           <div class="form-group" *ngIf="!paymentMethod.value">
             <!--<label for="">Credit Card Number</label>-->
-            <input type="text" placeholder="Credit Card Number" class="form-control input-bg"
-              formControlName="creditCardNumber" appOnlyNumbers="true" (ngModelChange)="onChange()"
-              [mask]="currentMask" />
+            <input type="text" [placeholder]="'billing_information_placeholder.cc_placeholder' | translate"
+              class="form-control input-bg" formControlName="creditCardNumber" appOnlyNumbers="true"
+              (ngModelChange)="onChange()" [mask]="currentMask" />
             <p class="mt-1 text-danger"
               *ngIf="(creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.required">
-              Credit Card Number is required.
+              {{'billing_information_errors.cc_required' | translate}}
             </p>
             <p class="mt-1 text-danger" *ngIf="
                 (creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.invalidNumber
               ">
-              Credit Card Number must be a valid credit card.
+              {{'billing_information_errors.cc_valid' | translate}}
             </p>
             <div class="row">
               <div class="col-md-12 text-right pr-0">
@@ -73,7 +71,7 @@
           </div>
 
           <p class="mb-0" *ngIf="!paymentMethod.value">
-            <small> <strong>Expiration</strong> </small>
+            <small> <strong>{{'billing_information.expiration' | translate}}</strong> </small>
           </p>
           <div class="form-row align-items-center" *ngIf="!paymentMethod.value">
             <div class="form-group col-md-4">
@@ -92,41 +90,43 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <input type="text" class="form-control input-bg" placeholder="CVV" appOnlyNumbers="true"
+              <input type="text" class="form-control input-bg"
+                [placeholder]="'billing_information_placeholder.cvv_placeholder' | translate" appOnlyNumbers="true"
                 formControlName="cvv" mask="0000" />
               <p class="mt-1 text-danger" *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.required">
-                CVV is required.
+                {{'billing_information_errors.cvv_required' | translate}}
               </p>
               <p class="mt-1 text-danger"
                 *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask === 'amex'">
-                CVV must be at least 4 numbers long.
+                {{'billing_information_errors.cvv_four_digits_min' | translate}}
               </p>
               <p class="mt-1 text-danger"
                 *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask === 'amex'">
-                CVV can be max 4 numbers long.
+                {{'billing_information_errors.cvv_four_digits_max' | translate}}
               </p>
               <p class="mt-1 text-danger"
                 *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask !== 'amex'">
-                CVV must be at least 3 numbers long.
+                {{'billing_information_errors.cvv_three_digits_min' | translate}}
               </p>
               <p class="mt-1 text-danger"
                 *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask !== 'amex'">
-                CVV can be max 3 numbers long.
+                {{'billing_information_errors.cvv_three_digits_max' | translate}}
               </p>
             </div>
           </div>
 
           <div class="form-group">
-            <p> <small>I agree to have my payment method saved for recurring billing whicj will start after the first 30
-                days</small>
+            <p>
+              <small>{{'billing_information.agree' | translate}}</small>
             </p>
           </div>
 
           <div class="form-group" *ngIf="!paymentMethod.value">
-            <input type="text" placeholder="Name on Card" class="form-control input-bg" formControlName="nameOnCard" />
+            <input type="text" [placeholder]="'billing_information_placeholder.card_name_placeholder' | translate"
+              class="form-control input-bg" formControlName="nameOnCard" />
             <p class="mt-1 text-danger"
               *ngIf="(nameOnCard.dirty || nameOnCard.touched) && nameOnCard.invalid && !!nameOnCard.errors.required">
-              Name on Card is required.
+              {{'billing_information_errors.card_name_required' | translate}}
             </p>
           </div>
 
@@ -134,31 +134,32 @@
         <div class="col-lg-6">
 
           <div class="form-group">
-            <!--<input type="text" placeholder="Billing Address Line 1" class="form-control input-bg"
+            <!--<input type="text" [placeholder]="Billing Address Line 1" class="form-control input-bg"
               formControlName="address1" />-->
-            <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg" #address
-              formControlName="address1" />
+            <input type="text" [placeholder]="'billing_information_placeholder.address1_placeholder' | translate"
+              class="form-control input-bg" #address formControlName="address1" />
             <p class="mt-1 text-danger"
               *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
-              Billing Address Line 1 Number is required.
+              {{'billing_information_errors.address1_required' | translate}}
             </p>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="Billing Address Line 2 (Apt, Suite, etc.)" class="form-control input-bg"
-              formControlName="address2" />
+            <input type="text" [placeholder]="'billing_information_placeholder.address2_placeholder' | translate"
+              class="form-control input-bg" formControlName="address2" />
             <p class="mt-1 text-danger"
               *ngIf="(address2.dirty || address2.touched) && address2.invalid && !!address2.errors.required">
-              Billing Address Line 2 Number is required.
+              {{'billing_information_errors.address2_required' | translate}}
             </p>
           </div>
 
           <div class="form-row align-items-center">
             <div class="form-group col-md-4">
-              <input type="text" class="form-control input-bg" placeholder="City" formControlName="city" />
+              <input type="text" class="form-control input-bg"
+                [placeholder]="'billing_information_placeholder.city_placeholder' | translate" formControlName="city" />
               <p class="mt-1 text-danger"
                 *ngIf="(city.dirty || city.touched) && city.invalid && !!city.errors.required">
-                City is required.
+                {{'billing_information_errors.city_required' | translate}}
               </p>
             </div>
             <div class="form-group col-md-4">
@@ -167,29 +168,30 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <input type="text" class="form-control input-bg ml-2" placeholder="Zip" formControlName="zipCode"
+              <input type="text" class="form-control input-bg ml-2"
+                [placeholder]="'billing_information_placeholder.zip_placeholder' | translate" formControlName="zipCode"
                 appOnlyNumbers="true" />
               <p class="mt-1 text-danger"
                 *ngIf="(zipCode.dirty || zipCode.touched) && zipCode.invalid && !!zipCode.errors.required">
-                Zip is required.
+                {{'billing_information_errors.zip_required' | translate}}
               </p>
             </div>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="Promo Code" class="form-control input-bg" formControlName="promoCode"
-              appOnlyNumbers="true" />
+            <input type="text" [placeholder]="'billing_information_placeholder.promo_code_placeholder' | translate"
+              class="form-control input-bg" formControlName="promoCode" appOnlyNumbers="true" />
           </div>
 
           <div class="form-group text-right">
             <p class="plan-info mb-0"> <strong>{{ planName.value }}</strong> </p>
-            <p class="plan-info"> 90 Day Coverage </p>
+            <p class="plan-info"> {{'billing_information.coverage' | translate}} </p>
             <hr>
             <p class="plan-info">Total <strong> {{ planPrice.value | currency }}</strong> </p>
           </div>
 
           <!--<div class="form-group">
-            <input type="text" class="form-control" placeholder="Text Messaging PIN" formControlName="textMessagingPin"
+            <input type="text" class="form-control" [placeholder]="Text Messaging PIN" formControlName="textMessagingPin"
               appOnlyNumbers="true" />
             <p class="mt-1 text-danger"
               *ngIf="(textMessagingPin.dirty || textMessagingPin.touched) && textMessagingPin.invalid && !!textMessagingPin.errors.required">
@@ -218,10 +220,10 @@
       <div class="row">
         <div class="col-lg-12">
           <button class="btn back-btn float-left" (click)="userAction('back')">
-            Back
+            {{'billing_information.back_btn' | translate}}
           </button>
           <button class="btn btn-primary float-right" type="submit" [disabled]="!signupForm.valid">
-            Process Payment
+            {{'billing_information.process_payment_btn' | translate}}
           </button>
         </div>
       </div>

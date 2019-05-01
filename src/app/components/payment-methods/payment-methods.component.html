@@ -15,7 +15,7 @@
 <!-- Header component -->
 <div class="row text-center">
   <div class="col-md-12">
-    <h1 class="title">Payment Methods</h1>
+    <h1 class="title">{{'payment_methods.title' | translate}}</h1>
   </div>
 </div>
 
@@ -27,49 +27,55 @@
         <div class="card" *ngIf="paymentMethod.is_default">
           <div class="card-header card-success-header">
             <small class="card-title ml-3">
-              Default Payment
+              {{'payment_methods.default_payment' | translate}}
             </small>
           </div>
           <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
-            <p class="card-content mb-0 pb-0">Account Number {{paymentMethod.bank_account_number}}</p>
-            <p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>
-            <button class="btn-success-outline"
-              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+            <p class="card-content mb-0 pb-0">{{'payment_methods.account_number' | translate}}
+              {{paymentMethod.bank_account_number}}</p>
+            <!--<p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>-->
+            <button class="btn btn-success-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
             <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
           </div>
           <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
-            <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.lastfour}}</p>
-            <p class="card-content mb-0 pt-0">Expires {{paymentMethod.expiration}}</p>
-            <p class="card-content mb-0 pt-0 payment-not-usable" *ngIf="!paymentMethod.valid_card">Not usable</p>
-            <button class="btn-success-outline"
-              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+            <p class="card-content mb-0 pb-0">{{'payment_methods.ending' | translate}}
+              {{paymentMethod.lastfour}}</p>
+            <p class="card-content mb-0 pt-0">{{'payment_methods.expires' | translate}} {{paymentMethod.expiration}}</p>
+            <p class="card-content mb-0 pt-0 payment-not-usable" *ngIf="!paymentMethod.valid_card">
+              {{'payment_methods.not_usable' | translate}}</p>
+            <button class="btn btn-success-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
           </div>
         </div>
         <div class="card" *ngIf="!paymentMethod.is_default">
           <div class="card-header card-default-header" *ngIf="paymentMethod.valid_card">
             <small class="card-title ml-3">
               <mat-checkbox (change)="setDefaultPaymentMethod(paymentMethod.payment_profile_payment_provider_id)">
-              </mat-checkbox> Make Default
+              </mat-checkbox> {{'payment_methods.make_default' | translate}}
             </small>
           </div>
           <div class="card-header card-default-header" *ngIf="!paymentMethod.valid_card">
             <small class="card-title ml-3">
-              Not Usable
+              {{'payment_methods.not_usable' | translate}}
             </small>
           </div>
           <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
-            <p class="card-content mb-0 pb-0">Account Number {{paymentMethod.bank_account_number}}</p>
-            <p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>
-            <button class="btn-default-outline"
-              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+            <p class="card-content mb-0 pb-0">{{'payment_methods.account_number' | translate}}
+              {{paymentMethod.bank_account_number}}</p>
+            <!--<p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>-->
+            <button class="btn btn-default-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
             <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
           </div>
           <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
-            <p class="card-content mb-0 pb-0">Card ending in {{paymentMethod.lastfour}}</p>
-            <p class="card-content mb-0 pt-0">Expires {{paymentMethod.expiration}}</p>
-            <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">Not usable</p>
-            <button class="btn-default-outline"
-              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">Remove</button>
+            <p class="card-content mb-0 pb-0">{{'payment_methods.ending' | translate}}
+              {{paymentMethod.lastfour}}</p>
+            <p class="card-content mb-0 pt-0">{{'payment_methods.expires' | translate}} {{paymentMethod.expiration}}</p>
+            <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">
+              {{'payment_methods.not)usable' | translate}}</p>
+            <button class="btn btn-default-outline"
+              (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
           </div>
         </div>
       </div>
@@ -81,7 +87,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <h4>Add New Payment Method</h4>
+              <h4>{{'payment_methods.add_new' | translate}}</h4>
             </div>
           </div>
 
@@ -92,46 +98,48 @@
               <div class="form-group" *ngIf="allowACH">
                 <div class="switch">
                   <label class="toggle-text">
-                    Credit Card
+                    {{'billing_information.toggle_cc' | translate}}
                     <input type="checkbox" formControlName="paymentMethod">
-                    <span class="lever toggle-text"></span> Pay by Check (ACH)
+                    <span class="lever toggle-text"></span> {{'billing_information.toggle_ach' | translate}}
                   </label>
                 </div>
               </div>
 
               <!-- Data for ACH Payment Method -->
               <div class="form-group" *ngIf="paymentMethod.value">
-                <input type="text" placeholder="Routing Number" class="form-control input-bg"
-                  formControlName="routingNumber" />
+                <input type="text"
+                  [placeholder]="'billing_information_placeholder.routing_number_placeholder' | translate"
+                  class="form-control input-bg" formControlName="routingNumber" />
                 <p class="mt-1 text-danger"
                   *ngIf="(routingNumber.dirty || routingNumber.touched) && routingNumber.invalid && !!routingNumber.errors.required">
-                  Routing Number is required.
+                  {{'billing_information_errors.routing_number_required' | translate}}
                 </p>
               </div>
 
               <div class="form-group" *ngIf="paymentMethod.value">
-                <input type="text" placeholder="Bank Account Number" class="form-control input-bg"
-                  formControlName="bankAccountNumber" />
+                <input type="text"
+                  [placeholder]="'billing_information_placeholder.bank_account_placeholder' | translate"
+                  class="form-control input-bg" formControlName="bankAccountNumber" />
                 <p class="mt-1 text-danger"
                   *ngIf="(bankAccountNumber.dirty || bankAccountNumber.touched) && bankAccountNumber.invalid && !!bankAccountNumber.errors.required">
-                  Bank Account Number is required.
+                  {{'billing_information_errors.bank_account_required' | translate}}
                 </p>
               </div>
 
               <!-- Data for Credit Card Payment Method -->
               <div class="form-group" *ngIf="!paymentMethod.value">
                 <!--<label for="">Credit Card Number</label>-->
-                <input type="text" placeholder="Credit Card Number" class="form-control input-bg"
-                  formControlName="creditCardNumber" appOnlyNumbers="true" (ngModelChange)="onChange()"
-                  [mask]="currentMask" />
+                <input type="text" [placeholder]="'billing_information_placeholder.cc_placeholder' | translate"
+                  class="form-control input-bg" formControlName="creditCardNumber" appOnlyNumbers="true"
+                  (ngModelChange)="onChange()" [mask]="currentMask" />
                 <p class="mt-1 text-danger"
                   *ngIf="(creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.required">
-                  Credit Card Number is required.
+                  {{'billing_information_errors.cc_required' | translate}}
                 </p>
                 <p class="mt-1 text-danger" *ngIf="
-                      (creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.invalidNumber
-                    ">
-                  Credit Card Number must be a valid credit card.
+                (creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.invalidNumber
+              ">
+                  {{'billing_information_errors.cc_valid' | translate}}
                 </p>
                 <div class="row">
                   <div class="col-md-12 text-right pr-0">
@@ -151,7 +159,7 @@
               </div>
 
               <p class="mb-0" *ngIf="!paymentMethod.value">
-                <small> <strong>Expiration</strong> </small>
+                <small> <strong>{{'billing_information.expiration' | translate}}</strong> </small>
               </p>
               <div class="form-row align-items-center" *ngIf="!paymentMethod.value">
                 <div class="form-group col-md-4">
@@ -170,44 +178,44 @@
                   </select>
                 </div>
                 <div class="form-group col-md-4">
-                  <input type="text" class="form-control input-bg" placeholder="CVV" appOnlyNumbers="true"
+                  <input type="text" class="form-control input-bg"
+                    [placeholder]="'billing_information_placeholder.cvv_placeholder' | translate" appOnlyNumbers="true"
                     formControlName="cvv" mask="0000" />
                   <p class="mt-1 text-danger"
                     *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.required">
-                    CVV is required.
+                    {{'billing_information_errors.cvv_required' | translate}}
                   </p>
                   <p class="mt-1 text-danger"
                     *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask === 'amex'">
-                    CVV must be at least 4 numbers long.
+                    {{'billing_information_errors.cvv_four_digits_min' | translate}}
                   </p>
                   <p class="mt-1 text-danger"
                     *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask === 'amex'">
-                    CVV can be max 4 numbers long.
+                    {{'billing_information_errors.cvv_four_digits_max' | translate}}
                   </p>
                   <p class="mt-1 text-danger"
                     *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask !== 'amex'">
-                    CVV must be at least 3 numbers long.
+                    {{'billing_information_errors.cvv_three_digits_min' | translate}}
                   </p>
                   <p class="mt-1 text-danger"
                     *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask !== 'amex'">
-                    CVV can be max 3 numbers long.
+                    {{'billing_information_errors.cvv_three_digits_max' | translate}}
                   </p>
                 </div>
               </div>
 
               <div class="form-group">
-                <p> <small>I agree to have my payment method saved for recurring billing whicj will start after the
-                    first 30
-                    days</small>
+                <p>
+                  <small>{{'billing_information.agree' | translate}}</small>
                 </p>
               </div>
 
               <div class="form-group" *ngIf="!paymentMethod.value">
-                <input type="text" placeholder="Name on Card" class="form-control input-bg"
-                  formControlName="nameOnCard" />
+                <input type="text" [placeholder]="'billing_information_placeholder.card_name_placeholder' | translate"
+                  class="form-control input-bg" formControlName="nameOnCard" />
                 <p class="mt-1 text-danger"
                   *ngIf="(nameOnCard.dirty || nameOnCard.touched) && nameOnCard.invalid && !!nameOnCard.errors.required">
-                  Name on Card is required.
+                  {{'billing_information_errors.card_name_required' | translate}}
                 </p>
               </div>
 
@@ -216,29 +224,31 @@
             <div class="col-md-6">
 
               <div class="form-group">
-                <input type="text" placeholder="Billing Address Line 1" class="form-control input-bg" #address
-                  formControlName="address1" />
+                <input type="text" [placeholder]="'billing_information_placeholder.address1_placeholder' | translate"
+                  class="form-control input-bg" #address formControlName="address1" />
                 <p class="mt-1 text-danger"
                   *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
-                  Billing Address Line 1 Number is required.
+                  {{'billing_information_errors.address1_required' | translate}}
                 </p>
               </div>
 
               <div class="form-group">
-                <input type="text" placeholder="Billing Address Line 2 (Apt, Suite, etc.)" class="form-control input-bg"
-                  formControlName="address2" />
+                <input type="text" [placeholder]="'billing_information_placeholder.address2_placeholder' | translate"
+                  class="form-control input-bg" formControlName="address2" />
                 <p class="mt-1 text-danger"
                   *ngIf="(address2.dirty || address2.touched) && address2.invalid && !!address2.errors.required">
-                  Billing Address Line 2 Number is required.
+                  {{'billing_information_errors.address2_required' | translate}}
                 </p>
               </div>
 
               <div class="form-row align-items-center">
                 <div class="form-group col-md-4">
-                  <input type="text" class="form-control input-bg" placeholder="City" formControlName="city" />
+                  <input type="text" class="form-control input-bg"
+                    [placeholder]="'billing_information_placeholder.city_placeholder' | translate"
+                    formControlName="city" />
                   <p class="mt-1 text-danger"
                     *ngIf="(city.dirty || city.touched) && city.invalid && !!city.errors.required">
-                    City is required.
+                    {{'billing_information_errors.city_required' | translate}}
                   </p>
                 </div>
                 <div class="form-group col-md-4">
@@ -248,18 +258,19 @@
                   </select>
                 </div>
                 <div class="form-group col-md-4">
-                  <input type="text" class="form-control input-bg ml-2" placeholder="Zip" formControlName="zipCode"
-                    appOnlyNumbers="true" />
+                  <input type="text" class="form-control input-bg ml-2"
+                    [placeholder]="'billing_information_placeholder.zip_placeholder' | translate"
+                    formControlName="zipCode" appOnlyNumbers="true" />
                   <p class="mt-1 text-danger"
                     *ngIf="(zipCode.dirty || zipCode.touched) && zipCode.invalid && !!zipCode.errors.required">
-                    Zip is required.
+                    {{'billing_information_errors.zip_required' | translate}}
                   </p>
                 </div>
               </div>
 
               <div class="form-group">
                 <button class="btn btn-primary float-right" type="submit" [disabled]="!paymentForm.valid">
-                  Add card
+                  {{'payment_methods.add_card_btn' | translate}}
                 </button>
               </div>
 

@@ -29,7 +29,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     private pharmacySrv: PharmaciesService,
     private onboardingSrv: OnboardingService,
     private notificationSrv: NotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     /*this.shippingAddress.latitude = 36.778259;
@@ -50,18 +50,36 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       });
   }
 
-  setAddress = (address: string, city: string, state: string, zipCode: string, latitude: number, longitude: number) => {
+  setAddress = (city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string, address: string) => {
     console.log(address);
-    this.shippingAddress.address1 = address;
-    this.shippingAddress.zipCode = city;
+    console.log(latitude);
+    console.log(longitude);
+    this.shippingAddress.city = city;
     this.shippingAddress.state = state;
     this.shippingAddress.zipCode = zipCode;
     this.shippingAddress.latitude = latitude;
     this.shippingAddress.longitude = longitude;
+    this.shippingAddress.address1 = address;
     this.primaryPharmacyAddress = null;
     this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
     // tslint:disable-next-line: semicolon
   };
+
+  /*setAddress = (city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string, address: string) => {
+    this.address1.setValue(address);
+    this.city.setValue(city);
+    this.zipCode.setValue(zipCode);
+    this.country.setValue(country);
+
+    this.states.forEach(item => {
+      console.log(item);
+      if (item.abbreviation === state) {
+        console.log('state encontrado');
+        this.state.setValue(item.id);
+        this.stateName.setValue(state);
+      }
+    });
+  }*/
 
   loadNearestPharmacies(lat: number, long: number) {
     const pharmacyModel = new PharmacyModel();
@@ -70,6 +88,7 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.pharmacies = [];
     this.pharmacySrv.getNearestPharmacies(pharmacyModel).subscribe(
       response => {
+        console.log(response);
         if (!response.HasError) {
           this.pharmacies = response.Result;
         }

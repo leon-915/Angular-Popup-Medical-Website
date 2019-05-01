@@ -66,8 +66,9 @@ input::-webkit-inner-spin-button {
 .btn {
   font-size: 18px;
   font-weight: bold;
-  height: 50px;
-  text-transform: capitalize;
+  //height: 50px;
+  // text-transform: capitalize;
+  padding: 0px 20px !important;
 }
 
 .btn-outline-primary {
@@ -86,9 +87,7 @@ input::-webkit-inner-spin-button {
   color: @green;
   border: 2px solid @green;
   border-radius: 30px;
-  min-width: 120px;
   height: 50px;
-  font-size: 18px;
 
   &:hover {
     background-color: @green;
@@ -102,9 +101,7 @@ input::-webkit-inner-spin-button {
   color: @gray;
   border: 2px solid @gray;
   border-radius: 30px;
-  min-width: 120px;
   height: 50px;
-  font-size: 18px;
 
   &:hover {
     background-color: @gray;
@@ -131,9 +128,7 @@ input::-webkit-inner-spin-button {
   color: @orange;
   border: 2px solid @orange;
   border-radius: 30px;
-  min-width: 120px;
   height: 50px;
-  font-size: 18px;
 
   &:hover {
     background-color: @orange;
@@ -150,18 +145,24 @@ input::-webkit-inner-spin-button {
   background-color: #FFF;
   color: #979797;
   border: 2px solid #979797;
-  min-width: 120px;
 }
 
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-  border-radius: 30px;
   background-color: @orange;
   color: @white;
   border: 2px solid @orange;
-  min-width: 120px;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @orange;
+    border: 2px solid @orange;
+    color: @white;
+  }
+
 }
 
 .btn-primary:disabled {
@@ -170,8 +171,6 @@ input::-webkit-inner-spin-button {
   border: 2px solid @mid-gray;
 }
 
-
-.btn-link {}
 
 .pointer {
   cursor: pointer;

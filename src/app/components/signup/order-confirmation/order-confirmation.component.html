@@ -1,10 +1,9 @@
 <div class="row">
   <div class="col-lg-12 text-center">
-    <h1 class="text-center title mb-0">Thank you for your order!</h1>
+    <h1 class="text-center title mb-0">{{'order_confirmation.title' | translate}}</h1>
     <h5
-      class="text-center subtitle mt-0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "
-    >
-      Order #2452
+      class="text-center subtitle mt-0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ">
+      {{'order_confirmation.subtitle' | translate}} #2452
     </h5>
   </div>
 </div>
@@ -12,11 +11,12 @@
 <div class="row" *ngIf="orderInfo">
   <div class="col-lg-8 mt-2 mx-auto">
     <hr />
-    <p class="mb-0">Order Details:</p>
+    <p class="mb-0">{{'order_confirmation.order_details' | translate}}</p>
     <p>{{ orderInfo.planName }} @ {{ orderInfo.orderPrice | currency }}/mo</p>
     <hr />
-    <p class="mb-5">Pay with: cc ending in {{ orderInfo.lastFour }}</p>
-    <p class="mb-0">Billing Address</p>
+    <p class="mb-5">{{'order_confirmation.pay_with' | translate}} cc {{'order_confirmation.ending' | translate}}
+      {{ orderInfo.lastFour }}</p>
+    <p class="mb-0">{{'order_confirmation.billing_address' | translate}}</p>
     <p class="mb-0">{{ orderInfo.firstName + ' ' + orderInfo.lastName }}</p>
     <p class="mb-0">{{ orderInfo.address1 }}</p>
     <p class="mb-0">
@@ -34,7 +34,7 @@
   <div class="col-lg-8 mt-2 mx-auto">
     <!--<app-invoice-generator></app-invoice-generator>-->
     <button class="btn btn-primary float-right" (click)="goToOnboarding()">
-      My Dashboard
+      {{'order_confirmation.my_dashboard_btn' | translate}}
     </button>
   </div>
 </div>

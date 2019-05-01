@@ -112,7 +112,6 @@
     "cancel_btn": "Cancel",
     "remove_btn": "Remove Member",
     "view_btn": "View"
-
   },
   "my_family_edit_invitation_placeholders": {
     "tittle_lbl": "Edit Invitation",
@@ -125,7 +124,7 @@
     "cancel_btn": "Cancel",
     "remove_btn": "Remove Member"
   },
-  "form_errors":{
+  "form_errors": {
     "email_required": "Email is required.",
     "email_valid": "Email must be a valid email address.",
     "mobile_number_required": "Mobile Phone Number is required.",
@@ -140,8 +139,158 @@
     "password_no_match": "Password doesn't match.",
     "date_of_birth_required": "Last Name is required."
   },
-  "join_now": {
-    "step1_title": ""
+  "select_my_plan": {
+    "title": "Great, You've Made it.",
+    "subtitle": "Let's select a plan, you can change your plan anytime",
+    "coverage": "Converage for you and",
+    "additional": "additional members",
+    "free": "Free Rx",
+    "certificates": "Certificates per Year",
+    "demand": "24/7 on demand",
+    "access": "access to convenience care and IDE digital care assistants",
+    "coverage_up": "Converage for up to",
+    "additional_members": "2 additional members",
+    "includes": "which includes immediate family and/or sponsored members",
+    "join_btn": "Join Now",
+    "billed": "billed quarterly",
+    "not_ready": "Not ready to pick a plan?",
+    "learn": "Learn about our Pay As You Go Plan",
+    "pay_as_you_go_btn": "Pay As You Go"
   },
-  "onboarding": {}
+  "billing_information": {
+    "title": "You've Selected",
+    "subtitle": "Let's Fine Tine the Billing Details",
+    "toggle_cc": "Credit Card",
+    "toggle_ach": "Pay by Check (ACH)",
+    "expiration": "Expiration",
+    "agree": "I agree to have my payment method saved for recurring billing whicj will start after the first 30 days",
+    "back_btn": "Back",
+    "coverage": "90 Day Coverage",
+    "process_payment_btn": "Process Payment"
+  },
+  "billing_information_placeholder": {
+    "cc_placeholder": "Credit Card Number",
+    "bank_account__placeholder": "Bank Account Number",
+    "routing_number_placeholder": "Routing Number",
+    "cvv_placeholder": "CVV",
+    "card_name_placeholder": "Name on Card",
+    "address1_placeholder": "Billing Address Line 1",
+    "address2_placeholder": "Billing Address Line 2 (Apt, Suite, etc.)",
+    "city_placeholder": "City",
+    "zip_placeholder": "Zip",
+    "promo_code_placeholder": "Promo Code"
+  },
+  "billing_information_errors": {
+    "cc_required": "Credit Card Number is required.",
+    "cc_valid": "Credit Card Number must be a valid credit card.",
+    "bank_account_required": "Bank Account Number is required.",
+    "routing_number_required": "Routing Number is required.",
+    "cvv_required": "CVV is required.",
+    "cvv_three_digits_min": "CVV must be at least 3 numbers long.",
+    "cvv_four_digits_min": "CVV must be at least 4 numbers long.",
+    "cvv_three_digits_max": "CVV can be max 3 numbers long.",
+    "cvv_four_digits_max": "CVV can be max 4 numbers long.",
+    "card_name_required": "Name on Card is required.",
+    "address1_required": "Billing Address Line 1 Number is required.",
+    "address2_required": "Billing Address Line 2 Number is required.",
+    "city_required": "City is required.",
+    "zip_required": "Zip is required."
+  },
+  "order_confirmation": {
+    "title": "Thank you for your order!",
+    "subtitle": "Order",
+    "order_details": "Order Details",
+    "pay_with": "Pay with:",
+    "ending": "ending in",
+    "billing_address": "Billing Address",
+    "my_dashboard_btn": "My Dashboard"
+  },
+  "personal_information": {
+    "title": "Onboarding Interview",
+    "subtitle": "We need to know a little bit more about your medical history.",
+    "reminder": "Remember, you can change your answers anytime from the dashboard.",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "date_of_birth": "Date of Birth",
+    "emergency_information": "Emergency Contact Information",
+    "physician_information": "Tell Us About Your Current Physician",
+    "no_physician": "I Do Not Have A Physician",
+    "btn_next": "Next"
+  },
+  "personal_information_placeholders": {
+    "name_placeholder": "Name",
+    "phone_number_placeholder": "Phone Number",
+    "relationship_placeholder": "Relationship",
+    "first_name_placeholder": "First Name",
+    "last_name_placeholder": "Last Name",
+    "physician_phone_placeholder": "Phone Number",
+    "physician_fax_placeholder": "Physician Fax"
+  },
+  "personal_information_errors": {
+    "name_required": "Name is required.",
+    "phone_number_required": "Phone Number is required.",
+    "phone_number_min": "Phone Number must be at least 10 numbers long.",
+    "phone_number_max": "Phone Number can be max 10 numbers long.",
+    "relationship_required": "Relationship is required.",
+    "first_name_required": "First Name is required.",
+    "last_name_required": "Last Name is required.",
+    "physician_phone_required": "Phone Number is required.",
+    "physician_phone_min": "Phone Number must be at least 10 numbers long.",
+    "physician_phone_max": "Phone Number can be max 10 numbers long.",
+    "physician_fax_min": "Physician Fax must be at least 10 numbers long.",
+    "physician_fax_max": "Physician Fax can be max 10 numbers long."
+  },
+  "medical_history": {
+    "title": "Onboarding Interview",
+    "subtitle": "We need to know a little bit more about your medical history.",
+    "reminder": "Remember, you can change your answers anytime from the dashboard.",
+    "allergies_title": "Allergic To Any Medications?",
+    "conditions_title": "Have Any Health Conditions?",
+    "medications_title": "Currently Taking Any Substance Such As Medications, Supplements and/or Over-the-counter Products?",
+    "checkbox_yes": "YES",
+    "back_btn": "Back",
+    "next_btn": "Next"
+  },
+  "primary_pharmacy": {
+    "title": "Onboarding Interview",
+    "subtitle": "We need to know a little bit more about your medical history.",
+    "reminder": "Remember, you can change your answers anytime from the dashboard.",
+    "choose_primary_pharmacy": "Please Choose A Primary Pharmacy To Send Your Prescriptions To",
+    "search_by": "Search by Zip Code or City & State:",
+    "found": "Found",
+    "near": "Pharmacy(s) near ",
+    "distance": "Distance ",
+    "more_pharmacies": "More Pharmacies",
+    "by_clicking_complete": "By clicking Complete, I certify that: (1) give consent to share my information with the selected pharmacy (2) I am the person who will receive the requested prescriptions, and the prescriptions are for my personal use only; (3) this constitutes my electronic signature; and (4) I agree to the",
+    "terms_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy,",
+    "hipaa": "and HIPAA Privacy Practices",
+    "back_btn": "Back",
+    "complete_btn": "Complete",
+    "address_placeholder": "Address or Zip Code"
+  },
+  "onboarding_complete": {
+    "title": "Onboarding Interview",
+    "subtitle": "We need to know a little bit more about your medical history.",
+    "reminder": "Remember, you can change your answers anytime from the dashboard.",
+    "complete": "COMPLETE!",
+    "do_next": "What would you like to do next?",
+    "my_dashboard": "Go To My Dashboard Hub",
+    "invite_members": "Add or Invite Members",
+    "membership_card": "View My Membership Card"
+  },
+  "payment_methods": {
+    "title": "Payment Methods",
+    "add_new": "Add New Payment Method",
+    "remove_btn": "Remove",
+    "ending": "Card ending in",
+    "expires": "Expires",
+    "default_payment": "Default Payment",
+    "make_default": "Make Default",
+    "not_usable": "Not Usable",
+    "account_number": "Account Number",
+    "add_card_btn": "Add Card",
+    "add_ach_btn": "Add ACH"
+  }
 }

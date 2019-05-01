@@ -1,11 +1,10 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <h1 class="text-center title mb-0">Onboarding Interview</h1>
-    <h5 class="text-center subtitle mt-0 mb-4">We need to know a little bit more about your medical history.<br> 
-    <span> Remember, you can change your answers anytime from the dashboard. </span></h5>
+    <h1 class="text-center title mb-0">{{'personal_information.title' | translate}}</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">{{'personal_information.subtitle' | translate}}<br>
+      <span> {{'personal_information.reminder' | translate}} </span></h5>
   </div>
 </div>
-
 
 <!-- Stepper -->
 <div class="row justify-content-md-center">
@@ -30,18 +29,22 @@
 <form [formGroup]="onboardingForm" (ngSubmit)="nextStep()">
   <div class="row text-center">
     <div class="col-lg-8 mt-2 mx-auto">
-      <label class="header">Gender</label>
+      <label class="header">{{'personal_information.gender' | translate}}</label>
       <mat-radio-group formControlName="genderId">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <mat-radio-button class="checkbox-form" [value]="1"> <h5 class="gender-text">Male</h5> </mat-radio-button>
+            <mat-radio-button class="checkbox-form" [value]="1">
+              <h5 class="gender-text">{{'personal_information.male' | translate}}</h5>
+            </mat-radio-button>
           </div>
           <div class="col-md-6">
-            <mat-radio-button class="checkbox-form" [value]="2"> <h5 class="gender-text">Female</h5> </mat-radio-button>
+            <mat-radio-button class="checkbox-form" [value]="2">
+              <h5 class="gender-text">{{'personal_information.female' | translate}}</h5>
+            </mat-radio-button>
           </div>
         </div>
       </mat-radio-group>
-      <label class="header">Date of Birth</label>  
+      <label class="header">{{'personal_information.date_of_birth' | translate}}</label>
       <div class="row justify-content-md-center">
         <div class="col-md-3">
           <div class="form-group">
@@ -68,257 +71,111 @@
           </div>
         </div>
       </div>
-      <label class="header">Emergency Contact Information</label>
+      <label class="header">{{'personal_information.emergency_information' | translate}}</label>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-              <input type="text" class="form-control" placeholder="Name" formControlName="emergencyContactFirstName">
-              <p class="mt-1 text-danger" *ngIf="(emergencyContactFirstName.dirty || emergencyContactFirstName.touched) && emergencyContactFirstName.invalid && emergencyContactFirstName.errors.required">
-                Name is required.
-              </p>
+            <input type="text" class="form-control"
+              [placeholder]="'personal_information_placeholders.name_placeholder' | translate"
+              formControlName="emergencyContactFirstName">
+            <p class="mt-1 text-danger"
+              *ngIf="(emergencyContactFirstName.dirty || emergencyContactFirstName.touched) && emergencyContactFirstName.invalid && emergencyContactFirstName.errors.required">
+              {{'personal_information_errors.name_required' | translate}}
+            </p>
           </div>
           <div class="form-group">
-              <input type="text" class="form-control" placeholder="Phone Number" formControlName="emergencyContactPhoneNumber" appOnlyNumbers="true" mask='(000) 000-0000'>
-              <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.required">
-                Phone Number is required.
-              </p>
-              <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.minlength">
-                Phone Number must be at least 10 numbers long.
-              </p>
-              <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.maxlength">
-                Phone Number can be max 10 numbers long.
-              </p>
+            <input type="text" class="form-control"
+              [placeholder]="'personal_information_placeholders.phone_number_placeholder' | translate"
+              formControlName="emergencyContactPhoneNumber" appOnlyNumbers="true" mask='(000) 000-0000'>
+            <p class="mt-1 text-danger"
+              *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.required">
+              {{'personal_information_errors.phone_number_required' | translate}}
+            </p>
+            <p class="mt-1 text-danger"
+              *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.minlength">
+              {{'personal_information_errors.phone_number_min' | translate}}
+            </p>
+            <p class="mt-1 text-danger"
+              *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.maxlength">
+              {{'personal_information_errors.phone_number_max' | translate}}
+            </p>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Relationship" formControlName="emergencyContactRelationship">
-            <p class="mt-1 text-danger" *ngIf="(emergencyContactRelationship.dirty || emergencyContactRelationship.touched) && emergencyContactRelationship.invalid && emergencyContactRelationship.errors.required">
-              Relationship is required.
+            <input type="text" class="form-control"
+              [placeholder]="'personal_information_placeholders.relationship_placeholder' | translate"
+              formControlName="emergencyContactRelationship">
+            <p class="mt-1 text-danger"
+              *ngIf="(emergencyContactRelationship.dirty || emergencyContactRelationship.touched) && emergencyContactRelationship.invalid && emergencyContactRelationship.errors.required">
+              {{'personal_information_errors.relationship_required' | translate}}
             </p>
           </div>
         </div>
       </div>
-      <label class="header">Tell Us About Your Current Physician</label>
+      <label class="header">{{'personal_information.physician_information' | translate}}</label>
       <div class="row">
         <div class="col-md-6">
-          <input type="text" class="form-control input-bg pl-3" placeholder="First Name" formControlName="physicianFirstName">
-          <p class="mt-1 text-danger" *ngIf="(physicianFirstName.dirty || physicianFirstName.touched) && physicianFirstName.invalid && physicianFirstName.errors.required">
-            First Name is required.
+          <input type="text" class="form-control input-bg pl-3"
+            [placeholder]="'personal_information_placeholders.first_name_placeholder' | translate"
+            formControlName="physicianFirstName">
+          <p class="mt-1 text-danger"
+            *ngIf="(physicianFirstName.dirty || physicianFirstName.touched) && physicianFirstName.invalid && physicianFirstName.errors.required">
+            {{'personal_information_errors.first_name_required' | translate}}
           </p>
         </div>
         <div class="col-md-6">
-          <input type="text" class="form-control input-bg pl-3" placeholder="Last Name" formControlName="physicianLastName">
-          <p class="mt-1 text-danger" *ngIf="(physicianLastName.dirty || physicianLastName.touched) && physicianLastName.invalid && physicianLastName.errors.required">
-            Last Name is required.
+          <input type="text" class="form-control input-bg pl-3"
+            [placeholder]="'personal_information_placeholders.last_name_placeholder' | translate"
+            formControlName="physicianLastName">
+          <p class="mt-1 text-danger"
+            *ngIf="(physicianLastName.dirty || physicianLastName.touched) && physicianLastName.invalid && physicianLastName.errors.required">
+            {{'personal_information_errors.last_name_required' | translate}}
           </p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Phone Number" formControlName="physicianPhoneNumber" appOnlyNumbers="true" mask='(000) 000-0000'>
-            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.required">
-              Phone Number is required.
+            <input type="text" class="form-control"
+              [placeholder]="'personal_information_placeholders.physician_phone_placeholder' | translate"
+              formControlName="physicianPhoneNumber" appOnlyNumbers="true" mask='(000) 000-0000'>
+            <p class="mt-1 text-danger"
+              *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.required">
+              {{'personal_information_errors.physician_phone_required' | translate}}
             </p>
-            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.minlength">
-              Phone Number must be at least 10 numbers long.
+            <p class="mt-1 text-danger"
+              *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.minlength">
+              {{'personal_information_errors.physician_phone_min' | translate}}
             </p>
-            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.maxlength">
-              Phone Number can be max 10 numbers long.
-            </p>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Physician Fax" formControlName="physicianFax" appOnlyNumbers="true" mask='(000) 000-0000'>
-            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.minlength">
-              Physician Fax must be at least 10 numbers long.
-            </p>
-            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.maxlength">
-              Physician Fax can be max 10 numbers long.
+            <p class="mt-1 text-danger"
+              *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.maxlength">
+              {{'personal_information_errors.physician_phone_max' | translate}}
             </p>
           </div>
           <div class="form-group">
-            <mat-checkbox class="text-left float-left" > I Do Not Have A Physician </mat-checkbox>
+            <input type="text" class="form-control"
+              [placeholder]="'personal_information_placeholders.physician_fax_placeholder' | translate"
+              formControlName="physicianFax" appOnlyNumbers="true" mask='(000) 000-0000'>
+            <p class="mt-1 text-danger"
+              *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.minlength">
+              {{'personal_information_errors.physician_fax_min' | translate}}
+            </p>
+            <p class="mt-1 text-danger"
+              *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.maxlength">
+              {{'personal_information_errors.physician_fax_max' | translate}}
+            </p>
+          </div>
+          <div class="form-group">
+            <mat-checkbox class="text-left float-left"> {{'personal_information.no_physician' | translate}}
+            </mat-checkbox>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 text-right float-rigth">
-          <button class="btn btn-secondary btn-round btn-lg" type="submit"  [disabled]="!onboardingForm.valid">Next</button>
+          <button class="btn btn-secondary btn-round btn-lg" type="submit"
+            [disabled]="!onboardingForm.valid">{{'personal_information.btn_next' | translate}}</button>
         </div>
       </div>
     </div>
   </div>
 </form>
-
-<!--<h3 class="mb-3">Onboarding - Step 1 of 6</h3>
-<p>Tell us more about you</p>
-
-<form [formGroup]="onboardingForm" (ngSubmit)="nextStep()">
-
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <select class="form-control" formControlName="genderId">
-          <option [value]="gender.gender_id" *ngFor="let gender of genders">{{gender.gender}}</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <p> <small> <strong> Date of Birth </strong> </small> </p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <select class="form-control" formControlName="month">
-          <option disabled [ngValue]="null">- Select Month -</option>
-          <option [ngValue]="month.id" *ngFor="let month of months">{{month.name}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-2 align-items-stretch">
-      <div class="form-group">
-        <select class="form-control" formControlName="day">
-          <option disabled [ngValue]="null">- Select Day -</option>
-          <option [ngValue]="day" *ngFor="let day of days">{{day}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-2 align-items-stretch">
-      <div class="form-group">
-        <select class="form-control" formControlName="year">
-          <option disabled [ngValue]="null">- Select Year -</option>
-          <option [ngValue]="year" *ngFor="let year of years">{{year}}</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <p> <small> <strong> Tell us about your physician </strong> </small> </p>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Physician First Name *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Physician First Name" formControlName="physicianFirstName">
-            <p class="mt-1 text-danger" *ngIf="(physicianFirstName.dirty || physicianFirstName.touched) && physicianFirstName.invalid && physicianFirstName.errors.required">
-              Physician First Name is required.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Physician Last Name *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Physician Last Name" formControlName="physicianLastName">
-            <p class="mt-1 text-danger" *ngIf="(physicianLastName.dirty || physicianLastName.touched) && physicianLastName.invalid && physicianLastName.errors.required">
-              Physician Last Name is required.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Physician Phone *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Physician Phone" formControlName="physicianPhoneNumber" appOnlyNumbers="true">
-            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.required">
-              Physician Phone is required.
-            </p>
-            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.minlength">
-              Physician Phone must be at least 10 numbers long.
-            </p>
-            <p class="mt-1 text-danger" *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && physicianPhoneNumber.invalid && physicianPhoneNumber.errors.maxlength">
-              Physician Phone can be max 10 numbers long.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Physician Fax *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Physician Fax" formControlName="physicianFax" appOnlyNumbers="true">
-            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.minlength">
-              Physician Fax must be at least 10 numbers long.
-            </p>
-            <p class="mt-1 text-danger" *ngIf="(physicianFax.dirty || physicianFax.touched) && physicianFax.invalid && physicianFax.errors.maxlength">
-              Physician Fax can be max 10 numbers long.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <p> <small> <strong>Emergency Contact Information</strong> </small> </p>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Emergency Contact First Name *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Emergency Contact First Name" formControlName="emergencyContactFirstName">
-            <p class="mt-1 text-danger" *ngIf="(emergencyContactFirstName.dirty || emergencyContactFirstName.touched) && emergencyContactFirstName.invalid && emergencyContactFirstName.errors.required">
-              Emergency Contact First Name is required.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Emergency Contact Phone Number *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Emergency Contact Phone Number" formControlName="emergencyContactPhoneNumber" appOnlyNumbers="true">
-            <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.required">
-              Emergency Contact Phone Number is required.
-            </p>
-            <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.minlength">
-              Emergency Contact Phone Number must be at least 10 numbers long.
-            </p>
-            <p class="mt-1 text-danger" *ngIf="(emergencyContactPhoneNumber.dirty || emergencyContactPhoneNumber.touched) && emergencyContactPhoneNumber.invalid && emergencyContactPhoneNumber.errors.maxlength">
-              Emergency Contact Phone Number can be max 10 numbers long.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Emergency Contact Relationship *</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Emergency Contact Relationship" formControlName="emergencyContactRelationship">
-            <p class="mt-1 text-danger" *ngIf="(emergencyContactRelationship.dirty || emergencyContactRelationship.touched) && emergencyContactRelationship.invalid && emergencyContactRelationship.errors.required">
-              Emergency Contact Relationship is required.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row float-right mb-5">
-    <div class="col-md-12">
-      <button class="btn btn-primary" type="submit"  [disabled]="!onboardingForm.valid">Next</button>
-    </div>
-  </div>
-
-</form>-->
