@@ -170,7 +170,7 @@
   },
   "billing_information_placeholder": {
     "cc_placeholder": "Credit Card Number",
-    "bank_account__placeholder": "Bank Account Number",
+    "bank_account_placeholder": "Bank Account Number",
     "routing_number_placeholder": "Routing Number",
     "cvv_placeholder": "CVV",
     "card_name_placeholder": "Name on Card",
@@ -242,7 +242,7 @@
     "physician_fax_max": "Physician Fax can be max 10 numbers long."
   },
   "medical_history": {
-    "title": "Onboarding Interview",
+    "title": "Help Us Tailor Your Experience",
     "subtitle": "We need to know a little bit more about your medical history.",
     "reminder": "Remember, you can change your answers anytime from the dashboard.",
     "allergies_title": "Allergic To Any Medications?",

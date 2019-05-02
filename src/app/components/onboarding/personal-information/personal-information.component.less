@@ -37,7 +37,7 @@
 
 .checkbox-form {
   border: 1px solid #979797;
-  padding: 5px 10px;
+  padding: 3px 30px;
   border-radius: 20px;
   background-color: #f4faf6;
 }
@@ -45,6 +45,7 @@
 .gender-text {
   color: @light-black;
 }
+
 
 .steps-form {
   display: table;
@@ -90,4 +91,19 @@
   line-height: 1.428571429;
   border-radius: 15px;
   margin-top: 0;
+}
+
+
+.btn-step {
+  border-radius: 50px;
+  height: 36px;
+  width: 36px;
+  border: none;
+  background-color: @green;
+  color: @white;
+  margin-top: -6px;
+
+  &:disabled {
+    background-color: @light-gray-2;
+  }
 }

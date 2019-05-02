@@ -48,7 +48,9 @@
       <input type="radio" name="radio-btn" id="img-1" [checked]="plan.plan_id === selectedPlanMobile.plan_id" />
       <li class="slide-container" *ngIf="plan.plan_id === selectedPlanMobile.plan_id">
         <div class="slide">
-          <div class="plan-card text-center mb-5">
+          <div class="plan-card text-center mb-5" [@cardAnimator]="animationState"
+            (@cardAnimator.done)="resetAnimationState()" (swipeLeft)="startAnimation('slideOutLeft', i)"
+            (swipeRight)="startAnimation('slideOutRight', i)">
             <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
             <p class="card-header-text"> {{'select_my_plan.coverage' | translate}} <span>{{plan.user_limit}}</span>
               {{'select_my_plan.additional' | translate}} </p>
@@ -95,7 +97,7 @@
   </li>
 </ul>-->
 
-<div class="row text-center mt-5">
+<div class="row text-center" style="margin-top:60%;">
   <div class="col-md-12">
     <p class="pay-as-you-go">{{'select_my_plan.not_ready' | translate}} <br>
       <span>{{'select_my_plan.learn' | translate}}</span> </p>
