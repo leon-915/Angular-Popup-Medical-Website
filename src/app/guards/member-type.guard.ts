@@ -17,8 +17,15 @@ export class MemberType implements CanActivate {
     private menuService: MenuService
   ) {}
 
-  // TODO  @Jorge
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.menuService.member_type_id_obs_boolean();
+    return this.auth.amIAuthenticated().pipe(
+      map(response => {
+        if (response.data.member_type_id === 1) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 }

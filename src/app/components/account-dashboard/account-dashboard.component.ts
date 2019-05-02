@@ -21,9 +21,6 @@ export class AccountDashboardComponent implements OnInit {
 
   ngOnInit() {
     const membertype = localStorage.getItem('member_type_id');
-    // TODO  @Jorge
-    console.log('memberRTypeId:');
-    console.log(membertype);
     if (!isNaN(+membertype)) {
       this.isNormaluser = +membertype === 1;
       console.log(this.isNormaluser);
