@@ -9,26 +9,21 @@
   </div>
 </div>
 
-
 <!-- Stepper -->
 <div class="row justify-content-md-center">
   <div class="steps-form">
     <div class="steps-row setup-panel">
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled>
-          <i class="material-icons">check_circle</i>
-        </button>
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round">2</button>
+        <button class="btn-step"> 2 </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled>3</button>
+        <button class="btn-step" disabled> 3 </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled>
-          <i class="material-icons">flag</i>
-        </button>
+        <button class="btn-step" disabled> <i class="material-icons">flag</i></button>
       </div>
     </div>
   </div>
@@ -61,7 +56,7 @@
             <ng-template #rt let-r="result" let-t="term">
               <ngb-highlight [result]="r.display_value" [term]="t"></ngb-highlight>
             </ng-template>
-            <input placeholder="Allergy" id="typeahead-basic" type="text" class="form-control"
+            <input placeholder="Allergy" id="typeahead-basic" type="text" class="form-control input-bg"
               [(ngModel)]="allergiesModels[i]" [ngbTypeahead]="searchAllergies" [resultTemplate]="rt"
               [inputFormatter]="formatter" (ngModelChange)="onChangeAllergies($event, i)" />
           </div>
@@ -94,7 +89,7 @@
             <ng-template #rc let-r="result" let-t="term">
               <ngb-highlight [result]="r.display_value" [term]="t"></ngb-highlight>
             </ng-template>
-            <input placeholder="Condition" id="typeahead-basic" type="text" class="form-control"
+            <input placeholder="Condition" id="typeahead-basic" type="text" class="form-control input-bg"
               [(ngModel)]="conditionsModels[i]" [ngbTypeahead]="searchConditions" [resultTemplate]="rc"
               [inputFormatter]="formatter" (ngModelChange)="onChangeConditions($event, i)" />
           </div>
@@ -127,7 +122,7 @@
             <ng-template #rm let-r="result" let-t="term">
               <ngb-highlight [result]="r.display_value" [term]="t"></ngb-highlight>
             </ng-template>
-            <input placeholder="Medications" id="typeahead-basic" type="text" class="form-control"
+            <input placeholder="Medication" id="typeahead-basic" type="text" class="form-control input-bg"
               [(ngModel)]="medicationsModel[i]" [ngbTypeahead]="searchMedications" [resultTemplate]="rm"
               [inputFormatter]="formatter" (ngModelChange)="onChangeMedications($event, i)" />
           </div>
@@ -139,11 +134,10 @@
 
 <div class="row justify-content-md-center">
   <div class="col-lg-8">
-    <button class="btn btn-secondary btn-round btn-lg" type="button" (click)="userAction('back')">
+    <button class="btn back-btn" type="button" (click)="userAction('back')">
       {{'medical_history.back_btn' | translate}}
     </button>
-    <button class="btn btn-secondary btn-round btn-lg float-right" type="button" (click)="nextStep()"
-      [disabled]="disableNext">
+    <button class="btn btn-success float-right" type="button" (click)="nextStep()" [disabled]="disableNext">
       {{'medical_history.next_btn' | translate}}
     </button>
   </div>

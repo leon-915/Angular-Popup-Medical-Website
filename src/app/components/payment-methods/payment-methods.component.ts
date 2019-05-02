@@ -59,7 +59,7 @@ export class PaymentMethodsComponent implements OnInit {
       country: ['', [Validators.required]],
       paymentMethod: [false, [Validators.required]], // true = ACH & false = credit card
       routingNumber: [''],
-      bankAccountNumber: [''],
+      bankAccountNumber: ['']
     });
 
     this.onChangePaymentMethod();
@@ -189,6 +189,24 @@ export class PaymentMethodsComponent implements OnInit {
       unknown: '0000 0000 0000 0000'
     };
     return masks[cardType];
+  }
+
+  resetForm() {
+    this.creditCardNumber.setValue('');
+    this.expirationMonth.setValue(null);
+    this.expirationYear.setValue(null);
+    this.cvv.setValue('');
+    this.nameOnCard.setValue('');
+    this.address1.setValue('');
+    this.address2.setValue('');
+    this.city.setValue('');
+    this.state.setValue(null);
+    this.stateName.setValue('');
+    this.zipCode.setValue('');
+    this.country.setValue('');
+    this.paymentMethod.setValue(false);
+    this.routingNumber.setValue('');
+    this.bankAccountNumber.setValue('');
   }
 
   // Getters
@@ -339,6 +357,7 @@ export class PaymentMethodsComponent implements OnInit {
     this.paymentSrv.addPaymentMethod(this.paymentForm.getRawValue()).subscribe((response) => {
       if (!response.HasError) {
         this.paymentForm.reset();
+        this.paymentMethod.setValue(false);
         this.notificationSrv.showSuccess(response.Message);
         this.getPaymentMethods();
       } else {

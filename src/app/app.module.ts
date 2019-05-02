@@ -137,6 +137,7 @@ export function setupTranslateFactory(service: TranslateService) {
 }
 
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -192,7 +193,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     TranslatorTestComponent,
     LanguageComponent,
     PaymentMethodsComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    LoaderComponent
   ],
   imports: [
     AppRoutingModule,

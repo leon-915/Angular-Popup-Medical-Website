@@ -68,7 +68,12 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
   //height: 50px;
   // text-transform: capitalize;
-  padding: 0px 20px !important;
+  padding: 0px 50px !important;
+
+  &:disabled {
+    border: none;
+  }
+
 }
 
 .btn-outline-primary {
@@ -78,6 +83,20 @@ input::-webkit-inner-spin-button {
 
   &:hover {
     background-color: @orange;
+    color: @white;
+  }
+}
+
+.btn-success {
+  background-color: @green;
+  color: @white;
+  border: 2px solid @green;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @green;
+    border: 2px solid @green;
     color: @white;
   }
 }
@@ -137,14 +156,19 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.back-btn,
-.back-btn:hover,
-.back-btn:active,
-.back-btn:focus {
+.back-btn {
+  background-color: @white;
+  color: @mid-gray;
+  border: 2px solid @mid-gray;
   border-radius: 30px;
-  background-color: #FFF;
-  color: #979797;
-  border: 2px solid #979797;
+  height: 50px;
+
+  &:hover {
+    background-color: @white;
+    border: 2px solid @mid-gray;
+    color: @mid-gray;
+  }
+  
 }
 
 .btn-primary,
