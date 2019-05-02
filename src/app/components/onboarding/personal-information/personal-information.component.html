@@ -11,16 +11,16 @@
   <div class="steps-form">
     <div class="steps-row setup-panel">
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round">1</button>
+        <button class="btn-step">1 </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled>2</button>
+        <button class="btn-step" disabled> 2 </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled>3</button>
+        <button class="btn-step" disabled> 3 </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled> <i class="material-icons">flag</i></button>
+        <button class="btn-step" disabled> <i class="material-icons">flag</i></button>
       </div>
     </div>
   </div>
@@ -165,14 +165,14 @@
             </p>
           </div>
           <div class="form-group">
-            <mat-checkbox class="text-left float-left"> {{'personal_information.no_physician' | translate}}
+            <mat-checkbox class="text-left float-left no-physician"> {{'personal_information.no_physician' | translate}}
             </mat-checkbox>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 text-right float-rigth">
-          <button class="btn btn-secondary btn-round btn-lg" type="submit"
+          <button class="btn btn-success" type="submit"
             [disabled]="!onboardingForm.valid">{{'personal_information.btn_next' | translate}}</button>
         </div>
       </div>

@@ -9,10 +9,25 @@ import {
   ViewChild
 } from '@angular/core';
 
+import { trigger, keyframes, animate, transition } from '@angular/animations';
+import * as kf from './keyframes';
+
 @Component({
   selector: 'app-select-my-plan',
   templateUrl: './select-my-plan.component.html',
-  styleUrls: ['./select-my-plan.component.less']
+  styleUrls: ['./select-my-plan.component.less'],
+  animations: [
+    trigger('cardAnimator', [
+      transition('* => wobble', animate(1000, keyframes(kf.wobble))),
+      transition('* => swing', animate(1000, keyframes(kf.swing))),
+      transition('* => jello', animate(1000, keyframes(kf.jello))),
+      transition('* => zoomOutRight', animate(1000, keyframes(kf.zoomOutRight))),
+      transition('* => slideOutLeft', animate(1000, keyframes(kf.slideOutLeft))),
+      transition('* => slideOutRight', animate(1000, keyframes(kf.slideOutRight))),
+      transition('* => rotateOutUpRight', animate(1000, keyframes(kf.rotateOutUpRight))),
+      transition('* => flipOutY', animate(1000, keyframes(kf.flipOutY)))
+    ])
+  ]
 })
 export class SelectMyPlanComponent implements OnInit {
   @Input() step: number;
@@ -25,11 +40,40 @@ export class SelectMyPlanComponent implements OnInit {
   disableBack = true;
   disableNext = false;
   currentPlan = 0;
+  animationState: string;
 
   constructor(private planSrv: PlanService, private signupSrv: SignupService) { }
 
   ngOnInit() {
     this.getPlans();
+  }
+
+  startAnimation(state, index) {
+    console.log(state);
+    console.log(index);
+    this.animationState = state;
+    console.log(this.plans.length - 1);
+    if (this.animationState === 'slideOutLeft' && index !== (this.plans.length - 1)) {
+      console.log('para la izquierda');
+      this.next();
+    } else if (this.animationState === 'slideOutRight' && index !== 0) {
+      console.log('para la derecha');
+      this.back();
+    }
+    // if (!this.animationState) {
+    /*if (this.animationState === 'slideOutLeft') {
+      console.log('para la izquierda');
+      this.next();
+    } else if (this.animationState === 'slideOutRight') {
+      console.log('para la derecha');
+      this.back();
+      // }
+    }*/
+
+  }
+
+  resetAnimationState() {
+    // this.animationState = '';
   }
 
   userAction(action: string) {

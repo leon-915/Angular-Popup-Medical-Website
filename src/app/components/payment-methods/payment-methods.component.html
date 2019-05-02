@@ -61,7 +61,7 @@
             </small>
           </div>
           <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
-            <p class="card-content mb-0 pb-0">{{'payment_methods.account_number' | translate}}
+            <p class="card-content mb-0">{{'payment_methods.account_number' | translate}}
               {{paymentMethod.bank_account_number}}</p>
             <!--<p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>-->
             <button class="btn btn-default-outline"
@@ -69,11 +69,11 @@
             <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
           </div>
           <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
-            <p class="card-content mb-0 pb-0">{{'payment_methods.ending' | translate}}
+            <p class="card-content mb-0">{{'payment_methods.ending' | translate}}
               {{paymentMethod.lastfour}}</p>
             <p class="card-content mb-0 pt-0">{{'payment_methods.expires' | translate}} {{paymentMethod.expiration}}</p>
             <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">
-              {{'payment_methods.not)usable' | translate}}</p>
+              {{'payment_methods.not_usable' | translate}}</p>
             <button class="btn btn-default-outline"
               (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
           </div>

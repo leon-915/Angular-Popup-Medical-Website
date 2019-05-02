@@ -12,16 +12,16 @@
   <div class="steps-form">
     <div class="steps-row setup-panel">
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled><i class="material-icons">check_circle</i></button>
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled><i class="material-icons">check_circle</i></button>
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round">3</button>
+        <button class="btn-step"> 3 </button>
       </div>
       <div class="steps-step">
-        <button class="btn btn-secondary btn-round" disabled><i class="material-icons">flag</i></button>
+        <button class="btn-step" disabled> <i class="material-icons">flag</i></button>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
   <div class="col-lg-8 mt-2 mx-auto">
     <p class="description-one">{{'primary_pharmacy.choose_primary_pharmacy' | translate}}</p>
     <p class="description-two mb-3"><strong>{{'primary_pharmacy.search_by' | translate}}</strong></p>
-    <input type="text" [placeholder]="'primary_pharmacy.address_placeholder' | translate" class="form-control"
+    <input type="text" [placeholder]="'primary_pharmacy.address_placeholder' | translate" class="form-control input-bg"
       #address />
   </div>
 </div>
@@ -101,10 +101,10 @@
 
 <div class="row justify-content-md-center">
   <div class="col-lg-8">
-    <button class="btn btn-secondary btn-round btn-lg" type="button" (click)="userAction('back')">
+    <button class="btn back-btn" type="button" (click)="userAction('back')">
       {{'primary_pharmacy.back_btn' | translate}}
     </button>
-    <button class="btn btn-secondary btn-round btn-lg float-right" type="button" (click)="completeOnboarding()"
+    <button class="btn btn-primary float-right" type="button" (click)="completeOnboarding()"
       [disabled]="!primaryPharmacyAddress">
       {{'primary_pharmacy.complete_btn' | translate}}
     </button>

@@ -2,7 +2,7 @@
 
 .title {
   font-size: 54px;
-  font-weight: 200;
+  font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.33;
@@ -92,14 +92,17 @@
   margin-top: 0;
 }
 
-.dropdown-menu .active>a,
-.dropdown-menu .active>a:hover {
-  color: #333333;
-  text-decoration: none;
-  background-color: #0081c2;
-}
 
+.btn-step {
+  border-radius: 50px;
+  height: 36px;
+  width: 36px;
+  border: none;
+  background-color: @green;
+  color: @white;
+  margin-top: -6px;
 
-.dropdown-menu .dropdown-item {
-  font-size: 50px !important;
+  &:disabled {
+    background-color: @light-gray-2;
+  }
 }
