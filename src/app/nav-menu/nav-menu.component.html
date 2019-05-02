@@ -29,20 +29,20 @@
       <!--Anonymous user-->
 
       <!--Authenticated user-->
-      <li *ngIf="isUserAuthenticated">
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
         <a [routerLink]="[lang, '']">
           <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a
         >
       </li>
-      <li *ngIf="isUserAuthenticated">
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
         <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
       </li>
-      <li *ngIf="isUserAuthenticated">
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
         <a [routerLink]="[lang, 'account']">
           <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a
         >
       </li>
-      <li *ngIf="isUserAuthenticated">
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
         <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
       </li>
 
@@ -82,16 +82,16 @@
   <!--Anonymous user-->
 
   <!--Authenticated user-->
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a>
   </li>
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
   </li>
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a [routerLink]="[lang, 'account']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
   </li>
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
   </li>
 
@@ -100,13 +100,13 @@
 
 <ul class="sidenav" id="right-sidevar" *ngIf="isUserAuthenticated">
   <!--Authenticated user-->
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a>
   </li>
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
   </li>
-  <li *ngIf="isUserAuthenticated">
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
     <a [routerLink]="[lang, 'account']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
   </li>
   <li *ngIf="isUserAuthenticated">

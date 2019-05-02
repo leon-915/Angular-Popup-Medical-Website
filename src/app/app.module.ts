@@ -123,7 +123,10 @@ import {
 import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
+// TODO:  Code review on guard inports
 import { AuthGuard } from './guards/auth.guard';
+import { MemberType } from './guards/member-type.guard';
+
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
 import { TranslatePipe } from './translator/translate.pipe';
 
@@ -243,6 +246,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
       multi: true
     },
     AuthGuard,
+    MemberType,
     AccountService,
     TranslateService,
     MyFamilyService,

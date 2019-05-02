@@ -7,16 +7,30 @@
     <form [formGroup]="addMemberForm" (ngSubmit)="editFamilyMember()">
       <div class="form-group">
         <label for="validationCustom01">{{ 'my_family_edit_member_placeholders.first_name_input' | translate }}</label>
-        <input type="text" class="form-control" id="validationCustom01" formControlName="first_name" placeholder="{{ 'my_family_edit_member_placeholders.first_name_input' | translate }}" required />
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustom01"
+          formControlName="first_name"
+          placeholder="{{ 'my_family_edit_member_placeholders.first_name_input' | translate }}"
+          required
+        />
         <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
-            {{ 'form_errors.first_name_required' | translate }}
+          {{ 'form_errors.first_name_required' | translate }}
         </p>
       </div>
       <div class="form-group">
         <label for="validationCustom01">{{ 'my_family_edit_member_placeholders.last_name_input' | translate }}</label>
-        <input type="text" class="form-control" id="validationCustom01" formControlName="last_name" placeholder="{{ 'my_family_edit_member_placeholders.last_name_input' | translate }}" required />
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustom01"
+          formControlName="last_name"
+          placeholder="{{ 'my_family_edit_member_placeholders.last_name_input' | translate }}"
+          required
+        />
         <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
-            {{ 'form_errors.last_name_required' | translate }}
+          {{ 'form_errors.last_name_required' | translate }}
         </p>
       </div>
 
@@ -40,19 +54,19 @@
         <label for="validationCustom02"> {{ 'my_family_edit_member_placeholders.date_of_birth_input' | translate }}Date of Birth</label>
         <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday" required />
         <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
-            {{ 'form_errors.date_of_birth_required' | translate }}
+          {{ 'form_errors.date_of_birth_required' | translate }}
         </p>
       </div>
 
       <div class="row">
         <div class="col d-flex justify-content-center">
           <button type="button" class="btn btn-primary btn-block" (click)="modal.close('Action Canceled')">
-              {{ 'my_family_edit_member_placeholders.cancel_btn' | translate }}
+            {{ 'my_family_edit_member_placeholders.cancel_btn' | translate }}
           </button>
         </div>
         <div class="col d-flex justify-content-center">
           <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
-              {{ 'my_family_edit_member_placeholders.save_btn' | translate }}
+            {{ 'my_family_edit_member_placeholders.save_btn' | translate }}
           </button>
         </div>
       </div>
@@ -60,4 +74,4 @@
     </form>
   </div>
 </ng-template>
-<button type="button" (click)="open(content)" class=" btn-success-outline">{{ 'my_family_edit_member_placeholders.view_btn' | translate }}</button>
+<button type="button" (click)="open(content)" class="btn-members">{{ 'my_family_edit_member_placeholders.view_btn' | translate }}</button>

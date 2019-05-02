@@ -27,9 +27,9 @@
       </div>
       <div class="card-body card-warning text-center">
         <div style="height: 90px; padding: 5px;">
-          <p class="card-content my-family-box-member-name">Oscar Vargas Granados</p>
+          <p class="card-content my-family-box-member-name">{{ memberFullName }}</p>
         </div>
-        <button type="button" (click)="goToProfile()" class=" btn-warning-outline">
+        <button type="button" (click)="goToProfile()" class="btn-profile">
           {{ 'my_family_placeholders.view_btn' | translate }}
         </button>
       </div>

@@ -24,6 +24,8 @@ export class AccountFamilyComponent implements OnInit {
   activeFamilyUsers: FamilyUser[];
   activeGuestUsers: FamilyUser[];
 
+  memberFullName: string;
+
   constructor(
     private fb: FormBuilder,
     private accountSrv: AccountService,
@@ -56,6 +58,8 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.memberFullName = localStorage.getItem('member_full_name');
+
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
     this.myFamilySrv.getMyFamily().subscribe(res => {

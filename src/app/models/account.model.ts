@@ -56,6 +56,7 @@ export interface AccountResult {
 }
 
 export interface TokenResult {
+  member_full_name: string;
   token: string;
   member_type_id: number;
 }
