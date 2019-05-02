@@ -25,6 +25,7 @@ import {
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
+import { MemberType } from './guards/member-type.guard';
 
 const routes: Routes = [
   {
@@ -33,12 +34,13 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'my-home', component: MyHomeComponent, canActivate: [AuthGuard] },
-
       { path: 'login', component: LoginComponent },
       { path: 'account', component: AccountDashboardComponent, canActivate: [AuthGuard] },
       { path: 'account/info', component: AccountInformationComponent, canActivate: [AuthGuard] },
-      { path: 'account/security', component: AccountSecurityComponent, canActivate: [AuthGuard] },
-      { path: 'account/family', component: AccountFamilyComponent, canActivate: [AuthGuard] },
+      // TODO  @Jorge
+      { path: 'account/security', component: AccountSecurityComponent, canActivate: [AuthGuard, MemberType] },
+      // TODO  @Jorge
+      { path: 'account/family', component: AccountFamilyComponent, canActivate: [MemberType] },
       // { path: 'account/family/family-edit', component: FamilyEditComponent, canActivate: [AuthGuard] },
       { path: 'account/family/guest-edit', component: GuestEditComponent, canActivate: [AuthGuard] },
       { path: 'account/family/dependent', component: AddDependentComponent, canActivate: [AuthGuard] },

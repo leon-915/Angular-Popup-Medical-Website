@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyFamilyService, NotificationService } from 'src/app/services';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-account-dashboard',
@@ -13,13 +14,15 @@ export class AccountDashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private myFamilySrv: MyFamilyService,
+    private menuService: MenuService,
     private notificationSrv: NotificationService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     const membertype = localStorage.getItem('member_type_id');
-    console.log('----------------');
+    // TODO  @Jorge
+    console.log('memberRTypeId:');
     console.log(membertype);
     if (!isNaN(+membertype)) {
       this.isNormaluser = +membertype === 1;
