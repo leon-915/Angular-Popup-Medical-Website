@@ -15,7 +15,7 @@
   <!-- Profile -->
   <div class="col-sm-4 text-center">
     <div class="card">
-      <div class="card-header card-warning-header">
+      <div class="card-header family-card-title  card-warning-header">
         <div class="row  justify-content-between ">
           <div class="col" style="padding-left: .75rem;">
             <label class=" my-family-box-title-left">{{ 'my_family_placeholders.my_profile_title_lbl' | translate }}</label>
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body card-warning text-center">
+      <div class="card-body card-warning family-card-body text-center">
         <div style="height: 90px; padding: 5px;">
           <p class="card-content my-family-box-member-name">{{ memberFullName }}</p>
         </div>
@@ -40,7 +40,7 @@
 
   <div class="col-sm-4 text-center" *ngFor="let member of familyUsers; let i = index">
     <div class="card">
-      <div class="card-header card-success-header">
+      <div class="card-header family-card-title  card-success-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">{{ member.display_value }}</label>
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body card-success text-center">
+      <div class="card-body card-success family-card-body text-center">
         <div class="mb-2" style="height: 90px; vertical-align: middle;">
           <span class="pending-invitation" *ngIf="!member.is_active">
             {{ 'my_family_placeholders.pending_invitation_lbl' | translate }}
@@ -88,7 +88,7 @@
 
   <div class="col-sm-4" *ngFor="let member of guestUsers; let i = index">
     <div class="card">
-      <div class="card-header card-default-header">
+      <div class="card-header family-card-title  card-default-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">{{ member.display_value }}</label>
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body card-default text-center">
+      <div class="card-body card-default family-card-body text-center">
         <div style="height: 90px; vertical-align: middle;">
           <span class="pending-invitation" *ngIf="!member.is_active">
             {{ 'my_family_placeholders.pending_invitation_lbl' | translate }}
@@ -110,7 +110,7 @@
             {{ member.email ? member.email : ' ' }}
           </p>
         </div>
-        <button type="button" (click)="removeMember(i, true)" class="btn-default-outline">
+        <button type="button" (click)="removeMember(i, true)" class="btn-guest">
           {{ 'my_family_placeholders.delete_btn' | translate }}
         </button>
       </div>
@@ -120,7 +120,7 @@
 
   <div class="col-md-4">
     <div class="card" style=" box-shadow: none !important;">
-      <div class="card-header card-unavailable-header">
+      <div class="card-header family-card-title card-unavailable-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">Add</label>
@@ -130,7 +130,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body card-unavailable text-center">
+      <div class="card-body card-unavailable family-card-body  text-center">
         <div style="height: 90px; vertical-align: middle;">
           <div class="col-md-12">
             <div class="row justify-content-center">

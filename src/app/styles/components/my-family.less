@@ -17,39 +17,51 @@
   color: @green;
 }
 
+// cards
 .my-family-col-box {
   margin-top: 60px;
   text-align: -webkit-center
 }
 
+.family-card-body {
+  min-height: 180px;
+}
+
+.family-card-title {
+  padding: 0px;
+  max-height: 36px;
+}
+
 // Btn
 
-.btn-warning-outline {
-  background-color: @white;
-  color: @orange;
-  border: 2px solid @orange;
-  border-radius: 30px;
-  height: 50px;
-
-  &:hover {
-    background-color: @orange;
-    border: 2px solid @orange;
-    color: @white;
-  }
+.btn-text {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.22;
+  letter-spacing: normal;
 }
 
 .btn-profile {
   .btn-warning-outline;
-  border-radius: 30px !important;
-  height: 50px !important;
-
+  .btn-text;
+  min-width: 148px;
 }
 
 .btn-members {
   .btn-success-outline;
-  border-radius: 30px !important;
-  height: 50px !important;
+  .btn-text;
+  min-width: 148px;
 }
+
+.btn-guest {
+  .btn-default-outline;
+  .btn-text;
+  min-width: 148px;
+}
+
 
 
 
