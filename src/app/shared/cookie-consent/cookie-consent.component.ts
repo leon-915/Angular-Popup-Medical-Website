@@ -18,17 +18,17 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   constructor(private ccService: NgcCookieConsentService) {}
 
   ngOnInit() {
-    this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(() => {
-      // you can use this.ccService.getConfig() to do stuff...
-    });
+    // this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(() => {
+    //   // you can use this.ccService.getConfig() to do stuff...
+    // });
   }
   ngOnDestroy() {
     // unsubscribe to cookieconsent observables to prevent memory leaks
-    this.popupOpenSubscription.unsubscribe();
-    this.popupCloseSubscription.unsubscribe();
-    this.initializeSubscription.unsubscribe();
-    this.statusChangeSubscription.unsubscribe();
-    this.revokeChoiceSubscription.unsubscribe();
-    this.noCookieLawSubscription.unsubscribe();
+    // this.popupOpenSubscription.unsubscribe();
+    // this.popupCloseSubscription.unsubscribe();
+    // this.initializeSubscription.unsubscribe();
+    // this.statusChangeSubscription.unsubscribe();
+    // this.revokeChoiceSubscription.unsubscribe();
+    // this.noCookieLawSubscription.unsubscribe();
   }
 }
