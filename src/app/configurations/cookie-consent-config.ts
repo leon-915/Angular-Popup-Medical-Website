@@ -13,5 +13,5 @@ export const cookieConfig: NgcCookieConsentConfig = {
     }
   },
   theme: 'edgeless',
-  type: 'opt-out'
+  type: 'info'
 };
