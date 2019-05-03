@@ -7,12 +7,12 @@
     <a class="brand-logo"><img src="assets/images/popupcare-logo.png" style="width: 200px"/></a>
     <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
-      <li>
+      <!-- <li>
         <a class="dropdown-trigger" href="#!" data-target="desktop_language_dd"
           ><i class="material-icons left">language</i>{{ 'menu.language' | translate
           }}<i class="material-icons right">arrow_drop_down</i></a
         >
-      </li>
+      </li> -->
       <!--Anonymous user-->
       <li *ngIf="!isUserAuthenticated">
         <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
@@ -60,11 +60,11 @@
 </ul>
 
 <ul class="sidenav" id="mobile-demo">
-  <li>
+  <!-- <li>
     <a class="dropdown-trigger" href="#!" data-target="mobile_language_dd"
       ><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a
     >
-  </li>
+  </li> -->
 
   <!--Anonymous user-->
   <li *ngIf="!isUserAuthenticated">
