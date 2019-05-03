@@ -41,6 +41,7 @@ import { cookieConfig } from './configurations';
 /* MODULES */
 import { AgmCoreModule } from '@agm/core';
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 /* MODULES */
 
 /* PIPES */
@@ -135,14 +136,15 @@ import { MemberType } from './guards/member-type.guard';
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
 import { TranslatePipe } from './translator/translate.pipe';
 
+/* SHARED */
+import { CookieConsentComponent, LoaderComponent } from './shared';
+/* SHARED */
+
 export function setupTranslateFactory(service: TranslateService) {
   const userLang = localStorage.getItem('lng') || 'en';
   localStorage.setItem('lng', userLang);
   return () => service.use();
 }
-
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -200,7 +202,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
     PaymentMethodsComponent,
     AddMemberComponent,
     LoaderComponent,
-    ConfirmationStackedModalComponent
+    ConfirmationStackedModalComponent,
+    CookieConsentComponent
   ],
   imports: [
     AppRoutingModule,
