@@ -42,7 +42,7 @@
           <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a
         >
       </li>
-      <li *ngIf="isUserAuthenticated && member_type_id === 1">
+      <li *ngIf="isUserAuthenticated">
         <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
       </li>
 

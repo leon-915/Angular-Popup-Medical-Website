@@ -6,22 +6,18 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./loader.component.less']
 })
 export class LoaderComponent implements OnInit {
-
   @Input() title: string;
   @Input() subtitle: string;
   @Input() description: string;
 
   public loading = false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-
     setTimeout(() => {
-      console.log('heeey');
+      console.log('Loader component');
       this.loading = true;
     }, 5000);
-
   }
-
 }

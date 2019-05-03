@@ -14,6 +14,7 @@
   line-height: 1.33;
   letter-spacing: -0.3px;
   text-align: center;
+  vertical-align: middle;
   color: @green;
 }
 
@@ -30,6 +31,29 @@
 .family-card-title {
   padding: 0px;
   max-height: 36px;
+  vertical-align: middle;
+
+}
+
+
+.family-card-success-header {
+  .family-card-title;
+  background-color: @green;
+}
+
+.family-card-default-header {
+  .family-card-title;
+  background-color: @gray;
+}
+
+.family-card-warning-header {
+  .family-card-title;
+  background-color: @orange;
+}
+
+.family-card-unavailable-header {
+  .family-card-title;
+  background-color: @light-gray-2;
 }
 
 // Btn
@@ -293,3 +317,4 @@
   text-align: center;
   color: @green;
 }
+

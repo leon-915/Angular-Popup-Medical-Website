@@ -1,11 +1,11 @@
-<div class="row justify-content-around">
-  <div class="col-sm-3">
+<div class="row justify-content-around  h-100">
+  <div class="col-sm-3  my-auto .hub-container">
     <div (click)="goToDashboard()">
       <label class="my-hub"><i class="material-icons"> arrow_back </i>{{ 'my_family_placeholders.hub_lbl' | translate }}</label>
     </div>
   </div>
 
-  <div class="col-lg-6 text-center">
+  <div class="col-lg-6 text-center  my-auto">
     <label class="my-family-title">{{ 'my_family_placeholders.tittle_lbl' | translate }}</label>
   </div>
   <div class="col-sm-3"></div>
@@ -13,9 +13,9 @@
 
 <div class="row  justify-content-md-center">
   <!-- Profile -->
-  <div class="col-sm-4 text-center">
+  <div class="col-sm-4">
     <div class="card">
-      <div class="card-header family-card-title  card-warning-header">
+      <div class="card-header family-card-warning-header">
         <div class="row  justify-content-between ">
           <div class="col" style="padding-left: .75rem;">
             <label class=" my-family-box-title-left">{{ 'my_family_placeholders.my_profile_title_lbl' | translate }}</label>
@@ -38,9 +38,9 @@
 
   <!-- Family members -->
 
-  <div class="col-sm-4 text-center" *ngFor="let member of familyUsers; let i = index">
+  <div class="col-sm-4" *ngFor="let member of familyUsers; let i = index">
     <div class="card">
-      <div class="card-header family-card-title  card-success-header">
+      <div class="card-header  family-card-success-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">{{ member.display_value }}</label>
@@ -88,7 +88,7 @@
 
   <div class="col-sm-4" *ngFor="let member of guestUsers; let i = index">
     <div class="card">
-      <div class="card-header family-card-title  card-default-header">
+      <div class="card-header family-card-default-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">{{ member.display_value }}</label>
@@ -120,7 +120,7 @@
 
   <div class="col-md-4">
     <div class="card" style=" box-shadow: none !important;">
-      <div class="card-header family-card-title card-unavailable-header">
+      <div class="card-header family-card-unavailable-header">
         <div class="row  justify-content-between ">
           <div class="col">
             <label class=" my-family-box-title-left">Add</label>
