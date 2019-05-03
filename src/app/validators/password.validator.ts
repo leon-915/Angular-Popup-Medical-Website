@@ -1,32 +1,13 @@
-import {
-  FormGroup,
-  FormControl,
-  AbstractControl,
-  ValidationErrors,
-  ValidatorFn
-} from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export interface ValidationResult {
   [key: string]: boolean;
 }
 
 export class PasswordValidator {
-  public static checkPasswordEquality(
-    group: FormGroup
-  ): { [s: string]: boolean } {
-    return group.get('pwd').value !== group.get('confirm').value
-      ? { passwordsDoNotMatch: true }
-      : null;
+  public static checkPasswordEquality(group: FormGroup): { [s: string]: boolean } {
+    return group.get('pwd').value !== group.get('confirm').value ? { passwordsDoNotMatch: true } : null;
   }
-
-  /*public static checkPasswordEquality(
-    group: FormGroup
-  ): { [s: string]: boolean } {
-    console.log(group);
-    return group.get('pwd').value !== group.get('confirm').value
-      ? { passwordsDoNotMatch: true }
-      : null;
-  }*/
 
   public static checkPasswordStrength(password: FormControl): any {
     const validations = {
@@ -68,11 +49,7 @@ export class PasswordValidator {
     return (c: AbstractControl): { [key: string]: boolean } | null => {
       if (
         c.value &&
-        (isNaN(c.value) ||
-          String(c.value).length < min ||
-          String(c.value).length > max ||
-          isNaN(Number(c.value)) ||
-          c.value < 0)
+        (isNaN(c.value) || String(c.value).length < min || String(c.value).length > max || isNaN(Number(c.value)) || c.value < 0)
       ) {
         if (isNaN(Number(c.value)) || c.value < 0) {
           return { symbols: true };

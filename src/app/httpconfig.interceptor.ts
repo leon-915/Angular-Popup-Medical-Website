@@ -55,7 +55,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     if (err.status === 401 || err.status === 403 || err.status === 0) {
       this.menuService.updateStatus();
       // navigate /delete cookies or whatever
-      console.log('handled error ' + err.status);
+      console.error('handled error ' + err.status);
 
       this.router.navigate(['/']);
 

@@ -9,7 +9,7 @@ import { SignupRequestModel } from 'src/app/models';
   styleUrls: ['./my-home.component.less']
 })
 export class MyHomeComponent implements OnInit {
-  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.getCommonFormData();
@@ -17,6 +17,8 @@ export class MyHomeComponent implements OnInit {
     member.currentStep = 1;
     this.signupSrv.signup(member).subscribe(
       response => {
+        // TODO clean consoles
+        console.log('My Home OnInit');
         console.log(response);
         if (!response.HasError) {
           // response.Result.last_step_completed === 5 ||
@@ -28,9 +30,10 @@ export class MyHomeComponent implements OnInit {
             this.router.navigate(['../signup'], { relativeTo: this.activatedRoute });
           }
         }
+        console.log('close My Home OnInit');
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }

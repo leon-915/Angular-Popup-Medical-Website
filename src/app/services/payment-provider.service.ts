@@ -7,8 +7,7 @@ import { APIResponse } from '../models';
   providedIn: 'root'
 })
 export class PaymentProviderService {
-
-  constructor(private commonSrv: CommonService, private http: HttpClient) { }
+  constructor(private commonSrv: CommonService, private http: HttpClient) {}
 
   serviceURl: string = this.commonSrv.apiURL + 'en/';
 
@@ -23,6 +22,7 @@ export class PaymentProviderService {
   }
 
   updateDefaultPaymentMethod(paymentMethod: any) {
+    // TODO clean console.log
     console.log('calling this services');
     const url = this.serviceURl + 'update/default-payment-method';
     return this.http.post<APIResponse<any>>(url, paymentMethod);
@@ -32,5 +32,4 @@ export class PaymentProviderService {
     const url = this.serviceURl + 'delete/payment-profile';
     return this.http.post<APIResponse<any>>(url, paymentMethod);
   }
-
 }

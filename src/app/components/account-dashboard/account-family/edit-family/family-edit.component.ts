@@ -11,7 +11,6 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 
 import { TranslateService } from 'src/app/translator/translate.service';
 
-
 @Component({
   selector: 'app-family-edit',
   templateUrl: './family-edit.component.html',
@@ -113,7 +112,6 @@ export class FamilyEditComponent implements OnInit {
   // }
 
   open(content) {
-    console.log(this.isActive);
     this.genderList = JSON.parse(localStorage.getItem('genderList'));
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
@@ -122,7 +120,6 @@ export class FamilyEditComponent implements OnInit {
 
     if (!isNaN(this.relationId)) {
       this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
-        console.log(JSON.stringify(res));
         if (!res.HasError) {
           this.familyUser = res.Result;
           this.showGender = this.familyUser.has_login;

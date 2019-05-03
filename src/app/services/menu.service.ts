@@ -21,7 +21,6 @@ export class MenuService {
   updateStatus(): void {
     const url = `${this.serviceURL}amIAuthenticated`;
     this.http.post<AmIAuthenticatedModel>(url, null).subscribe(result => {
-      // TODO  @Jorge
       this.member_type_id.next(result.data ? result.data.member_type_id : 0);
       this.isAuthenticated.next(result.success);
     });
@@ -32,8 +31,6 @@ export class MenuService {
   }
 
   AuthenticationStatus(): Observable<boolean> {
-    console.log('un pollitazo');
-    console.log(JSON.stringify(this.isAuthenticated));
     return this.isAuthenticated.asObservable();
   }
 }

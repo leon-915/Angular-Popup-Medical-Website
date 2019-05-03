@@ -95,7 +95,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         console.log('Google maps loaded');
       })
       .catch(error => {
-        console.log('error loading map', error);
+        console.error('error loading map', error);
       });
 
     this.googleSrvPlaces
@@ -104,7 +104,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         console.log('Google maps loaded');
       })
       .catch(error => {
-        console.log('error loading map', error);
+        console.error('error loading map', error);
       });
   }
   createShippingAddress() {

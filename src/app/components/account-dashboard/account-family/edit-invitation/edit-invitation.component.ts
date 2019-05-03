@@ -55,16 +55,13 @@ export class EditInvitationComponent implements OnInit {
     localStorage.setItem('lng', lang);
     this.translate.use();
   }
-  ngOnInit() {
-    console.log(this.isActive);
-  }
-  //  1: edit, 2: delete
+  ngOnInit() {}
 
+  //  1: edit, 2: delete
   editInvitation() {
     const formData = this.addMemberForm.getRawValue();
 
     this.myFamilySrv.putInvitation(formData).subscribe(res => {
-      console.log(JSON.stringify(res));
       if (!res.HasError) {
         this.returnResult(1, res.Result, res.Message);
         this.modalReference.close();
@@ -107,7 +104,6 @@ export class EditInvitationComponent implements OnInit {
   }
 
   open(content) {
-    console.log(this.isActive);
     this.genderList = JSON.parse(localStorage.getItem('genderList'));
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
@@ -116,7 +112,6 @@ export class EditInvitationComponent implements OnInit {
 
     if (!isNaN(this.relationId)) {
       this.myFamilySrv.getInvitation(this.relationId).subscribe(res => {
-        console.log(JSON.stringify(res));
         if (!res.HasError) {
           this.familyUser = res.Result;
           this.addMemberForm.setValue({

@@ -20,10 +20,10 @@ export class AccountDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // TODO get the variable from the observer and remove this from the storage
     const membertype = localStorage.getItem('member_type_id');
     if (!isNaN(+membertype)) {
       this.isNormaluser = +membertype === 1;
-      console.log(this.isNormaluser);
     }
   }
   upgradeMember() {

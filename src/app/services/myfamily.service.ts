@@ -27,13 +27,11 @@ export class MyFamilyService {
   }
   getFamilyMember(memberRelationId: number) {
     const url = `${this.serviceURl}myfamily/member/${memberRelationId}`;
-    console.log(url);
     return this.http.get<APIResponse<EditUser>>(url);
   }
 
   getInvitation(memberRelationId: number) {
     const url = `${this.serviceURl}myfamily/invitation/${memberRelationId}`;
-    console.log(url);
     return this.http.get<APIResponse<EditUser>>(url);
   }
   putInvitation(invitation) {
@@ -47,7 +45,6 @@ export class MyFamilyService {
 
   getGuestMember(memberRelationId: number) {
     const url = `${this.serviceURl}myfamily/guest/${memberRelationId}`;
-    console.log(url);
     return this.http.get<APIResponse<EditUser>>(url);
   }
 

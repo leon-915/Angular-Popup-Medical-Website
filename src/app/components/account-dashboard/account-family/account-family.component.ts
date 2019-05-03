@@ -121,6 +121,7 @@ export class AccountFamilyComponent implements OnInit {
     this.router.navigate(['./dependent'], { relativeTo: this.activatedRoute });
   }
 
+  // TODO: Check if the crypto is needed
   goToEdit(memberRelationId: number, isGuest: boolean) {
     console.log(memberRelationId);
     const cipherRelationId = CryptoJS.AES.encrypt(String(memberRelationId), 'Prox@2019').toString();
