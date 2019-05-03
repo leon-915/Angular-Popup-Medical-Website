@@ -88,6 +88,7 @@ import {
   SignupStep6Component,
   SignupConfirmComponent,
   ShippingInformationComponent,
+  ConfirmationStackedModalComponent,
   PaymentMethodsComponent,
   RegisterComponent,
   SelectMyPlanComponent,
@@ -194,7 +195,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
     LanguageComponent,
     PaymentMethodsComponent,
     AddMemberComponent,
-    LoaderComponent
+    LoaderComponent,
+    ConfirmationStackedModalComponent
   ],
   imports: [
     AppRoutingModule,

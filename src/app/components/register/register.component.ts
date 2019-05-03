@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
               resp => {
                 console.log(resp);
                 if (!resp.HasError) {
-                  this.router.navigate(['../signup-confirm'], { relativeTo: this.activatedRoute });
+                  this.router.navigate(['/signup-confirm'], {});
                 } else {
                   this.notificationSrv.showError(resp.Message);
                 }
