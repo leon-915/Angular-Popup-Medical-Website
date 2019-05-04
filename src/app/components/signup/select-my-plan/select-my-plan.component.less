@@ -26,15 +26,8 @@
     transition: transform .5s;
     border-radius: 50px;
     border: 2px solid @light-gray;
-}
 
-.plan-card-body {
-    
-    padding: 1.25rem;
-    // min-width: 100%;
-    // min-height: 300px !important;
-
-    /*&::after {
+    &::after {
       position: absolute;
       top: 0;
       left: 0;
@@ -53,7 +46,16 @@
       transform: scale3d(1.1, 1.1, 1.1);
       border-color: @orange;
       z-index: 2;
-    }*/
+    }
+}
+
+.plan-card-body {
+    
+    padding: 1.25rem;
+    // min-width: 100%;
+    // min-height: 300px !important;
+
+  
 
     h5 {
         color: @green;
@@ -387,4 +389,12 @@ font-weight: 700;
   input#img-5:checked~.nav-dots label#img-dot-5,
   input#img-6:checked~.nav-dots label#img-dot-6 {
     background: rgba(0, 0, 0, 0.8);
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+  
+    .pay-as-you-go {
+      margin-top: 60%;
+    }
+    
   }

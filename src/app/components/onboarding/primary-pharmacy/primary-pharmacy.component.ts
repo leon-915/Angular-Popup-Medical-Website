@@ -19,9 +19,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
   public primaryPharmacyAddress = null;
   public openedWindow = 0;
 
-  /**
-   * Load the shipping address or the current geolocation of the user?
-   */
   public default = 'My Address';
 
   constructor(
@@ -32,9 +29,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    /*this.shippingAddress.latitude = 36.778259;
-    this.shippingAddress.longitude = -119.417931;
-    this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);*/
     this.getUserLocation();
     console.log(navigator.language);
   }
@@ -64,22 +58,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
     // tslint:disable-next-line: semicolon
   };
-
-  /*setAddress = (city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string, address: string) => {
-    this.address1.setValue(address);
-    this.city.setValue(city);
-    this.zipCode.setValue(zipCode);
-    this.country.setValue(country);
-
-    this.states.forEach(item => {
-      console.log(item);
-      if (item.abbreviation === state) {
-        console.log('state encontrado');
-        this.state.setValue(item.id);
-        this.stateName.setValue(state);
-      }
-    });
-  }*/
 
   loadNearestPharmacies(lat: number, long: number) {
     const pharmacyModel = new PharmacyModel();
@@ -113,32 +91,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
-  /*loadShippingAddress() {
-    const onboardingInfo = new OnboardingRequestModel();
-    onboardingInfo.currentStep = this.step;
-    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
-      if (!response.HasError && response.Result.shipping_address) {
-        this.shippingAddress.latitude = parseFloat(response.Result.shipping_address.latitude);
-        this.shippingAddress.longitude = parseFloat(response.Result.shipping_address.longitude);
-        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
-      }
-    }, error => { console.log(error); });
-  }
-
-  loadPrimaryPharmacy() {
-    const onboardingInfo = new OnboardingRequestModel();
-    onboardingInfo.currentStep = this.step;
-    this.onboardingSrv.getOnboardingInfo(onboardingInfo).subscribe((response) => {
-      console.log(response);
-      if (!response.HasError && response.Result) {
-        console.log(response);
-        this.shippingAddress.latitude = parseFloat(response.Result.latitude);
-        this.shippingAddress.longitude = parseFloat(response.Result.longitude);
-        this.loadNearestPharmacies(this.shippingAddress.latitude, this.shippingAddress.longitude);
-      }
-    }, error => { console.log(error); });
-  }*/
 
   openWindow(id) {
     this.openedWindow = id;

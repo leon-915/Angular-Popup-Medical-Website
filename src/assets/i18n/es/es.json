@@ -194,7 +194,9 @@
     "address1_required": "Billing Address Line 1 Number is required. *",
     "address2_required": "Billing Address Line 2 Number is required. *",
     "city_required": "City is required. *",
-    "zip_required": "Zip is required. *"
+    "zip_required": "Zip is required. *",
+    "routing_number_minlength": "Routing Number can be max 9 numbers long. *",
+    "routing_number_maxlength": "Routing Number must be at least 9 numbers long. *"
   },
   "order_confirmation": {
     "title": "Thank you for your order! *",
@@ -289,7 +291,7 @@
     "default_payment": "Default Payment *",
     "make_default": "Make Default *",
     "not_usable": "Not Usable *",
-    "account_number": "Account Number *",
+    "account_number": "Account Number ending in *",
     "add_card_btn": "Add Card *",
     "add_ach_btn": "Add ACH *"
   }
