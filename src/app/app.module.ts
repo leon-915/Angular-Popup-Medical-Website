@@ -35,10 +35,13 @@ import * as moment from 'moment';
 import { TranslateService } from './translator/translate.service';
 
 /* CONFIGURATIONS */
+import { cookieConfig } from './configurations';
 /* CONFIGURATIONS */
 
 /* MODULES */
 import { AgmCoreModule } from '@agm/core';
+import { NgcCookieConsentModule } from 'ngx-cookieconsent';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 /* MODULES */
 
 /* PIPES */
@@ -88,6 +91,7 @@ import {
   SignupStep6Component,
   SignupConfirmComponent,
   ShippingInformationComponent,
+  ConfirmationStackedModalComponent,
   PaymentMethodsComponent,
   RegisterComponent,
   SelectMyPlanComponent,
@@ -123,21 +127,24 @@ import {
 import { HttpConfigInterceptor } from './httpconfig.interceptor';
 import { environment } from 'src/environments/environment';
 import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
-// TODO:  Code review on guard inports
+
+/* GUARDS */
 import { AuthGuard } from './guards/auth.guard';
 import { MemberType } from './guards/member-type.guard';
+/* GUARDS */
 
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
 import { TranslatePipe } from './translator/translate.pipe';
+
+/* SHARED */
+import { CookieConsentComponent, LoaderComponent } from './shared';
+/* SHARED */
 
 export function setupTranslateFactory(service: TranslateService) {
   const userLang = localStorage.getItem('lng') || 'en';
   localStorage.setItem('lng', userLang);
   return () => service.use();
 }
-
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -194,7 +201,9 @@ import { LoaderComponent } from './shared/loader/loader.component';
     LanguageComponent,
     PaymentMethodsComponent,
     AddMemberComponent,
-    LoaderComponent
+    LoaderComponent,
+    ConfirmationStackedModalComponent,
+    CookieConsentComponent
   ],
   imports: [
     AppRoutingModule,
@@ -202,6 +211,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
       apiKey: `${environment.googleApiKey}`,
       libraries: ['places']
     }),
+    NgcCookieConsentModule.forRoot(cookieConfig),
     NgbModule,
     NgbModalModule,
     BrowserAnimationsModule,

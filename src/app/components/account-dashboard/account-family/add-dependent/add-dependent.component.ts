@@ -53,7 +53,7 @@ export class AddDependentComponent implements OnInit {
     this.myFamilySrv.addDependent(formData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
-        this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
       } else {
         this.notificationSrv.showError(res.Message);
       }
