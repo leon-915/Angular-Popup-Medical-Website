@@ -4,12 +4,12 @@
 @import "./app/styles/components/index.less";
 @import (css) url('https://fonts.googleapis.com/css?family=Montserrat');
 
-
-body {
+.body-class {
   //background-color: @background;
   //background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
-  background-color: @white;
+  //background-color: @white;
   color: @text;
+  background-image: @white;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -59,21 +59,17 @@ input::-webkit-inner-spin-button {
 
 .input-bg {
   background-color: @inputbackground  !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
   padding-left: 10px !important;
   border-radius: 0px;
 }
 
 .btn {
-  font-size: 18px;
-  font-weight: bold;
-  //height: 50px;
-  // text-transform: capitalize;
-  padding: 0px 50px !important;
-
+  font-weight: 500;
+  //padding: 0px 50px !important;
   &:disabled {
     border: none;
   }
-
 }
 
 .btn-outline-primary {

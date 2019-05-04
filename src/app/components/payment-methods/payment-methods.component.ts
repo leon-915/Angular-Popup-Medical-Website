@@ -58,7 +58,7 @@ export class PaymentMethodsComponent implements OnInit {
       zipCode: ['', [Validators.required]],
       country: ['', [Validators.required]],
       paymentMethod: [false, [Validators.required]], // true = ACH & false = credit card
-      routingNumber: [''],
+      routingNumber: ['', [Validators.minLength(9), Validators.maxLength(9)]],
       bankAccountNumber: ['']
     });
 
@@ -82,7 +82,7 @@ export class PaymentMethodsComponent implements OnInit {
         this.expirationYear.setValidators(null);
         this.cvv.setValidators(null);
         this.nameOnCard.setValidators(null);
-        this.routingNumber.setValidators([Validators.required]);
+        this.routingNumber.setValidators([Validators.required, Validators.minLength(9), Validators.maxLength(9)]);
         this.bankAccountNumber.setValidators([Validators.required]);
       } else {
         this.routingNumber.setValidators(null);
@@ -192,7 +192,7 @@ export class PaymentMethodsComponent implements OnInit {
   }
 
   resetForm() {
-    this.creditCardNumber.setValue('');
+    this.creditCardNumber.setValue(null);
     this.expirationMonth.setValue(null);
     this.expirationYear.setValue(null);
     this.cvv.setValue('');
