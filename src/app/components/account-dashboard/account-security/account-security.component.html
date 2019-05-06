@@ -1,69 +1,100 @@
 <div class="row mt-5">
-
-
   <div class="col-lg-5 mx-auto">
-
     <h3 class="mb-3">Reset Password</h3>
 
-
     <form [formGroup]="passwordForm" (ngSubmit)="sendPasswordForm()">
-
-
       <div class="form-group">
         <label for="Password">Current Password</label>
-        <input type="password" placeholder="Current Password" id="currentPass" formControlName="currentPass" class="form-control">
+        <input type="password" placeholder="Current Password" id="currentPass" formControlName="currentPass" class="form-control" />
         <p class="mt-1 text-danger" *ngIf="(currentPass.dirty || currentPass.touched) && !!currentPass.errors?.required">
           Current password is required.
         </p>
       </div>
       <div class="form-group">
         <label for="pwd">Password</label>
-        <input type="password" placeholder="Enter password" formControlName="pwd" class="form-control">
+        <input type="password" placeholder="Enter password" formControlName="pwd" class="form-control" />
 
         <p class="mt-2">Minimum password requirements:</p>
 
-        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength') ? 'text-danger' : 'text-success'">
+        <p
+          [ngClass]="
+            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength')
+              ? 'text-danger'
+              : 'text-success'
+          "
+        >
           <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength')
-            ?
-            'clear' : 'done' }}
-          </i> Must be at least 8 characters.
+            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength') ? 'clear' : 'done' }}
+          </i>
+          Must be at least 8 characters.
         </p>
 
-        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber') ? 'text-danger' : 'text-success'">
+        <p
+          [ngClass]="
+            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber')
+              ? 'text-danger'
+              : 'text-success'
+          "
+        >
           <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber')
-            ?
-            'clear' : 'done' }}
-          </i> Must container at least one number.
+            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber') ? 'clear' : 'done' }}
+          </i>
+          Must container at least one number.
         </p>
 
-        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasCapitalCase') ? 'text-danger' : 'text-success'">
+        <p
+          [ngClass]="
+            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasCapitalCase')
+              ? 'text-danger'
+              : 'text-success'
+          "
+        >
           <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') ||
-            passwordForm.controls['pwd'].hasError('hasCapitalCase') ? 'clear' : 'done' }}
-          </i> Must contain at least one capital letter.
+            {{
+              passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasCapitalCase')
+                ? 'clear'
+                : 'done'
+            }}
+          </i>
+          Must contain at least one capital letter.
         </p>
 
-        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSmallCase') ? 'text-danger' : 'text-success'">
+        <p
+          [ngClass]="
+            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSmallCase')
+              ? 'text-danger'
+              : 'text-success'
+          "
+        >
           <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') ||
-            passwordForm.controls['pwd'].hasError('hasSmallCase')
-            ? 'clear' : 'done' }}
-          </i> Must container at least one small letter
+            {{
+              passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSmallCase') ? 'clear' : 'done'
+            }}
+          </i>
+          Must container at least one small letter
         </p>
 
-        <p [ngClass]="passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+        <p
+          [ngClass]="
+            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSpecialCharacters')
+              ? 'text-danger'
+              : 'text-success'
+          "
+        >
           <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') ||
-            passwordForm.controls['pwd'].hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
-          </i> Must contain at least one special character.
+            {{
+              passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSpecialCharacters')
+                ? 'clear'
+                : 'done'
+            }}
+          </i>
+          Must contain at least one special character.
         </p>
       </div>
 
       <div class="form-group">
         <label for="confirm">Re-Type Password</label>
-        <input type="password" placeholder="Confirm your password" formControlName="confirm" class="form-control">
+        <input type="password" placeholder="Confirm your password" formControlName="confirm" class="form-control" />
         <p class="mt-1 text-danger" *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && !!confirm?.errors?.required">
           Confirm password is required.
         </p>
@@ -79,43 +110,36 @@
           Save
         </button>
       </div>
-
     </form>
-
 
     <h3 class="mb-3" style="margin-top: 70px">Text Messaging PIN</h3>
 
     <form [formGroup]="textPinForm" (ngSubmit)="sendTextPinForm()">
-
       <div class="form-group">
         <label for="textpin">New Pin</label>
-        <input type="number" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control"
-          min="0">
+        <input type="number" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control" min="0" />
       </div>
       <div *ngIf="pin.invalid && (pin.dirty || pin.touched)" class="">
-
-        <p class="mt-1 text-danger" *ngIf="pin?.errors['required']">
+        <p class="mt-1 text-danger" *ngIf="(pin?.errors)['required']">
           Pin is required to be a number between 4 and 6 digits.
         </p>
-        <p class="mt-1 text-danger" *ngIf="pin?.errors['range']">
+        <p class="mt-1 text-danger" *ngIf="(pin?.errors)['range']">
           Pin must have between 4 and 6 digits.
         </p>
-        <p class="mt-1 text-danger" *ngIf="pin?.errors['symbols']">
+        <p class="mt-1 text-danger" *ngIf="(pin?.errors)['symbols']">
           Pin must contain only numbers.
         </p>
       </div>
-      <p style="font-size: 12px; padding: 10px 0; text-align: center;">
-        This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot.
-        Occasionally you will be asked this PIN to confirm your identity by the chatbot.</p>
-
+      <p class="text-center" style="font-size: 12px; padding: 10px 0;">
+        This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot. Occasionally you will be asked
+        this PIN to confirm your identity by the chatbot.
+      </p>
 
       <div class="col d-flex justify-content-center">
         <button type="submit" class="btn btn-primary btn-block" [disabled]="!textPinForm.valid">
           Save
         </button>
       </div>
-
     </form>
   </div>
-
 </div>

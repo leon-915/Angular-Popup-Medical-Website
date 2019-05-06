@@ -61,13 +61,12 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.memberFullName = localStorage.getItem('member_full_name');
-
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
     this.myFamilySrv.getMyFamily().subscribe(res => {
       if (!res.HasError) {
         const resulData = res.Result;
+        this.memberFullName = resulData.memberName;
         this.relationTypes = resulData.relationTypes;
         this.guestRelationTypes = resulData.guestRelationTypes;
         this.familyUsers = resulData.familyUsers;
@@ -109,9 +108,13 @@ export class AccountFamilyComponent implements OnInit {
   }
   removeMember(index: number, isGuest: boolean) {
     const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
-      size: 'lg'
+      size: 'lg',
+      centered: true
     });
 
+    (confirmationModal.componentInstance as ConfirmationStackedModalComponent).confirmationWording = `Are you sure
+    you want to
+    remove this guest?`;
     confirmationModal.result.then(
       result => {
         console.log(result);

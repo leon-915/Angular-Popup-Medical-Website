@@ -90,8 +90,12 @@ export class FamilyEditComponent implements OnInit {
   }
   removeInvitation() {
     const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
-      size: 'lg'
+      size: 'lg',
+      centered: true
     });
+    (confirmationModal.componentInstance as ConfirmationStackedModalComponent).confirmationWording = `Are you sure
+    you want to
+    remove this member?`;
 
     confirmationModal.result.then(
       result => {

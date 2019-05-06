@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,6 +8,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ConfirmationStackedModalComponent implements OnInit {
   action = false;
+
+  @Input() confirmationWording = '';
 
   @Output() change: EventEmitter<boolean> = new EventEmitter();
   constructor(public activeModal: NgbActiveModal) {}

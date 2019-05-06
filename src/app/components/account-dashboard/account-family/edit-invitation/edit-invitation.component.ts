@@ -82,8 +82,13 @@ export class EditInvitationComponent implements OnInit {
 
   removeInvitation() {
     const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
-      size: 'lg'
+      size: 'lg',
+      centered: true
     });
+
+    (confirmationModal.componentInstance as ConfirmationStackedModalComponent).confirmationWording = `Are you sure
+    you want to
+    remove this invitation?`;
 
     confirmationModal.result.then(
       result => {

@@ -10,6 +10,7 @@ import { MenuService } from '../../services/menu.service';
 })
 export class AccountDashboardComponent implements OnInit {
   isNormaluser = true;
+  member_type_id: number;
 
   constructor(
     private router: Router,
@@ -17,15 +18,13 @@ export class AccountDashboardComponent implements OnInit {
     private menuService: MenuService,
     private notificationSrv: NotificationService,
     private activatedRoute: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
-    // TODO get the variable from the observer and remove this from the storage @Jorge
-    const membertype = localStorage.getItem('member_type_id');
-    if (!isNaN(+membertype)) {
-      this.isNormaluser = +membertype === 1;
-    }
+  ) {
+    this.menuService.member_type_id_obs().subscribe(result => {
+      this.member_type_id = result;
+    });
   }
+
+  ngOnInit() {}
   upgradeMember() {
     this.myFamilySrv.upgradePhamilyAccount().subscribe(res => {
       if (!res.HasError) {

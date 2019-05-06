@@ -36,6 +36,7 @@ export class AddDependent {
 }
 
 export class GetMyFamilyResult {
+  memberName: string;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
   familyUsers: FamilyUser[];

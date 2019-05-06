@@ -1,6 +1,6 @@
 import { OnboardingRequestModel } from './../../models/index';
 import { Component, OnInit } from '@angular/core';
-import { OnboardingService } from '../../services/index';
+import { OnboardingService, MenuService } from '../../services/index';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,10 +10,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class OnboardingComponent implements OnInit {
   public currentStep = 0;
+  // tslint:disable-next-line: variable-name
+  member_type_id: number;
 
-  constructor(private onboardingSrv: OnboardingService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private onboardingSrv: OnboardingService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private menuService: MenuService
+  ) {
     console.log('Onboarding step: ', this.currentStep);
     this.getOnboardingInfo();
+    this.menuService.member_type_id_obs().subscribe(result => {
+      this.member_type_id = result;
+    });
   }
 
   ngOnInit() {}
@@ -34,7 +44,7 @@ export class OnboardingComponent implements OnInit {
           console.log('The last step the user complete was: ', response.Result.last_step_completed_onboarding);
           console.log('The current step is: ', response.Result.current_step);
 
-          if (response.Result.current_step === 5) {
+          if (response.Result.current_step === 5 || this.member_type_id !== 1) {
             this.router.navigate(['../account'], { relativeTo: this.activatedRoute });
           } else {
             this.currentStep = response.Result.current_step;

@@ -50,12 +50,6 @@ export class LoginComponent implements OnInit {
       if (!res.HasError) {
         sessionStorage.setItem('token', res.Result.token);
 
-        // // CODEREVIEW
-
-        localStorage.setItem('member_type_id', String(res.Result.member_type_id));
-
-        localStorage.setItem('member_full_name', String(res.Result.member_full_name));
-        // // CODEREVIEW
         this.accountSrv.member_type_id = res.Result.member_type_id;
 
         this.menuService.updateStatus();

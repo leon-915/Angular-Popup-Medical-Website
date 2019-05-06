@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SignupService } from '../../services/index';
+import { SignupService, MenuService } from '../../services/index';
 import { SignupRequestModel } from '../../models/index';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,8 +10,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   public currentStep = 1;
+  // tslint:disable-next-line: variable-name
+  member_type_id: number;
 
-  constructor(private signupSrv: SignupService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private signupSrv: SignupService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private menuService: MenuService
+  ) {
+    this.menuService.member_type_id_obs().subscribe(result => {
+      this.member_type_id = result;
+    });
+  }
 
   ngOnInit() {
     const member = new SignupRequestModel();
@@ -22,10 +33,7 @@ export class SignupComponent implements OnInit {
         console.log(response);
         if (!response.HasError) {
           const result = response.Result;
-          const memberType = result.member_type_id ? String(result.member_type_id) : '';
-          localStorage.setItem('member_type_id', memberType);
-
-          if (response.Result.current_step === 5) {
+          if (response.Result.current_step === 5 || this.member_type_id !== 1) {
             this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
           } else {
             this.currentStep = response.Result.current_step;
