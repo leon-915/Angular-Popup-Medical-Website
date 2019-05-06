@@ -15,6 +15,9 @@
       </li> -->
       <!--Anonymous user-->
       <li *ngIf="!isUserAuthenticated">
+        <a [routerLink]="[lang, 'register']"> <i class="material-icons left">card_membership</i>{{ 'menu.join_now' | translate }}</a>
+      </li>
+      <li *ngIf="!isUserAuthenticated">
         <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
       </li>
       <li *ngIf="!isUserAuthenticated">
@@ -67,6 +70,9 @@
   </li> -->
 
   <!--Anonymous user-->
+  <li *ngIf="!isUserAuthenticated">
+    <a [routerLink]="[lang, 'register']"> <i class="material-icons left">card_membership</i>{{ 'menu.join_now' | translate }}</a>
+  </li>
   <li *ngIf="!isUserAuthenticated">
     <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
   </li>
