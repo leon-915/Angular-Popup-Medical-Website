@@ -12,4 +12,6 @@ export class OrderModel {
     lastFour: string;
     email: string;
     abbreviation: string;
+    bankAccountNumber: string;
+    paymentType: string;
 }

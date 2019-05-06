@@ -37,10 +37,10 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 mb-3">
     <div class="card m-0" *ngIf="pharmacies.length > 0">
       <div class="">
-        <p class="text-center mt-2">
+        <p class="text-center mt-2 p-2">
           {{'primary_pharmacy.found' | translate}} <strong> {{ pharmacies.length }} </strong>
           {{'primary_pharmacy.near' | translate}}
           <strong> {{ shippingAddress.address1 }}, {{ shippingAddress.state }} {{ shippingAddress.zipCode }} </strong>
@@ -58,10 +58,15 @@
               miles</p>
           </div>
         </li>
-        <button type="button" class="btn btn-primary float-right mr-2 mb-2 mt-2"
-          *ngIf="pharmacies && limitItems < pharmacies.length" (click)="limitItems = limitItems + 3">
-          {{'primary_pharmacy.more_pharmacies' | translate}}
-        </button>
+
+        <div class="row text-center mt-2">
+          <div class="col-md-12">
+            <p class="btn-link" (click)="limitItems = limitItems + 3"
+              *ngIf="pharmacies && limitItems < pharmacies.length">
+              {{'primary_pharmacy.more_pharmacies' | translate}}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

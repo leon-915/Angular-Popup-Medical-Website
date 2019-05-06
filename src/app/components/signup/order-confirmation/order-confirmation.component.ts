@@ -47,6 +47,8 @@ export class OrderConfirmationComponent implements OnInit {
           this.orderInfo.lastFour = response.Result.lastfour;
           this.orderInfo.email = response.Result.email;
           this.orderInfo.abbreviation = response.Result.abbreviation;
+          this.orderInfo.bankAccountNumber = response.Result.bank_account_number;
+          this.orderInfo.paymentType = response.Result.payment_type;
           console.log(this.orderInfo);
         }
       },
