@@ -6,9 +6,10 @@ import * as moment from 'moment';
 
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateService } from 'src/app/translator/translate.service';
+import { ConfirmationStackedModalComponent } from 'src/app/components/common-components/index';
 
 @Component({
   selector: 'app-family-edit',
@@ -88,20 +89,32 @@ export class FamilyEditComponent implements OnInit {
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
   removeInvitation() {
-    // TODO Another Modal (stacked).
-
-    this.myFamilySrv.deleteMyFamilyMember(this.relationId).subscribe(res => {
-      if (!res.HasError) {
-        const memberToDelete = { index: this.index, relationId: this.relationId };
-        this.returnResult(2, memberToDelete, res.Message);
-        this.modalReference.close();
-        this.getDismissReason('logic');
-      } else {
-        this.returnResult(2, null, res.Message);
-        this.modalReference.close();
-        this.getDismissReason('logic');
-      }
+    const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
+      size: 'lg'
     });
+
+    confirmationModal.result.then(
+      result => {
+        console.log(result);
+        if (result.localeCompare('Delete') === 0) {
+          this.myFamilySrv.deleteMyFamilyMember(this.relationId).subscribe(res => {
+            if (!res.HasError) {
+              const memberToDelete = { index: this.index, relationId: this.relationId };
+              this.returnResult(2, memberToDelete, res.Message);
+              this.modalReference.close();
+              this.getDismissReason('logic');
+            } else {
+              this.returnResult(2, null, res.Message);
+              this.modalReference.close();
+              this.getDismissReason('logic');
+            }
+          });
+        }
+      },
+      reason => {
+        console.log(reason);
+      }
+    );
   }
 
   open(content) {

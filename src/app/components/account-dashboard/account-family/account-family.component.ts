@@ -5,6 +5,8 @@ import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistDa
 import { TranslateService } from 'src/app/translator/translate.service';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationStackedModalComponent } from 'src/app/components/common-components/index';
 
 @Component({
   selector: 'app-account-family',
@@ -31,6 +33,8 @@ export class AccountFamilyComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
+    private modalSvr: NgbModal,
+
     private translate: TranslateService,
     private activatedRoute: ActivatedRoute,
     private router: Router
@@ -104,29 +108,34 @@ export class AccountFamilyComponent implements OnInit {
     });
   }
   removeMember(index: number, isGuest: boolean) {
-    const member = isGuest ? this.guestUsers[index] : this.familyUsers[index];
-    const relationId = member.member_relation_id;
-
-    this.myFamilySrv.deleteMyFamilyMember(relationId).subscribe(res => {
-      if (!res.HasError) {
-        this.notificationSrv.showSuccess(res.Message);
-        this.removefromList(index, isGuest);
-      } else {
-        this.notificationSrv.showError(res.Message);
-      }
+    const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
+      size: 'lg'
     });
+
+    confirmationModal.result.then(
+      result => {
+        console.log(result);
+        if (result.localeCompare('Delete') === 0) {
+          const member = isGuest ? this.guestUsers[index] : this.familyUsers[index];
+          const relationId = member.member_relation_id;
+
+          this.myFamilySrv.deleteMyFamilyMember(relationId).subscribe(res => {
+            if (!res.HasError) {
+              this.notificationSrv.showSuccess(res.Message);
+              this.removefromList(index, isGuest);
+            } else {
+              this.notificationSrv.showError(res.Message);
+            }
+          });
+        }
+      },
+      reason => {
+        console.log(reason);
+      }
+    );
   }
   goToAddNewDependent() {
     this.router.navigate(['./dependent'], { relativeTo: this.activatedRoute });
-  }
-
-  goToEdit(memberRelationId: number, isGuest: boolean) {
-    console.log(memberRelationId);
-    if (isGuest) {
-      this.router.navigate(['./guest-edit', { id: memberRelationId }], { relativeTo: this.activatedRoute });
-    } else {
-      this.router.navigate(['./family-edit', { id: memberRelationId }], { relativeTo: this.activatedRoute });
-    }
   }
 
   getEditResult(result) {

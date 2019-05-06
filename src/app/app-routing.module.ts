@@ -40,7 +40,6 @@ const routes: Routes = [
       { path: 'account/security', component: AccountSecurityComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'account/family', component: AccountFamilyComponent, canActivate: [MemberType, MemberType] },
       // { path: 'account/family/family-edit', component: FamilyEditComponent, canActivate: [AuthGuard] },
-      { path: 'account/family/guest-edit', component: GuestEditComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'account/family/dependent', component: AddDependentComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'account/payment-methods', component: PaymentMethodsComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'signup', component: SignupComponent },

@@ -205,6 +205,7 @@ export function setupTranslateFactory(service: TranslateService) {
     ConfirmationStackedModalComponent,
     CookieConsentComponent
   ],
+  entryComponents: [ConfirmationStackedModalComponent],
   imports: [
     AppRoutingModule,
     AgmCoreModule.forRoot({
