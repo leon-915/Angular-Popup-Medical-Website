@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SignupService, NotificationService } from 'src/app/services';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,11 @@ export class RegisterComponent implements OnInit {
   signupForm: FormGroup;
   private loading = false;
   paramInvitationCode = '';
-  paramEmailCode = '';
+  paramEmail = '';
+  paramFirstName = '';
+  paramLastName = '';
+  uuid = '';
+
   constructor(
     private fb: FormBuilder,
     private signupSrv: SignupService,
@@ -23,19 +27,38 @@ export class RegisterComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.params.subscribe(params => {
-      this.paramInvitationCode = params.invitationCode ? this.decrypt(params.invitationCode) : '';
-      this.paramEmailCode = params.email ? this.decrypt(params.email) : '';
-      console.log(`${this.paramEmailCode} + ${this.paramInvitationCode}`);
+      if (params.external_uuid) {
+        this.uuid = params.external_uuid;
+        this.signupSrv.getRegisterInvitationData(this.uuid).subscribe(res => {
+          const data = res.Result;
+
+          this.paramEmail = data.email;
+          this.paramInvitationCode = data.invitation_code;
+          this.paramFirstName = data.first_name;
+          this.paramLastName = data.last_name;
+
+          this.signupForm.patchValue({
+            firstName: this.paramFirstName,
+            lastName: this.paramLastName,
+            email: this.paramEmail,
+            invitationCode: this.paramInvitationCode,
+            receiveInvitationCode: this.paramInvitationCode.length > 0 ? true : false
+          });
+          this.showInvitationCodeControl();
+        });
+      }
     });
   }
 
   ngOnInit() {
+    console.log(this.uuid);
+
     this.signupForm = this.fb.group(
       {
-        email: [this.paramEmailCode, [Validators.required, Validators.email]],
+        email: [this.paramEmail, [Validators.required, Validators.email]],
         phoneNumber: ['', [Validators.required]],
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
+        firstName: [this.paramFirstName, [Validators.required]],
+        lastName: [this.paramLastName, [Validators.required]],
         pwd: [
           '',
           [
@@ -59,14 +82,11 @@ export class RegisterComponent implements OnInit {
       },
       { validator: PasswordValidator.checkPasswordEquality }
     );
-
-    this.showInvitationCodeControl();
   }
 
   doRegister() {
     this.signupSrv.signupCognito(this.signupForm.value).subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           this.signupForm.controls.awsAccountId.setValue(response.Result.userSub);
           if (!response.HasError) {
@@ -74,13 +94,13 @@ export class RegisterComponent implements OnInit {
               resp => {
                 console.log(resp);
                 if (!resp.HasError) {
-                  this.router.navigate([`/${localStorage.getItem('lng')}/signup-confirm`]);
+                  this.router.navigate(['../signup-confirm'], { relativeTo: this.activatedRoute });
                 } else {
                   this.notificationSrv.showError(resp.Message);
                 }
               },
               error => {
-                console.log(error);
+                console.error(error);
               }
             );
           } else {

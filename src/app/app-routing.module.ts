@@ -47,7 +47,7 @@ const routes: Routes = [
       { path: 'translator-test', component: TranslatorTestComponent },
       { path: 'signup-confirm', component: SignupConfirmComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'register/:invitationCode/:email', component: RegisterComponent },
+      { path: 'register/:uuid', component: RegisterComponent },
       { path: 'reset', component: ResetPasswordComponent },
       { path: 'home', component: HomeComponent },
       { path: 'product', component: ProductComponent },
