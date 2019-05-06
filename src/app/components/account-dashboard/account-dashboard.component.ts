@@ -10,6 +10,7 @@ import { MenuService } from '../../services/menu.service';
 })
 export class AccountDashboardComponent implements OnInit {
   isNormaluser = true;
+  // tslint:disable-next-line: variable-name
   member_type_id: number;
 
   constructor(
