@@ -7,7 +7,6 @@ import * as moment from 'moment';
 
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-guest-edit',
@@ -55,7 +54,7 @@ export class GuestEditComponent implements OnInit {
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
     this.activatedRoute.params.subscribe(params => {
-      this.relationId = params.id ? +decodeURIComponent(this.decrypt(params.id)) : 0;
+      this.relationId = params.id ? params.id : 0;
 
       if (!isNaN(this.relationId)) {
         this.myFamilySrv.getGuestMember(this.relationId).subscribe(res => {
@@ -94,13 +93,6 @@ export class GuestEditComponent implements OnInit {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
-  }
-
-  decrypt(ciphertext) {
-    ciphertext = decodeURIComponent(ciphertext);
-    const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
-    const originalText = bytes.toString(CryptoJS.enc.Utf8);
-    return originalText;
   }
 
   // Getters

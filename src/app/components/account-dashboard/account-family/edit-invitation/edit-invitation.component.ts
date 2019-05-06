@@ -79,13 +79,6 @@ export class EditInvitationComponent implements OnInit {
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
-  // decrypt(ciphertext) {
-  //   ciphertext = decodeURIComponent(ciphertext);
-  //   const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
-  //   const originalText = bytes.toString(CryptoJS.enc.Utf8);
-  //   return originalText;
-  // }
-
   removeInvitation() {
     // TODO Another Modal (stacked).
 

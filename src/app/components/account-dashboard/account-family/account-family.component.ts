@@ -5,7 +5,6 @@ import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistDa
 import { TranslateService } from 'src/app/translator/translate.service';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-account-family',
@@ -121,15 +120,12 @@ export class AccountFamilyComponent implements OnInit {
     this.router.navigate(['./dependent'], { relativeTo: this.activatedRoute });
   }
 
-  // TODO: Check if the crypto is needed
   goToEdit(memberRelationId: number, isGuest: boolean) {
     console.log(memberRelationId);
-    const cipherRelationId = CryptoJS.AES.encrypt(String(memberRelationId), 'Prox@2019').toString();
-    const memberIdparam = encodeURIComponent(cipherRelationId);
     if (isGuest) {
-      this.router.navigate(['./guest-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
+      this.router.navigate(['./guest-edit', { id: memberRelationId }], { relativeTo: this.activatedRoute });
     } else {
-      this.router.navigate(['./family-edit', { id: memberIdparam }], { relativeTo: this.activatedRoute });
+      this.router.navigate(['./family-edit', { id: memberRelationId }], { relativeTo: this.activatedRoute });
     }
   }
 

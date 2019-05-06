@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SignupService, NotificationService } from 'src/app/services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PasswordValidator } from 'src/app/validators';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-register',
@@ -131,16 +130,6 @@ export class RegisterComponent implements OnInit {
 
       this.invitationCode.updateValueAndValidity();
     });
-  }
-
-  decrypt(ciphertext) {
-    console.log('------' + ciphertext);
-    ciphertext = decodeURIComponent(ciphertext);
-    const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
-    const originalText = bytes.toString(CryptoJS.enc.Utf8);
-    console.log('------' + originalText);
-
-    return originalText;
   }
 
   get email() {

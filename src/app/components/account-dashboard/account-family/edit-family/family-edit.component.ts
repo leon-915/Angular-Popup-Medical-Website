@@ -6,7 +6,6 @@ import * as moment from 'moment';
 
 import { RelationType, FamilyUser, EditUser } from 'src/app/models/myFamily.model';
 import { GenderModel } from 'src/app/models';
-import * as CryptoJS from 'crypto-js';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateService } from 'src/app/translator/translate.service';
@@ -104,12 +103,6 @@ export class FamilyEditComponent implements OnInit {
       }
     });
   }
-  // decrypt(ciphertext) {
-  //   ciphertext = decodeURIComponent(ciphertext);
-  //   const bytes = CryptoJS.AES.decrypt(ciphertext, 'Prox@2019');
-  //   const originalText = bytes.toString(CryptoJS.enc.Utf8);
-  //   return originalText;
-  // }
 
   open(content) {
     this.genderList = JSON.parse(localStorage.getItem('genderList'));

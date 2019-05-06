@@ -5,11 +5,9 @@ import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistDa
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
-import * as CryptoJS from 'crypto-js';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateService } from 'src/app/translator/translate.service';
-
 
 @Component({
   selector: 'app-add-member',
