@@ -33,6 +33,7 @@ export class SignupComponent implements OnInit {
         console.log(response);
         if (!response.HasError) {
           const result = response.Result;
+          console.log(this.member_type_id);
           if (response.Result.current_step === 5 || this.member_type_id !== 1) {
             this.router.navigate(['../onboarding'], { relativeTo: this.activatedRoute });
           } else {

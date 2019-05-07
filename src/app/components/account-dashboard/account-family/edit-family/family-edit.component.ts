@@ -126,7 +126,9 @@ export class FamilyEditComponent implements OnInit {
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
-    this.modalReference = this.modalSvr.open(content);
+    this.modalReference = this.modalSvr.open(content, {
+      size: 'lg'
+    });
 
     if (!isNaN(this.relationId)) {
       this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {

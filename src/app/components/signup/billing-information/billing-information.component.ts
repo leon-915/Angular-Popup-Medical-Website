@@ -2,8 +2,12 @@ import { CardValidator } from './../../../validators/card.validator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from './../../../services/common.service';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { SignupService, PlanService, DateService, NotificationService, GooglePlacesService, AccountService } from 'src/app/services';
+import {
+  SignupService, PlanService, DateService, NotificationService, GooglePlacesService,
+  AccountService, AddressValidationService
+} from 'src/app/services';
 import { SignupRequestModel } from '../../../models/index';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-billing-information',
@@ -15,6 +19,7 @@ export class BillingInformationComponent implements OnInit {
   @Input() step: number;
   @Output() action: EventEmitter<number> = new EventEmitter<number>();
   @ViewChild('address') address: ElementRef;
+  @ViewChild('content') content: ElementRef;
   public states: Array<any> = new Array<any>();
 
   public signupForm: FormGroup;
@@ -22,6 +27,7 @@ export class BillingInformationComponent implements OnInit {
   public typeMask = '';
   public years = [];
   public allowACH;
+  public modalReference: NgbModalRef;
 
   constructor(
     private signupSrv: SignupService,
@@ -31,7 +37,9 @@ export class BillingInformationComponent implements OnInit {
     private dateSrv: DateService,
     private notificationSrv: NotificationService,
     private googlePlaceSrv: GooglePlacesService,
-    private accountSrv: AccountService
+    private accountSrv: AccountService,
+    private addressValidatonSrv: AddressValidationService,
+    private modalSvr: NgbModal
   ) {
     this.getStates();
     this.getDateInfo();
@@ -50,6 +58,7 @@ export class BillingInformationComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       stateName: [''],
+      stateAbbreviation: [''],
       zipCode: ['', [Validators.required]],
       // textMessagingPin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       currentStep: this.step,
@@ -70,7 +79,6 @@ export class BillingInformationComponent implements OnInit {
 
   // tslint:disable-next-line
   ngAfterViewInit() {
-    console.log('asdasd');
     this.googlePlaceSrv
       .loadMaps(this.address, this.setAddress)
       .then(() => {
@@ -108,6 +116,7 @@ export class BillingInformationComponent implements OnInit {
         console.log('state encontrado');
         this.state.setValue(item.id);
         this.stateName.setValue(state);
+        this.stateAbbreviation.setValue(item.abbreviation);
       }
     });
   }
@@ -279,6 +288,10 @@ export class BillingInformationComponent implements OnInit {
     return this.signupForm.controls.stateName;
   }
 
+  get stateAbbreviation() {
+    return this.signupForm.controls.stateAbbreviation;
+  }
+
   get zipCode() {
     return this.signupForm.controls.zipCode;
   }
@@ -326,8 +339,47 @@ export class BillingInformationComponent implements OnInit {
     this.cvv.updateValueAndValidity();
   }
 
-  doSignup() {
+  openModal(content) {
+    this.modalReference = this.modalSvr.open(content);
+    this.modalReference.result.then(
+      result => {
+        // this.closeResult = `Closed with: ${result}`;
+        console.log('closed with: ', result);
+      },
+      reason => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.modalReference.close();
+      }
+    );
+  }
+
+  closeModal() {
+    console.log('close modal');
+    this.modalReference.close();
+  }
+
+  async validateAddress() {
+
+    const address = {
+      city: this.city.value,
+      state: this.stateAbbreviation.value,
+      zipcode: this.zipCode.value
+    };
+
+    const addressValidation = await this.addressValidatonSrv.validateAddress(address).toPromise();
+    console.log(addressValidation);
+
+    if (addressValidation.valid_address) {
+      this.doSignup();
+    } else {
+      this.openModal(this.content);
+    }
+
+  }
+
+  async doSignup() {
     console.log(this.signupForm.getRawValue());
+
     this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         console.log(response);

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   SignupService, CommonService, PlanService, DateService,
-  NotificationService, GooglePlacesService, PaymentProviderService, AccountService
+  NotificationService, GooglePlacesService, PaymentProviderService, AccountService, AddressValidationService
 } from '../../services/index';
 import { CardValidator } from 'src/app/validators';
 import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,10 @@ import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-boo
 export class PaymentMethodsComponent implements OnInit {
 
   @ViewChild('address') address: ElementRef;
+  @ViewChild('addressContent') addressContent: ElementRef;
+
   public modalReference: NgbModalRef;
+  public modalAddressReference: NgbModalRef;
 
   public paymentForm: FormGroup;
   public currentMask = '';
@@ -36,7 +39,8 @@ export class PaymentMethodsComponent implements OnInit {
     private googlePlaceSrv: GooglePlacesService,
     private paymentSrv: PaymentProviderService,
     private modalSvr: NgbModal,
-    private accountSrv: AccountService
+    private accountSrv: AccountService,
+    private addressValidatonSrv: AddressValidationService
   ) {
     this.getStates();
     this.getDateInfo();
@@ -55,6 +59,7 @@ export class PaymentMethodsComponent implements OnInit {
       city: ['', [Validators.required]],
       state: [null, [Validators.required]],
       stateName: [''],
+      stateAbbreviation: [''],
       zipCode: ['', [Validators.required]],
       country: ['', [Validators.required]],
       paymentMethod: [false, [Validators.required]], // true = ACH & false = credit card
@@ -126,6 +131,7 @@ export class PaymentMethodsComponent implements OnInit {
       if (item.abbreviation === state) {
         this.state.setValue(item.id);
         this.stateName.setValue(state);
+        this.stateAbbreviation.setValue(item.abbreviation);
       }
     });
   }
@@ -251,6 +257,10 @@ export class PaymentMethodsComponent implements OnInit {
     return this.paymentForm.controls.stateName;
   }
 
+  get stateAbbreviation() {
+    return this.paymentForm.controls.stateAbbreviation;
+  }
+
   get zipCode() {
     return this.paymentForm.controls.zipCode;
   }
@@ -343,6 +353,44 @@ export class PaymentMethodsComponent implements OnInit {
     );
   }
 
+  openAddressModal(content) {
+    this.modalAddressReference = this.modalSvr.open(content);
+    this.modalAddressReference.result.then(
+      result => {
+        // this.closeResult = `Closed with: ${result}`;
+        console.log('closed with: ', result);
+      },
+      reason => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.modalAddressReference.close();
+      }
+    );
+  }
+
+  closeAddressModal() {
+    console.log('close modal');
+    this.modalAddressReference.close();
+  }
+
+  async validateAddress() {
+
+    const address = {
+      city: this.city.value,
+      state: this.stateAbbreviation.value,
+      zipcode: this.zipCode.value
+    };
+
+    const addressValidation = await this.addressValidatonSrv.validateAddress(address).toPromise();
+    console.log(addressValidation);
+
+    if (addressValidation.valid_address) {
+      this.createPaymentMethod();
+    } else {
+      this.openAddressModal(this.addressContent);
+    }
+
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -358,6 +406,7 @@ export class PaymentMethodsComponent implements OnInit {
       if (!response.HasError) {
         this.paymentForm.reset();
         this.paymentMethod.setValue(false);
+        this.closeAddressModal();
         this.notificationSrv.showSuccess(response.Message);
         this.getPaymentMethods();
       } else {

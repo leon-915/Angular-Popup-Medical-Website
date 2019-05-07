@@ -1,3 +1,20 @@
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <input type="text" style="display:none" />
+    <h4 class="txt-danger">We can't confirm this address.</h4>
+    <p>Please double-check the address you entered</p>
+    <div class="row justify-content-center align-items-center">
+      <button type="button" class="btn btn-default-outline btn-block mb-2" (click)="doSignup()">
+        Keep Address as Entered
+      </button>
+      <button type="button" class="btn btn-success-outline btn-block mb-2" (click)="closeModal()">
+        Edit This Address
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+
 <div class="row">
   <div class="col-md-12">
     <h1 class="text-center title mt-0 mb-0">{{'billing_information.title' | translate}} {{ planName.value }}.</h1>
@@ -7,7 +24,7 @@
 
 <div class="row" *ngIf="planName">
   <div class="col-lg-12">
-    <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="doSignup()">
+    <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="validateAddress()">
       <div class="row">
         <div class="col-lg-6">
 
