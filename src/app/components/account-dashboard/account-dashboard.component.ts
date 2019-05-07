@@ -21,6 +21,7 @@ export class AccountDashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.menuService.member_type_id_obs().subscribe(result => {
+      console.log('member_Type');
       this.member_type_id = result;
     });
   }

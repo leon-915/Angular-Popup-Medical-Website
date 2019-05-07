@@ -1,3 +1,4 @@
+<!-- Desktop navbar -->
 <ul id="desktop_language_dd" class="dropdown-content">
   <li><a (click)="setLang('en')">English</a></li>
   <li><a (click)="setLang('es')">Español</a></li>
@@ -51,12 +52,13 @@
 
       <!--Authenticated user-->
     </ul>
-    <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;">
+    <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;" *ngIf="isUserAuthenticated">
       <i class="material-icons">menu</i>
     </a>
   </div>
 </nav>
-
+<!-- /Desktop navbar -->
+<!-- Mobile navbar -->
 <ul id="mobile_language_dd" class="dropdown-content">
   <li><a (click)="setLang('en')">English</a></li>
   <li><a (click)="setLang('es')">Español</a></li>
@@ -121,59 +123,4 @@
 
   <!--Authenticated user-->
 </ul>
-
-<!-- <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport="true"
-    >
-    <mat-toolbar color="primary">
-      <button
-      type="button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="drawer.toggle()">
-      <mat-icon aria-label="Sidenav toggle icon">menu</mat-icon>
-    </button>
-    </mat-toolbar>
-    <mat-nav-list class="mt-3">
-      <a mat-list-item href="#">
-        <span class="badge badge-pill badge-primary">Join Our Phamily</span>
-      </a>
-      <a mat-list-item href="#" class="sidenav-item">Profile</a>
-      <a mat-list-item href="#" class="sidenav-item">Medications</a>
-      <hr>
-      <a mat-list-item href="#" class="sidenav-item">About Us</a>
-      <a mat-list-item href="#" class="sidenav-item">FAQ</a>
-      <a mat-list-item href="#" class="sidenav-item">Blog</a>
-      <a mat-list-item href="#" class="sidenav-item">News</a>
-      <hr>
-      <a mat-list-item [routerLink]="['/login']">Already a member?  <span class="login-redirect">Login</span> </a>
-      <a mat-list-item href="#" class="sidenav-item">Contact Us</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()">
-        <mat-icon aria-label="Sidenav toggle icon">menu</mat-icon>
-      </button>
-      <span>PopupCare</span>
-      <span class="spacer"></span>
-      <div class="d-none d-lg-block">
-        <a mat-list-item>Chatbot</a>
-        <a mat-list-item>Membership</a>
-        <a mat-list-item>Medications</a>
-        <a mat-list-item>Latest News</a>
-        <a mat-list-item>About</a>
-        <a mat-list-item [routerLink]="['/register']" routerLinkActive="active">Join Now</a>
-        <a mat-list-item [routerLink]="['/login']" routerLinkActive="active">Already a member?  <span class="login-redirect">Login</span> </a>
-      </div>
-    </mat-toolbar>
-    <ng-content></ng-content>
-  </mat-sidenav-content>
-</mat-sidenav-container> -->
+<!-- /Mobile navbar -->
