@@ -20,9 +20,9 @@ export class OnboardingComponent implements OnInit {
     private menuService: MenuService
   ) {
     console.log('Onboarding step: ', this.currentStep);
-    this.getOnboardingInfo();
     this.menuService.member_type_id_obs().subscribe(result => {
       this.member_type_id = result;
+      this.getOnboardingInfo();
     });
   }
 
@@ -43,7 +43,6 @@ export class OnboardingComponent implements OnInit {
         if (!response.HasError) {
           console.log('The last step the user complete was: ', response.Result.last_step_completed_onboarding);
           console.log('The current step is: ', response.Result.current_step);
-
           if (response.Result.current_step === 5 || this.member_type_id !== 1) {
             this.router.navigate(['../account'], { relativeTo: this.activatedRoute });
           } else {
