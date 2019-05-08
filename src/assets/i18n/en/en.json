@@ -295,5 +295,44 @@
     "account_number": "Account Number ending in",
     "add_card_btn": "Add Card",
     "add_ach_btn": "Add ACH"
+  },
+  "my_hub": {
+    "title_lbl": "My Experience Hub",
+    "col1_box1_title_lbl": "On-Demand Care",
+    "col1_box2_title_lbl": "My Membership Plan",
+    "col1_box3_title_lbl": "My Care Phamily",
+    "col2_box1_title_lbl": "IDE Smart Assistant",
+    "col3_box1_title_lbl": "My Order History",
+    "col3_box2_title_lbl": "My Profile Info",
+    "col3_box3_title_lbl": "My Rx Credits",
+
+    "col1_box1_body1_lbl": "Visit a doctor, therapist or dermatologist on-demand in minutes using your smart phone, tablet or computer.",
+    "col1_box2_body1_lbl": "Renewal Date: 09/01/2019",
+    "col1_box3_body1_lbl": "Added Members: ",
+    "col1_box3_body2_lbl": "Added Guest: ",
+
+    "col2_box1_body1_lbl1": "Need a Prescription",
+    "col2_box1_body1_lbl2": "TEXT • COMPARE • BUY",
+    "col2_box1_body1_lbl3": "Buy Members only Rx Savings Certificates.",
+    "col2_box1_body1_lbl4": "send TEXT to: IDERX (43379)",
+    "col2_box1_body2_lbl1": "Receive instant feedback if your condition can be treated by our Licensed Virtual Physician Care Team.",
+    "col2_box1_body2_lbl2": "NO LIVE Consultation Required.",
+    "col2_box1_body3_lbl1": "Submit your approved Dermatology related condition and let our Virtual Licensed Dermatologist evaluate your condition and issue a prescription if appropriate within a few hours.",
+    "col2_box1_body3_lbl2": "NO LIVE Consultation Required.",
+
+    "col3_box1_body1_lbl1": "Open Orders:",
+    "col3_box1_body1_lbl2": "Complete Orders:",
+    "col3_box2_body1_lbl1": "View and Modify your Information.",
+    "col3_box3_body1_lbl1": "Credits Available",
+
+    "col1_box1_btn1": "Launch",
+    "col1_box2_btn1": "Review Plans",
+    "col1_box3_btn1": "View More Details",
+    "col2_box1_btn1": "Launch IDE Cares",
+    "col2_box1_btn2": "Launch IDE Derm",
+    "col3_box1_btn1": "View Open Orders",
+    "col3_box1_btn2": "View Order History",
+    "col3_box2_btn1": "Go To My Profile",
+    "col3_box3_btn1": "View More Details"
   }
 }
