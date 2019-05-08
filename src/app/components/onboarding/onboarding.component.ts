@@ -22,10 +22,12 @@ export class OnboardingComponent implements OnInit {
     this.menuService.member_type_id_obs().subscribe(result => {
       this.member_type_id = result;
     });
-    this.getOnboardingInfo();
+    this.menuService.updateStatus();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getOnboardingInfo();
+  }
 
   userAction(step: number) {
     console.log('Step received: ', step);
