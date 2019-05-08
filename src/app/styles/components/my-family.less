@@ -4,17 +4,7 @@
 // my family
 
 .my-family-title {
-  max-width: 458px;
-  height: 66px;
-
-  font-size: 54px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.33;
-  letter-spacing: -0.3px;
-  text-align: center;
-  vertical-align: middle;
+  .title;
   color: @green;
 }
 
@@ -37,7 +27,6 @@
   padding: 0px;
   max-height: 36px;
   vertical-align: middle;
-
 }
 
 
@@ -321,4 +310,25 @@
   letter-spacing: normal;
   text-align: center;
   color: @green;
+}
+
+
+
+@media only screen and (max-width: 993px) {
+
+  /* For desktop: */
+  .my-family-title {
+    font-family: Montserrat;
+    font-size: 38px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.11;
+    letter-spacing: -0.2px;
+  }
+
+
+  .hub-container {
+    justify-self: flex-start !important;
+  }
 }

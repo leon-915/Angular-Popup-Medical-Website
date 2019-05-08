@@ -19,11 +19,10 @@ export class OnboardingComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private menuService: MenuService
   ) {
-    console.log('Onboarding step: ', this.currentStep);
     this.menuService.member_type_id_obs().subscribe(result => {
       this.member_type_id = result;
-      this.getOnboardingInfo();
     });
+    this.getOnboardingInfo();
   }
 
   ngOnInit() {}
@@ -41,8 +40,10 @@ export class OnboardingComponent implements OnInit {
       response => {
         console.log(response);
         if (!response.HasError) {
-          console.log('The last step the user complete was: ', response.Result.last_step_completed_onboarding);
-          console.log('The current step is: ', response.Result.current_step);
+          //  console.log('The last step the user complete was: ', response.Result.last_step_completed_onboarding);
+          // console.log('The current step is: ', response.Result.current_step);
+          console.log('The current step is: ', this.member_type_id);
+
           if (response.Result.current_step === 5 || this.member_type_id !== 1) {
             this.router.navigate(['../account'], { relativeTo: this.activatedRoute });
           } else {
