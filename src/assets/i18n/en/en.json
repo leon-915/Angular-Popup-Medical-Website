@@ -362,5 +362,24 @@
     "title": "Reset Password",
     "wording": "Your password has been reset.",
     "go_to_login_btn": "Go To My Account"
+  },
+  "my_security": {
+    "title1": "Reset Password",
+    "current_password_lbl": "Current Password",
+    "current_password_input": "Current Password",
+    "current_password_error": "Current password is required.",
+    "new_password_lbl": "Password",
+    "new_password_input": "Enter password",
+    "re_type_passsword_lbl": "Re-Type Password",
+    "re_type_passsword_input": "Confirm your password",
+    "reset_btn": "Save",
+    "title2": "Text Messaging PIN",
+    "pin_lbl": "New Pin",
+    "pin_input": "Enter Pin",
+    "pin_error1": "Pin is required to be a number between 4 and 6 digits.",
+    "pin_error2": "Pin must have between 4 and 6 digits.",
+    "pin_error3": "Pin must contain only numbers.",
+    "pin_lbl2": "This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot. Occasionally you will be asked this PIN to confirm your identity by the chatbot.",
+    "change_pin_btn": "Save"
   }
 }

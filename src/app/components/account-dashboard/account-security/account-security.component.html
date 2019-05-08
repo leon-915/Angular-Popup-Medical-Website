@@ -1,105 +1,61 @@
 <div class="row mt-5">
   <div class="col-lg-5 mx-auto">
-    <h3 class="mb-3">Reset Password</h3>
+    <h3 class="mb-3">{{ 'my_security.title1' | translate }}</h3>
 
     <form [formGroup]="passwordForm" (ngSubmit)="sendPasswordForm()">
       <div class="form-group">
-        <label for="Password">Current Password</label>
-        <input type="password" placeholder="Current Password" id="currentPass" formControlName="currentPass" class="form-control" />
+        <label for="Password">{{ 'my_security.current_password_lbl' | translate }}</label>
+        <input type="password" placeholder="{{ 'my_security.current_password_input' | translate }}" id="currentPass" formControlName="currentPass" class="form-control" />
         <p class="mt-1 text-danger" *ngIf="(currentPass.dirty || currentPass.touched) && !!currentPass.errors?.required">
-          Current password is required.
+          {{ 'my_security.current_password_error' | translate }}
         </p>
       </div>
       <div class="form-group">
-        <label for="pwd">Password</label>
-        <input type="password" placeholder="Enter password" formControlName="pwd" class="form-control" />
+        <label for="pwd">{{ 'my_security.title1' | translate }}Password</label>
+        <input type="password" placeholder="{{ 'my_security.new_password_input' | translate }}" formControlName="pwd" class="form-control" />
 
-        <p class="mt-2">Minimum password requirements:</p>
-
-        <p
-          [ngClass]="
-            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength')
-              ? 'text-danger'
-              : 'text-success'
-          "
-        >
-          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('minlength') ? 'clear' : 'done' }}
+        <p class="">{{ 'register.minimun_password_requirements' | translate }}</p>
+        <p [ngClass]="pwd.hasError('required') || pwd.hasError('minlength') ? 'text-danger' : 'text-success'">
+          <i class="material-icons validation-icons">
+            {{ pwd.hasError('required') || pwd.hasError('minlength') ? 'clear' : 'done' }}
           </i>
-          Must be at least 8 characters.
+          {{ 'register_errors.password_min_length' | translate }}
         </p>
-
-        <p
-          [ngClass]="
-            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber')
-              ? 'text-danger'
-              : 'text-success'
-          "
-        >
-          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{ passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasNumber') ? 'clear' : 'done' }}
+        <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasNumber') ? 'text-danger' : 'text-success'">
+          <i class="material-icons validation-icons">
+            {{ pwd.hasError('required') || pwd.hasError('hasNumber') ? 'clear' : 'done' }}
           </i>
-          Must container at least one number.
+          {{ 'register_errors.password_number' | translate }}
         </p>
-
-        <p
-          [ngClass]="
-            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasCapitalCase')
-              ? 'text-danger'
-              : 'text-success'
-          "
-        >
-          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{
-              passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasCapitalCase')
-                ? 'clear'
-                : 'done'
-            }}
+        <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'text-danger' : 'text-success'">
+          <i class="material-icons validation-icons">
+            {{ pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'clear' : 'done' }}
           </i>
-          Must contain at least one capital letter.
+          {{ 'register_errors.password_capital_letter' | translate }}
         </p>
-
-        <p
-          [ngClass]="
-            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSmallCase')
-              ? 'text-danger'
-              : 'text-success'
-          "
-        >
-          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{
-              passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSmallCase') ? 'clear' : 'done'
-            }}
+        <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'text-danger' : 'text-success'">
+          <i class="material-icons validation-icons">
+            {{ pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'clear' : 'done' }}
           </i>
-          Must container at least one small letter
+          {{ 'register_errors.password_small_letter' | translate }}
         </p>
-
-        <p
-          [ngClass]="
-            passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSpecialCharacters')
-              ? 'text-danger'
-              : 'text-success'
-          "
-        >
-          <i class="material-icons" style="display:inline-flex; vertical-align: middle;">
-            {{
-              passwordForm.controls['pwd'].hasError('required') || passwordForm.controls['pwd'].hasError('hasSpecialCharacters')
-                ? 'clear'
-                : 'done'
-            }}
+        <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+          <i class="material-icons validation-icons">
+            {{ pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
           </i>
-          Must contain at least one special character.
+          {{ 'register_errors.password_special_character' | translate }}
         </p>
       </div>
 
       <div class="form-group">
-        <label for="confirm">Re-Type Password</label>
-        <input type="password" placeholder="Confirm your password" formControlName="confirm" class="form-control" />
-        <p class="mt-1 text-danger" *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && !!confirm?.errors?.required">
-          Confirm password is required.
+        <label for="confirm"> {{ 'my_security.re_type_passsword_lbl' | translate }}</label>
+        <input type="password" placeholder="{{ 'my_security.re_type_passsword_input' | translate }}" formControlName="confirm" class="form-control" />
+        <p class="mt-1 text-danger" *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && !!confirm.errors?.required">
+          {{ 'register_errors.confirm_password_required' | translate }}
         </p>
-        <p class="mt-1 text-danger" *ngIf="!!passwordForm?.errors?.passwordsDoNotMatch">
-          Password doesn't match.
+
+        <p class="mt-1 text-danger" *ngIf="passwordForm.errors?.passwordsDoNotMatch">
+          {{ 'register_errors.password_no_match' | translate }}
         </p>
       </div>
 
@@ -107,37 +63,36 @@
 
       <div class="col d-flex justify-content-center">
         <button type="submit" class="btn btn-primary btn-block" [disabled]="!passwordForm.valid">
-          Save
+          {{ 'my_security.reset_btn' | translate }}
         </button>
       </div>
     </form>
 
-    <h3 class="mb-3" style="margin-top: 70px">Text Messaging PIN</h3>
+    <h3 class="mb-3" style="margin-top: 70px">{{ 'my_security.title2' | translate }}</h3>
 
     <form [formGroup]="textPinForm" (ngSubmit)="sendTextPinForm()">
       <div class="form-group">
-        <label for="textpin">New Pin</label>
-        <input type="number" placeholder="Enter Pin" id="textpin" formControlName="pin" required class="form-control" min="0" />
+        <label for="textpin">{{ 'my_security.pin_lbl' | translate }}</label>
+        <input type="number" placeholder="{{ 'my_security.pin_input' | translate }}" id="textpin" formControlName="pin" required class="form-control" min="0" />
       </div>
       <div *ngIf="pin.invalid && (pin.dirty || pin.touched)" class="">
         <p class="mt-1 text-danger" *ngIf="(pin?.errors)['required']">
-          Pin is required to be a number between 4 and 6 digits.
+          {{ 'my_security.pin_error1' | translate }}
         </p>
         <p class="mt-1 text-danger" *ngIf="(pin?.errors)['range']">
-          Pin must have between 4 and 6 digits.
+          {{ 'my_security.pin_error2' | translate }}  
         </p>
         <p class="mt-1 text-danger" *ngIf="(pin?.errors)['symbols']">
-          Pin must contain only numbers.
+          {{ 'my_security.pin_error3' | translate }}
         </p>
       </div>
       <p class="text-center" style="font-size: 12px; padding: 10px 0;">
-        This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot. Occasionally you will be asked
-        this PIN to confirm your identity by the chatbot.
+        {{ 'my_security.pin_lbl2' | translate }}
       </p>
 
       <div class="col d-flex justify-content-center">
         <button type="submit" class="btn btn-primary btn-block" [disabled]="!textPinForm.valid">
-          Save
+          {{ 'my_security.change_pin_btn' | translate }}
         </button>
       </div>
     </form>
