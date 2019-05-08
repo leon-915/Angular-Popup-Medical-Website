@@ -1,17 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-  ValidationErrors,
-  ValidatorFn
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService, NotificationService } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { PasswordValidator } from 'src/app/validators';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from 'src/app/translator/translate.service';
 
 @Component({
   selector: 'app-reset-password-select-method',
@@ -29,6 +23,8 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private accountSrv: AccountService,
+    private translate: TranslateService,
+
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service
   ) {}
@@ -36,8 +32,8 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
   ngOnInit() {
     this.resetForm = this.fb.group(
       {
-        email: ['', [Validators.email]],
-        phone: [''],
+        email: ['', [Validators.email, Validators.required]],
+        phone: [{ value: '', disabled: true }],
         recaptcha: ['', Validators.required],
         currentStep: [this.step]
       },
@@ -68,9 +64,7 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
     this.accountSrv.resetPassSendCode(formValue).subscribe(res => {
       if (!res.HasError) {
         this.accountSrv.setUserEmail(formValue.email);
-        const maskedEmail = res.Result.CodeDeliveryDetails.Destination
-          ? res.Result.CodeDeliveryDetails.Destination
-          : formValue.email;
+        const maskedEmail = res.Result.CodeDeliveryDetails.Destination ? res.Result.CodeDeliveryDetails.Destination : formValue.email;
         this.accountSrv.setUserEmailMasked(maskedEmail);
 
         this.userAction('advance');
@@ -78,5 +72,8 @@ export class ResetPasswordSelectMethodComponent implements OnInit {
         this.notificationSrv.showError(res.Message);
       }
     });
+  }
+  get email() {
+    return this.resetForm.get('email');
   }
 }

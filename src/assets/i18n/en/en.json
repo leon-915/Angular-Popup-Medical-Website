@@ -334,5 +334,33 @@
     "col3_box1_btn2": "View Order History",
     "col3_box2_btn1": "Go To My Profile",
     "col3_box3_btn1": "View More Details"
+  },
+  "reset_password_select_method": {
+    "title": "Reset Password",
+    "email_input": "Email",
+    "or": "or",
+    "phone_input": "Phone",
+    "reset_btn": "Reset Password",
+    "go_back_btn": "Go back to Login"
+  },
+  "reset_password_step1": {
+    "title": "Reset Password",
+    "wording": "Password reset instructions have been sent to {{userEmailMasked}}. Please check your email."
+  },
+  "reset_password_step2": {
+    "title": "Reset Password",
+    "confirmation_code_lbl": "Confirmation Code",
+    "confirmation_code_input": "Confirmation Code",
+    "password_lbl": "Confirmation Code",
+    "password_input": "Enter password",
+    "minimum_password_lb": "Minimum password requirements:",
+    "re_type_passsword_lbl": "Re-Type Password",
+    "re_type_passsword_input": "Confirm your password",
+    "reset_btn": "Reset Password"
+  },
+  "reset_password_step3": {
+    "title": "Reset Password",
+    "wording": "Your password has been reset.",
+    "go_to_login_btn": "Go To My Account"
   }
 }
