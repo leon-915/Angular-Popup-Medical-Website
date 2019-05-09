@@ -67,6 +67,9 @@
     letter-spacing: normal;
     text-align: left;
     color: @light-black;
+    @media (max-width: 767px) {
+        margin-bottom: 10px;
+    }
 }
 
 .custom-control-input:checked~.custom-control-label::before{
@@ -104,4 +107,31 @@
     text-align: center;
     text-decoration: none;
     text-transform: none;
+}
+
+.emergency-info-title {
+    @media (max-width: 767px) {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+.padding-none {
+    @media (max-width: 767px) {
+        padding: 0px;
+    }
+}
+
+select {
+    height: 50px;
+    border-radius: 0px;
+    font-size: 20px;
+    border-color: #eeeeee;
+}
+
+.custom-btn-block {
+    @media (max-width: 767px) {
+        width: 100%;
+        display: block;
+    }
 }
