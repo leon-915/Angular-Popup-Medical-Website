@@ -3,18 +3,18 @@
     <!-- @Jorge fix to modals -->
     <input style="display: none" />
     <div class="">
-      <span>{{ 'my_family_add_member_placeholders.toogle_guest_lbl' | translate }} </span>
+      <span>{{ 'my_family_add_member.toogle_guest_lbl' | translate }} </span>
       <mat-slide-toggle [(ngModel)]="isMember" (click)="clearRelation()"></mat-slide-toggle>
-      <span> {{ 'my_family_add_member_placeholders.toogle_member_lbl' | translate }}</span>
+      <span> {{ 'my_family_add_member.toogle_member_lbl' | translate }}</span>
     </div>
 
     <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
-      <span class="myfamily-add-member-title">{{ 'my_family_add_member_placeholders.tittle_lbl' | translate }}</span>
+      <span class="myfamily-add-member-title">{{ 'my_family_add_member.title_lbl' | translate }}</span>
       <div class="col mb-3">
         <div class="form-group">
           <input
             type="text"
-            placeholder="{{ 'my_family_add_member_placeholders.first_name_input' | translate }}"
+            placeholder="{{ 'my_family_add_member.first_name_input' | translate }}"
             formControlName="firstName"
             class="form-control"
           />
@@ -25,7 +25,7 @@
         <div class="form-group">
           <input
             type="text"
-            placeholder="{{ 'my_family_add_member_placeholders.last_name_input' | translate }}"
+            placeholder="{{ 'my_family_add_member.last_name_input' | translate }}"
             formControlName="lastName"
             class="form-control"
           />
@@ -34,15 +34,15 @@
           </p>
         </div>
         <div class="form-group">
-          <label for="confirm">{{ 'my_family_add_member_placeholders.relationship_lbl' | translate }}</label>
+          <label for="confirm">{{ 'my_family_add_member.relationship_lbl' | translate }}</label>
 
           <select class="browser-default custom-select" formControlName="member_relation_type_id" *ngIf="isMember; else templateName">
-            <option selected="true" value="0"> {{ 'my_family_add_member_placeholders.relationship_default_input' | translate }}</option>
+            <option selected="true" value="0"> {{ 'my_family_add_member.relationship_default_input' | translate }}</option>
             <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}"> {{ item.display_value }}</option>
           </select>
           <ng-template #templateName>
             <select class="browser-default custom-select" formControlName="member_relation_type_id">
-              <option selected="true" value="0"> {{ 'my_family_add_member_placeholders.relationship_default_input' | translate }}</option>
+              <option selected="true" value="0"> {{ 'my_family_add_member.relationship_default_input' | translate }}</option>
               <option *ngFor="let item of guestRelationTypes" value="{{ item.lookup_member_relation_type_id }}">
                 {{ item.display_value }}</option
               >
@@ -52,7 +52,7 @@
         <div class="form-group">
           <input
             type="email"
-            placeholder="{{ 'my_family_add_member_placeholders.email_input' | translate }}"
+            placeholder="{{ 'my_family_add_member.email_input' | translate }}"
             formControlName="email"
             class="form-control"
           />
@@ -66,11 +66,11 @@
 
         <div class="row justify-content-center align-items-center">
           <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
-            {{ 'my_family_add_member_placeholders.submit_btn' | translate }}
+            {{ 'my_family_add_member.submit_btn' | translate }}
           </button>
           <div class="my-family-button-guest" style="margin-top: 15px" (click)="modal.close('Action Canceled')">
             <span class="my-family-box-guest-button-lbl">
-              {{ 'my_family_add_member_placeholders.cancel_btn' | translate }}
+              {{ 'my_family_add_member.cancel_btn' | translate }}
             </span>
           </div>
         </div>
@@ -81,6 +81,6 @@
 
 <div class="my-family-button-add" (click)="open(content)">
   <span class="my-family-box-add-button-lbl">
-    {{ 'my_family_add_member_placeholders.open_modal_btn' | translate }}
+    {{ 'my_family_add_member.open_modal_btn' | translate }}
   </span>
 </div>

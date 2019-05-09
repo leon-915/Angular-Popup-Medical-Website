@@ -60,8 +60,8 @@
     "placeholder_confirm_password": "Confirmar Contraseña *",
     "placeholder_invitation_code": "Còdigo de Invitación *"
   },
-  "my_family_placeholders": {
-    "tittle_lbl": "* My Care Phamily",
+  "my_family": {
+    "title_lbl": "* My Care Phamily",
     "hub_lbl": "* My Hub",
     "my_profile_title_lbl": "* My Profile",
     "my_profile_subtitle_lbl": "* View",
@@ -74,8 +74,8 @@
     "add_member_btn": "* Add Member/Guest",
     "view_btn": "* View"
   },
-  "my_family_add_member_placeholders": {
-    "tittle_lbl": "* Add Member To My Plan",
+  "my_family_add_member": {
+    "title_lbl": "* Add Member To My Plan",
     "toogle_guest_lbl": "* Invite Guest",
     "toogle_member_lbl": "* Add Member",
     "first_name_input": "* First name",
@@ -87,8 +87,8 @@
     "cancel_btn": "* Cancel",
     "open_modal_btn": "* Add Member/Guest"
   },
-  "my_family_add_dependent_placeholders": {
-    "tittle_lbl": "* Add Dependent",
+  "my_family_add_dependent": {
+    "title_lbl": "* Add Dependent",
     "first_name_input": "* First name",
     "last_name_input": "* Last name",
     "relationship_lbl": "* Relationship to Primary Member",
@@ -100,8 +100,8 @@
     "save_btn": "* Save",
     "cancel_btn": "* Cancel"
   },
-  "my_family_edit_member_placeholders": {
-    "tittle_lbl": "* Edit Family Member",
+  "my_family_edit_member": {
+    "title_lbl": "* Edit Family Member",
     "first_name_input": "* First name",
     "last_name_input": "* Last name",
     "relationship_lbl": "* Relationship to Primary Member",
@@ -114,8 +114,8 @@
     "remove_btn": "* Remove Member",
     "view_btn": "* View"
   },
-  "my_family_edit_invitation_placeholders": {
-    "tittle_lbl": "* Edit Invitation",
+  "my_family_edit_invitation": {
+    "title_lbl": "* Edit Invitation",
     "first_name_input": "* First name",
     "last_name_input": "* Last name",
     "email": "* email",
