@@ -149,13 +149,15 @@
 </div>
 
 <div class="row mt-5">
-  <div
-    routerLinkActive="active-link"
-    [routerLinkActiveOptions]="{ exact: true }"
-    class="col-8"
-    style="  border-right: 2px solid lightslategrey;"
-  >
+  <div routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" class="col-8"
+    style="  border-right: 2px solid lightslategrey;">
     <h3 class="mb-3">My Account</h3>
+    <p>
+      <a [routerLink]="['../account/my-profile']">My Profile</a>
+    </p>
+    <p>
+      <a [routerLink]="['../account/my-addresses']">My Addresses</a>
+    </p>
     <p>
       My Dashboard
     </p>

@@ -139,6 +139,9 @@ import { TranslatePipe } from './translator/translate.pipe';
 
 /* SHARED */
 import { CookieConsentComponent, LoaderComponent } from './shared';
+import { AccountMyProfileComponent } from './components/account-dashboard/account-my-profile/account-my-profile.component';
+import { AccountMyAddressesComponent } from './components/account-dashboard/account-my-addresses/account-my-addresses.component';
+import { AccountSideMenuComponent } from './components/common-components/account-side-menu/account-side-menu.component';
 /* SHARED */
 
 export function setupTranslateFactory(service: TranslateService) {
@@ -204,7 +207,10 @@ export function setupTranslateFactory(service: TranslateService) {
     AddMemberComponent,
     LoaderComponent,
     ConfirmationStackedModalComponent,
-    CookieConsentComponent
+    CookieConsentComponent,
+    AccountMyProfileComponent,
+    AccountMyAddressesComponent,
+    AccountSideMenuComponent
   ],
   entryComponents: [ConfirmationStackedModalComponent],
   imports: [
