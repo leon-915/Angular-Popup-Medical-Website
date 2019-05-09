@@ -1,10 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "./app/styles/variables.less";
-@import "./app/styles/components/index.less";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import './app/styles/variables.less';
+@import './app/styles/components/index.less';
 @import (css) url('https://fonts.googleapis.com/css?family=Montserrat');
-
-
 
 .body-class {
   //background-color: @background;
@@ -19,7 +17,6 @@
   border-color: @border;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px @border;
 }
-
 
 .link {
   color: @linktext;
@@ -39,7 +36,7 @@
   white-space: normal !important;
 }
 
-ul:not(.browser-default)>li {
+ul:not(.browser-default, nav) > li {
   list-style-type: circle;
 }
 
@@ -48,11 +45,11 @@ ul:not(.browser-default)>li {
 */
 
 .text-danger {
-  color: @error  !important;
+  color: @error !important;
 }
 
 .text-success {
-  color: @green  !important;
+  color: @green !important;
 }
 
 input::-webkit-inner-spin-button {
@@ -60,7 +57,7 @@ input::-webkit-inner-spin-button {
 }
 
 .input-bg {
-  background-color: @inputbackground  !important;
+  background-color: @inputbackground !important;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
   padding-left: 10px !important;
   border-radius: 0px;
@@ -167,7 +164,6 @@ input::-webkit-inner-spin-button {
     border: 2px solid @mid-gray;
     color: @mid-gray;
   }
-
 }
 
 .btn-primary,
@@ -185,7 +181,6 @@ input::-webkit-inner-spin-button {
     border: 2px solid @orange;
     color: @white;
   }
-
 }
 
 .btn-primary:disabled {
@@ -193,7 +188,6 @@ input::-webkit-inner-spin-button {
   color: @mid-gray;
   border: 2px solid @mid-gray;
 }
-
 
 .pointer {
   cursor: pointer;

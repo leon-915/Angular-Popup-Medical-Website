@@ -66,4 +66,12 @@ export class NavMenuComponent implements OnInit {
     this.menuService.updateStatus();
     this.router.navigate([this.lang, './'], { relativeTo: this.activatedRoute });
   }
+
+  sendYouHome() {
+    if (this.isUserAuthenticated === true) {
+      this.router.navigate([this.lang, 'account'], { relativeTo: this.activatedRoute });
+    } else {
+      this.router.navigate([this.lang, './'], { relativeTo: this.activatedRoute });
+    }
+  }
 }
