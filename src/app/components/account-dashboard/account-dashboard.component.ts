@@ -41,4 +41,12 @@ export class AccountDashboardComponent implements OnInit {
     sessionStorage.setItem('token', '');
     this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
   }
+
+  goToRoute(route) {
+    if (route.localeCompare('MyPhamily') === 0) {
+      this.router.navigate(['./family'], { relativeTo: this.activatedRoute });
+    } else if (route.localeCompare('MyInfo') === 0) {
+      this.router.navigate(['./my-profile'], { relativeTo: this.activatedRoute });
+    }
+  }
 }

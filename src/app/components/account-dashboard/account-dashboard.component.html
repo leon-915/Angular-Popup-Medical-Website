@@ -70,7 +70,7 @@
                 2
               </div>
             </div>
-            <button class="my-hub-link-btn">
+            <button class="my-hub-link-btn" (click)="goToRoute('MyPhamily')">
               {{ 'my_hub.col1_box3_btn1' | translate }}<i class="material-icons">keyboard_arrow_right</i>
             </button>
           </div>
@@ -131,7 +131,9 @@
             <div class="mb-2" style="vertical-align: middle;">
               <span> {{ 'my_hub.col3_box2_body1_lbl1' | translate }} </span>
 
-              <button type="button" class="btn-success-outline">{{ 'my_hub.col3_box2_btn1' | translate }}</button>
+              <button type="button" class="btn-success-outline" (click)="goToRoute('MyInfo')">
+                {{ 'my_hub.col3_box2_btn1' | translate }}
+              </button>
             </div>
           </div>
         </div>
