@@ -1,0 +1,186 @@
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="float-left"><button class="btn btn-my-hub">
+          <i class="material-icons"> arrow_back </i> My Hub
+        </button></div>
+      <div class="float-right">
+        <button class="btn btn-edit" (click)="editMyProfile();">
+          <i class="material-icons">
+            border_color
+          </i> Edit
+        </button>
+      </div>
+      <div class="text-center">
+        <p class="title">My Profile</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+
+    <!-- Account Sidemenu -->
+    <div class="col-md-3">
+      <app-account-side-menu></app-account-side-menu>
+    </div>
+
+    <!-- Personal Information No Edit -->
+    <div class="col-md-5 offset-1" *ngIf="!editProfile">
+      <p class="profile-title"> {{firstName.value}} {{lastName.value}} </p>
+      <p class="profile-description">Gender: <strong class="profile-title">{{gender.value}}</strong> </p>
+      <p class="profile-description">Date of Birth: <strong class="profile-title"> {{dateOfBirth.value | date}}
+        </strong> </p>
+      <p class="profile-title"> {{email.value}} </p>
+      <p class="profile-description">Billing Phone: <strong class="profile-title"> {{billingPhone.value}} </strong> </p>
+      <p class="profile-description mb-3">Mobile Phone: <strong class="profile-title"> {{mobilePhone.value}} </strong>
+      </p>
+      <p class="primary-text">View allergies, conditions and medications</p>
+    </div>
+
+    <!-- Personal Information Edit -->
+    <div class="col-md-6" *ngIf="editProfile">
+      <form [formGroup]="myProfileForm" (ngSubmit)="saveMyProfileInformation()" novalidate>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="First Name" formControlName="firstName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Last Name" formControlName="lastName">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="profile-edit-title"> Gender: </p>
+          </div>
+          <mat-radio-group formControlName="genderId">
+            <div class="row mb-0">
+              <div class="col-md-6">
+                <mat-radio-button class="checkbox-form" [value]="1">
+                  <h5 class="checkbox-text">Male</h5>
+                </mat-radio-button>
+              </div>
+              <div class="col-md-6">
+                <mat-radio-button class="checkbox-form" [value]="2">
+                  <h5 class="checkbox-text">Female</h5>
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>
+          <!--<div class="col-md-3">
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="checkMale">
+                <label class="custom-control-label checkbox-text" for="checkMale">Male</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="checkFemale">
+                <label class="custom-control-label checkbox-text" for="checkFemale">Female</label>
+              </div>
+            </div>
+          </div>-->
+
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="profile-edit-title"> Date of Birth: </p>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <select class="form-control" formControlName="month">
+                <option disabled [ngValue]="null">MM</option>
+                <option [ngValue]="month.id" *ngFor="let month of months">{{month.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <select class="form-control" formControlName="day">
+                <option disabled [ngValue]="null">DD</option>
+                <option [ngValue]="day" *ngFor="let day of days">{{day}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <select class="form-control" formControlName="year">
+                <option disabled [ngValue]="null">YYYY</option>
+                <option [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Email Address" formControlName="email">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p class="profile-edit-title"> Billing Phone: </p>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="(###) #######"
+                formControlName="billingPhone" mask='(000) 000-0000'>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p class="profile-edit-title"> Mobile Phone: </p>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="sameBillingCheck"
+                formControlName="billingPhoneSameShipping">
+              <label class="custom-control-label checkbox-same-billing" for="sameBillingCheck">same as billing</label>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="(###) #######" formControlName="mobilePhone"
+                mask='(000) 000-0000'> <!-- (keypress)="onSearchChange()" -->
+            </div>
+          </div>
+        </div>
+        <div class="row text-right" *ngIf="editProfile">
+          <div class="col-md-12">
+            <button class="btn btn-success" type="submit" [disabled]="!myProfileForm.valid">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Emergency Contact Information No Edit -->
+    <div class="col-md-3 text-left" *ngIf="!editProfile">
+      <p class="profile-description"> Emergency Contact Information </p>
+      <p class="profile-title"> {{emergencyContactName.value}} </p>
+      <p class="profile-title"> {{emergencyContactPhone.value}} </p>
+      <p class="profile-title"> {{emergencyContactRelationship.value}} </p>
+    </div>
+
+    <!-- Emergency Contact Information Edit -->
+    <!--<div class="col-md-3 text-left" *ngIf="editProfile">
+      <p class="profile-description"> Emergency Contact Information </p>
+      <div class="form-group">
+        <input type="text" class="form-control input-bg" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control input-bg" placeholder="Phone Number">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control input-bg" placeholder="Relationship">
+      </div>
+    </div>-->
+  </div>
+
+</div>

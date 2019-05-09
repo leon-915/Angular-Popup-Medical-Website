@@ -21,7 +21,9 @@ import {
   AddDependentComponent,
   MembershipCardComponent,
   GuestEditComponent,
-  PaymentMethodsComponent
+  PaymentMethodsComponent,
+  AccountMyProfileComponent,
+  AccountMyAddressesComponent
 } from './components/index';
 import { MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 import { TranslatorTestComponent } from './components/translator-test/translator-test.component';
@@ -40,6 +42,8 @@ const routes: Routes = [
       { path: 'account/security', component: AccountSecurityComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'account/family', component: AccountFamilyComponent, canActivate: [MemberType, MemberType] },
       // { path: 'account/family/family-edit', component: FamilyEditComponent, canActivate: [AuthGuard] },
+      { path: 'account/my-profile', component: AccountMyProfileComponent, canActivate: [AuthGuard, MemberType] },
+      { path: 'account/my-addresses', component: AccountMyAddressesComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'account/family/dependent', component: AddDependentComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'account/payment-methods', component: PaymentMethodsComponent, canActivate: [AuthGuard, MemberType] },
       { path: 'signup', component: SignupComponent },
@@ -63,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), MatDatepickerModule, MatNativeDateModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
