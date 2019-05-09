@@ -1,3 +1,93 @@
-<p>
-  account-my-addresses works!
-</p>
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="float-left"><a class="btn btn-my-hub" [routerLink]="['../']">
+          <i class="material-icons"> arrow_back </i> My Hub
+        </a></div>
+      <div class="text-center d-none d-lg-block">
+        <p class="title">My Addresses</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+
+    <!-- Account Sidemenu -->
+    <div class="col-md-3">
+      <app-account-side-menu [componentName]="'my-addresses'"></app-account-side-menu>
+    </div>
+
+    <div class="col-md-9">
+      <div class=" row">
+        <div class="col-md-4" *ngFor="let item of [1,2,3]">
+          <div class="card" *ngIf="item === 1">
+            <div class="card-header card-success-header">
+              <small class="card-title my-address-card-title ml-3">
+                Primay Shipping
+              </small>
+            </div>
+            <div class="card-body card-success text-center">
+              Address Information
+              <button class="btn btn-success-outline">Edit</button>
+            </div>
+          </div>
+          <div class="card" *ngIf="item !== 1">
+            <div class="card-header my-address-card-header card-default-header">
+              Shipping #{{item}}
+              <small class="card-title my-address-card-header ml-3">
+                <mat-checkbox>
+                </mat-checkbox> Make Primary
+              </small>
+            </div>
+            <div class="card-body card-default text-center">
+              Address Information
+              <button class="btn btn-default-outline">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-9 offset-md-3">
+      <form>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Add New Address</h4>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Shipping Address Line 1">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Shipping Address Line 2 (Apt, Suite, etc.)">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" class="form-control input-bg" placeholder="City">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control input-bg" placeholder="State">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control input-bg" placeholder="Zip">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

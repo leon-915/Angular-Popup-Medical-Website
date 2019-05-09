@@ -305,12 +305,10 @@
     "col3_box1_title_lbl": "My Order History",
     "col3_box2_title_lbl": "My Profile Info",
     "col3_box3_title_lbl": "My Rx Credits",
-
     "col1_box1_body1_lbl": "Visit a doctor, therapist or dermatologist on-demand in minutes using your smart phone, tablet or computer.",
     "col1_box2_body1_lbl": "Renewal Date: 09/01/2019",
     "col1_box3_body1_lbl": "Added Members: ",
     "col1_box3_body2_lbl": "Added Guest: ",
-
     "col2_box1_body1_lbl1": "Need a Prescription",
     "col2_box1_body1_lbl2": "TEXT • COMPARE • BUY",
     "col2_box1_body1_lbl3": "Buy Members only Rx Savings Certificates.",
@@ -319,12 +317,10 @@
     "col2_box1_body2_lbl2": "NO LIVE Consultation Required.",
     "col2_box1_body3_lbl1": "Submit your approved Dermatology related condition and let our Virtual Licensed Dermatologist evaluate your condition and issue a prescription if appropriate within a few hours.",
     "col2_box1_body3_lbl2": "NO LIVE Consultation Required.",
-
     "col3_box1_body1_lbl1": "Open Orders:",
     "col3_box1_body1_lbl2": "Complete Orders:",
     "col3_box2_body1_lbl1": "View and Modify your Information.",
     "col3_box3_body1_lbl1": "Credits Available",
-
     "col1_box1_btn1": "Launch",
     "col1_box2_btn1": "Review Plans",
     "col1_box3_btn1": "View More Details",
@@ -381,5 +377,34 @@
     "pin_error3": "Pin must contain only numbers.",
     "pin_lbl2": "This is a 4 to 6 digit number you set and is used to confirm your identity when using the chatbot. Occasionally you will be asked this PIN to confirm your identity by the chatbot.",
     "change_pin_btn": "Save"
+  },
+  "my_profile": {
+    "title": "My Profile",
+    "edit": "Edit",
+    "gender": "Gender",
+    "date_of_birth": "Date of Birth",
+    "billing_phone": "Billing Phone",
+    "mobile_phone": "Mobile Phone",
+    "allergies_coditions_medications": "View allergies, conditions and medications",
+    "emergency_info_title": "Emergency Contact Information",
+    "save": "save",
+    "same_as_billing": "same as billing"
+  },
+  "my_profile_placeholders": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "male": "Male",
+    "female": "Female"
+  },
+  "my_profile_errors": {
+    "billing_phone_required": "Billing Phone is required.",
+    "mobile_phone_required": "Mobile Phone is required."
+  },
+  "account_sidemenu": {
+    "my_profile": "My Profile",
+    "my_addresses": "My Addresses",
+    "my_security": "My Security",
+    "payment_method": "Payment Method",
+    "preferences": "Preferences"
   }
 }

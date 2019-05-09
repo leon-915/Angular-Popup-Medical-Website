@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-account-side-menu',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-side-menu.component.less']
 })
 export class AccountSideMenuComponent implements OnInit {
+
+  @Input() componentName: string;
 
   constructor() { }
 

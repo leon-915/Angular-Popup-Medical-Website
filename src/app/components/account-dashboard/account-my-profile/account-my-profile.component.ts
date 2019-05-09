@@ -31,6 +31,8 @@ export class AccountMyProfileComponent implements OnInit {
         lastName: ['', [Validators.required]],
         genderId: [0, [Validators.required, Validators.min(1)]],
         gender: ['', [Validators.required]],
+        maleGender: ['', [Validators.required]],
+        femaleGender: ['', [Validators.required]],
         dateOfBirth: ['', [Validators.required]],
         day: [''],
         month: [''],
@@ -49,13 +51,14 @@ export class AccountMyProfileComponent implements OnInit {
     this.getMemberInformation();
     this.getDateInfo();
     this.mobileNumberSameBilling();
+    this.setMaleGender();
+    this.setFemaleGender();
 
   }
 
   public getMemberInformation() {
     this.accountSrv.getUserData().subscribe(response => {
       if (!response.HasError) {
-        console.log(response);
         this.setMemberInformation(response.Result.userData[0], response.Result.userPhones);
       } else {
         this.notificationSrv.showError(response.Message);
@@ -66,7 +69,6 @@ export class AccountMyProfileComponent implements OnInit {
   getDateInfo() {
     this.dateSrv.getDateInfo().subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           this.days = response.Result.days;
           this.months = response.Result.months;
@@ -79,8 +81,27 @@ export class AccountMyProfileComponent implements OnInit {
     );
   }
 
+  setMaleGender() {
+    this.maleGender.valueChanges.subscribe(status => {
+      if (status) {
+        this.gender.setValue('Male');
+        this.genderId.setValue(1);
+        this.femaleGender.setValue(false);
+      }
+    });
+  }
+
+  setFemaleGender() {
+    this.femaleGender.valueChanges.subscribe(status => {
+      if (status) {
+        this.gender.setValue('Female');
+        this.genderId.setValue(2);
+        this.maleGender.setValue(false);
+      }
+    });
+  }
+
   public setMemberInformation(personalData, phonesData) {
-    console.log(personalData);
     this.firstName.setValue(personalData.first_name);
     this.lastName.setValue(personalData.last_name);
     this.email.setValue(personalData.email);
@@ -89,18 +110,17 @@ export class AccountMyProfileComponent implements OnInit {
 
     if (this.genderId.value === 1) {
       this.gender.setValue('Male');
+      this.maleGender.setValue(true);
     } else if (this.genderId.value === 2) {
       this.gender.setValue('Female');
+      this.femaleGender.setValue(true);
     }
 
     const date = new Date(personalData.date_of_birth);
 
     this.day.setValue(date.getDate().toString());
-    console.log('day of date ' + this.day.value);
     this.month.setValue(date.getMonth() + 1);
-    console.log('month of date ', this.month.value);
     this.year.setValue(date.getFullYear().toString());
-    console.log('year of date ', this.year.value);
 
     phonesData.forEach(phoneElement => {
 
@@ -123,12 +143,6 @@ export class AccountMyProfileComponent implements OnInit {
     this.emergencyContactPhone.setValue(personalData.emergency_contact_phone);
     this.emergencyContactRelationship.setValue(personalData.emergency_contact_relationship);
 
-    console.log(this.myProfileForm.value);
-
-  }
-
-  public saveMemberInformation() {
-    console.log(this.myProfileForm.getRawValue());
   }
 
   public editMyProfile() {
@@ -137,19 +151,15 @@ export class AccountMyProfileComponent implements OnInit {
 
   public mobileNumberSameBilling() {
     this.billingPhoneSameShipping.valueChanges.subscribe(status => {
-      console.log(status);
       if (status) {
-        console.log('action true');
         this.mobilePhone.setValue(this.billingPhone.value);
       } else {
-        console.log('action false');
         this.mobilePhone.setValue(this.mobilePhoneBackup);
       }
     });
   }
 
   formatDateOfBirth() {
-    console.log(this.day.value, this.month.value, this.year.value);
     const dateOfBirthUpdated = new Date(this.year.value.toString(), this.month.value - 1, this.day.value.toString());
     this.dateOfBirth.setValue(dateOfBirthUpdated);
   }
@@ -177,6 +187,14 @@ export class AccountMyProfileComponent implements OnInit {
 
   get gender() {
     return this.myProfileForm.get('gender');
+  }
+
+  get maleGender() {
+    return this.myProfileForm.get('maleGender');
+  }
+
+  get femaleGender() {
+    return this.myProfileForm.get('femaleGender');
   }
 
   get genderId() {
@@ -230,12 +248,6 @@ export class AccountMyProfileComponent implements OnInit {
   get emergencyContactRelationship() {
     return this.myProfileForm.get('emergencyContactRelationship');
   }
-
-  /*
-  emergencyContactName: [''],
-      emergencyContactPhone: [''],
-      emergencyContactRelationship: ['']
-  */
 
   public saveMyProfileInformation() {
     console.log(this.myProfileForm.getRawValue());
