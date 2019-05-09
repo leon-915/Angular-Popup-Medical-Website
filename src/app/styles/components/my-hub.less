@@ -12,6 +12,11 @@
 
 }
 
+.single-line-row {
+  align-items: center;
+  justify-content: center;
+}
+
 
 // cards
 .my-hub-card {
@@ -75,6 +80,8 @@
 }
 
 
+
+// btns
 .my-hub-warning-btn {
   background-color: @orange;
   width: 242px;
@@ -83,6 +90,23 @@
   border: 2px solid @orange;
   border-radius: 30px;
   font-size: 24px;
+
+  &:hover {
+    background-color: @orange;
+    border: 2px solid @orange;
+    color: @white;
+  }
+}
+
+
+.my-hub-ide-smart-btn {
+  background-color: @orange;
+  width: 221px;
+  height: 40px;
+  color: @white;
+  border: 2px solid @orange;
+  border-radius: 30px;
+  font-size: 20px;
 
   &:hover {
     background-color: @orange;
@@ -108,6 +132,38 @@
   vertical-align: -webkit-baseline-middle;
 }
 
+.myhub-credits-available-outline {
+  background-color: #FFFFFF;
+  color: #ff9331;
+  border: 2px solid #ff9331;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: -webkit-baseline-middle;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.97;
+  letter-spacing: -0.2px;
+  text-align: center;
+  color: var(--orange);
+}
+
+
+// Special Text
+.my-hub-my-credits {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.61;
+  letter-spacing: -0.1px;
+  text-align: center;
+  color: @green;
+}
 
 
 
@@ -131,6 +187,15 @@
 
   .my-hub-warning-btn {
     width: 227px;
+  }
+
+  .my-hub-ide-smart-btn {
+    width: 175px;
+    font-size: 15px
+  }
+
+  .col-2 {
+    max-width: 65px;
   }
 
 }

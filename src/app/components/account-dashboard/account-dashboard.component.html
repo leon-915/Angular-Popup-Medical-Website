@@ -41,9 +41,10 @@
                 {{ 'my_hub.col1_box2_body1_lbl' | translate }}
               </span>
               <div class="row justify-content-center">
-                <span>icon1 </span>
-                <span>icon1 </span>
-                <span>icon1 </span>
+                <button type="button" class="btn-success-outline">icon</button>
+
+                <button type="button" class="btn-success-outline">icon</button>
+                <button type="button" class="btn-success-outline">icon</button>
               </div>
             </div>
             <button class="my-hub-link-btn">
@@ -87,9 +88,39 @@
           </div>
 
           <div class="card-body   text-center">
-            <div class="mb-2" style=" vertical-align: middle;"></div>
-
-            <button type="button" class="btn-success-outline">View</button>
+            <div class="mb-2" style=" vertical-align: middle;">
+              <div class="row justify-content-center">
+                <div class="col-2">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="col-10 text-left">
+                  <span>{{ 'my_hub.col2_box1_title_lbl' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body1_lbl2' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body1_lbl3' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body1_lbl4' | translate }}</span>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-2 ">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="col-10 text-left">
+                  <span>{{ 'my_hub.col2_box1_body2_lbl1' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body2_lbl2' | translate }}</span>
+                  <button type="button" class="my-hub-ide-smart-btn">{{ 'my_hub.col2_box1_btn1' | translate }}</button>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-2">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="col-10 text-left">
+                  <span>{{ 'my_hub.col2_box1_body3_lbl1' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body3_lbl2' | translate }}</span>
+                  <button type="button" class="my-hub-ide-smart-btn">{{ 'my_hub.col2_box1_btn2' | translate }}</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -129,11 +160,14 @@
 
           <div class="card-body hub-card-body-green text-center">
             <div class="mb-2" style="vertical-align: middle;">
-              <span> {{ 'my_hub.col3_box2_body1_lbl1' | translate }} </span>
-
-              <button type="button" class="btn-success-outline" (click)="goToRoute('MyInfo')">
-                {{ 'my_hub.col3_box2_btn1' | translate }}
-              </button>
+              <div>
+                <span> {{ 'my_hub.col3_box2_body1_lbl1' | translate }} </span>
+              </div>
+              <div>
+                <button type="button" class="btn-success-outline" (click)="goToRoute('MyInfo')">
+                  {{ 'my_hub.col3_box2_btn1' | translate }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -147,8 +181,15 @@
 
           <div class="card-body hub-card-body-green text-center">
             <div class="mb-2" style=" vertical-align: middle;"></div>
-
-            <button type="button" class="btn-success-outline">View</button>
+            <div class="row single-line-row">
+              <button type="button" class="myhub-credits-available-outline">
+                2
+              </button>
+              <span class="my-hub-my-credits">{{ 'my_hub.col3_box3_body1_lbl1' | translate }}</span>
+            </div>
+            <button class="my-hub-link-btn ">
+              {{ 'my_hub.col3_box3_btn1' | translate }}<i class="material-icons">keyboard_arrow_right</i>
+            </button>
           </div>
         </div>
       </div>
