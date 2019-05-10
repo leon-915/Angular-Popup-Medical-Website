@@ -92,6 +92,8 @@ import {
   SignupConfirmComponent,
   ShippingInformationComponent,
   ConfirmationStackedModalComponent,
+  AccountSideMenuComponent,
+  TimeLeftModalComponent,
   PaymentMethodsComponent,
   RegisterComponent,
   SelectMyPlanComponent,
@@ -141,7 +143,6 @@ import { TranslatePipe } from './translator/translate.pipe';
 import { CookieConsentComponent, LoaderComponent } from './shared';
 import { AccountMyProfileComponent } from './components/account-dashboard/account-my-profile/account-my-profile.component';
 import { AccountMyAddressesComponent } from './components/account-dashboard/account-my-addresses/account-my-addresses.component';
-import { AccountSideMenuComponent } from './components/common-components/account-side-menu/account-side-menu.component';
 /* SHARED */
 
 export function setupTranslateFactory(service: TranslateService) {
@@ -210,9 +211,10 @@ export function setupTranslateFactory(service: TranslateService) {
     CookieConsentComponent,
     AccountMyProfileComponent,
     AccountMyAddressesComponent,
-    AccountSideMenuComponent
+    AccountSideMenuComponent,
+    TimeLeftModalComponent
   ],
-  entryComponents: [ConfirmationStackedModalComponent],
+  entryComponents: [ConfirmationStackedModalComponent, TimeLeftModalComponent],
   imports: [
     AppRoutingModule,
     AgmCoreModule.forRoot({
@@ -289,4 +291,4 @@ export function setupTranslateFactory(service: TranslateService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
