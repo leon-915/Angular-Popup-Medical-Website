@@ -37,6 +37,10 @@ export class AddDependentComponent implements OnInit {
         member_relation_type_id: [{ value: 'Dependent', disabled: true }, [Validators.required, Validators.min(1)]],
         isDependent: [{ value: true, disabled: true }, [Validators.required]],
         birthday: [moment().format('YYYY-MM-DD'), []],
+        physicianFirstName: ['', [Validators.required]],
+        physicianLastName: ['', [Validators.required]],
+        physicianPhoneNumber: ['', [Validators.required]],
+        physicianFaxNumber: ['', [Validators.required]],
         gender_id: [0, [Validators.required, Validators.min(1)]]
       },
       {}
@@ -65,6 +69,10 @@ export class AddDependentComponent implements OnInit {
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
+  goToDashboard() {
+    this.router.navigate(['../../account'], { relativeTo: this.activatedRoute });
+  }
+
   // Getters
   get email() {
     return this.addMemberForm.get('email');
@@ -81,5 +89,18 @@ export class AddDependentComponent implements OnInit {
   }
   get isDependent() {
     return this.addMemberForm.get('isDependent').value;
+  }
+
+  get physicianFirstName() {
+    return this.addMemberForm.get('physicianFirstName');
+  }
+  get physicianLastName() {
+    return this.addMemberForm.get('physicianLastName');
+  }
+  get physicianPhoneNumber() {
+    return this.addMemberForm.get('physicianPhoneNumber');
+  }
+  get physicianFaxNumber() {
+    return this.addMemberForm.get('physicianFaxNumber').value;
   }
 }

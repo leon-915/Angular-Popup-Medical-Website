@@ -3,9 +3,9 @@
     <!-- @Jorge fix to modals -->
     <input style="display: none" />
     <div class="">
-      <span>{{ 'my_family_add_member.toogle_guest_lbl' | translate }} </span>
+      <span> {{ 'my_family_add_member.toogle_member_lbl' | translate }} </span>
       <mat-slide-toggle [(ngModel)]="isMember" (click)="clearRelation()"></mat-slide-toggle>
-      <span> {{ 'my_family_add_member.toogle_member_lbl' | translate }}</span>
+      <span> {{ 'my_family_add_member.toogle_guest_lbl' | translate }} </span>
     </div>
 
     <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
@@ -36,7 +36,7 @@
         <div class="form-group">
           <label for="confirm">{{ 'my_family_add_member.relationship_lbl' | translate }}</label>
 
-          <select class="browser-default custom-select" formControlName="member_relation_type_id" *ngIf="isMember; else templateName">
+          <select class="browser-default custom-select" formControlName="member_relation_type_id" *ngIf="!isMember; else templateName">
             <option selected="true" value="0"> {{ 'my_family_add_member.relationship_default_input' | translate }}</option>
             <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}"> {{ item.display_value }}</option>
           </select>

@@ -89,14 +89,21 @@
   },
   "my_family_add_dependent": {
     "title_lbl": "Add Dependent",
+    "sub_title_lbl": "Remember, you can edit/delete anytime from the dashboard.",
     "first_name_input": "First name",
     "last_name_input": "Last name",
     "relationship_lbl": "Relationship to Primary Member",
-    "relationship_default_input": "select an option",
+    "relationship_default_input": "Relationship",
     "date_of_birth_input": "Date of Birth",
     "gender_lbl": "Gender",
     "gender_default_input": "select an option",
-    "check_box_lbl": "This person is a child or dependent and I will manage the account for this person. He/she will not get a PopupCare login.",
+    "physician_title_lbl": "Tell Us About Your Current Physician",
+    "physician_fistname_input": "Tell Us About Your Current Physician",
+    "physician_lastname_input": "Tell Us About Your Current Physician",
+    "physician_phonenumber_input": "Phone Number",
+    "physician_fax_input": "FAX Number",
+    "check_box_lbl": "I Do Not Have A Physician",
+    "advice_lbl": "This person is a child or dependent and I will manage the account for this person. He/she will not get a PopupCare login.",
     "save_btn": "Save",
     "cancel_btn": "Cancel"
   },
@@ -138,7 +145,9 @@
     "password_special_character": "Must contain at least one special character.",
     "confirm_password_required": "Confirm password is required.",
     "password_no_match": "Password doesn't match.",
-    "date_of_birth_required": "Last Name is required."
+    "date_of_birth_required": "Last Name is required.",
+    "phone_number_required": "Phone Number is required.",
+    "fax_number_required": "Fax Number is required."
   },
   "select_my_plan": {
     "title": "Great, You've Made it.",
