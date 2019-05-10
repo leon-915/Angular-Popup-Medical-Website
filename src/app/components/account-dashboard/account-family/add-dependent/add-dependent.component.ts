@@ -70,7 +70,7 @@ export class AddDependentComponent implements OnInit {
   }
 
   goToDashboard() {
-    this.router.navigate(['../../account'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../../account'], { relativeTo: this.activatedRoute });
   }
 
   // Getters

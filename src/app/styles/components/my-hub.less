@@ -19,8 +19,12 @@
 
 
 // cards
+.my-hub-div-card {
+  text-align: -webkit-center;
+}
+
 .my-hub-card {
-  max-width: 394px;
+  width: 320px;
   min-height: 220px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 }
@@ -30,7 +34,7 @@
   background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
 }
 
-.my-hub-greeen {
+.my-hub-card-green {
   .my-hub-card;
   background-color: @bkg-gray;
 }
@@ -41,14 +45,16 @@
 }
 
 .hub-card-body-green {
+  width: 320px;
   background-color: @bkg-gray;
 }
 
 .hub-card-title {
+  width: 320px;
   padding: 0%;
-  min-height: 66px;
-  vertical-align: middle;
+  max-height: 66px;
   background-color: @green;
+
 }
 
 // box titles
@@ -166,18 +172,24 @@
 }
 
 
-
 @media only screen and (min-width: 993px) {
   .container {
-    width: 80%;
+    width: 85%;
   }
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 993px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
 
 
   .container {
     width: 100%;
+
   }
 
   .my-hub-title {
@@ -195,7 +207,14 @@
   }
 
   .col-2 {
-    max-width: 65px;
+    min-width: 65px;
   }
 
+}
+
+@media only screen and (max-width: 400px) {
+  .container {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
 }
