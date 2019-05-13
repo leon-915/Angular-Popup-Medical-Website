@@ -1,6 +1,6 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SignupService } from 'src/app/services';
-import { AccountService, NotificationService, GooglePlacesService } from './../../../services/index';
+import { AccountService, NotificationService, GooglePlacesService, AddressValidationService } from './../../../services/index';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,9 +19,12 @@ export class AccountMyAddressesComponent implements OnInit {
 
   public modalEdit;
   public modalDelete;
+  public invalidAddressModal;
+  public selectedProcess: string;
 
   @ViewChild('address') address: ElementRef;
   @ViewChild('addressUpdate') addressUpdate: ElementRef;
+  @ViewChild('invalidAddressContent') invalidAddressContent: ElementRef;
 
   constructor(
     private accountSrv: AccountService,
@@ -29,7 +32,8 @@ export class AccountMyAddressesComponent implements OnInit {
     private fb: FormBuilder,
     private signupSrv: SignupService,
     private googlePlaceSrv: GooglePlacesService,
-    private modalSrv: NgbModal
+    private modalSrv: NgbModal,
+    private addressValidationSrv: AddressValidationService
   ) { }
 
   ngOnInit() {
@@ -53,7 +57,8 @@ export class AccountMyAddressesComponent implements OnInit {
       stateNameUpdate: [''],
       stateAbbreviationUpdate: [''],
       zipCodeUpdate: ['', [Validators.required]],
-      countryUpdate: ['', [Validators.required]]
+      countryUpdate: ['', [Validators.required]],
+      memberAddressId: ''
     });
 
     this.getShippingAddresses();
@@ -67,15 +72,20 @@ export class AccountMyAddressesComponent implements OnInit {
     }).catch(error => {
       console.log('error loading map', error);
     });
+
+    console.log(this.addressUpdate);
+    this.googlePlaceSrv.loadMaps(this.addressUpdate, this.setAddressModal).then(() => {
+      console.log('Google maps loaded UPDATE');
+    }).catch(error => {
+      console.log('error loading map', error);
+    });
   }
 
   public getShippingAddresses() {
     this.accountSrv.getUserData().subscribe(response => {
-      console.log(response);
       if (!response.HasError) {
         this.shippingAddresses = [];
         this.shippingAddresses = response.Result.userShippings;
-        console.log(this.shippingAddresses);
       } else {
         this.notificationSrv.showError(response.Message);
       }
@@ -85,10 +95,8 @@ export class AccountMyAddressesComponent implements OnInit {
   getStates() {
     this.signupSrv.getCommonFormData().subscribe(
       response => {
-        console.log(response);
         if (!response.HasError) {
           this.states = response.Result.stateList;
-          console.log(this.states);
         }
       },
       error => {
@@ -104,9 +112,7 @@ export class AccountMyAddressesComponent implements OnInit {
     this.country.setValue(country);
 
     this.states.forEach(item => {
-      console.log(item);
       if (item.abbreviation === state) {
-        console.log('state encontrado');
         this.state.setValue(item.id);
         this.stateName.setValue(state);
         this.stateAbbreviation.setValue(item.abbreviation);
@@ -123,33 +129,37 @@ export class AccountMyAddressesComponent implements OnInit {
     country: string,
     address: string
   ) => {
-    /*this.address1.setValue(address);
-    this.city.setValue(city);
-    this.zipCode.setValue(zipCode);
-    this.country.setValue(country);
+    this.address1Update.setValue(address);
+    this.cityUpdate.setValue(city);
+    this.zipCodeUpdate.setValue(zipCode);
+    this.countryUpdate.setValue(country);
 
     this.states.forEach(item => {
-      console.log(item);
       if (item.abbreviation === state) {
-        console.log('state encontrado');
-        this.state.setValue(item.id);
-        this.stateName.setValue(state);
-        this.stateAbbreviation.setValue(item.abbreviation);
+        this.stateUpdate.setValue(item.id);
+        this.stateNameUpdate.setValue(state);
+        this.stateAbbreviationUpdate.setValue(item.abbreviation);
       }
-    });*/
-    console.log(city, state);
+    });
+  }
+
+  openInvalidAddressModal(content) {
+    this.invalidAddressModal = this.modalSrv.open(content);
+  }
+
+  closeInvalidAddressModal() {
+    this.invalidAddressModal.close();
+    document.getElementById('linkid').click();
   }
 
   openModalDeleteAddress(content) {
 
-    this.modalEdit.close();
+    // this.modalEdit.close();
     this.modalDelete = this.modalSrv.open(content);
 
   }
 
-  openModal(content, address) {
-
-    console.log(address);
+  openModal(address) {
     this.selectedAddress = address;
 
     this.address1Update.setValue(address.address1);
@@ -160,31 +170,110 @@ export class AccountMyAddressesComponent implements OnInit {
     this.stateUpdate.setValue(address.state_id);
     this.stateNameUpdate.setValue(address.state_name);
     this.stateAbbreviationUpdate.setValue(address.state_abbreviation);
-
-    console.log(this.updateAddressForm.value);
-
-    this.modalEdit = this.modalSrv.open(content);
-    console.log(this.addressUpdate);
-    setTimeout(() => {
-      console.log('test');
-      console.log(this.addressUpdate);
-      this.googlePlaceSrv
-        .loadMaps(this.addressUpdate, this.setAddressModal)
-        .then(() => {
-          console.log('Google maps loaded');
-        })
-        .catch(error => {
-          console.log('error loading map', error);
-        });
-    }, 3000);
+    this.memberAddressId.setValue(address.member_address_id);
 
   }
 
-  public addShippingAddress() {
+  public keepAddressAsEntered() {
 
-    this.accountSrv.addUserAddress(this.addressForm.getRawValue()).subscribe(response => {
-      console.log(response);
+    if (this.selectedProcess === 'add') {
+
+      this.createShippingAddress();
+
+    } else if (this.selectedProcess === 'update') {
+
+      this.updateShippingAddress();
+
+    }
+    this.closeInvalidAddressModal();
+
+  }
+
+  resetCreateAddressForm() {
+
+    this.addressForm.reset();
+    this.state.setValue(null);
+
+  }
+
+  resetUpdateAddressForm() {
+
+    this.updateAddressForm.reset();
+    this.state.setValue(null);
+
+  }
+
+  public async validateAddress(process: string) {
+
+    this.selectedProcess = process;
+
+    const address = {
+      city: null,
+      state: null,
+      zipcode: null
+    };
+
+    if (process === 'add') {
+
+      address.city = this.city.value;
+      address.state = this.stateAbbreviation.value;
+      address.zipcode = this.zipCode.value;
+
+    } else if (process === 'update') {
+
+      address.city = this.cityUpdate.value;
+      address.state = this.stateAbbreviationUpdate.value;
+      address.zipcode = this.zipCodeUpdate.value;
+
+    }
+
+    const addressValidation = await this.addressValidationSrv.validateAddress(address).toPromise();
+
+    if (addressValidation.valid_address) {
+
+      if (process === 'add') {
+
+        this.createShippingAddress();
+
+      } else if (process === 'update') {
+
+        this.updateShippingAddress();
+
+      }
+
+    } else {
+      this.openInvalidAddressModal(this.invalidAddressContent);
+    }
+
+
+  }
+
+  public createShippingAddress() {
+    this.accountSrv.createShippingAddress(this.addressForm.getRawValue()).subscribe(response => {
       if (!response.HasError) {
+        this.resetCreateAddressForm();
+        this.getShippingAddresses();
+        this.notificationSrv.showSuccess(response.Message);
+      } else {
+        this.notificationSrv.showError(response.Message);
+      }
+    });
+  }
+
+  public updateShippingAddress() {
+
+    const request = {
+      address1: this.address1Update.value,
+      address2: this.address2Update.value,
+      city: this.cityUpdate.value,
+      state: this.stateUpdate.value,
+      zipCode: this.zipCodeUpdate.value,
+      memberAddressId: this.memberAddressId.value
+    };
+
+    this.accountSrv.updateShippingAddress(request).subscribe(response => {
+      if (!response.HasError) {
+        this.resetUpdateAddressForm();
         this.getShippingAddresses();
         this.notificationSrv.showSuccess(response.Message);
       } else {
@@ -194,25 +283,17 @@ export class AccountMyAddressesComponent implements OnInit {
 
   }
 
-  public editShippingAddress() {
-
-  }
-
   public removeShippingAddress() {
-
-    console.log(this.selectedAddress);
 
     const request = {
       addressId: this.selectedAddress.member_address_id
     };
 
-    console.log(request);
-
     this.accountSrv.deleteAddress(request).subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
         this.notificationSrv.showSuccess(response.Message);
         this.modalDelete.close();
+        document.getElementById('linkid').click();
         this.getShippingAddresses();
       } else {
         this.notificationSrv.showError(response.Message);
@@ -223,14 +304,11 @@ export class AccountMyAddressesComponent implements OnInit {
 
   public setDefaultShippingAddress(shippingAddressId: number) {
 
-    console.log('the member address id is: ', shippingAddressId);
-
     const request = {
       addressId: shippingAddressId
     };
 
     this.accountSrv.setDefaultShippingAddress(request).subscribe((response) => {
-      console.log(response);
       if (!response.HasError) {
         this.notificationSrv.showSuccess(response.Message);
         this.getShippingAddresses();
@@ -276,6 +354,10 @@ export class AccountMyAddressesComponent implements OnInit {
   }
 
   // Getters Update Address
+
+  get memberAddressId() {
+    return this.updateAddressForm.controls.memberAddressId;
+  }
 
   get address1Update() {
     return this.updateAddressForm.controls.address1Update;

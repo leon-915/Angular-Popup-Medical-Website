@@ -56,9 +56,15 @@ export class AccountService {
     const url = `${this.serviceURl}user`;
     return this.http.put<APIResponse<boolean>>(url, accountUpdateRequest);
   }
-  addUserAddress(addAdressModel: AddAddressRequestModel) {
-    const url = `${this.serviceURl}user/address`;
+
+  createShippingAddress(addAdressModel: AddAddressRequestModel) {
+    const url = `${this.serviceURl}user/create/address`;
     return this.http.post<APIResponse<AddAddressResult>>(url, addAdressModel);
+  }
+
+  updateShippingAddress(address: any) {
+    const url = `${this.serviceURl}user/update/address`;
+    return this.http.post<APIResponse<AddAddressResult>>(url, address);
   }
 
   setDefaultShippingAddress(address: any) {
