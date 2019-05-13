@@ -104,7 +104,7 @@
     "physician_fax_input": "FAX Number",
     "check_box_lbl": "I Do Not Have A Physician",
     "advice_lbl": "This person is a child or dependent and I will manage the account for this person. He/she will not get a PopupCare login.",
-    "save_btn": "Save",
+    "save_btn": "Complete",
     "cancel_btn": "Cancel"
   },
   "my_family_edit_member": {

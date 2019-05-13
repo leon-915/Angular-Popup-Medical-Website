@@ -21,8 +21,7 @@
           <div class="form-group col-6">
             <input
               type="text"
-              class="form-control"
-              id="validationCustom01"
+              class="form-control input-bg"
               formControlName="first_name"
               placeholder="{{ 'my_family_add_dependent.first_name_input' | translate }}"
               required
@@ -34,8 +33,7 @@
           <div class="form-group col-6">
             <input
               type="text"
-              class="form-control"
-              id="validationCustom01"
+              class="form-control input-bg"
               formControlName="last_name"
               placeholder="{{ 'my_family_add_dependent.last_name_input' | translate }}"
               required
@@ -47,12 +45,15 @@
         </div>
         <div class="form-group">
           <select class="browser-default custom-select" formControlName="member_relation_type_id">
-            <option *ngFor="let item of relationTypes"> {{ 'my_family_add_dependent.relationship_default_input' | translate }}</option>
+            <option disabled="true" selected="true" value="0">
+              {{ 'my_family_add_dependent.relationship_default_input' | translate }}
+            </option>
+            <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}">{{ item.display_value }}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="confirm">{{ 'my_family_add_dependent.gender_lbl' | translate }}</label>
-          <select class="browser-default custom-select" formControlName="gender_id">
+          <label>{{ 'my_family_add_dependent.gender_lbl' | translate }}</label>
+          <select class="browser-default custom-select input-bg" formControlName="gender_id">
             <option disabled="true" selected="true" value="0"> {{ 'my_family_add_dependent.gender_default_input' | translate }}</option>
             <option *ngFor="let item of genderList" value="{{ item.gender_id }}"> {{ item.gender }}</option>
           </select>
@@ -95,8 +96,7 @@
           <div class="form-group col-6">
             <input
               type="text"
-              class="form-control"
-              id="validationCustom01"
+              class="form-control input-bg"
               placeholder="{{ 'my_family_add_dependent.first_name_input' | translate }}"
               formControlName="physicianFirstName"
               required
@@ -111,8 +111,7 @@
           <div class="form-group col-6">
             <input
               type="text"
-              class="form-control"
-              id="validationCustom01"
+              class="form-control input-bg"
               placeholder="{{ 'my_family_add_dependent.last_name_input' | translate }}"
               formControlName="physicianLastName"
               required
@@ -128,8 +127,7 @@
         <div class="form-group">
           <input
             type="text"
-            class="form-control"
-            id="validationCustom01"
+            class="form-control input-bg"
             placeholder="{{ 'my_family_add_dependent.physician_phonenumber_input' | translate }}"
             formControlName="physicianPhoneNumber"
             mask="(000) 000-0000"
@@ -146,8 +144,7 @@
         <div class="form-group">
           <input
             type="text"
-            class="form-control"
-            id="validationCustom01"
+            class="form-control input-bg"
             placeholder="{{ 'my_family_add_dependent.physician_fax_input' | translate }}"
             formControlName="physicianFaxNumber"
             mask="(000) 000-0000"

@@ -39,7 +39,7 @@ export class AddDependentComponent implements OnInit {
       {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
-        member_relation_type_id: [{ value: 'Dependent', disabled: true }, [Validators.required, Validators.min(1)]],
+        member_relation_type_id: [{ value: 2, disabled: true }, [Validators.required, Validators.min(1)]],
         birthday: [''],
         day: ['0'],
         month: ['0'],
@@ -59,6 +59,7 @@ export class AddDependentComponent implements OnInit {
   ngOnInit() {
     this.genderList = JSON.parse(localStorage.getItem('genderList'));
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
+    console.log(this.relationTypes);
   }
   showPysicianControl() {
     this.addMemberForm.controls.havePhysician.valueChanges.subscribe(status => {
@@ -101,13 +102,6 @@ export class AddDependentComponent implements OnInit {
     this.formatDateOfBirth();
 
     const formData = this.addMemberForm.getRawValue();
-    return console.log(JSON.stringify(formData));
-    /*
-    const date = new Date(personalData.date_of_birth);
-
-    this.day.setValue(date.getDate().toString());
-    this.month.setValue(date.getMonth() + 1);
-    this.year.setValue(date.getFullYear().toString());*/
     this.myFamilySrv.addDependent(formData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
