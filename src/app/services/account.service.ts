@@ -27,7 +27,7 @@ export class AccountService {
   private userEmail: string;
   private userEmailMasked: string;
 
-  constructor(private commonSrv: CommonService, private http: HttpClient) {}
+  constructor(private commonSrv: CommonService, private http: HttpClient) { }
   serviceURl: string = this.commonSrv.apiURL + 'en/';
 
   // tslint:disable-next-line: variable-name
@@ -60,9 +60,15 @@ export class AccountService {
     const url = `${this.serviceURl}user/address`;
     return this.http.post<APIResponse<AddAddressResult>>(url, addAdressModel);
   }
-  deleteAddress(addressId: number) {
-    const url = `${this.serviceURl}user/address/${addressId}`;
-    return this.http.delete<APIResponse<boolean>>(url);
+
+  setDefaultShippingAddress(address: any) {
+    const url = `${this.serviceURl}user/address/default`;
+    return this.http.post<APIResponse<any>>(url, address);
+  }
+
+  deleteAddress(address: any) {
+    const url = `${this.serviceURl}user/delete/address`;
+    return this.http.post<APIResponse<boolean>>(url, address);
   }
 
   // Reset password

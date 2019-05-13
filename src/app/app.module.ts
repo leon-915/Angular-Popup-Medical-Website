@@ -62,14 +62,11 @@ import {
   AccountSecurityComponent,
   AddMemberComponent,
   AddDependentComponent,
-  AllergiesComponent,
-  ConditionsComponent,
   EditInvitationComponent,
   FamilyEditComponent,
   GuestEditComponent,
   InvoiceGeneratorComponent,
   LoginComponent,
-  MedicationsComponent,
   MyHomeComponent,
   OnboardingCompleteComponent,
   OnboardingComponent,
@@ -83,12 +80,6 @@ import {
   ResetPasswordStep2Component,
   ResetPasswordStep3Component,
   SignupComponent,
-  SignupStep1Component,
-  SignupStep2Component,
-  SignupStep3Component,
-  SignupStep4Component,
-  SignupStep5Component,
-  SignupStep6Component,
   SignupConfirmComponent,
   ShippingInformationComponent,
   ConfirmationStackedModalComponent,
@@ -100,8 +91,11 @@ import {
   BillingInformationComponent,
   OrderConfirmationComponent,
   MedicalHistoryComponent,
-  MembershipCardComponent
+  MembershipCardComponent,
+  AccountMyProfileComponent,
+  AccountMyAddressesComponent
 } from './components/index';
+
 
 /* COMPONENTS */
 
@@ -141,8 +135,6 @@ import { TranslatePipe } from './translator/translate.pipe';
 
 /* SHARED */
 import { CookieConsentComponent, LoaderComponent } from './shared';
-import { AccountMyProfileComponent } from './components/account-dashboard/account-my-profile/account-my-profile.component';
-import { AccountMyAddressesComponent } from './components/account-dashboard/account-my-addresses/account-my-addresses.component';
 /* SHARED */
 
 export function setupTranslateFactory(service: TranslateService) {
@@ -177,20 +169,11 @@ export function setupTranslateFactory(service: TranslateService) {
     ResetPasswordStep3Component,
     SignupComponent,
     SignupConfirmComponent,
-    SignupStep1Component,
-    SignupStep2Component,
-    SignupStep3Component,
-    SignupStep4Component,
-    SignupStep5Component,
-    SignupStep6Component,
     ShippingInformationComponent,
     OnlyNumbersDirective,
     MyHomeComponent,
     OnboardingComponent,
     PersonalInformationComponent,
-    AllergiesComponent,
-    ConditionsComponent,
-    MedicationsComponent,
     PrimaryPharmacyComponent,
     OnboardingCompleteComponent,
     InvoiceGeneratorComponent,
@@ -291,4 +274,4 @@ export function setupTranslateFactory(service: TranslateService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
