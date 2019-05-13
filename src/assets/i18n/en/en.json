@@ -81,7 +81,7 @@
     "first_name_input": "First name",
     "last_name_input": "Last name",
     "relationship_lbl": "Relationship to Primary Member",
-    "relationship_default_input": "select an option",
+    "relationship_default_input": "Legal dependent",
     "email_input": "Email",
     "submit_btn": "Submit",
     "cancel_btn": "Cancel",

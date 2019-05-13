@@ -115,6 +115,8 @@
             id="validationCustom01"
             placeholder="{{ 'my_family_add_dependent.physician_phonenumber_input' | translate }}"
             formControlName="physicianPhoneNumber"
+            mask="(000) 000-0000"
+            appOnlyNumbers="true"
             required
           />
           <p
@@ -131,6 +133,8 @@
             id="validationCustom01"
             placeholder="{{ 'my_family_add_dependent.physician_fax_input' | translate }}"
             formControlName="physicianFaxNumber"
+            mask="(000) 000-0000"
+            appOnlyNumbers="true"
             required
           />
           <p
@@ -142,7 +146,7 @@
         </div>
 
         <div class="form-check">
-          <mat-checkbox formControlName="isDependent">
+          <mat-checkbox formControlName="havePhysician" (click)="showPysicianControl()">
             {{ 'my_family_add_dependent.check_box_lbl' | translate }}
           </mat-checkbox>
         </div>

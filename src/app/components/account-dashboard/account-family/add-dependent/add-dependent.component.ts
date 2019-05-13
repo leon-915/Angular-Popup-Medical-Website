@@ -15,7 +15,7 @@ import * as moment from 'moment';
 })
 export class AddDependentComponent implements OnInit {
   relationId: number;
-  isNewDependant = true;
+
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   genderList: GenderModel[];
@@ -35,13 +35,14 @@ export class AddDependentComponent implements OnInit {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         member_relation_type_id: [{ value: 'Dependent', disabled: true }, [Validators.required, Validators.min(1)]],
-        isDependent: [{ value: true, disabled: true }, [Validators.required]],
         birthday: [moment().format('YYYY-MM-DD'), []],
-        physicianFirstName: ['', [Validators.required]],
-        physicianLastName: ['', [Validators.required]],
-        physicianPhoneNumber: ['', [Validators.required]],
-        physicianFaxNumber: ['', [Validators.required]],
-        gender_id: [0, [Validators.required, Validators.min(1)]]
+        gender_id: [0, [Validators.required, Validators.min(1)]],
+
+        havePhysician: [false, [Validators.required]],
+        physicianFirstName: [{ value: '', disabled: false }, [Validators.required]],
+        physicianLastName: [{ value: '', disabled: false }, [Validators.required]],
+        physicianPhoneNumber: [{ value: '', disabled: false }, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+        physicianFaxNumber: [{ value: '', disabled: false }, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
       },
       {}
     );
@@ -51,7 +52,43 @@ export class AddDependentComponent implements OnInit {
     this.genderList = JSON.parse(localStorage.getItem('genderList'));
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
   }
+  showPysicianControl() {
+    this.addMemberForm.controls.havePhysician.valueChanges.subscribe(status => {
+      console.log(status);
+      if (!status) {
+        this.physicianFirstName.setValue('');
+        this.physicianFirstName.setValidators([Validators.required]);
+        this.physicianFirstName.enable();
+        this.physicianLastName.setValue('');
+        this.physicianLastName.setValidators([Validators.required]);
+        this.physicianLastName.enable();
+        this.physicianPhoneNumber.setValue('');
+        this.physicianPhoneNumber.setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+        this.physicianPhoneNumber.enable();
+        this.physicianFaxNumber.setValue('');
+        this.physicianFaxNumber.setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+        this.physicianFaxNumber.enable();
+      } else {
+        this.physicianFirstName.setValue('');
+        this.physicianFirstName.disable();
+        this.physicianFirstName.setValidators(null);
+        this.physicianLastName.setValue('');
+        this.physicianLastName.disable();
+        this.physicianLastName.setValidators(null);
+        this.physicianPhoneNumber.setValue('');
+        this.physicianPhoneNumber.setValidators(null);
+        this.physicianPhoneNumber.disable();
+        this.physicianFaxNumber.setValue('');
+        this.physicianFaxNumber.setValidators(null);
+        this.physicianFaxNumber.disable();
+      }
 
+      this.physicianFirstName.updateValueAndValidity();
+      this.physicianLastName.updateValueAndValidity();
+      this.physicianPhoneNumber.updateValueAndValidity();
+      this.physicianFaxNumber.updateValueAndValidity();
+    });
+  }
   addDependentMember() {
     const formData = this.addMemberForm.getRawValue();
     this.myFamilySrv.addDependent(formData).subscribe(res => {
@@ -87,8 +124,8 @@ export class AddDependentComponent implements OnInit {
   get birthday() {
     return this.addMemberForm.get('birthday');
   }
-  get isDependent() {
-    return this.addMemberForm.get('isDependent').value;
+  get havePhysician() {
+    return this.addMemberForm.get('havePhysician').value;
   }
 
   get physicianFirstName() {
@@ -101,6 +138,6 @@ export class AddDependentComponent implements OnInit {
     return this.addMemberForm.get('physicianPhoneNumber');
   }
   get physicianFaxNumber() {
-    return this.addMemberForm.get('physicianFaxNumber').value;
+    return this.addMemberForm.get('physicianFaxNumber');
   }
 }
