@@ -8,7 +8,6 @@
 
     <form [formGroup]="addMemberForm" (ngSubmit)="editFamilyMember()">
       <div class="form-group">
-        <label for="validationCustom01">{{ 'my_family_edit_member.first_name_input' | translate }}</label>
         <input
           type="text"
           class="form-control"
@@ -17,12 +16,8 @@
           placeholder="{{ 'my_family_edit_member.first_name_input' | translate }}"
           required
         />
-        <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
-          {{ 'form_errors.first_name_required' | translate }}
-        </p>
       </div>
       <div class="form-group">
-        <label for="validationCustom01">{{ 'my_family_edit_member.last_name_input' | translate }}</label>
         <input
           type="text"
           class="form-control"
@@ -31,47 +26,18 @@
           placeholder="{{ 'my_family_edit_member.last_name_input' | translate }}"
           required
         />
-        <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
-          {{ 'form_errors.last_name_required' | translate }}
-        </p>
+      </div>
+      <div class="form-group" *ngIf="showEmail">
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustom01"
+          formControlName="email"
+          placeholder="{{ 'my_family_edit_member.email_input' | translate }}"
+          required
+        />
       </div>
 
-      <div class="form-group">
-        <label for="confirm">{{ 'my_family_edit_member.relationship_lbl' | translate }}</label>
-        <select class="browser-default custom-select" formControlName="member_relation_type_id">
-          <option selected="true" value="0">{{ 'my_family_edit_member.relationship_default_input' | translate }}</option>
-          <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}"> {{ item.display_value }}</option>
-        </select>
-      </div>
-      <div *ngIf="showGender">
-        <div class="form-group">
-          <label for="confirm">{{ 'my_family_edit_member.gender_lbl' | translate }}</label>
-          <select class="browser-default custom-select" formControlName="gender_id">
-            <option selected="true" value="0">{{ 'my_family_edit_member.gender_default_input' | translate }}</option>
-            <option *ngFor="let item of genderList" value="{{ item.gender_id }}"> {{ item.gender }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="validationCustom02"> {{ 'my_family_edit_member.date_of_birth_input' | translate }}Date of Birth</label>
-        <input type="date" class="form-control" id="validationCustom03" placeholder="" formControlName="birthday" required />
-        <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
-          {{ 'form_errors.date_of_birth_required' | translate }}
-        </p>
-      </div>
-
-      <div class="row">
-        <div class="col d-flex justify-content-center">
-          <button type="button" class="btn btn-primary btn-block" (click)="modal.close('Action Canceled')">
-            {{ 'my_family_edit_member.cancel_btn' | translate }}
-          </button>
-        </div>
-        <div class="col d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
-            {{ 'my_family_edit_member.save_btn' | translate }}
-          </button>
-        </div>
-      </div>
       <span (click)="removeInvitation()">{{ 'my_family_edit_member.remove_btn' | translate }}</span>
     </form>
   </div>

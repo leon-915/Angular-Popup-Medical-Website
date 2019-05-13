@@ -108,7 +108,6 @@ export class AccountFamilyComponent implements OnInit {
   }
   removeMember(index: number, isGuest: boolean) {
     const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
-      size: 'lg',
       centered: true
     });
 

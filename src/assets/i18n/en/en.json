@@ -111,6 +111,7 @@
     "title_lbl": "Phamily Member",
     "first_name_input": "First name",
     "last_name_input": "Last name",
+    "email_input": "Email",
     "relationship_lbl": "Relationship to Primary Member",
     "relationship_default_input": "select an option",
     "date_of_birth_input": "Date of Birth",

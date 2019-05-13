@@ -27,6 +27,8 @@ export class FamilyEditComponent implements OnInit {
   // tslint:disable-next-line: ban-types
   @Output() action: EventEmitter<Object> = new EventEmitter<Object>();
   showGender = true;
+  showEmail = false;
+
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   guestRelationTypes: RelationType[];
@@ -49,12 +51,13 @@ export class FamilyEditComponent implements OnInit {
       {
         member_id: ['', []],
         member_relation_id: ['', []],
-        first_name: ['', [Validators.required]],
-        last_name: ['', [Validators.required]],
-        member_relation_type_id: [{ value: 0, disabled: this.showGender }, [Validators.required, Validators.min(1)]],
-        gender_id: [0, [Validators.required, Validators.min(1)]],
+        first_name: [{ value: '', disabled: true }, [Validators.required]],
+        last_name: [{ value: '', disabled: true }, [Validators.required]],
+        email: [{ value: '', disabled: true }, [Validators.required]],
+        member_relation_type_id: [0, []],
+        gender_id: [0, []],
         isDependent: [false, []],
-        birthday: [Date(), [Validators.required]]
+        birthday: [Date(), []]
       },
       {}
     );
@@ -90,7 +93,6 @@ export class FamilyEditComponent implements OnInit {
   }
   removeInvitation() {
     const confirmationModal: NgbModalRef = this.modalSvr.open(ConfirmationStackedModalComponent, {
-      size: 'lg',
       centered: true
     });
     (confirmationModal.componentInstance as ConfirmationStackedModalComponent).confirmationWording = `Are you sure
@@ -126,20 +128,20 @@ export class FamilyEditComponent implements OnInit {
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
-    this.modalReference = this.modalSvr.open(content, {
-      size: 'lg'
-    });
+    this.modalReference = this.modalSvr.open(content);
 
     if (!isNaN(this.relationId)) {
       this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
         if (!res.HasError) {
           this.familyUser = res.Result;
           this.showGender = this.familyUser.has_login;
+          this.showEmail = this.familyUser.has_login;
           this.addMemberForm.setValue({
             member_id: this.familyUser.subscriber_member_id,
             member_relation_id: this.familyUser.member_relation_id,
             first_name: this.familyUser.first_name,
             last_name: this.familyUser.last_name,
+            email: this.familyUser.email ? this.familyUser.email : '',
             member_relation_type_id: this.familyUser.member_relation_type_id,
             gender_id: this.familyUser.gender_id,
             isDependent: false,
