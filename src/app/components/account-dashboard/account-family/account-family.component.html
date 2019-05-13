@@ -17,7 +17,7 @@
       <div class="card my-family-card">
         <div class="card-header family-card-warning-header">
           <div class="row  justify-content-between ">
-            <div class="col" style="padding-left: .75rem;">
+            <div class="col" style="text-align: left;">
               <label class=" my-family-box-title-left">{{ 'my_family.my_profile_title_lbl' | translate }}</label>
             </div>
             <div class="col" style="text-align: right; padding-right: .75rem">
@@ -42,7 +42,7 @@
       <div class="card my-family-card">
         <div class="card-header  family-card-success-header">
           <div class="row  justify-content-between ">
-            <div class="col">
+            <div class="col" style="text-align: left;">
               <label class=" my-family-box-title-left">{{ member.display_value }}</label>
             </div>
             <div class="col" style="text-align: right;">
@@ -56,10 +56,10 @@
               {{ 'my_family.pending_invitation_lbl' | translate }}
             </span>
             <p class="card-content mb-0 pt-0 my-family-box-member-name">
-              {{ member.first_name ? member.first_name : ' ' }}
+              {{ member.first_name ? member.first_name : ' ' }} {{ member.last_name ? member.last_name : ' ' }}
             </p>
             <p class="card-content mb-0 pt-0 my-family-box-member-email">
-              {{ member.email ? member.email : ' ' }}
+              {{ member.email ? member.email : 'legal dependent' }}
             </p>
           </div>
           <div *ngIf="member.is_active; else notActive">
@@ -90,7 +90,7 @@
       <div class="card my-family-card">
         <div class="card-header family-card-default-header">
           <div class="row  justify-content-between ">
-            <div class="col">
+            <div class="col" style="text-align: left;">
               <label class=" my-family-box-title-left">{{ member.display_value }}</label>
             </div>
             <div class="col" style="text-align: right;">
@@ -104,7 +104,7 @@
               {{ 'my_family.pending_invitation_lbl' | translate }}
             </span>
             <p class="card-content mb-0 pt-0 my-family-box-member-name">
-              {{ member.first_name }}
+              {{ member.first_name ? member.first_name : ' ' }} {{ member.last_name ? member.last_name : ' ' }}
             </p>
             <p class="card-content mb-0 pt-0 my-family-box-member-email">
               {{ member.email ? member.email : ' ' }}
@@ -122,7 +122,7 @@
       <div class="card my-family-card" style=" box-shadow: none !important;">
         <div class="card-header family-card-unavailable-header">
           <div class="row  justify-content-between ">
-            <div class="col">
+            <div class="col" style="text-align: left;">
               <label class=" my-family-box-title-left">Add</label>
             </div>
             <div class="col" style="text-align: right;">
