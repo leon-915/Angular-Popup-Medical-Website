@@ -17,3 +17,4 @@ export * from './date.service';
 export * from './menu.service';
 export * from './payment-provider.service';
 export * from './address-validation.service';
+export * from './dashboard.service';

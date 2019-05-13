@@ -37,9 +37,7 @@
 
           <div class="card-body hub-card-body-green text-center">
             <div class="mb-2" style="vertical-align: middle;">
-              <span>
-                {{ 'my_hub.col1_box2_body1_lbl' | translate }}
-              </span>
+              <span> {{ 'my_hub.col1_box2_body1_lbl' | translate }} {{ renewalDate }} </span>
               <div class="row justify-content-center">
                 <div class="mr-2">
                   <button type="button" class="btn-success-outline">icon</button>
@@ -69,11 +67,11 @@
             <div class="mb-2" style=" vertical-align: middle;">
               <div>
                 <span> {{ 'my_hub.col1_box3_body1_lbl' | translate }} </span>
-                2 of 5
+                {{ addedMembers }}
               </div>
               <div>
                 <span> {{ 'my_hub.col1_box3_body2_lbl' | translate }} </span>
-                2
+                {{ addedGuests }}
               </div>
             </div>
             <button class="my-hub-link-btn" (click)="goToRoute('MyPhamily')">
@@ -143,11 +141,11 @@
           <div class="card-body hub-card-body-green  text-center">
             <div class="mb-2" style=" vertical-align: middle;">
               <div>
-                <span> {{ 'my_hub.col3_box1_body1_lbl1' | translate }} </span> 2
+                <span> {{ 'my_hub.col3_box1_body1_lbl1' | translate }} </span> {{ openOrders }}
               </div>
               <button type="button" class="btn-success-outline">{{ 'my_hub.col3_box1_btn1' | translate }}</button>
               <div>
-                <span> {{ 'my_hub.col3_box1_body1_lbl2' | translate }} </span> 2
+                <span> {{ 'my_hub.col3_box1_body1_lbl2' | translate }} </span> {{ completedOrders }}
               </div>
               <button class="my-hub-link-btn">
                 {{ 'my_hub.col3_box1_btn2' | translate }}<i class="material-icons">keyboard_arrow_right</i>
@@ -189,7 +187,7 @@
             <div class="mb-2" style=" vertical-align: middle;"></div>
             <div class="row single-line-row">
               <button type="button" class="myhub-credits-available-outline">
-                2
+                {{ aviableCredits }}
               </button>
               <span class="my-hub-my-credits">{{ 'my_hub.col3_box3_body1_lbl1' | translate }}</span>
             </div>
