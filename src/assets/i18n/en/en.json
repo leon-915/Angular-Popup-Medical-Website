@@ -108,7 +108,7 @@
     "cancel_btn": "Cancel"
   },
   "my_family_edit_member": {
-    "title_lbl": "Edit Family Member",
+    "title_lbl": "Phamily Member",
     "first_name_input": "First name",
     "last_name_input": "Last name",
     "relationship_lbl": "Relationship to Primary Member",
