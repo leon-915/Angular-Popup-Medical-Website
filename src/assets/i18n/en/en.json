@@ -416,5 +416,26 @@
     "my_security": "My Security",
     "payment_method": "Payment Method",
     "preferences": "Preferences"
+  },
+  "my_addresses": {
+    "title": "My Addresses",
+    "primary_shipping": "Primay Shipping",
+    "make_primary": "Make Primary",
+    "shipping": "Shipping",
+    "add_new_address": "Add New Address",
+    "edit_btn": "EDIT",
+    "add_shipping_address_btn": "ADD SHIPPING ADDRESS",
+    "edit_address_title": "Edit Address",
+    "save_btn": "SAVE",
+    "cancel_btn": "CANCEL",
+    "remove_address_btn": "Remove Address",
+    "remove_text": "Are you sure you want to remove this Address?",
+    "confirm_btn": "CONFIRM"
+  },
+  "address_validation_modal": {
+    "title": "We can't confirm this address.",
+    "subtitle": "Please double-check the address you entered",
+    "confirm_address_btn": "Keep Address as Entered",
+    "edit_address_btn": "Edit This Address"
   }
 }
