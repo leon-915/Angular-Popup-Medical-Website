@@ -31,6 +31,7 @@ export class AccountDashboardComponent implements OnInit {
     this.menuService.member_type_id_obs().subscribe(result => {
       this.member_type_id = result;
     });
+    this.menuService.updateStatus();
   }
 
   ngOnInit() {

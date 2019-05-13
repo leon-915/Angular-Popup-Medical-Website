@@ -58,7 +58,7 @@
       </div>
 
       <!-- MY care Phamily -->
-      <div class="my-hub-div-card">
+      <div class="my-hub-div-card" *ngIf="member_type_id == 1">
         <div class="card my-hub-card-green">
           <div class="card-header hub-card-title text-center">
             <span class="my-hub-box-title"> {{ 'my_hub.col1_box3_title_lbl' | translate }} </span>
@@ -177,7 +177,7 @@
         </div>
       </div>
       <!-- My Rx Credits -->
-      <div class="my-hub-div-card">
+      <div class="my-hub-div-card" *ngIf="member_type_id == 1">
         <div class="card my-hub-card-green">
           <div class="card-header hub-card-title text-center">
             <span class="my-hub-box-title">{{ 'my_hub.col3_box3_title_lbl' | translate }} </span>
