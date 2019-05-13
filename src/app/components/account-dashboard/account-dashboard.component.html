@@ -73,8 +73,8 @@
                 <span> {{ 'my_hub.col1_box3_body2_lbl' | translate }} {{ addedGuests }}</span>
               </div>
             </div>
-            <button class="my-hub-link-btn">
-              {{ 'my_hub.col1_box2_btn1' | translate }}<i class="material-icons">keyboard_arrow_right</i>
+            <button type="button" class="my-hub-link-btn" (click)="goToRoute('MyPhamily')">
+              {{ 'my_hub.col1_box3_btn1' | translate }}<i class="material-icons">keyboard_arrow_right</i>
             </button>
           </div>
         </div>
