@@ -107,6 +107,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
         console.error('error loading map', error);
       });
   }
+
   createShippingAddress() {
     if (this.shippingAdressList.length < 1) {
       this.newAddressForm.patchValue({
@@ -114,7 +115,7 @@ export class AccountInformationComponent implements OnInit, AfterViewInit {
       });
     }
     const newAdress = this.newAddressForm.getRawValue();
-    this.accountSrv.addUserAddress(newAdress).subscribe(res => {
+    this.accountSrv.createShippingAddress(newAdress).subscribe(res => {
       if (!res.HasError) {
         const userData = res.Result;
         this.shippingAdressList = userData.userShippings;
