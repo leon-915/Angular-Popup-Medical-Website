@@ -12,7 +12,7 @@ export class AccountDashboardComponent implements OnInit {
   isNormaluser = true;
   // tslint:disable-next-line: variable-name
   member_type_id: number;
-  renewalDate: string;
+  renewalDate = '';
   addedMembers: string;
   addedGuests: number;
   openOrders: number;
@@ -40,14 +40,15 @@ export class AccountDashboardComponent implements OnInit {
         const memberPlan = res.Result.memberPlan;
         const activeFamilyUsers = res.Result.activeFamilyUsers;
         const activeFamilyUsersCount = activeFamilyUsers.length;
-        this.renewalDate = moment(memberPlan.end_date).format('MM/DD/YYYY');
         this.completedOrders = res.Result.completedOrders.count;
         this.openOrders = res.Result.procesingOrders.count;
         this.addedGuests = res.Result.activeGuestUsers.length;
+        if (memberPlan) {
+          this.renewalDate = moment(memberPlan.end_date).format('MM/DD/YYYY');
+          this.addedMembers = `${activeFamilyUsersCount + this.addedGuests} of ${memberPlan.user_limit}`;
+        }
         // get this from the end point
         this.aviableCredits = 2;
-
-        this.addedMembers = `${activeFamilyUsersCount + this.addedGuests} of ${memberPlan.user_limit}`;
       } else {
         this.notificationSrv.showError(res.Message);
       }

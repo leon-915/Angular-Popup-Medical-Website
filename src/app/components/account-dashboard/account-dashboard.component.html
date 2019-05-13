@@ -16,7 +16,7 @@
           </div>
 
           <div class="card-body text-center">
-            <div class="mb-2" style="vertical-align: middle;">
+            <div class="mb-2 h-100" style="vertical-align: middle;">
               <img src="../../../assets/images/on-demand.png" alt="On Demand Care" />
               <p class="mb-0 pt-0 my-hub-box-text">
                 {{ 'my_hub.col1_box1_body1_lbl' | translate }}
@@ -36,7 +36,7 @@
           </div>
 
           <div class="card-body hub-card-body-green text-center">
-            <div class="mb-2" style="vertical-align: middle;">
+            <div class="mb-2 h-100" style="vertical-align: middle;">
               <span> {{ 'my_hub.col1_box2_body1_lbl' | translate }} {{ renewalDate }} </span>
               <div class="row justify-content-center">
                 <div class="mr-2">
@@ -61,21 +61,20 @@
       <div class="my-hub-div-card" *ngIf="member_type_id == 1">
         <div class="card my-hub-card-green">
           <div class="card-header hub-card-title text-center">
-            <span class="my-hub-box-title"> {{ 'my_hub.col1_box3_title_lbl' | translate }} </span>
+            <span class="my-hub-box-title"> {{ 'my_hub.col1_box3_title_lbl' | translate }}</span>
           </div>
+
           <div class="card-body hub-card-body-green text-center">
-            <div class="mb-2" style=" vertical-align: middle;">
+            <div class="mb-2 h-100" style="vertical-align: middle;">
               <div>
-                <span> {{ 'my_hub.col1_box3_body1_lbl' | translate }} </span>
-                {{ addedMembers }}
+                <span> {{ 'my_hub.col1_box3_body1_lbl' | translate }} {{ addedMembers }} </span>
               </div>
-              <div>
-                <span> {{ 'my_hub.col1_box3_body2_lbl' | translate }} </span>
-                {{ addedGuests }}
+              <div class="row justify-content-center">
+                <span> {{ 'my_hub.col1_box3_body2_lbl' | translate }} {{ addedGuests }}</span>
               </div>
             </div>
-            <button class="my-hub-link-btn" (click)="goToRoute('MyPhamily')">
-              {{ 'my_hub.col1_box3_btn1' | translate }}<i class="material-icons">keyboard_arrow_right</i>
+            <button class="my-hub-link-btn">
+              {{ 'my_hub.col1_box2_btn1' | translate }}<i class="material-icons">keyboard_arrow_right</i>
             </button>
           </div>
         </div>
@@ -139,12 +138,12 @@
           </div>
 
           <div class="card-body hub-card-body-green  text-center">
-            <div class="mb-2" style=" vertical-align: middle;">
-              <div>
+            <div class="mb-2 h-100" style=" vertical-align: middle;">
+              <div class="mb-2">
                 <span> {{ 'my_hub.col3_box1_body1_lbl1' | translate }} </span> {{ openOrders }}
               </div>
               <button type="button" class="btn-success-outline">{{ 'my_hub.col3_box1_btn1' | translate }}</button>
-              <div>
+              <div class="mb-2 mt-2">
                 <span> {{ 'my_hub.col3_box1_body1_lbl2' | translate }} </span> {{ completedOrders }}
               </div>
               <button class="my-hub-link-btn">
@@ -161,18 +160,15 @@
           <div class="card-header hub-card-title text-center">
             <span class="my-hub-box-title">{{ 'my_hub.col3_box2_title_lbl' | translate }} </span>
           </div>
-
           <div class="card-body hub-card-body-green text-center">
-            <div class="mb-2" style="vertical-align: middle;">
+            <div class="mb-4 h-100" style="vertical-align: middle;">
               <div>
                 <span> {{ 'my_hub.col3_box2_body1_lbl1' | translate }} </span>
               </div>
-              <div>
-                <button type="button" class="btn-success-outline" (click)="goToRoute('MyInfo')">
-                  {{ 'my_hub.col3_box2_btn1' | translate }}
-                </button>
-              </div>
             </div>
+            <button type="button" class="btn-success-outline" (click)="goToRoute('MyInfo')">
+              {{ 'my_hub.col3_box2_btn1' | translate }}
+            </button>
           </div>
         </div>
       </div>
@@ -184,7 +180,7 @@
           </div>
 
           <div class="card-body hub-card-body-green text-center">
-            <div class="mb-2" style=" vertical-align: middle;"></div>
+            <div class="mb-2 h-100" style=" vertical-align: middle;"></div>
             <div class="row single-line-row">
               <button type="button" class="myhub-credits-available-outline">
                 {{ aviableCredits }}
