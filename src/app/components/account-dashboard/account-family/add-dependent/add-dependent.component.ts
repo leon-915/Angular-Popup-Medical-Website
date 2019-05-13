@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData } from 'src/app/services';
+import { AccountService, NotificationService, MyFamilyService, MyFamilyPersistData, DateService } from 'src/app/services';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 
 import { RelationType, FamilyUser } from 'src/app/models/myFamily.model';
@@ -19,6 +19,9 @@ export class AddDependentComponent implements OnInit {
   addMemberForm: FormGroup;
   relationTypes: RelationType[];
   genderList: GenderModel[];
+  public days = [];
+  public months = [];
+  public years = [];
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +29,8 @@ export class AddDependentComponent implements OnInit {
     private myFamilySrv: MyFamilyService,
     private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
+    private dateSrv: DateService,
+
     private reCaptchaV3Service: ReCaptchaV3Service,
     private activatedRoute: ActivatedRoute,
     private router: Router
@@ -35,9 +40,11 @@ export class AddDependentComponent implements OnInit {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         member_relation_type_id: [{ value: 'Dependent', disabled: true }, [Validators.required, Validators.min(1)]],
-        birthday: [moment().format('YYYY-MM-DD'), []],
+        birthday: [''],
+        day: ['0'],
+        month: ['0'],
+        year: ['0'],
         gender_id: [0, [Validators.required, Validators.min(1)]],
-
         havePhysician: [false, [Validators.required]],
         physicianFirstName: [{ value: '', disabled: false }, [Validators.required]],
         physicianLastName: [{ value: '', disabled: false }, [Validators.required]],
@@ -46,6 +53,7 @@ export class AddDependentComponent implements OnInit {
       },
       {}
     );
+    this.getDateInfo();
   }
 
   ngOnInit() {
@@ -90,7 +98,16 @@ export class AddDependentComponent implements OnInit {
     });
   }
   addDependentMember() {
+    this.formatDateOfBirth();
+
     const formData = this.addMemberForm.getRawValue();
+    return console.log(JSON.stringify(formData));
+    /*
+    const date = new Date(personalData.date_of_birth);
+
+    this.day.setValue(date.getDate().toString());
+    this.month.setValue(date.getMonth() + 1);
+    this.year.setValue(date.getFullYear().toString());*/
     this.myFamilySrv.addDependent(formData).subscribe(res => {
       if (!res.HasError) {
         this.notificationSrv.showSuccess(res.Message);
@@ -100,6 +117,25 @@ export class AddDependentComponent implements OnInit {
       }
     });
   }
+  getDateInfo() {
+    this.dateSrv.getDateInfo().subscribe(
+      response => {
+        if (!response.HasError) {
+          this.days = response.Result.days;
+          this.months = response.Result.months;
+          this.years = response.Result.years;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  formatDateOfBirth() {
+    const dateOfBirthUpdated = new Date(this.year.value.toString(), this.month.value - 1, this.day.value.toString());
+    this.birthday.setValue(dateOfBirthUpdated);
+  }
+
   cancel() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
@@ -123,6 +159,17 @@ export class AddDependentComponent implements OnInit {
   }
   get birthday() {
     return this.addMemberForm.get('birthday');
+  }
+  get day() {
+    return this.addMemberForm.get('day');
+  }
+
+  get month() {
+    return this.addMemberForm.get('month');
+  }
+
+  get year() {
+    return this.addMemberForm.get('year');
   }
   get havePhysician() {
     return this.addMemberForm.get('havePhysician').value;

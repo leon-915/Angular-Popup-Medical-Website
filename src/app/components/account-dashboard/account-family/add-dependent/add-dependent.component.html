@@ -1,12 +1,14 @@
 <div class="row justify-content-around  h-100 mt-5">
-  <div class="col-sm-3  my-auto .hub-container">
+  <div class="col-sm-3  my-auto hub-container">
     <div (click)="goToDashboard()">
       <label class="my-hub"><i class="material-icons"> arrow_back </i>{{ 'my_family.hub_lbl' | translate }}</label>
     </div>
   </div>
 
   <div class="col-lg-6 text-center  my-auto">
-    <label class="my-family-title">{{ 'my_family_add_dependent.title_lbl' | translate }}</label>
+    <div class="mb-0">
+      <label class="my-family-title">{{ 'my_family_add_dependent.title_lbl' | translate }}</label>
+    </div>
     <label for="validationCustom01">{{ 'my_family_add_dependent.sub_title_lbl' | translate }}</label>
   </div>
   <div class="col-sm-3"></div>
@@ -51,30 +53,45 @@
         <div class="form-group">
           <label for="confirm">{{ 'my_family_add_dependent.gender_lbl' | translate }}</label>
           <select class="browser-default custom-select" formControlName="gender_id">
-            <option selected="true" value="0"> {{ 'my_family_add_dependent.gender_default_input' | translate }}</option>
+            <option disabled="true" selected="true" value="0"> {{ 'my_family_add_dependent.gender_default_input' | translate }}</option>
             <option *ngFor="let item of genderList" value="{{ item.gender_id }}"> {{ item.gender }}</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="validationCustom02">{{ 'my_family_add_dependent.date_of_birth_input' | translate }}</label>
-          <input
-            type="date"
-            class="form-control"
-            id="validationCustom03"
-            placeholder="{{ 'my_family_add_dependent.date_of_birth_input' | translate }}"
-            formControlName="birthday"
-            required
-          />
-          <p class="mt-1 text-danger" *ngIf="(birthday.dirty || birthday.touched) && !!birthday.errors?.required">
-            {{ 'form_errors.date_of_birth_required' | translate }}
-          </p>
+        <div class="form-group text-center">
+          <p class="profile-edit-title">{{ 'my_profile.date_of_birth' | translate }}:</p>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <select class="form-control input-bg" formControlName="month">
+                  <option disabled="true" selected="true" value="0">MM</option>
+                  <option [ngValue]="month.id" *ngFor="let month of months">{{ month.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 ml-auto">
+              <div class="form-group">
+                <select class="form-control input-bg" formControlName="day">
+                  <option selected="true" value="0">DD</option>
+                  <option [ngValue]="day" *ngFor="let day of days">{{ day }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3 padding-none">
+              <div class="form-group">
+                <select class="form-control input-bg" formControlName="year">
+                  <option disabled="true" selected="true" value="0">YYYYY</option>
+                  <option [ngValue]="year" *ngFor="let year of years">{{ year }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="text-center">
           <span>{{ 'my_family_add_dependent.physician_title_lbl' | translate }}</span>
         </div>
 
-        <div class="row">
+        <div class="row justify-content-around">
           <div class="form-group col-6">
             <input
               type="text"
