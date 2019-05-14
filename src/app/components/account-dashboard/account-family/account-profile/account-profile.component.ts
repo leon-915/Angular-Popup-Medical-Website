@@ -20,8 +20,6 @@ export class AccountProfileComponent implements OnInit {
   closeResult: string;
   modalReference: NgbModalRef;
 
-  @Input() memberId: number;
-
   // tslint:disable-next-line: ban-types
   profileForm: FormGroup;
   familyUser: EditUser;
@@ -58,31 +56,17 @@ export class AccountProfileComponent implements OnInit {
   }
 
   open(content) {
-    if (!isNaN(this.memberId)) {
-      this.myFamilySrv.getAccountBasicData(this.memberId).subscribe(res => {
-        if (!res.HasError) {
-          this.familyUser = res.Result;
-          this.profileForm.setValue({
-            first_name: this.familyUser.first_name,
-            last_name: this.familyUser.last_name,
-            email: this.familyUser.email ? this.familyUser.email : ''
-          });
-        }
-      });
-    } else {
-      this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
-    }
-
-    this.modalReference = this.modalSvr.open(content);
-
-    this.modalReference.result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    this.myFamilySrv.getAccountBasicData().subscribe(res => {
+      if (!res.HasError) {
+        this.familyUser = res.Result;
+        this.profileForm.setValue({
+          first_name: this.familyUser.first_name,
+          last_name: this.familyUser.last_name,
+          email: this.familyUser.email ? this.familyUser.email : ''
+        });
       }
-    );
+      this.modalReference = this.modalSvr.open(content);
+    });
   }
 
   private getDismissReason(reason: any): string {

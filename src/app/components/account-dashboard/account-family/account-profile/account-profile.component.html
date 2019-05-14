@@ -25,7 +25,7 @@
           required
         />
       </div>
-      <div class="form-group" *ngIf="showEmail">
+      <div class="form-group">
         <input
           type="text"
           class="form-control"
@@ -35,9 +35,11 @@
         />
       </div>
       <div class="mt-5">
-        <span (click)="removeInvitation()">{{ 'my_family_edit_member.remove_btn' | translate }}</span>
+        <span>{{ 'my_family_edit_member.remove_btn' | translate }}</span>
       </div>
     </form>
   </div>
 </ng-template>
-<button type="button" (click)="open(content)" class="btn-members">{{ 'my_family_edit_member.view_btn' | translate }}</button>
+<button type="button" (click)="open(content)" class="btn-profile">
+  {{ 'my_family.view_btn' | translate }}
+</button>

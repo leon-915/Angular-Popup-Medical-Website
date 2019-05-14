@@ -20,17 +20,15 @@
               <label class=" my-family-box-title-left">{{ 'my_family.my_profile_title_lbl' | translate }}</label>
             </div>
             <div class="col" style="text-align: right; padding-right: .75rem">
-              <label class="my-family-box-title-right">1</label>
+              <label class="my-family-box-title-right">{{ 'my_family.member_subtitle_lbl' | translate }} 1</label>
             </div>
           </div>
         </div>
         <div class="card-body card-warning family-card-body text-center">
-          <div style="height: 90px; padding: 5px;">
+          <div class="mb-2" style="height: 90px; padding: 5px;">
             <p class="card-content my-family-box-member-name">{{ memberFullName }}</p>
           </div>
-          <button type="button" (click)="goToProfile()" class="btn-profile">
-            {{ 'my_family.view_btn' | translate }}
-          </button>
+          <app-account-profile></app-account-profile>
         </div>
       </div>
     </div>

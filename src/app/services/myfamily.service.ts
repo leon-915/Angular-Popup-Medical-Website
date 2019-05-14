@@ -30,7 +30,7 @@ export class MyFamilyService {
     return this.http.get<APIResponse<EditUser>>(url);
   }
 
-  getAccountBasicData(memberId: number) {
+  getAccountBasicData() {
     const url = `${this.serviceURl}myfamily/getBasicData`;
     return this.http.get<APIResponse<EditUser>>(url);
   }
