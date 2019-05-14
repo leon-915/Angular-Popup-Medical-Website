@@ -36,7 +36,7 @@
   white-space: normal !important;
 }
 
-ul:not(.browser-default, nav) > li {
+ul:not(.browser-default, nav)>li {
   list-style-type: circle;
 }
 
@@ -45,11 +45,11 @@ ul:not(.browser-default, nav) > li {
 */
 
 .text-danger {
-  color: @error !important;
+  color: @error  !important;
 }
 
 .text-success {
-  color: @green !important;
+  color: @green  !important;
 }
 
 input::-webkit-inner-spin-button {
@@ -57,7 +57,7 @@ input::-webkit-inner-spin-button {
 }
 
 .input-bg {
-  background-color: @inputbackground !important;
+  background-color: @inputbackground  !important;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
   padding-left: 10px !important;
   border-radius: 0px;
@@ -149,6 +149,12 @@ input::-webkit-inner-spin-button {
   &:hover {
     background-color: @orange;
     border: 2px solid @orange;
+    color: @white;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: @orange;
     color: @white;
   }
 }
