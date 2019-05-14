@@ -27,7 +27,6 @@ export class AddDependentComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
-    private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private dateSrv: DateService,
 
@@ -131,8 +130,6 @@ export class AddDependentComponent implements OnInit {
   }
 
   cancel() {
-    this.myFamilyPd.setRelationId(null);
-    this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 

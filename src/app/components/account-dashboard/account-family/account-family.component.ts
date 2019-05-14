@@ -31,7 +31,6 @@ export class AccountFamilyComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
-    private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private modalSvr: NgbModal,
 
@@ -61,8 +60,6 @@ export class AccountFamilyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.myFamilyPd.setRelationId(null);
-    this.myFamilyPd.setIsNewDependantt(null);
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
     this.myFamilySrv.getMyFamily().subscribe(res => {

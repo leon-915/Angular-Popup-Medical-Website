@@ -55,7 +55,6 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { LanguageComponent } from './components/language/language.component';
 
-
 import {
   AccountDashboardComponent,
   AccountFamilyComponent,
@@ -66,6 +65,7 @@ import {
   EditInvitationComponent,
   FamilyEditComponent,
   GuestEditComponent,
+  AccountProfileComponent,
   InvoiceGeneratorComponent,
   LoginComponent,
   MyHomeComponent,
@@ -96,7 +96,6 @@ import {
   AccountMyProfileComponent,
   AccountMyAddressesComponent
 } from './components/index';
-
 
 /* COMPONENTS */
 
@@ -196,7 +195,8 @@ export function setupTranslateFactory(service: TranslateService) {
     AccountMyProfileComponent,
     AccountMyAddressesComponent,
     AccountSideMenuComponent,
-    TimeLeftModalComponent
+    TimeLeftModalComponent,
+    AccountProfileComponent
   ],
   entryComponents: [ConfirmationStackedModalComponent, TimeLeftModalComponent],
   imports: [
@@ -275,4 +275,4 @@ export function setupTranslateFactory(service: TranslateService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

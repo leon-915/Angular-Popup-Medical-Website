@@ -36,7 +36,6 @@ export class EditInvitationComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
-    private myFamilyPd: MyFamilyPersistData,
     private translate: TranslateService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -75,8 +74,6 @@ export class EditInvitationComponent implements OnInit {
     });
   }
   cancel() {
-    this.myFamilyPd.setRelationId(null);
-    this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
 
@@ -118,8 +115,6 @@ export class EditInvitationComponent implements OnInit {
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
-    this.modalReference = this.modalSvr.open(content);
-
     if (!isNaN(this.relationId)) {
       this.myFamilySrv.getInvitation(this.relationId).subscribe(res => {
         if (!res.HasError) {
@@ -132,6 +127,7 @@ export class EditInvitationComponent implements OnInit {
             member_relation_type_id: this.familyUser.member_relation_type_id
           });
         }
+        this.modalReference = this.modalSvr.open(content);
       });
     } else {
       this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });

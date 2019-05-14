@@ -41,7 +41,6 @@ export class FamilyEditComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
-    private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private translate: TranslateService,
     private router: Router,
@@ -87,8 +86,6 @@ export class FamilyEditComponent implements OnInit {
     });
   }
   cancel() {
-    this.myFamilyPd.setRelationId(null);
-    this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });
   }
   removeInvitation() {
@@ -128,8 +125,6 @@ export class FamilyEditComponent implements OnInit {
     this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
     this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
 
-    this.modalReference = this.modalSvr.open(content);
-
     if (!isNaN(this.relationId)) {
       this.myFamilySrv.getFamilyMember(this.relationId).subscribe(res => {
         if (!res.HasError) {
@@ -148,6 +143,7 @@ export class FamilyEditComponent implements OnInit {
             birthday: moment(this.familyUser.date_of_birth).format('YYYY-MM-DD')
           });
         }
+        this.modalReference = this.modalSvr.open(content);
       });
     } else {
       this.router.navigate(['../../family'], { relativeTo: this.activatedRoute });

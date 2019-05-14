@@ -27,7 +27,6 @@ export class GuestEditComponent implements OnInit {
     private fb: FormBuilder,
     private accountSrv: AccountService,
     private myFamilySrv: MyFamilyService,
-    private myFamilyPd: MyFamilyPersistData,
     private notificationSrv: NotificationService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private router: Router,
@@ -90,8 +89,6 @@ export class GuestEditComponent implements OnInit {
     });
   }
   cancel() {
-    this.myFamilyPd.setRelationId(null);
-    this.myFamilyPd.setIsNewDependantt(null);
     this.router.navigate(['../account/family'], { relativeTo: this.activatedRoute });
   }
 
