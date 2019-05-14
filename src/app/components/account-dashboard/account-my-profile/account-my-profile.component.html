@@ -35,9 +35,9 @@
         </strong> </p>
       <p class="profile-title"> {{email.value}} </p>
       <p class="profile-description">{{ 'my_profile.billing_phone' | translate }}: <strong class="profile-title">
-          {{billingPhone.value}} </strong> </p>
+          {{billingPhone.value | phone}} </strong> </p>
       <p class="profile-description mb-3"> {{ 'my_profile.mobile_phone' | translate }}: <strong class="profile-title">
-          {{mobilePhone.value}} </strong>
+          {{mobilePhone.value | phone}} </strong>
       </p>
       <p class="primary-text">{{ 'my_profile.allergies_coditions_medications' | translate }}</p>
     </div>
