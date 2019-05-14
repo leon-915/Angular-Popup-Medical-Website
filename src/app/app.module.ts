@@ -45,7 +45,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 /* MODULES */
 
 /* PIPES */
-import { ArrayFilterPipe, SafePipe, Globals } from './shared/index';
+import { ArrayFilterPipe, SafePipe, PhonePipe, Globals } from './shared/index';
 /* PIPES */
 
 /* COMPONENTS */
@@ -155,6 +155,7 @@ export function setupTranslateFactory(service: TranslateService) {
     ArrayFilterPipe,
     EditInvitationComponent,
     SafePipe,
+    PhonePipe,
     FamilyEditComponent,
     FooterComponent,
     HomeComponent,
@@ -275,4 +276,4 @@ export function setupTranslateFactory(service: TranslateService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
