@@ -20,7 +20,7 @@
               <label class=" my-family-box-title-left">{{ 'my_family.my_profile_title_lbl' | translate }}</label>
             </div>
             <div class="col" style="text-align: right; padding-right: .75rem">
-              <label class="my-family-box-title-right">{{ 'my_family.my_profile_subtitle_lbl' | translate }}</label>
+              <label class="my-family-box-title-right">1</label>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
               <label class=" my-family-box-title-left">{{ member.display_value }}</label>
             </div>
             <div class="col" style="text-align: right;">
-              <label class="my-family-box-title-right"> {{ 'my_family.member_subtitle_lbl' | translate }} {{ i }}</label>
+              <label class="my-family-box-title-right"> {{ 'my_family.member_subtitle_lbl' | translate }} {{ i + 2 }}</label>
             </div>
           </div>
         </div>
@@ -93,7 +93,9 @@
               <label class=" my-family-box-title-left">{{ member.display_value }}</label>
             </div>
             <div class="col" style="text-align: right;">
-              <label class="my-family-box-title-right">{{ 'my_family.guest_subtitle_lbl' | translate }} {{ i }}</label>
+              <label class="my-family-box-title-right"
+                >{{ 'my_family.guest_subtitle_lbl' | translate }} {{ familyUsers.length + i + 2 }}</label
+              >
             </div>
           </div>
         </div>

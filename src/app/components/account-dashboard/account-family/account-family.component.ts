@@ -63,12 +63,12 @@ export class AccountFamilyComponent implements OnInit {
   ngOnInit() {
     this.myFamilyPd.setRelationId(null);
     this.myFamilyPd.setIsNewDependantt(null);
+    this.relationTypes = JSON.parse(localStorage.getItem('familyRelationTypeList'));
+    this.guestRelationTypes = JSON.parse(localStorage.getItem('guestRelationTypeList'));
     this.myFamilySrv.getMyFamily().subscribe(res => {
       if (!res.HasError) {
         const resulData = res.Result;
         this.memberFullName = resulData.memberName;
-        this.relationTypes = resulData.relationTypes;
-        this.guestRelationTypes = resulData.guestRelationTypes;
         this.familyUsers = resulData.familyUsers;
         this.guestUsers = resulData.guestUsers;
         this.activeFamilyUsers = resulData.activeFamilyUsers;
