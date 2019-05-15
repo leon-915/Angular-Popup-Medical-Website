@@ -37,7 +37,7 @@
           <label for="confirm">{{ 'my_family_add_member.relationship_lbl' | translate }}</label>
 
           <select class="browser-default custom-select" formControlName="member_relation_type_id" *ngIf="!isMember; else templateName">
-            <option selected="true" value="0"> {{ 'my_family_add_member.relationship_default_input' | translate }}fd</option>
+            <option selected="true" value="0"> {{ 'my_family_add_member.relationship_default_input' | translate }}</option>
             <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}"> {{ item.display_value }}</option>
           </select>
           <ng-template #templateName>
