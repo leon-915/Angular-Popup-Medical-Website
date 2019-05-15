@@ -45,9 +45,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
   }
 
   setAddress = (city: string, state: string, zipCode: string, latitude: number, longitude: number, country: string, address: string) => {
-    console.log(address);
-    console.log(latitude);
-    console.log(longitude);
     this.shippingAddress.city = city;
     this.shippingAddress.state = state;
     this.shippingAddress.zipCode = zipCode;
@@ -92,8 +89,18 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openWindow(id) {
-    this.openedWindow = id;
+  openWindow(pharmacy, unshift) {
+    this.primaryPharmacyAddress = pharmacy;
+    if (unshift) {
+
+      const index = this.pharmacies.findIndex(o => o.pharmacy_id === this.primaryPharmacyAddress.pharmacy_id);
+      this.pharmacies.splice(index, 1);
+      this.pharmacies.unshift(pharmacy);
+      this.openedWindow = pharmacy.pharmacy_id;
+
+    } else {
+      this.openedWindow = pharmacy.pharmacy_id;
+    }
   }
 
   isInfoWindowOpen(id) {
@@ -105,7 +112,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
     onboardingModel.pharmacyId = this.primaryPharmacyAddress.pharmacy_id;
     onboardingModel.currentStep = this.step;
     this.onboardingSrv.onboarding(onboardingModel).subscribe(response => {
-      console.log(response);
       if (!response.HasError) {
         this.userAction('advance');
       } else {
@@ -116,6 +122,6 @@ export class PrimaryPharmacyComponent implements OnInit, AfterViewInit {
 
   selectPharmacy(pharmacy) {
     this.primaryPharmacyAddress = pharmacy;
-    this.openWindow(this.primaryPharmacyAddress.pharmacy_id);
+    this.openWindow(this.primaryPharmacyAddress, false);
   }
 }

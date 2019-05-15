@@ -165,7 +165,9 @@
             </p>
           </div>
           <div class="form-group">
-            <mat-checkbox class="text-left float-left no-physician"> {{'personal_information.no_physician' | translate}}
+            <mat-checkbox class="text-left float-left no-physician" (change)="setNoPhysician();"
+              formControlName="noPhysician">
+              {{'personal_information.no_physician' | translate}}
             </mat-checkbox>
           </div>
         </div>

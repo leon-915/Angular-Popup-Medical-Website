@@ -26,7 +26,7 @@ export class PersonalInformationComponent implements OnInit {
     private onboardingSrv: OnboardingService,
     private notificationSrv: NotificationService,
     private dateSrv: DateService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.onboardingForm = this.fb.group({
@@ -55,6 +55,7 @@ export class PersonalInformationComponent implements OnInit {
         ]
       ],
       emergencyContactRelationship: ['', [Validators.required]],
+      noPhysician: false,
       currentStep: [this.step]
     });
 
@@ -128,6 +129,42 @@ export class PersonalInformationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  setNoPhysician() {
+
+    console.log('this is a test');
+
+    this.noPhysician.valueChanges.subscribe(status => {
+      console.log(status);
+
+      if (status) {
+        this.physicianFirstName.setValidators(null);
+        this.physicianLastName.setValidators(null);
+        this.physicianPhoneNumber.setValidators(null);
+        this.physicianFax.setValidators(null);
+        this.physicianFirstName.setValue('');
+        this.physicianLastName.setValue('');
+        this.physicianPhoneNumber.setValue('');
+        this.physicianFax.setValue('');
+      } else {
+        this.physicianFirstName.setValidators([Validators.required]);
+        this.physicianLastName.setValidators([Validators.required]);
+        this.physicianPhoneNumber.setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+        this.physicianFax.setValidators([Validators.minLength(10), Validators.maxLength(10)]);
+      }
+
+      this.physicianFirstName.updateValueAndValidity();
+      this.physicianLastName.updateValueAndValidity();
+      this.physicianPhoneNumber.updateValueAndValidity();
+      this.physicianFax.updateValueAndValidity();
+
+    });
+
+  }
+
+  get noPhysician() {
+    return this.onboardingForm.controls.noPhysician;
   }
 
   get physicianFirstName() {

@@ -76,7 +76,8 @@
       <agm-marker [latitude]="shippingAddress.latitude" [longitude]="shippingAddress.longitude" [label]="default">
       </agm-marker>
       <agm-marker [latitude]="pharmacy.latitude" [longitude]="pharmacy.longitude" [label]="pharmacy.name"
-        *ngFor="let pharmacy of pharmacies" (markerClick)="openWindow(pharmacy.pharmacy_id)">
+        *ngFor="let pharmacy of pharmacies" (markerClick)="openWindow(pharmacy, true)">
+        <!-- "openWindow(pharmacy.pharmacy_id)" -->
         <agm-info-window [isOpen]="isInfoWindowOpen(pharmacy.pharmacy_id)" [latitude]="pharmacy.latitude"
           [longitude]="pharmacy.longitude">
           <small>

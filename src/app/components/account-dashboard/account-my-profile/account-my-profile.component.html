@@ -6,7 +6,7 @@
           <i class="material-icons"> arrow_back </i> My Hub
         </a></div>
       <div class="float-right">
-        <button class="btn btn-edit" (click)="editMyProfile();">
+        <button class="btn btn-flat-icon" (click)="editMyProfile();">
           <i class="material-icons">
             border_color
           </i> {{ 'my_profile.edit' | translate }}
@@ -186,7 +186,7 @@
     <div class="col-md-3 text-left" *ngIf="!editProfile">
       <p class="profile-description emergency-info-title"> {{ 'my_profile.emergency_info_title' | translate }} </p>
       <p class="profile-title"> {{emergencyContactName.value}} </p>
-      <p class="profile-title"> {{emergencyContactPhone.value}} </p>
+      <p class="profile-title"> {{emergencyContactPhone.value | phone}} </p>
       <p class="profile-title"> {{emergencyContactRelationship.value}} </p>
     </div>
 
