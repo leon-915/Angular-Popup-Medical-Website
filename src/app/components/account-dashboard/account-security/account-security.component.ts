@@ -92,6 +92,9 @@ export class AccountSecurityComponent implements OnInit {
       }
     });
   }
+  goToDashboard() {
+    this.router.navigate(['../../account'], { relativeTo: this.activatedRoute });
+  }
   sendTextPinForm() {
     const formValue = this.textPinForm.value;
     this.accountSrv.changePinSecurity(formValue).subscribe(res => {

@@ -7,7 +7,11 @@
   </li>
   <!--<li class="list-group-item">My Physician</li>
   <li class="list-group-item">My Pharmacy</li>-->
-  <li class="list-group-item" [routerLink]="['../security']">{{ 'account_sidemenu.my_security' | translate }}</li>
+  <!-- security -->
+  <li class="list-group-item" [ngClass]="componentName === 'my-security' ? 'active' : ''" [routerLink]="['../security']">
+    {{ 'account_sidemenu.my_security' | translate }}
+  </li>
+  <!-- payments -->
   <li class="list-group-item pointer" [ngClass]="componentName === 'my-payments' ? 'active' : ''" [routerLink]="['../payment-methods']">
     {{ 'account_sidemenu.payment_method' | translate }}
   </li>
@@ -25,7 +29,11 @@
         >
         <!--<option value="">My Physician</option>
         <option value="">My Pharmacy</option>-->
-        <option value="" [routerLink]="['../security']">{{ 'account_sidemenu.my_security' | translate }} </option>
+        <!-- security -->
+        <option value="" [ngClass]="componentName === 'my-security' ? 'active' : ''" [routerLink]="['../security']"
+          >{{ 'account_sidemenu.my_security' | translate }}
+        </option>
+        <!-- payments -->
         <option value="" [ngClass]="componentName === 'my-payments' ? 'active' : ''" [routerLink]="['../payment-methods']">
           {{ 'account_sidemenu.payment_method' | translate }}</option
         >

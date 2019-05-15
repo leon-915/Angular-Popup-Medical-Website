@@ -374,6 +374,7 @@
     "go_to_login_btn": "Go To My Account"
   },
   "my_security": {
+    "page_title": "My Security",
     "title1": "Reset Password",
     "current_password_lbl": "Current Password",
     "current_password_input": "Current Password",
