@@ -287,7 +287,7 @@
     "title": "Onboarding Interview",
     "subtitle": "We need to know a little bit more about your medical history.",
     "reminder": "Remember, you can change your answers anytime from the dashboard.",
-    "complete": "COMPLETE!",
+    "complete": "COMPLETE! What would you like to do next?",
     "do_next": "What would you like to do next?",
     "my_dashboard": "Go To My Dashboard Hub",
     "invite_members": "Add or Invite Members",
@@ -327,7 +327,6 @@
     "col2_box1_body1_lbl6": " to:",
     "col2_box1_body1_lbl7": " IDERX",
     "col2_box1_body1_lbl8": " (43379)",
-
     "col2_box1_body2_lbl1": "Receive instant feedback if your condition can be treated by our Licensed Virtual Physician Care Team.",
     "col2_box1_body2_lbl2": "NO LIVE Consultation Required.",
     "col2_box1_body3_lbl1": "Submit your approved Dermatology related condition and let our Virtual Licensed Dermatologist evaluate your condition and issue a prescription if appropriate within a few hours.",

@@ -56,7 +56,7 @@ export class BillingInformationComponent implements OnInit {
       address1: ['', [Validators.required]],
       address2: [''],
       city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
+      state: [null, [Validators.required]],
       stateName: [''],
       stateAbbreviation: [''],
       zipCode: ['', [Validators.required]],
@@ -378,13 +378,10 @@ export class BillingInformationComponent implements OnInit {
   }
 
   async doSignup() {
-    console.log(this.signupForm.getRawValue());
-
     this.signupSrv.signup(this.signupForm.getRawValue()).subscribe(
       response => {
         console.log(response);
         if (!response.HasError) {
-          console.log('go to order overall information component');
           this.userAction('advance');
         } else {
           this.notificationSrv.showError(response.Message);

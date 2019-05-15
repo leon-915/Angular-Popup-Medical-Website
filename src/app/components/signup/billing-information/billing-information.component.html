@@ -180,7 +180,8 @@
               </p>
             </div>
             <div class="form-group col-md-4">
-              <select class="form-control ml-2" formControlName="state">
+              <select class="form-control input-bg ml-2" formControlName="state">
+                <option disabled [ngValue]="null">State</option>
                 <option [value]="state.id" *ngFor="let state of states">{{ state.abbreviation }}</option>
               </select>
             </div>

@@ -286,7 +286,7 @@
     "title": "Onboarding Interview *",
     "subtitle": "We need to know a little bit more about your medical history. *",
     "reminder": "Remember, you can change your answers anytime from the dashboard. *",
-    "complete": "COMPLETE! *",
+    "complete": "COMPLETE! What would you like to do next? *",
     "do_next": "What would you like to do next? *",
     "my_dashboard": "Go To My Dashboard Hub *",
     "invite_members": "Add or Invite Members *",

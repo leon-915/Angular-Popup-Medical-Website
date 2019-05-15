@@ -116,18 +116,58 @@
     color: @light-black;
 }
 
-.card-text {
+.icon {
+    color: @green;
+    font-size: 40px;
+}
+
+.text-option {
     font-size: 18px;
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.22;
     letter-spacing: normal;
+    text-align: left;
     color: @light-black;
+    padding-left: 0px;
+
+    @media (max-width: 767px) {
+      text-align: center;
+   }
 }
 
-.icon {
-    color: @green;
-    font-size: 60px;
+.card-title {
+  font-size: 24px;
 }
 
+.on-demand-care-card-text {
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+    color: @light-black
+}
+
+.ide-smart-assistant-card-text {
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+    text-align: left;
+    color: @light-black;
+    margin-bottom: 0px;
+
+    strong {
+      font-weight: 600;
+    }
+}
+
+.orange-text {
+  color: @orange;
+}
