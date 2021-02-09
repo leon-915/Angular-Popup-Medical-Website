@@ -4,7 +4,7 @@
   <li><a (click)="setLang('es')">Español</a></li>
 </ul>
 <nav>
-  <div class="nav-wrapper">
+  <div class="nav-wrapper Path-208">
     <a class="brand-logo ml-5" (click)="sendYouHome()"><img src="assets/images/popupcare-logo.png" style="width: 200px"/></a>
     <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger d-block"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
@@ -16,20 +16,21 @@
       </li> -->
       <!--Anonymous user-->
       <li *ngIf="!isUserAuthenticated">
-        <a [routerLink]="[lang, 'register']"> <i class="material-icons left">card_membership</i>{{ 'menu.join_now' | translate }}</a>
+        <a [routerLink]="[lang, '']">{{ 'menu.how_it_works' | translate }}</a>
       </li>
       <li *ngIf="!isUserAuthenticated">
-        <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
+        <a href="badges.html">{{ 'menu.plans' | translate }}</a>
       </li>
       <li *ngIf="!isUserAuthenticated">
-        <a href="badges.html"><i class="material-icons left">card_membership</i>{{ 'menu.plans' | translate }}</a>
+        <a href="collapsible.html">{{ 'menu.faq' | translate }}</a>
       </li>
       <li *ngIf="!isUserAuthenticated">
-        <a href="collapsible.html"><i class="material-icons left">local_hospital</i>{{ 'menu.faq' | translate }}</a>
+        <a [routerLink]="[lang, 'register']" class="Rectangle-108">{{ 'menu.join_now' | translate }}</a>
       </li>
       <li *ngIf="!isUserAuthenticated">
-        <a [routerLink]="[lang, 'login']"><i class="material-icons left">perm_identity</i>{{ 'menu.signin' | translate }}</a>
+        <a [routerLink]="[lang, 'login']">{{ 'menu.signin' | translate }}</a>
       </li>
+      
       <!--Anonymous user-->
 
       <!--Authenticated user-->
